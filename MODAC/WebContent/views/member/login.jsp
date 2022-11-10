@@ -83,14 +83,32 @@ h2{
     position: relative; 
     top: -2px;
 }
-
-
-
 </style>
 </head>
 <body>
+	<%if(loginMember == null) {%>
+    <div id="back">
+	            <form action="<%=contextPath %>/login.me" method="post">
+			        <div class="login" id="login_form">
+		            <h2>로그인</h2>
+		            
+		                <input id="loginId" type="text" placeholder="아이디">
+		                <input id="loginPwd" type="text" placeholder="비밀번호">
+		                <input type="checkbox"><span>로그인유지</span>
+		            <button id="loginbtn" style="background-color: #F0A500; color: white;" >로그인</button>
+		            <ul>
+		                <li><a href="#">아이디/비밀번호찾기</a></li>
+		                <li><a href="#">회원가입</a></li>
+		            </ul>
+		        </div>
+	        	</form>
+    </div>
+    <%} else{%>
+    	
+    <%} %>
+    
+</body>
 	<script>
-	
 		let msg = "<%= alertMsg%>"; // let msg = 성공적으로 로그인이 되었습니다.
 		
 		if(msg != "null"){
@@ -101,38 +119,6 @@ h2{
 			<% session.removeAttribute("alertMsg");%>
 		}
 	</script>
-	
-	<%if(loginMember == null) {%>
-    <div id="back">
-
-	        <div class="login" id="login_form">
-	            <h2>로그인</h2>
-	            <form action="<%=contextPath %>/login.me" method="post">
-	                <input id="loginId" type="text" placeholder="아이디">
-	                <input id="loginPwd" type="text" placeholder="비밀번호">
-	                <input type="checkbox"><span>로그인유지</span>
-	                <input type="hidden">
-	            
-	            <button id="loginbtn" type="submit" style="background-color: #F0A500; color: white;" >로그인</button>
-	             </form>   
-	            <ul>
-	                <li><a href="#">아이디/비밀번호찾기</a></li>
-	                <li><a href="#">회원가입</a></li>
-	            </ul>
-	            
-	        </div>
-    </div>
-    <%} else{%>
-    	<%=contextPath %>
-    <%} %>
-    
-</body>
-<script>
-	function submitLogin() {
-		let memberId = $("input[name=loginId").val();
-        if($("#saveId"))
-	}
-</script>
 
 
 </html>

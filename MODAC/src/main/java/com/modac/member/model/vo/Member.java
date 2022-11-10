@@ -13,6 +13,8 @@ public class Member {
 	private Date modiDate;
 	private int memberLevel;
 	private String email;
+	
+	
 	public String getMemberNo() {
 		return memberNo;
 	}

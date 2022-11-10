@@ -2,7 +2,6 @@ package com.modac.member.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,15 +38,16 @@ public class LoginController extends HttpServlet {
 		String memberPwd = request.getParameter("memberPwd");
 		
 		Member loginMember = ms.loginMember(memberId, memberPwd);
+		
 		if(loginMember == null) {
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}else {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginMember", loginMember);
 			session.setAttribute("alertMsg", "성공적으로 로그인이 되었습니다.");
-			request.getRequestDispatcher("views/common/menubar.jsp").forward(request, response);
+			response.sendRedirect(request.getContextPath());
 		}
-		response.sendRedirect(request.getContextPath());
+		
 		
 	}
 
