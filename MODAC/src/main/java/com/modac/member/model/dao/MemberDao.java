@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
+import com.modac.common.JDBCTemplate;
 import com.modac.member.model.vo.Member;
 
 public class MemberDao {
@@ -47,13 +48,23 @@ public class MemberDao {
 			if(rset.next()) {
 				m = new Member(rset.getString("MEMBER_NO"),
 						rset.getString("MEMBER_ID"),
-						rset.getString
-						)
+						rset.getString("MEMBER_PWD"),
+						rset.getString("MEMBER_NAME"),
+						rset.getString("MEMBER_NIC"),
+						rset.getString("STATUS"),
+						rset.getDate("IN_DATE"),
+						rset.getDate("MODI_DATE"),
+						rset.getInt("MEMBER_LEVEL"),
+						rset.getString("EMAIL"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(psmt);
 		}
+		return m;
 	}
 	
 }

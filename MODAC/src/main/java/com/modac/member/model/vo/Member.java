@@ -3,7 +3,7 @@ package com.modac.member.model.vo;
 import java.util.Date;
 
 public class Member {
-	private int memberNo;
+	private String memberNo;
 	private String memberId;
 	private String memberPwd;
 	private String memberName;
@@ -11,38 +11,12 @@ public class Member {
 	private String status;
 	private Date inDate;
 	private Date modiDate;
-	
-	
-	
-	
-	
-	public Member(String memberId, String memberPwd) {
-		super();
-		this.memberId = memberId;
-		this.memberPwd = memberPwd;
-	}
-	public Member(int memberNo, String memberId, String memberPwd, String memberName, String memberNic, String status,
-			Date inDate, Date modiDate) {
-		super();
-		this.memberNo = memberNo;
-		this.memberId = memberId;
-		this.memberPwd = memberPwd;
-		this.memberName = memberName;
-		this.memberNic = memberNic;
-		this.status = status;
-		this.inDate = inDate;
-		this.modiDate = modiDate;
-	}
-	@Override
-	public String toString() {
-		return "Member [memberNo=" + memberNo + ", memberId=" + memberId + ", memberPwd=" + memberPwd + ", memberName="
-				+ memberName + ", memberNic=" + memberNic + ", status=" + status + ", inDate=" + inDate + ", modiDate="
-				+ modiDate + "]";
-	}
-	public int getMemberNo() {
+	private int memberLevel;
+	private String email;
+	public String getMemberNo() {
 		return memberNo;
 	}
-	public void setMemberNo(int memberNo) {
+	public void setMemberNo(String memberNo) {
 		this.memberNo = memberNo;
 	}
 	public String getMemberId() {
@@ -87,6 +61,39 @@ public class Member {
 	public void setModiDate(Date modiDate) {
 		this.modiDate = modiDate;
 	}
+	public int getMemberLevel() {
+		return memberLevel;
+	}
+	public void setMemberLevel(int memberLevel) {
+		this.memberLevel = memberLevel;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	@Override
+	public String toString() {
+		return "Member [memberNo=" + memberNo + ", memberId=" + memberId + ", memberPwd=" + memberPwd + ", memberName="
+				+ memberName + ", memberNic=" + memberNic + ", status=" + status + ", inDate=" + inDate + ", modiDate="
+				+ modiDate + ", memberLevel=" + memberLevel + ", email=" + email + "]";
+	}
+	public Member(String memberNo, String memberId, String memberPwd, String memberName, String memberNic,
+			String status, Date inDate, Date modiDate, int memberLevel, String email) {
+		super();
+		this.memberNo = memberNo;
+		this.memberId = memberId;
+		this.memberPwd = memberPwd;
+		this.memberName = memberName;
+		this.memberNic = memberNic;
+		this.status = status;
+		this.inDate = inDate;
+		this.modiDate = modiDate;
+		this.memberLevel = memberLevel;
+		this.email = email;
+	}
+	
 	
 	
 }
