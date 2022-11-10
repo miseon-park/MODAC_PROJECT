@@ -7,10 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-	잘 되는가?
-	
-	<%@ include file="/views/common/menubar.jsp" %>
-
+	<h1>로그인 오류</h1>
 </body>
 </html>
