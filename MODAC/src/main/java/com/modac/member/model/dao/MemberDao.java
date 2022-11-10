@@ -36,6 +36,7 @@ public class MemberDao {
 		Member m = null;
 		PreparedStatement psmt = null;
 		ResultSet rset = null;
+		
 		String sql = prop.getProperty("loginMember");
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -65,6 +66,33 @@ public class MemberDao {
 			JDBCTemplate.close(psmt);
 		}
 		return m;
+	}
+	
+	public int insertMember(Member m , Connection conn) {
+	    
+	    // insert문 처리된 행의 갯수를 반환하여 result에 저장시킬것.
+	    int result = 0;
+	    
+	    PreparedStatement psmt = null;
+	    
+	    String sql = prop.getProperty("insertMember");
+	    try {
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1, m.getMemberId());
+			psmt.setString(2, m.getMemberPwd());
+			psmt.setString(3, m.getMemberName());
+			psmt.setString(4, m.getEmail());
+			psmt.setString(5, m.getMemberNic());
+			
+			result = psmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(psmt);
+		}
+	    return result;
 	}
 	
 }

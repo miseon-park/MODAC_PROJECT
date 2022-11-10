@@ -2,8 +2,8 @@
     pageEncoding="UTF-8" import="com.modac.member.model.vo.Member"%>
     <% 
         String contextPath = request.getContextPath();
-    Member loginMember = (Member) session.getAttribute("loginMember");
-    String alertMsg = (String) session.getAttribute("alertMsg");
+	    Member loginMember = (Member) session.getAttribute("loginMember");
+	    String alertMsg = (String) session.getAttribute("alertMsg");
 
     %>
 <!DOCTYPE html>
@@ -40,7 +40,7 @@ h2{
     font-size: 40px;
     color: #F0A500;
 }
-.login input[type = text], #loginbtn{
+.login input[type = text], #loginbtn, input[type=password]{
     display: block;
     width: 300px;
     height: 40px;
@@ -92,7 +92,7 @@ h2{
 				<div class="login" id="login_form">
 				<h2>로그인</h2>
 				     <input id="loginId" type="text" placeholder="아이디">
-				     <input id="loginPwd" type="text" placeholder="비밀번호">
+				     <input id="loginPwd" type="password" placeholder="비밀번호">
 				     <input type="checkbox"><span>로그인유지</span>
 					<button id="loginbtn" style="background-color: #F0A500; color: white;" >로그인</button>
 			      <ul>

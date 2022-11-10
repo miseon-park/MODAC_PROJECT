@@ -22,4 +22,25 @@ public class MemberService {
 		
 		return m;
 	}
+	/**
+	 * 회원 가입용 서비스
+	 * @param m => 회원가입할 회원의 정보를 담은 Member객체
+	 * @return => 처리된 행수 (int)
+	 */
+	public int insertMember(Member m) {
+	    
+	    Connection conn = JDBCTemplate.getConnection();
+	    
+	    int result = new MemberDao().insertMember(m , conn);
+	    
+	    if(result > 0) {
+	        JDBCTemplate.commit(conn);
+	    }else {
+	        JDBCTemplate.rollback(conn);
+	    }
+	    JDBCTemplate.close();
+	    
+	    return result;
+	}
+	
 }

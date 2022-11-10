@@ -15,6 +15,14 @@ public class Member {
 	private String email;
 	
 	
+	public Member(String memberId, String memberPwd, String memberName, String memberNic, String email) {
+		super();
+		this.memberId = memberId;
+		this.memberPwd = memberPwd;
+		this.memberName = memberName;
+		this.memberNic = memberNic;
+		this.email = email;
+	}
 	public String getMemberNo() {
 		return memberNo;
 	}

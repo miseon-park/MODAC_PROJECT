@@ -2,10 +2,26 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 	<entry key="loginMember">
-		SELECT * FROM MEMBER
+		SELECT *
+		FROM MEMBER
 		WHERE MEMBER_ID = ?
-		AND MEMBER_PWD = ?
-		AND STATUS 'N'
+		  AND MEMBER_PWD = ?
+		  AND STATUS = 'N'
 	</entry>
-
+	
+	<entry key="insertMember">
+		INSERT INTO MEMBER(MEMBER_NO,
+							MEMBER_ID,
+							MEMBER_PWD,
+							MEMBER_NAME,
+							EMAIL,
+							MEMBER_NIC)
+							VALUES(
+							SEQ_UNO.NEXTVAL,
+							?,
+							?,
+							?,
+							?,
+							?)
+	</entry>
 </properties>
