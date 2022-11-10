@@ -30,9 +30,6 @@ public class JDBCTemplate {
 						prop.getProperty("username"),
 						prop.getProperty("password"));
 			}
-			
-		
-			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
