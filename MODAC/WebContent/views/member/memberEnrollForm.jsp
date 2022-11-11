@@ -3,6 +3,8 @@
     <%
     String contextPath = request.getContextPath();
     
+    String alertMsg = (String) session.getAttribute("alertMsg"); 
+    
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -128,7 +130,7 @@
             <input id="nickname" type="text" placeholder="닉네임" name="memberNic" required>
             
         </div>
-            <input type="submit" value="회원가입" disabled>
+            <input type="submit" value="회원가입" name="insertCheck" disabled>
 		</form>
     </div>
     <script>
@@ -136,20 +138,23 @@
             let $memberId = $("#enroll-form input[name=memberId]");
 
             $.ajax({
-                url : "idCheck.me",
+                url : "<%=request.getContextPath() %>/idCheck.me",
+                data : {checkId : $memberId.val()},
                 success : function(result){
                     if(result=="NNNNN"){
                         alert("이미존재하는 아이디 입니다")
                         $memberId.focus();
                     }else{
                         if(confirm("사용가능한 아이디 입니다. 사용하시겠습니까?")){
-                            $("#enroll-form : submit").removeAttr("disabled")
-                            $memberId.attr("readonly",true);
+                            $("#enroll-form:submit").removeAttr("disabled")
+                            $(memberId).attr("readonly",true);
+                        } else {
+                        	
                         }
                     }
                 },
-                error : function(){
-                    console.log("아이디 중복체크");
+                error : function(req,err,gg){
+                    console.log(req,err,gg,"아이디 중복체크");
                 }
             })
         }

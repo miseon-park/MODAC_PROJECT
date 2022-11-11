@@ -136,7 +136,7 @@ public class MemberDao {
             JDBCTemplate.close(rset);
             JDBCTemplate.close(psmt);
         }
-	    
+	    System.out.println(count);
 	    return count;
 	}
 	
