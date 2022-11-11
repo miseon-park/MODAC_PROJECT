@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.modac.campReview.model.vo.CampReview"%>
+<%
+	CampReview cr = (CampReview)request.getAttribute("cr");
+%>
 <!DOCTYPE html>
 <html>
 <head><script type="text/javascript" src="/___vscode_livepreview_injected_script"></script>
@@ -7,94 +10,110 @@
 <title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <style>
-        .content1{
-           width: 20%;
-		   height : 1000px;
-		   padding: 50px 20px 10px;
-		   background-color: antiquewhite;
-            float: left; 
-        }
-
-        .content2{
-            width: 80%;
-		      	padding: 10px 50px 20px;
-            float: left; 
-        }
-        .form-control {
-          margin: 5px;
-        }
-        .last {
-          margin: auto;
-		    }
-        .date{
-          float: right; 
-        }
-
+	.content1 {
+		width: 20%;
+		height: 1000px;
+		padding: 50px 20px 10px;
+		background-color: antiquewhite;
+		float: left;
+	}
+	.content2 {
+		width: 80%;
+		padding: 10px 50px 20px;
+		float: left;
+	}
+	.form-control {
+		margin: 5px;
+	}
+	.last {
+		margin: auto;
+	}
+	.date {
+		float: right;
+	}
+	.insert-area {
+		width: 80%;
+		margin: auto;
+	}
 </style>
-
 </head>
 <body>
+<%@ include file="../common/menubar.jsp" %>
+       <div class="content">
+       
+           <div class="content1">
+               <nav class="flex-column">
+                   <a class="nav-link active" aria-current="page" href="#">모닥불이야기</a><br><br>
+                   <a class="nav-link" href="#">캠핑장 리뷰</a>
+                   <a class="nav-link" href="#">캠핑 레시피</a>
+                   <a class="nav-link">캠핑스타그램</a>
+                 </nav>
+           </div>
+           
+           <div class="content2">
+			 <br>
+               <h3>캠핑장 리뷰</h3>
+             <br>
 
-        <div class="content">
-            <div class="content1">
-                <nav class="flex-column">
-                    <a class="nav-link active" aria-current="page" href="#">모닥불이야기</a><br><br>
-                    <a class="nav-link" href="#">캠핑장 리뷰</a>
-                    <a class="nav-link" href="#">캠핑 레시피</a>
-                    <a class="nav-link">캠핑스타그램</a>
-                  </nav>
-            </div>
-            <div class="content2">
-				<br>
-                <h3>캠핑장 리뷰</h3>
-              <br>
-              <div class="form-control">
-                  <br>
-                  <h3>&nbsp; 제목입니다.</h3>
-                  <br>
-                  <span>&nbsp; 아이디</span>
-                  <span class="date">작성일 : 2020/02/02</span>
-                  <br>
-                  <br>
-                  <textarea class="form-control" style="height:500px;"></textarea>
+              <div align="right" class="insert-area">
+              
+              
+<%--               <% if(loginMember != null && loginMember.getMemberNic().equal(cr.getMemberNo())) {%> --%>
+<%--               	<a href="<%=contextPath %>/updateForm.cr?crno=<%=cr.getPostNo()%>" class="btn btn-secondary last1">수정하기</a> --%>
+<%--               	<a href="<%=contextPath %>/delete.cr?crno=<%=cr.getPostNo()%>" class="btn btn-secondary last1">삭제하기</a> --%>
+<%--               <% } %> --%>
 
-                  <div class="form-control">
-                  <div class=" btn-group-sm" role="group" aria-label="Basic checkbox toggle button group">
 
-                    <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="on">
-                    <label class="btn btn-outline-primary" for="btncheck1">#사장님이 친절해요</label>
-                  
-                    <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="on">
-                    <label class="btn btn-outline-primary" for="btncheck2">#시설이 깔끔해요</label>
-                  
-                    <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="on">
-                    <label class="btn btn-outline-primary" for="btncheck3">#주변 경관이 좋아요</label>
+               	<a href="<%=contextPath %>/updateForm.cr?crno=<%=cr.getPostNo()%>" class="btn btn-secondary last1">수정하기</a> 
+               	<a href="<%=contextPath %>/delete.cr?crno=<%=cr.getPostNo()%>" class="btn btn-secondary last1">삭제하기</a> 
+              
+              </div>
+			<br>
+             <div class="form-control insert-area">
+                <br>
+                <h3>&nbsp;<%=cr.getPostTitle()%></h3>
                  
-                    <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="on">
-                    <label class="btn btn-outline-primary" for="btncheck4">#매너시간이 잘 지켜져요</label>
-                  
-                    <input type="checkbox" class="btn-check" id="btncheck5" autocomplete="on">
-                    <label class="btn btn-outline-primary" for="btncheck5">#사이트 공간이 넓어요</label>
-                  
-                    <input type="checkbox" class="btn-check" id="btncheck6" autocomplete="on">
-                    <label class="btn btn-outline-primary" for="btncheck6">#주변 볼거리가 많아요</label>
-                  </div>
-                  </div>
-              </div>
-              <br>
-              <div align="center">
+                <br>
+                <span>&nbsp; <%=cr.getMemberNo() %></span>
+                 
+                <span class="date">작성일 : <%=cr.getCreateDate() %></span>
+                 
+                <br>
+                <br>
+                <div class="form-control" style="height:500px;"><%=cr.getPostContent() %></div>
+
+                <div class="form-control">
+                <div class=" btn-group-sm" role="group" aria-label="Basic checkbox toggle button group">
+
+                  <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="on">
+                  <label class="btn btn-outline-primary" for="btncheck1">#사장님이 친절해요</label>
                 
-                <button type="button" class="btn btn-secondary" class="last1">목록으로</button>
-
-              </div>
-              <br>
-
-
-				<br>
+                  <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="on">
+                  <label class="btn btn-outline-primary" for="btncheck2">#시설이 깔끔해요</label>
+                
+                  <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="on">
+                  <label class="btn btn-outline-primary" for="btncheck3">#주변 경관이 좋아요</label>
+               
+                  <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="on">
+                  <label class="btn btn-outline-primary" for="btncheck4">#매너시간이 잘 지켜져요</label>
+                
+                  <input type="checkbox" class="btn-check" id="btncheck5" autocomplete="on">
+                  <label class="btn btn-outline-primary" for="btncheck5">#사이트 공간이 넓어요</label>
+                
+                  <input type="checkbox" class="btn-check" id="btncheck6" autocomplete="on">
+                  <label class="btn btn-outline-primary" for="btncheck6">#주변 볼거리가 많아요</label>
+                </div>
+                </div>
             </div>
-
-			
-        </div>
+            <br>
+            
+            <div align="center">
+              <a href="<%=contextPath %>/list.cr" class="btn btn-secondary last1">목록으로</a>
+            </div>
+            <br>
+		    <br>
+          </div>
+      </div>
 
  
 

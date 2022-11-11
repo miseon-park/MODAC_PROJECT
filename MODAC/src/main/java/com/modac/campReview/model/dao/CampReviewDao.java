@@ -59,6 +59,61 @@ public class CampReviewDao {
 			close(psmt);
 		}
 		return list;
+	 };
+	 
+	 public int increaseCount(int campReviewNo, Connection conn) {
+		 
+		 int result = 0;
+		 
+		 PreparedStatement psmt = null;
+		 
+		 String sql = prop.getProperty("increaseCount");
+		 
+		 try {
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setInt(1, campReviewNo);
+			
+			result = psmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(psmt);
+		}
+		return result;
+	 }
+	 
+	 public CampReview selectCampReview(int campReviewNo, Connection conn) {
+		 
+		 ResultSet rset = null;
+		 
+		 CampReview cr = null;
+		 
+		 PreparedStatement psmt = null;
+		 
+		 String sql = prop.getProperty("selectCampReview");
+		 
+		 try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, campReviewNo);
+			rset = psmt.executeQuery();
+			
+			if(rset.next()) {
+				cr = new CampReview( rset.getString("POST_TITLE"),
+						             rset.getString("POST_CONTENT"),
+						             rset.getString("MEMBER_NIC"),
+						             rset.getDate("CREATE_DATE")
+						            );
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(psmt);
+		}
+		return cr;
+		 
 	 }
 	
 	

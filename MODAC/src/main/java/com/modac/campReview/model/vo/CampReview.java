@@ -13,11 +13,12 @@ public class CampReview {
 	private int readCount;
 	private int tagNo;
 	private String status;
-	private String reportNo;
+	private String tagName;
+	
 	
 
 	public CampReview(String boardNo, String postNo, String postTitle, String postContent, String memberNo,
-			Date createDate, int readCount, int tagNo, String status, String reportNo) {
+			Date createDate, int readCount, int tagNo, String status, String tagName) {
 		super();
 		this.boardNo = boardNo;
 		this.postNo = postNo;
@@ -28,7 +29,7 @@ public class CampReview {
 		this.readCount = readCount;
 		this.tagNo = tagNo;
 		this.status = status;
-		this.reportNo = reportNo;
+		this.tagName = tagName;
 	}
 	
 	//목록
@@ -41,6 +42,17 @@ public class CampReview {
 		this.createDate = createDate;
 		this.readCount = readCount;
 	}
+	
+	// 디테일 
+	public CampReview(String postTitle, String postContent, String memberNo,
+			Date createDate ) {
+		super();
+		this.postTitle = postTitle;
+		this.postContent = postContent;
+		this.memberNo = memberNo;
+		this.createDate = createDate;
+	}
+	
 	
 	public String getBoardNo() {
 		return boardNo;
@@ -113,20 +125,20 @@ public class CampReview {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
-	public String getReportNo() {
-		return reportNo;
+	
+	public String getTagName() {
+		return tagName;
 	}
 
-	public void setReportNo(String reportNo) {
-		this.reportNo = reportNo;
+	public void setTagName(String tagName) {
+		this.tagName = tagName;
 	}
 
 	@Override
 	public String toString() {
 		return "CampReview [boardNo=" + boardNo + ", postNo=" + postNo + ", postTitle=" + postTitle + ", postContent="
 				+ postContent + ", memberNo=" + memberNo + ", createDate=" + createDate + ", readCount=" + readCount
-				+ ", tagNo=" + tagNo + ", status=" + status + ", reportNo=" + reportNo + "]";
+				+ ", tagNo=" + tagNo + ", status=" + status +", tagName=" + tagName + "]";
 	}
 	
 	

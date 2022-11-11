@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script type="text/javascript"
 	src="/___vscode_livepreview_injected_script"></script>
 <meta charset="UTF-8">
@@ -55,7 +56,7 @@
 
 </head>
 <body>
-
+<%@ include file="../common/menubar.jsp" %>
 	<div class="content">
 		<div class="content1">
 			<nav class="flex-column">
@@ -92,9 +93,9 @@
 			</div>
 
 			<div class="list-area">
-				<a class="btn btn-secondary btn-sm write">글쓰기</a> <br>
+				<a href="<%=contextPath %>/enrollForm.cr" class="btn btn-secondary btn-sm write">글쓰기</a> <br>
 				<br>
-				<table class="table table-hover">
+				<table class="table table-hover list">
 					<thead>
 						<tr>
 							<th scope="col" style="text-align: center;">글번호</th>
@@ -123,6 +124,16 @@
 					</tbody>
 				</table>
 			</div>
+			<script>
+				$(function(){
+					$(".list>tbody>tr").click(function(){
+						let crno = $(this).children().eq(0).text();
+								
+						location.href= '<%=contextPath%>/detail.cr?crno=' + crno;
+					});
+				})
+			</script>
+			
 
 			<div class="btn-group" aria-label="Basic example">
 				<button type="button" class="btn"><<</button>
@@ -135,9 +146,6 @@
 
 
 	</div>
-
-
-
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"

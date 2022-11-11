@@ -22,4 +22,35 @@ public class CampReviewService {
 		
 	}
 	
+	public int increaseCount(int campReviewNo) {
+		
+		Connection conn = getConnection();
+		
+		int result = new CampReviewDao().increaseCount(campReviewNo, conn);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close();
+		return result;		
+	}
+	
+	public CampReview selectCampReview(int campReviewNo) {
+		
+		Connection conn = getConnection();
+		
+		CampReview cr= new CampReviewDao().selectCampReview(campReviewNo, conn);
+		
+		close();
+		
+		return cr;
+		
+		
+	}
+	
+	
+	
 }
