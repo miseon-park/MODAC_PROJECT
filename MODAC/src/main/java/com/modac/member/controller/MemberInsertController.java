@@ -12,20 +12,19 @@ import com.modac.member.model.service.MemberService;
 import com.modac.member.model.vo.Member;
 
 /**
- * Servlet implementation class LoginController
+ * Servlet implementation class MemberInsertController
  */
-@WebServlet("/Login.me")
-public class LoginController extends HttpServlet {
+@WebServlet("/insert.me")
+public class MemberInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginController() {
+    public MemberInsertController() {
         super();
         // TODO Auto-generated constructor stub
     }
-    private MemberService ms = new MemberService();
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -34,18 +33,21 @@ public class LoginController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String memberId = request.getParameter("memberId");
 		String memberPwd = request.getParameter("memberPwd");
+		String memberName = request.getParameter("memberName");
+		String email = request.getParameter("email");
+		String memberNic = request.getParameter("memberNic");
 		
-		Member loginMember = ms.loginMember(memberId, memberPwd);
-		
-		if(loginMember == null) {
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}else {
+		Member m = new Member(memberId, memberPwd, memberName, email, memberNic);
+		int result = new MemberService().insertMember(m);
+		if(result > 0) {
 			HttpSession session = request.getSession();
-			session.setAttribute("loginMember", loginMember);
-			session.setAttribute("alertMsg", "성공적으로 로그인이 되었습니다.");
-			request.getRequestDispatcher("views/common/index.jsp");
-//			response.sendRedirect(request.getContextPath());
+			session.setAttribute("alertMsg", "회원가입에 성공했습니다.");
+			response.sendRedirect(request.getContextPath());
+		}else {
+			request.setAttribute("errorMsg", "회원가입에 실패했습니다.");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
+		
 	}
 
 	/**

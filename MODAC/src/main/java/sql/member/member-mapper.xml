@@ -9,6 +9,25 @@
 		AND MEMBER_PWD = ?
 		AND STATUS 'N'
 	</entry>
+	
+	<entry key="insertMember">
+		INSERT INTO MEMBER (MEMBER_NO,
+							MEMBER_ID,
+							MEMBER_PWD,
+							MEMBER_NAME,
+							MEMBER_NIC,
+							EMAIL)
+							
+							VALUES
+							(
+							SEQ_UNO.NEXTVAL,
+							?,
+							?,
+							?,
+							?,
+							?
+							)
+	</entry>
 
 <entry key="updateMember">
 	UPDATE MEMBER
