@@ -86,8 +86,8 @@ h2{
 </style>
 </head>
 <body>
-
 		<div id="back">
+		<%-- <%if(loginMember == null) {%> --%>
      		<form action="<%=contextPath %>/login.me" method="post">
 				<div class="login" id="login_form">
 				<h2>로그인</h2>
@@ -102,11 +102,9 @@ h2{
   				</div>
  			</form>
 		</div>
-
-</body>
+<%-- 		<%}else {%>
 	<script>
 		let msg = "<%= alertMsg%>"; // let msg = 성공적으로 로그인이 되었습니다.
-		
 		if(msg != "null"){
 			alert(msg);
 			// 알림창을 띄워준후 session에 담긴 해당메세지는 지워줘야함.
@@ -115,6 +113,10 @@ h2{
 			<% session.removeAttribute("alertMsg");%>
 		}
 	</script>
+	<%} %> --%>
+
+</body>
+
 
 
 </html>
