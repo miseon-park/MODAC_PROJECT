@@ -98,13 +98,13 @@
         <form action ="<%=contextPath %>/insert.me"  method="post">
         <div id="insertId">
             <span>아이디</span>
-            <input id="id" type="text" placeholder="아이디입력" required name="memberId">
+            <input id="id" type="text" placeholder="아이디입력" name="memberId" required >
             <button id="checkId">아이디 확인</button>
             <p>영문자로 시작하는 5~15자 이내의 영문,숫자로 구성 가능</p>
         </div>
         <div>
             <span>비밀번호</span>
-            <input id="password" type="password" placeholder="비밀번호" required name="memberPwd">
+            <input id="password" type="password" placeholder="비밀번호" name="memberPwd" required >
             <p>5~20자 이내의 영문,숫자,특수문자(!@#$%^&*)로 구성가능</p>
         </div>
         <div>
@@ -113,18 +113,18 @@
         </div>
         <div>
             <span>이름</span>
-            <input id="name"type="text" placeholder="이름" required name="memberName">
+            <input id="name"type="text" placeholder="이름" name="memberName" required >
         </div>
         <div>
             <span>이메일</span>
-            <input id="email" type="text" placeholder="이메일" required name="email">
+            <input id="email" type="text" placeholder="이메일" name="email" required >
         </div>
         <div>
             <span>닉네임</span>
-            <input id="nickname" type="text" placeholder="닉네임" required name="memberNic">
+            <input id="nickname" type="text" placeholder="닉네임" name="memberNic" required>
             
         </div>
-        <input type="submit" value="회원가입" required>
+        <input type="submit" value="회원가입">
 		</form>
     </div>
 </body>
