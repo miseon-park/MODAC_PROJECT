@@ -1,8 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.modac.member.model.vo.Member"%>
 
 <%
     String contextPath = request.getContextPath();
+	Member loginMember = (Member) session.getAttribute("loginMember"); 
+	// 로그인 전 or  로그인 실패 : null
+	// 로그인 성공 후 : 로그인한 회원의 정보가 담긴 member 객체 반환
+	
+	String alertMsg = (String) session.getAttribute("alertMsg");
+	// 서비스 요청 전 : null
+	// 서비스 요쳥 성공 후 : alert로 띄워줄 메시지 문구
 %>
 <!DOCTYPE html>
 <html>
@@ -128,7 +135,22 @@
 
 <body>
 
+	<script>
+		
+		let msg = "<%=alertMsg%>";
+		
+		if(msg != "null") {
+			alert(msg);
+		
+			<% session.removeAttribute("alertMsg"); %>
+		}
+		
+	
+	</script>
+	
+
     <div id="top-menu">
+		<% if(loginMember == null) { %>
 
             <nav id="mini" >
                 <ul id="miniCon">
@@ -137,8 +159,20 @@
                     <li><a href="">아이디·비밀번호 찾기</a></li>
                 </ul>
             </nav>
-
-
+		
+		<% } else { %>
+			<!-- 로그인 성공 후 -->
+			
+			<div id="member-info">
+				<b><%=loginMember.getMemberName() %></b>님 환영합니다. <br>
+				<div >
+				
+				</div>
+			</div>
+			
+		<% } %>
+	
+	
     </div>  
 
 
