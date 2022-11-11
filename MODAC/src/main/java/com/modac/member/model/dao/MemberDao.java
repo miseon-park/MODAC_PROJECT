@@ -64,7 +64,7 @@ public class MemberDao {
 		} finally {
 			JDBCTemplate.close(rset);
 			JDBCTemplate.close(psmt);
-		}
+		}	
 		return m;
 	}
 	
@@ -82,8 +82,8 @@ public class MemberDao {
 			psmt.setString(1, m.getMemberId());
 			psmt.setString(2, m.getMemberPwd());
 			psmt.setString(3, m.getMemberName());
-			psmt.setString(4, m.getMemberNic());
-			psmt.setString(5, m.getEmail());
+			psmt.setString(4, m.getEmail());
+			psmt.setString(5, m.getMemberNic());
 			
 			result = psmt.executeUpdate();
 		} catch (SQLException e) {

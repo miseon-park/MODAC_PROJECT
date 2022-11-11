@@ -14,9 +14,8 @@
 							MEMBER_ID,
 							MEMBER_PWD,
 							"MEMBER_NAME",
-							"MEMBER_NIC",
-							"EMAIL")
-							
+							"EMAIL",
+							"MEMBER_NIC")
 							VALUES
 							(
 							SEQ_UNO.NEXTVAL,

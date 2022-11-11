@@ -100,7 +100,7 @@
         <div id="insertId">
             <span>아이디</span>
             <input id="id" type="text" placeholder="아이디입력" name="memberId" required >
-            <button id="checkId">아이디 확인</button>
+            <button type="button" id="checkId">아이디 확인</button>
             <p>영문자로 시작하는 5~15자 이내의 영문,숫자로 구성 가능</p>
         </div>
         <div>
