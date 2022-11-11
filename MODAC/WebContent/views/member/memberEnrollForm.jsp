@@ -71,7 +71,7 @@
 
         }
         div>#checkId{
-            width: 90px;
+            width: 100px;
             height: 30px;
             background-color: #F0A500;
             color: white;
@@ -96,16 +96,19 @@
     <div id="wrapper">
         <h1>회원가입</h1>
         <hr>
-        <form action ="<%=contextPath %>/insert.me"  method="post">
+
+        <form id="enroll-form"action ="<%=contextPath %>/insert.me"  method="post">
         <div id="insertId">
             <span>아이디</span>
             <input id="id" type="text" placeholder="아이디입력" name="memberId" required >
-            <button type="button" id="checkId">아이디 확인</button>
+
+            <button type="button" id="checkId" onclick="idCheck();">아이디 확인</button>
+
             <p>영문자로 시작하는 5~15자 이내의 영문,숫자로 구성 가능</p>
         </div>
         <div>
             <span>비밀번호</span>
-            <input id="password" type="password" placeholder="비밀번호" name="memberPwd" required >
+            <input id="password" type="password" placeholder="비밀번호" name="memberPwd" min="5" max="20" required >
             <p>5~20자 이내의 영문,숫자,특수문자(!@#$%^&*)로 구성가능</p>
         </div>
         <div>
@@ -125,8 +128,31 @@
             <input id="nickname" type="text" placeholder="닉네임" name="memberNic" required>
             
         </div>
-        <input type="submit" value="회원가입">
+            <input type="submit" value="회원가입" disabled>
 		</form>
     </div>
+    <script>
+        function idCheck(){
+            let $memberId = $("#enroll-form input[name=memberId]");
+
+            $.ajax({
+                url : "idCheck.me",
+                success : function(result){
+                    if(result=="NNNNN"){
+                        alert("이미존재하는 아이디 입니다")
+                        $memberId.focus();
+                    }else{
+                        if(confirm("사용가능한 아이디 입니다. 사용하시겠습니까?")){
+                            $("#enroll-form : submit").removeAttr("disabled")
+                            $memberId.attr("readonly",true);
+                        }
+                    }
+                },
+                error : function(){
+                    console.log("아이디 중복체크");
+                }
+            })
+        }
+    </script>
 </body>
 </html>

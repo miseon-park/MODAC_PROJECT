@@ -42,5 +42,16 @@ public class MemberService {
 	    
 	    return result;
 	}
+	/**
+	 * 
+	 * @param checkId => 아이디 체크
+	 * @return
+	 */
+	public int idcheck(String checkId) {
+	    Connection conn = JDBCTemplate.getConnection();
+	    int count = new MemberDao().idcheck(conn, checkId);
+	    JDBCTemplate.close();
+	    return count;
+	}
 	
 }

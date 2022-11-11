@@ -31,7 +31,13 @@ public class MemberDao {
 			e.printStackTrace();
 		}		
 	}
-	
+	/**
+	 * 로그인
+	 * @param memberId
+	 * @param memberPwd
+	 * @param conn
+	 * @return
+	 */
 	public Member loginMember(String memberId, String memberPwd, Connection conn) {
 		Member m = null;
 		PreparedStatement psmt = null;
@@ -67,7 +73,12 @@ public class MemberDao {
 		}	
 		return m;
 	}
-	
+	/**
+	 * 회원가입
+	 * @param m
+	 * @param conn
+	 * @return
+	 */
 	public int insertMember(Member m , Connection conn) {
 	    
 	    // insert문 처리된 행의 갯수를 반환하여 result에 저장시킬것.
@@ -93,6 +104,40 @@ public class MemberDao {
 			JDBCTemplate.close(psmt);
 		}
 	    return result;
+	}
+	
+	/**
+	 * 아이디 체크
+	 * @param conn
+	 * @param checkId
+	 * @return
+	 */
+	public int idcheck(Connection conn,String checkId) {
+	    
+	    int count = 0;
+	    PreparedStatement psmt = null;
+	    ResultSet rset = null;
+	    String sql = prop.getProperty("idCheck");
+	    try {
+            psmt = conn.prepareStatement(sql);
+            psmt.setString(1, checkId);
+            
+            rset = psmt.executeQuery();
+            
+            if(rset.next()) {
+                count = rset.getInt(1);
+            }
+            
+            
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally {
+            JDBCTemplate.close(rset);
+            JDBCTemplate.close(psmt);
+        }
+	    
+	    return count;
 	}
 	
 }

@@ -41,6 +41,12 @@
         font-weight: 600;
     }
 
+
+    #image{
+        text-align: center;
+    }
+
+
     #mainMenu, #subMenu1, #subMenu2{
         margin: 0;
         padding: 0;
@@ -48,7 +54,8 @@
     }
 
     #mainMenu > li {
-        float: left;
+        display: inline-block;
+        /* float: left; */
         /* border: 1px solid red; */
         /* 임시 */
     }
@@ -70,6 +77,8 @@
     #subMenu1, #subMenu2 {
         position: absolute;
         background-color: rgb(240,165,0);
+        opacity: 0;
+        visibility: hidden;
         
     }
     #subMenu1>li{
@@ -87,32 +96,65 @@
         font-weight: 300;
         text-decoration: none;
     }
-    div {
+    #mainMenu>li>a:hover {
+        background-color: rgb(240,165,0);
+        color: white;
+        
+    }
+    #mainMenu>li:hover #subMenu1 {
+        opacity: 1;
+        visibility: visible;
+    }
+    #mainMenu>li:hover #subMenu2 {
+        opacity: 1;
+        visibility: visible;
+    }
+    #nav-area {
         border-top: 3px solid rgb(240,165,0);
         border-bottom: 3px solid rgb(240,165,0);
     }
+    #mainMenu>li:hover #icon {
+        opacity: 1;
+        visibility: visible;
+    }
+
+   
+   
+
+  
 </style>
-
-
-
-
 </head>
-<body>
-	
 
-    <nav id="mini" >
-        <ul id="miniCon">
-            <li><a href="views/member/login.jsp">로그인</a></li>
-            <li><a href="views/member/memberEnrollForm.jsp">회원가입</a></li>
-            <li><a href="">아이디·비밀번호 찾기</a></li>
-        </ul>
-    </nav>
+
+<body>
+
+    <div id="top-menu">
+
+            <nav id="mini" >
+                <ul id="miniCon">
+                    <li><a href="views/member/login.jsp">로그인</a></li>
+                    <li><a href="views/member/memberEnrollForm.jsp">회원가입</a></li>
+                    <li><a href="">아이디·비밀번호 찾기</a></li>
+                </ul>
+            </nav>
+
+
+    </div>  
 
 
     <br clear="both">
+    <br> 
+
+    <div id="image">
+        <img src="/classes/resources/최종로고_1.png" width="300px" alt="정상적 출력 실패">
+    </div>
+    
+    
     <br>
 
-    <div class="nav-area" align="center">
+
+    
+    <div id="nav-area" align="center">
         <ul id="mainMenu">
             <li><a href="">캠핑장 검색</a></li>
             <li><a href="">공지사항</a>
@@ -132,15 +174,20 @@
             </li>
             <li><a href="">중고장터</a></li>
             <li><a href="">동아리 모집</a></li>
-            <li><a href=""><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-circle" viewBox="0 0 16 16">
+            <li><a id="icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-circle" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
               </svg></a></li>
+              <br clear="both"> 
         </ul>
     </div>
 
+    <br>
 
+    <div>
 
-
+    </div>
+    <br>
+    
 
 
 </body>
