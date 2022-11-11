@@ -23,6 +23,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
 <style>
+
+    .menu {
+        margin-right: 20px;
+        margin-top: 15px;
+    }
+
     #mini a {
         text-decoration: none;
         color: gray;
@@ -47,6 +53,29 @@
         float: right;
         font-weight: 600;
     }
+
+
+    #member-info {
+        float: right;
+    }
+    #member-info>div {
+        display: inline;
+        float: right;
+    }
+    #member-info a{
+        text-decoration: none;
+        color: gray;
+        border-left: 1px solid #c0c0c0;
+        padding: 0px 0px 0px 10px;
+    }
+    #member-info a:first-child{
+        border-left: none;
+        padding-right: 10px;
+    }
+    #member-info {
+        color: gray;
+    }
+
 
 
     #image{
@@ -149,7 +178,7 @@
 	</script>
 	
 
-    <div id="top-menu">
+    <div id="top-menu" class="menu">
 		<% if(loginMember == null) { %>
 
             <nav id="mini" >
@@ -163,12 +192,15 @@
 		<% } else { %>
 			<!-- 로그인 성공 후 -->
 			
-			<div id="member-info">
-				<b><%=loginMember.getMemberName() %></b>님 환영합니다. <br>
-				<div >
-				
+			<div id="member-info" class="menu">
+				<b><%=loginMember.getMemberNic() %></b> 님 환영합니다!<br>
+				<div style="margin-top: 5px;">
+                    <a href="">로그아웃</a>
+                    <a href="">마이페이지</a>
 				</div>
+                <br clear="both">
 			</div>
+            <br clear="both">
 			
 		<% } %>
 	
@@ -180,7 +212,7 @@
     <br> 
 
     <div id="image">
-        <img src="/classes/resources/최종로고_1.png" width="300px" alt="정상적 출력 실패">
+        <img src="/resources/최종로고_1.png" width="300px" alt="정상적 출력 실패">
     </div>
     
     

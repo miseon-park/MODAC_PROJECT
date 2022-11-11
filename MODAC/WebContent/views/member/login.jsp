@@ -104,17 +104,6 @@ h2{
 		</div>
 
 </body>
-	<%-- <script>
-		let msg = "<%= alertMsg%>"; // let msg = 성공적으로 로그인이 되었습니다.
-		
-		if(msg != "null"){
-			alert(msg);
-			// 알림창을 띄워준후 session에 담긴 해당메세지는 지워줘야함.
-			// 안그러면 menubar.jsp가 로딩될때마다 매번 alert가 계속 뜰것
-			
-			<% session.removeAttribute("alertMsg");%>
-		}
-	</script> --%>
 
 
 </html>
