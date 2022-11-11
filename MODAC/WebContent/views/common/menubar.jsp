@@ -127,41 +127,17 @@
 
 
 <body>
-	
-    <script>
-        let msg = "<%= alertMsg %>"; // let msg = 성공적으로 로그인이 되었습니다.
-		
-		if(msg!="null") {
-			alert(msg);
-			// 알림창을 띄워준 후 session에 담긴 해당 메세지는 지워줘야 함
-			// 안그러면 menubar.jsp가 로딩될 때마다 매번 alert가 계속 뜰 것
-			<% session.removeAttribute("alertMsg"); %>
-        }
-    </script>
 
     <div id="top-menu">
 
-        <% if(loginUser == null) { %>
-
             <nav id="mini" >
                 <ul id="miniCon">
-                    <li><a href="">로그인</a></li>
-                    <li><a href="">회원가입</a></li>
+                    <li><a href="views/member/login.jsp">로그인</a></li>
+                    <li><a href="views/member/memberEnrollForm.jsp">회원가입</a></li>
                     <li><a href="">아이디·비밀번호 찾기</a></li>
                 </ul>
             </nav>
 
-        <% } else { %>
-            <!-- 로그인 성공 후 -->
-            <div id = "user-info">
-                <b><%= loginUser.getUserName() %></b>님 환영합니다. <br><br>
-                <div align="center">
-                    <a href="<%=contextPath%>/myPage.me">마이페이지</a>
-                    <a href="<%=contextPath%>/logout.me">로그아웃</a>
-                </div>
-            </div>
-
-        <% } %>
 
     </div>  
 
