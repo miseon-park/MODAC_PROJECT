@@ -10,18 +10,21 @@
 	</entry>
 	
 	<entry key="insertMember">
-		INSERT INTO MEMBER(MEMBER_NO,
+		INSERT INTO MEMBER (MEMBER_NO,
 							MEMBER_ID,
 							MEMBER_PWD,
-							MEMBER_NAME,
-							EMAIL,
-							MEMBER_NIC)
-							VALUES(
+							"MEMBER_NAME",
+							"MEMBER_NIC",
+							"EMAIL")
+							
+							VALUES
+							(
 							SEQ_UNO.NEXTVAL,
 							?,
 							?,
 							?,
 							?,
-							?)
+							?
+							)
 	</entry>
 </properties>
