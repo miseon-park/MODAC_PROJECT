@@ -1,8 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.modac.member.model.vo.Member"%>
 
 <%
     String contextPath = request.getContextPath();
+	Member loginMember = (Member) session.getAttribute("loginMember"); 
+	// 로그인 전 or  로그인 실패 : null
+	// 로그인 성공 후 : 로그인한 회원의 정보가 담긴 member 객체 반환
+	
+	String alertMsg = (String) session.getAttribute("alertMsg");
+	// 서비스 요청 전 : null
+	// 서비스 요쳥 성공 후 : alert로 띄워줄 메시지 문구
 %>
 <!DOCTYPE html>
 <html>
@@ -16,6 +23,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
 <style>
+
+    .menu {
+        margin-right: 20px;
+        margin-top: 15px;
+    }
+
     #mini a {
         text-decoration: none;
         color: gray;
@@ -40,6 +53,29 @@
         float: right;
         font-weight: 600;
     }
+
+
+    #member-info {
+        float: right;
+    }
+    #member-info>div {
+        display: inline;
+        float: right;
+    }
+    #member-info a{
+        text-decoration: none;
+        color: gray;
+        border-left: 1px solid #c0c0c0;
+        padding: 0px 0px 0px 10px;
+    }
+    #member-info a:first-child{
+        border-left: none;
+        padding-right: 10px;
+    }
+    #member-info {
+        color: gray;
+    }
+
 
 
     #image{
@@ -128,7 +164,22 @@
 
 <body>
 
-    <div id="top-menu">
+	<script>
+		
+		let msg = "<%=alertMsg%>";
+		
+		if(msg != "null") {
+			alert(msg);
+		
+			<% session.removeAttribute("alertMsg"); %>
+		}
+		
+	
+	</script>
+	
+
+    <div id="top-menu" class="menu">
+		<% if(loginMember == null) { %>
 
             <nav id="mini" >
                 <ul id="miniCon">
@@ -137,8 +188,23 @@
                     <li><a href="">아이디·비밀번호 찾기</a></li>
                 </ul>
             </nav>
-
-
+		
+		<% } else { %>
+			<!-- 로그인 성공 후 -->
+			
+			<div id="member-info" class="menu">
+				<b><%=loginMember.getMemberNic() %></b> 님 환영합니다! :)<br>
+				<div style="margin-top: 5px;">
+                    <a href="<%=contextPath%>/logout.me">로그아웃</a>
+                    <a href="">마이페이지</a>
+				</div>
+                <br clear="both">
+			</div>
+            <br clear="both">
+			
+		<% } %>
+	
+	
     </div>  
 
 
@@ -146,7 +212,7 @@
     <br> 
 
     <div id="image">
-        <img src="/classes/resources/최종로고_1.png" width="300px" alt="정상적 출력 실패">
+        <img src="/resources/최종로고_1.png" width="300px" alt="정상적 출력 실패">
     </div>
     
     

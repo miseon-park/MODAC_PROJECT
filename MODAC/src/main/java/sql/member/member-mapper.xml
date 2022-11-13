@@ -8,6 +8,12 @@
 		  AND MEMBER_PWD = ?
 		  AND STATUS = 'N'
 	</entry>
+	<entry key="fineId">
+		SELECT 
+			MEMBER_ID 
+		FROM MEMBER
+		WHERE MEMBER_NAME=? AND EMAIL=?
+	</entry>
 	
 	<entry key="insertMember">
 		INSERT INTO MEMBER (MEMBER_NO,

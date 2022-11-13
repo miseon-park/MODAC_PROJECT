@@ -84,8 +84,7 @@
             margin-left: 130px;
             width: 300px;
             height: 50px;
-            background-color: #F0A500;
-            color: white;
+
             border: none;
             
         }
@@ -130,7 +129,7 @@
             <input id="nickname" type="text" placeholder="닉네임" name="memberNic" required>
             
         </div>
-            <input type="submit" value="회원가입" name="insertCheck" disabled>
+            <input type="submit" id="inserCheck" value="회원가입" name="insertCheck" disabled>
 		</form>
     </div>
     <script>
@@ -146,8 +145,8 @@
                         $memberId.focus();
                     }else{
                         if(confirm("사용가능한 아이디 입니다. 사용하시겠습니까?")){
-                            $("#enroll-form:submit").removeAttr("disabled")
-                            $(memberId).attr("readonly",true);
+                            $("#inserCheck").removeAttr("disabled")
+                            $memberId.attr("readonly",true);
                         } else {
                         	
                         }
