@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.modac.notice.model.vo.Notice"%>
+    
+<%
+	Notice n = (Notice)request.getAttribute("n");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,8 +45,8 @@
                 <a class="nav-link active" aria-current="page" href="<%=contextPath %>/noticeList"><h3>공지사항</h3></a><br><br>
                 <a class="nav-link" href="<%=contextPath %>/noticeList">모닥불 소식</a> <br>
                 <a class="nav-link" href="#">캠핑 팁</a> <br>
-                <a class="nav-link">Q&A</a> <br>
-                <a class="nav-link">FAQ</a> <br>
+                <a class="nav-link" href="">Q&A</a> <br>
+                <a class="nav-link" href="">FAQ</a> <br>
               </nav>
         </div>
 
@@ -59,9 +63,9 @@
 	                <option value="2">필독</option>
 	              </select>
 	
-	              <input type="text" class="form-control" id="title" placeholder="제목을 입력해주세요." aria-label="title">
+	              <input type="text" class="form-control" id="title" placeholder="제목을 입력해주세요." aria-label="title" value="<%= n.getNoticeTitle()%>">
 	              <input type="file" class="form-control">
-	              <textarea class="form-control" style="height:500px;"></textarea>
+	              <textarea class="form-control" style="height:500px;"><%=n.getNoticeContent() %></textarea>
 	          </div>
 	          
 	          <br><br>

@@ -45,8 +45,8 @@
         <div class="content">
             <div class="content1">
                 <nav class="flex-column">
-                    <a class="nav-link active" aria-current="page" href="#"><h3>공지사항</h3></a><br><br>
-                    <a class="nav-link" href="#">모닥불 소식</a> <br>
+                    <a class="nav-link active" aria-current="page" href="<%=contextPath %>/noticeList"><h3>공지사항</h3></a><br><br>
+                    <a class="nav-link" href="<%=contextPath %>/noticeList">모닥불 소식</a> <br>
                     <a class="nav-link" href="#">캠핑 TIP</a> <br>
                     <a class="nav-link">Q&A</a> <br>
                     <a class="nav-link">FAQ</a>
@@ -90,7 +90,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                        <% if(list.isEmpty()){ %>
+                        <%-- <% if(list.isEmpty()){ %>
                             <!-- 리스트가 비어있는 경우 -->
                             <tr>
                                 <td colspan="5">존재하는 공지사항이 없습니다.</td>
@@ -101,7 +101,7 @@
                             <% }else{ %>
                                 <!--일반 게시글 목록 불러오기-->
                             <% }%>
-                        <% } %>
+                        <% } %> --%>
                       <tr style="background-color: rgb(250, 241, 241)">
                         <th scope="row"><span class="badge text-bg-danger">공지</span></th>
                         <td>Mark</td>
