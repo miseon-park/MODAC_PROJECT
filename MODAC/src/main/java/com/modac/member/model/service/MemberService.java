@@ -70,5 +70,25 @@ public class MemberService {
 		return m;
 		
 	}
+	/**
+	 * 
+	 */
+	/*
+	 * public Member updatePwd(String memberPwd, String updatePwd) { Connection conn
+	 * = JDBCTemplate.getConnection();
+	 * 
+	 * }
+	 */
+	
+	public Member findPwd(String memberId, String memberName, String email) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		Member m = new MemberDao().findPwd(memberId, memberName, email, conn);
+		
+		JDBCTemplate.close();
+		
+		return m;
+	}
 	
 }

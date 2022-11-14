@@ -1,15 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% 
+        String contextPath = request.getContextPath();
+	    String alertMsg = (String) session.getAttribute("alertMsg");
+%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>B CLASS</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <title>비밀번호 찾기</title>
     <style>
         
         a{ text-decoration: none; }
@@ -76,44 +79,102 @@
             height: 30px;
         }
 
-        #btn{
+        #msg {
+            /* border: 1px solid black; */
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 0px ;
+        }
+
+       #btn-area {
             text-align : center;
             padding : 20px 0;
             width: 300px;
-            margin-left: 100px ;
-            margin-top: 100px;
             background-color: #F0A500;
-            border: none;
-            color: white;
-            font-weight: 400px;
+            margin: auto;
+            margin-top: 5px;
+            padding: 0%;
+       }
+
+        #btn{
+           background-color: #F0A500;
+           border: none;
+           color: white;
+           font-weight: 400px;
+           width: 300px;
+           height: 50px;
+           margin: 0px 0px 0px 0px;
+           font-weight: bolder;
+           
         }
     </style>
     
 </head>
 <body>
 
-    <div id="wrapper">
-        <div id="fine">
-            <div id="fineid">
-                <button class="button">아이디찾기</button>
+	<form action="<%=contextPath %>/findPw.me" method="post" class="content">
+	    <div id="wrapper">
+	        <div id="fine">
+	            <div id="fineid">
+	                <button class="button">아이디찾기</button>
+	            </div>
+	            <div id="finepwd">
+	                <button class="button">비밀번호찾기</button>
+	            </div> 
+	        </div>
+	        <div id="divid">
+	            <span>아이디</span><input name="memberId" id="memberId" class="form-control" type="text" placeholder="아아디를 입력해주세요" required>
+	            <input type="hidden" value="#memberId.value">
+	        </div>
+	        <div id="divname">
+	            <span>이름</span><input name="memberName" id="memberName" class="form-control" type="text" placeholder="이름을 입력해주세요" required>
+	        </div>
+	        <div id="divemail">
+	            <span>이메일</span><input name="email" id="email" class="form-control" type="text" placeholder="이메일을 입력해주세요" required>
+	        </div>
+            <div id="msg">
+                <p class="checks" id="check"></p>
             </div>
-            <div id="finepwd">
-                <button class="button">비밀번호찾기</button>
-            </div> 
-        </div>
-        <div id="divid">
-            <span>아이디</span><input name="memberId" id="memberId" type="text" placeholder="아아디를 입력해주세요">
-        </div>
-        <div id="divname">
-            <span>이름</span><input name="memberName" id="memberName" type="text" placeholder="이름을 입력해주세요">
-        </div>
-        <div id="divemail">
-            <span>이메일</span><input name="email" id="email" type="text" placeholder="이메일을 입력해주세요">
-        </div>
-        <div>
-            <button class="button" id="btn" type="submit">비밀번호찾기</button>
-        </div>
-    </div>
+	        <div id="btn-area">
+	            <button id="btn" class="button" type="submit">비밀번호찾기</button>
+	        </div>
+	    </div>
+	</form>
+
+
+    <script>
+
+        // var idJ = /^[a-zA-Z][a-zA-Z0-9]{4,14}$/;
+
+        $("#memberID").focusout(function() {
+            if($("#memberId").val()=="") {
+                $("#checks").text('아이디를 입력해주세요.');
+                $("#checks").css('color', 'red');
+            }
+        });
+
+        // $("#memberId").focusout(function() {
+        //     if(!idJ.test($(this).val())) {
+        //         $("#checks").text('영문자로 시작하는 5~15자 이내의 영문,숫자로 입력해주세요.');
+        //         $("#checks").css('color', 'red');
+        //     }
+        // });
+
+        $("#memberName").focusout(function() {
+            if($("#memberName").val=="") {
+                $("#checks").text('이름을 입력해주세요.');
+                $("#checks").css('color', 'red');
+            }
+        });
+
+        $("#email").focusout(function() {
+            if($("#email").val()=="") {
+                $("#checks").text('이메일을 입력해주세요.');
+                $("#checks").css('color', 'red');
+            }
+        });
+
+    </script>
 
 
     

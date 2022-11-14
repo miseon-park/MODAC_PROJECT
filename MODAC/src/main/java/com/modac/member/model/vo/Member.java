@@ -18,6 +18,10 @@ public class Member {
 		
 	}
 	
+	public Member(String memberPwd) {
+		this.memberPwd = memberPwd;
+	}
+	
 	public Member(String memberId, String memberPwd, String memberName, String memberNic, String email) {
 		super();
 		this.memberId = memberId;

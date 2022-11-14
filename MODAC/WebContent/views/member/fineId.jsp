@@ -102,7 +102,7 @@
                 <button class="button">아이디찾기</button>
             </div>
             <div id="finepwd">
-                <button class="button">비밀번호찾기</button>
+                <button class="button" onclick="location.href = '<%=contextPath %>/views/member/finePwd.jsp'">비밀번호찾기</button>
             </div> 
         </div>
         

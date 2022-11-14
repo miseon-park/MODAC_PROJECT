@@ -8,13 +8,7 @@
 		  AND MEMBER_PWD = ?
 		  AND STATUS = 'N'
 	</entry>
-	<entry key="fineId">
-		SELECT 
-			MEMBER_ID,
-			MEMBER_NAME
-		FROM MEMBER
-		WHERE MEMBER_NAME=? AND EMAIL=?
-	</entry>
+
 	
 	<entry key="insertMember">
 		INSERT INTO MEMBER (MEMBER_NO,
@@ -39,4 +33,34 @@
 		FROM MEMBER
 		WHERE MEMBER_ID = ?
 	</entry>
+		<entry key="fineId">
+		SELECT 
+			MEMBER_ID,
+			MEMBER_NAME
+		FROM MEMBER
+		WHERE MEMBER_NAME=? AND EMAIL=?
+	</entry>
+	
+	<entry key="findPwd">
+		SELECT MEMBER_PWD
+		FROM MEMBER
+		WHERE MEMBER_ID = ?
+			AND MEMBER_NAME = ?
+			AND EMAIL = ?
+	</entry>
+	
+	<entry key="updateFinePwd">
+				UPDATE MEMBER
+		SET MEMBER_PWD = ?
+		WHERE MEMBER_PWD = 
+		(
+		SELECT MEMBER_PWD
+		FROM MEMBER
+		WHERE MEMBER_ID = ?
+			AND MEMBER_NAME = ?
+			AND EMAIL = ?
+		)
+	</entry>
+	
+	
 </properties>

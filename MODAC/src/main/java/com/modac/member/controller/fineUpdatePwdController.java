@@ -6,22 +6,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.modac.member.model.service.MemberService;
-import com.modac.member.model.vo.Member;
 
 /**
- * Servlet implementation class MemberFinePwd
+ * Servlet implementation class fineUpdatePwdController
  */
-@WebServlet("/finePwd")
-public class MemberFinePwd extends HttpServlet {
+@WebServlet("/findupdatePw.me")
+public class fineUpdatePwdController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberFinePwd() {
+    public fineUpdatePwdController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,19 +27,10 @@ public class MemberFinePwd extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		String memberId = request.getParameter("memberId");
 		
-		String memberPwd = request.getParameter("memberPwd");
-		String updatePwd = request.getParameter("updatePwd");
 		
-		Member updatePwd = new MemberService().updatePwd(memberPwd, updatePwd);
 		
-		HttpSession session = request.getSession();
-	    if(updatePwd == null) { // 실패 실행할 로직
-	        session.setAttribute("alertMsg", "비밀번호 변경에 실패했습니다.");
-	    }else { // 성공시
-	        session.setAttribute("alertMsg", "성공적으로 비밀번호가 변경되었습니다.");
-	        session.setAttribute("loginUser", updatePwd);
-	    }
 		
 	}
 
