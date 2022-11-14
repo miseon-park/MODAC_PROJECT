@@ -105,6 +105,11 @@ public class Member {
 	}
 	
 	
+	public Member(String memberPwd) {
+		this.memberPwd = memberPwd;
+	}
+	
+	
 	
 }
 

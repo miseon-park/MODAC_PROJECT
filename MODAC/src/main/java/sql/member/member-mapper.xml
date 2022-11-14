@@ -27,4 +27,15 @@
 							?
 							)
 	</entry>
+	
+	
+	<entry key="findPwd">
+		SELECT MEMBER_PWD
+		FROM MEMBER
+		WHERE MEMBER_ID = ?
+			AND MEMBER_NAME = ?
+			AND EMAIL = ?
+	</entry>
+	
+	
 </properties>
