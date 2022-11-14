@@ -106,7 +106,7 @@ h2{
 				     <input type="checkbox"><span>로그인유지</span>
 					<button id="loginbtn" style="background-color: #F0A500; color: white;" >로그인</button>
 			      <ul>
-			          <li><a href="#">아이디/비밀번호찾기</a></li>
+			          <li><a href="<%=contextPath%>/views/member/fineId.jsp">아이디/비밀번호찾기</a></li>
 			          <li><a href="<%=contextPath %>/views/member/memberEnrollForm.jsp">회원가입</a></li>
 			      </ul>
   				</div>

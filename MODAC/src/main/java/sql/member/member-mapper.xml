@@ -10,7 +10,8 @@
 	</entry>
 	<entry key="fineId">
 		SELECT 
-			MEMBER_ID 
+			MEMBER_ID,
+			MEMBER_NAME
 		FROM MEMBER
 		WHERE MEMBER_NAME=? AND EMAIL=?
 	</entry>

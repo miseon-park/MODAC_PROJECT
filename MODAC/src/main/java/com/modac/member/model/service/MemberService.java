@@ -6,6 +6,7 @@ import com.modac.common.JDBCTemplate;
 import com.modac.member.model.dao.MemberDao;
 import com.modac.member.model.vo.Member;
 
+
 public class MemberService {
 	/**
 	 * 로그인 요청 서비스
@@ -44,7 +45,7 @@ public class MemberService {
 	}
 	/**
 	 * 
-	 * @param checkId => 아이디 체크
+	 * @param checkId => 회원가입 아이디 체크
 	 * @return
 	 */
 	public int idcheck(String checkId) {
@@ -52,6 +53,22 @@ public class MemberService {
 	    int count = new MemberDao().idcheck(conn, checkId);
 	    JDBCTemplate.close();
 	    return count;
+	}
+	/**
+	 * 아이디 찾기
+	 * @param memberName
+	 * @param email
+	 * @return
+	 */
+	public Member fineId(String memberName, String email) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		Member m = new MemberDao().fineId(memberName, email, conn);
+		System.out.println(m);
+		JDBCTemplate.close();
+		
+		return m;
+		
 	}
 	
 }

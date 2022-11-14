@@ -12,16 +12,16 @@ import com.modac.member.model.service.MemberService;
 import com.modac.member.model.vo.Member;
 
 /**
- * Servlet implementation class MemberFineId
+ * Servlet implementation class MemberFinePwd
  */
-@WebServlet("/fineId.me")
-public class MemberFineId extends HttpServlet {
+@WebServlet("/finePwd")
+public class MemberFinePwd extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberFineId() {
+    public MemberFinePwd() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,18 +29,21 @@ public class MemberFineId extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    private MemberService ms = new MemberService();
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String memberName = request.getParameter("memberName");
-		String email = request.getParameter("email");
 		
-		Member fineId = ms.fineId(memberName, email);
+		String memberPwd = request.getParameter("memberPwd");
+		String updatePwd = request.getParameter("updatePwd");
 		
-			HttpSession session = request.getSession();
-			session.setAttribute("fineId", fineId);
-			request.getRequestDispatcher("views/member/SuccessFineId.jsp").forward(request, response);
-
+		Member updatePwd = new MemberService().updatePwd(memberPwd, updatePwd);
+		
+		HttpSession session = request.getSession();
+	    if(updatePwd == null) { // 실패 실행할 로직
+	        session.setAttribute("alertMsg", "비밀번호 변경에 실패했습니다.");
+	    }else { // 성공시
+	        session.setAttribute("alertMsg", "성공적으로 비밀번호가 변경되었습니다.");
+	        session.setAttribute("loginUser", updatePwd);
+	    }
 		
 	}
 

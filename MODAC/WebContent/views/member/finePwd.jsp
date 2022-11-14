@@ -1,20 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.modac.member.model.vo.Member"%>
-    <%
-    	String contextPath =request.getContextPath();
-    	Member fineId = (Member) session.getAttribute("fineId");
-    	
-    %>
-    
-    
-    
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<title>B CLASS</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <style>
         
         a{ text-decoration: none; }
@@ -96,6 +91,7 @@
     
 </head>
 <body>
+
     <div id="wrapper">
         <div id="fine">
             <div id="fineid">
@@ -105,44 +101,20 @@
                 <button class="button">비밀번호찾기</button>
             </div> 
         </div>
-        
-        <form action="<%=contextPath %>/fineId.me" method="post">
-	        <div id="divname">
-	            <span>이름</span><input name="memberName" id="memberName" type="text" placeholder="이름을 입력해주세요">
-	        </div>
-	        <div id="divemail">
-	            <span>이메일</span><input name="email" id="email" type="text" placeholder="이메일을 입력해주세요">
-	        </div>
-	        <div>
-	            <%-- <p class="check" id="check">${check}</p><br/> --%>
-	            <button class="button" id="btn" type="submit" onclick="id_search();">아이디찾기</button>
-	        </div>
-        </form>
-	
-        <script>
-/*            $("#memberName").focusout(function(){
-                
-           if($('#memberName').val() == ""){
-                 $('#check').text('이름을 입력해주세요.');
-                   $('#check').css('color', 'red');
-         
-           }else{
-               $('#check').hide();
-           }
-           });
-           
-            $("#email").focusout(function(){
-           if($('#email').val() == ""){
-                 $('#check').text('이메일을 입력해주세요');
-                   $('#check').css('color', 'red');
-           }else{
-               $('#check').hide();
-           }
-           }); */
-            
-            
-    </script>
-    </div>    
+        <div id="divid">
+            <span>아이디</span><input name="memberId" id="memberId" type="text" placeholder="아아디를 입력해주세요">
+        </div>
+        <div id="divname">
+            <span>이름</span><input name="memberName" id="memberName" type="text" placeholder="이름을 입력해주세요">
+        </div>
+        <div id="divemail">
+            <span>이메일</span><input name="email" id="email" type="text" placeholder="이메일을 입력해주세요">
+        </div>
+        <div>
+            <button class="button" id="btn" type="submit">비밀번호찾기</button>
+        </div>
+    </div>
+
 
     
 

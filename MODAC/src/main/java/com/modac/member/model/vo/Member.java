@@ -14,6 +14,9 @@ public class Member {
 	private int memberLevel;
 	private String email;
 	
+	public Member() {
+		
+	}
 	
 	public Member(String memberId, String memberPwd, String memberName, String memberNic, String email) {
 		super();
@@ -23,6 +26,13 @@ public class Member {
 		this.memberNic = memberNic;
 		this.email = email;
 	}
+	
+	public Member(String memberName, String email) {
+		super();
+		this.memberName = memberName;
+		this.email = email;
+	}
+
 	public String getMemberNo() {
 		return memberNo;
 	}

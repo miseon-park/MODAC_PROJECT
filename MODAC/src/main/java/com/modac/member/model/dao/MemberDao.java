@@ -140,4 +140,45 @@ public class MemberDao {
 	    return count;
 	}
 	
+	/**
+	 * 아이디 찾기
+	 * @param memberName
+	 * @param email
+	 * @param conn
+	 * @return
+	 */
+	public Member fineId(String memberName,String email,Connection conn) {
+		Member m = null;
+		
+		PreparedStatement psmt = null;
+		
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("fineId");
+		
+		
+		try {
+			psmt=conn.prepareStatement(sql);
+			
+			psmt.setString(1, memberName);
+			psmt.setString(2, email);
+			
+			rset=psmt.executeQuery();
+			
+			if(rset.next()) {
+				m = new Member();
+				m.setMemberId(rset.getString("MEMBER_ID"));
+				m.setMemberName(rset.getString("MEMBER_NAME"));	
+			}
+			System.out.println(m);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(psmt);
+		}
+			return m;
+	}
 }
