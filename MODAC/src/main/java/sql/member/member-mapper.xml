@@ -37,5 +37,16 @@
 			AND EMAIL = ?
 	</entry>
 	
+	<entry>
+		UPDATE MEMBER
+        SET MEMBER_PWD = ?(update password)
+        WHERE memberPwd = (		
+        SELECT 
+        	MEMBER_PWD
+		FROM MEMBER
+		WHERE MEMBER_ID = ?
+			AND MEMBER_NAME = ?
+			AND EMAIL = ?) 
+	</entry>
 	
 </properties>
