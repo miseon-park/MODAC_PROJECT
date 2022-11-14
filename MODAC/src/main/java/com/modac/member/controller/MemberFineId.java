@@ -32,6 +32,7 @@ public class MemberFineId extends HttpServlet {
     private MemberService ms = new MemberService();
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		
 		String memberName = request.getParameter("memberName");
 		String email = request.getParameter("email");
 		

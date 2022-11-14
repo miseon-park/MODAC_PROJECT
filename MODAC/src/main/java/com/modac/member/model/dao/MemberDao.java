@@ -170,7 +170,7 @@ public class MemberDao {
 				m.setMemberId(rset.getString("MEMBER_ID"));
 				m.setMemberName(rset.getString("MEMBER_NAME"));	
 			}
-			System.out.println(m);
+			
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -181,7 +181,14 @@ public class MemberDao {
 		}
 			return m;
 	}
-	
+	/**
+	 * 비밀번호찾기
+	 * @param memberId
+	 * @param memberName
+	 * @param email
+	 * @param conn
+	 * @return
+	 */
 	public Member findPwd(String memberId, String memberName, String email, Connection conn) {
 		Member m = null;
 		PreparedStatement psmt = null;
@@ -206,6 +213,74 @@ public class MemberDao {
 		}
 		
 		return m;
+	}
+	/**
+	 * 비밀번호찾고 업데이트
+	 * @return
+	 */
+	public int fineUpdatePwd(String memberId, String memberName, String email, String updatePwd, Connection conn) {
+		int result = 0;
 		
+		PreparedStatement psmt =null;
+		
+		String sql = prop.getProperty("updateFinePwd");
+		try {
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1, updatePwd);
+			psmt.setString(2, memberId);
+			psmt.setString(3, memberName);
+			psmt.setString(4, email);
+			
+			result = psmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(psmt);
+		}
+		return result;
+	}
+	/**
+	 * 맴버커밋
+	 * @param memberId
+	 * @param conn
+	 * @return
+	 */
+	public Member selectMember(String memberId, Connection conn) {
+		Member m = null;
+		PreparedStatement psmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectMember");
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1, memberId);
+			
+			rset = psmt.executeQuery();
+				if(rset.next()) {
+					m = new Member(rset.getString("MEMBER_NO"),
+							rset.getString("MEMBER_ID"),
+							rset.getString("MEMBER_PWD"),
+							rset.getString("MEMBER_NAME"),
+							rset.getString("MEMBER_NIC"),
+							rset.getString("STATUS"),
+							rset.getDate("IN_DATE"),
+							rset.getDate("MODI_DATE"),
+							rset.getInt("MEMBER_LEVEL"),
+							rset.getString("EMAIL"));
+				}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(psmt);
+		}
+		return m;
 	}
 }

@@ -64,7 +64,6 @@ public class MemberService {
 		Connection conn = JDBCTemplate.getConnection();
 		
 		Member m = new MemberDao().fineId(memberName, email, conn);
-		System.out.println(m);
 		JDBCTemplate.close();
 		
 		return m;
@@ -80,6 +79,13 @@ public class MemberService {
 	 * }
 	 */
 	
+	/**
+	 * 비밀번호찾기
+	 * @param memberId
+	 * @param memberName
+	 * @param email
+	 * @return
+	 */
 	public Member findPwd(String memberId, String memberName, String email) {
 		
 		Connection conn = JDBCTemplate.getConnection();
@@ -89,6 +95,29 @@ public class MemberService {
 		JDBCTemplate.close();
 		
 		return m;
+	}
+	
+	/**
+	 * 비밀번호찾고변경
+	 */
+	public Member fineupdatePwd(String memberId, String memberName, String email, String updatePwd) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		Member updateMem = null;
+		
+		int result = 0;
+		
+		result = new MemberDao().fineUpdatePwd(memberId, memberName, email, updatePwd,conn);
+		System.out.println("result : "+result);
+		if(result > 0){
+			JDBCTemplate.commit(conn);
+			updateMem = new MemberDao().selectMember(memberId,conn);
+			System.out.println("updateMem Service : " + updateMem);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close();
+		return updateMem;
 	}
 	
 }

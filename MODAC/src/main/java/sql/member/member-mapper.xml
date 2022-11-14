@@ -33,7 +33,8 @@
 		FROM MEMBER
 		WHERE MEMBER_ID = ?
 	</entry>
-		<entry key="fineId">
+	
+	<entry key="fineId">
 		SELECT 
 			MEMBER_ID,
 			MEMBER_NAME
@@ -60,6 +61,10 @@
 			AND MEMBER_NAME = ?
 			AND EMAIL = ?
 		)
+	</entry>
+	<entry key="selectMember">
+		SELECT * FROM MEMBER
+		WHERE MEMBER_ID = ?
 	</entry>
 	
 	

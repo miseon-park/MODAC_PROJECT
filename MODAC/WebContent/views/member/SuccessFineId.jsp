@@ -86,7 +86,7 @@
 
             <div class = "found-login">
                 <input type="button" class="btn" id="btnLogin" value="로그인" onClick = "location.href = '<%=contextPath %>/views/member/login.jsp'"/>
-                <input type="button" class="btn" id="main" value="비밀번호찾기" onClick = "location.href = '<%=contextPath %>'"/>
+                <input type="button" class="btn" id="main" value="비밀번호찾기" onClick = "location.href = '<%=contextPath %>/views/member/finePwd.jsp'"/>
             </div>
 
         </div>
