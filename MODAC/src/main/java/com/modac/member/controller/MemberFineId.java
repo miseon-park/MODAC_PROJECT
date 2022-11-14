@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.modac.member.model.service.MemberService;
+import com.modac.member.model.vo.Member;
+
 /**
  * Servlet implementation class MemberFineId
  */
@@ -25,10 +28,12 @@ public class MemberFineId extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    private MemberService ms = new MemberService();
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String userId = request.getParameter("memberName");
-		String userPwd = request.getParameter("email");
+		String memberName = request.getParameter("memberName");
+		String email = request.getParameter("email");
+		Member fineId = ms.loginMember(memberName, email);
 	}
 
 	/**
