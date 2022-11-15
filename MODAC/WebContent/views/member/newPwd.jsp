@@ -27,7 +27,7 @@
 		새 비밀번호 <input type="text" name=updatePwd required>
 		비밀번호 재입력 <input type="text" name=checkPwd required>	
 		<button type="submit" onclick="checking()">돌아가기</button>
-	</form>
+</form>
 	<script>
 		function checking() {
 			if($("input[name=updatePwd]").val() != $("input[name=checkPwd]").val()){
