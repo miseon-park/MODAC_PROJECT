@@ -37,7 +37,7 @@ public class MemberInsertController extends HttpServlet {
 		String email = request.getParameter("email");
 		String memberNic = request.getParameter("memberNic");
 		
-		Member m = new Member(memberId, memberPwd, memberName, email, memberNic);
+		Member m = new Member(memberId, memberPwd, memberName,  memberNic, email);
 		int result = new MemberService().insertMember(m);
 		if(result > 0) {
 			HttpSession session = request.getSession();
@@ -47,6 +47,19 @@ public class MemberInsertController extends HttpServlet {
 			request.setAttribute("errorMsg", "회원가입에 실패했습니다.");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
+		
+		
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 	}
 

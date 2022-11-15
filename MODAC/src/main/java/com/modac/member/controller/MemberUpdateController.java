@@ -51,7 +51,7 @@ public class MemberUpdateController extends HttpServlet {
 					request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 				}else {
 					HttpSession session = request.getSession();
-					session.setAttribute("loginUser", updateMem);
+					session.setAttribute("loginMember", updateMem);
 					session.setAttribute("alertMsg", "성공적으로 회원정보를 수정했습니다." );
 					
 					//응답페이지 => /jsp/myPage.me

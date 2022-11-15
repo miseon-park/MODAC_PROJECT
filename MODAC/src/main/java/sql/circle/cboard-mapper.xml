@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+<entry key = "selectList">
+	
+	
+	
+		SELECT POST_NO,
+			   
+			   POST_TITLE,
+			   MEMBER_NO,
+			   READ_COUNT,
+			   CREATE_DATE
+		FROM CIRCLE C
+		
+		JOIN MEMBER M USING (MEMBER_NO)
+		WHERE  C.STATUS = 'N' AND M.STATUS ='N'
+		ORDER BY CREATE_DATE DESC
+		
+		
+		
+</entry>
+
+
+
+<entry key = "insertBoard">
+	INSERT INTO CIRCLE(BOARD_NO,POST_NO, POST_TITLE, POST_CONTENT, MEMBER_NO)
+	VALUES(10,SEQ_CIRNO.NEXTVAL, ?, ?, ?)
+
+</entry>
+<entry key = "increaseCount">
+	UPDATE CIRCLE
+	SET READ_COUNT = READ_COUNT +1
+	WHERE POST_NO = ?
+		AND STATUS ='N' 
+
+
+
+
+</entry>
+
+<entry key="selectBoard">
+	SELECT POST_NO,
+			POST_TITLE,
+			POST_CONTENT,
+			CREATE_DATE,
+			MEMBER_NO
+			
+	FROM CIRCLE C
+	
+	JOIN MEMBER  M USING (MEMBER_NO)
+	WHERE POST_NO=?
+		AND C.STATUS='N' AND M.STATUS='N'
+
+</entry>
+
+<entry key="updateBoard">
+
+	UPDATE CIRCLE
+	SET 
+		POST_TITLE = ?,
+		POST_CONTENT = ?
+	WHERE POST_NO = ?
+
+</entry>
+
+
+</properties>

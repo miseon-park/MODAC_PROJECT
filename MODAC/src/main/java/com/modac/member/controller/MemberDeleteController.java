@@ -38,11 +38,12 @@ request.setCharacterEncoding("UTF-8");
 		
 		// 세션에 담겨있는 기존의 로그인된 사용자의 정보를 얻어오기.
 		HttpSession session = request.getSession();
-		String memberId = ((Member)session.getAttribute("loginUser")).getMemberId();
+		String memberId = ((Member)session.getAttribute("loginMember")).getMemberId();
 		
-		String userPwd = request.getParameter("userPwd");
+		//String memberId = request.getParameter("memberId");
+		String memberPwd = request.getParameter("memberPwd");
 		
-		int result = new MemberService().deleteMember(memberId, userPwd);
+		int result = new MemberService().deleteMember(memberId, memberPwd);
 		
 		if(result>0) {//성공했을 => 메인페이지에 alert, 로그아웃.
 			
@@ -51,7 +52,7 @@ request.setCharacterEncoding("UTF-8");
 			//invalidate() : 세션이 만료되어 alertMsg를 못하게됨
 			//removeAttribue(키값)을 이용해서 로그인한 사용자의 정보를 지워주는 방식으로 로그아웃처리함.
 			
-			session.removeAttribute("loginUser");
+			session.removeAttribute("loginMember");
 			response.sendRedirect(request.getContextPath());
 			
 		}else {// 실패 => 에러메시지

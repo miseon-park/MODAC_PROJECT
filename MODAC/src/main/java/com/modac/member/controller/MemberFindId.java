@@ -1,7 +1,6 @@
 package com.modac.member.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,16 +12,16 @@ import com.modac.member.model.service.MemberService;
 import com.modac.member.model.vo.Member;
 
 /**
- * Servlet implementation class LoginController
+ * Servlet implementation class MemberFineId
  */
-@WebServlet("/login.me")
-public class LoginController extends HttpServlet {
+@WebServlet("/findId.me")
+public class MemberFindId extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginController() {
+    public MemberFindId() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,22 +31,18 @@ public class LoginController extends HttpServlet {
 	 */
     private MemberService ms = new MemberService();
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		request.setCharacterEncoding("UTF-8");
-		String memberId = request.getParameter("memberId");
-		String memberPwd = request.getParameter("memberPwd");
 		
-		Member loginMember = ms.loginMember(memberId, memberPwd);
+		String memberName = request.getParameter("memberName");
+		String email = request.getParameter("email");
 		
+		Member fineId = ms.findId(memberName, email);
 		
-		if(loginMember == null) {
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}else {
 			HttpSession session = request.getSession();
-			session.setAttribute("loginMember", loginMember);
-			session.setAttribute("alertMsg", "성공적으로 로그인이 되었습니다.");
-			response.sendRedirect(request.getContextPath());
-		}
+			session.setAttribute("findId", fineId);
+			request.getRequestDispatcher("views/member/SuccessFindId.jsp").forward(request, response);
+
+		
 	}
 
 	/**

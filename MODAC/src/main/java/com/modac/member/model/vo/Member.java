@@ -33,6 +33,10 @@ public class Member {
 		this.memberLevel = memberLevel;
 		this.email = email;
 	}
+	public Member(String memberPwd) {
+		this.memberPwd = memberPwd;
+	}
+	
 	
 	public Member(String memberId, String memberPwd, String memberName, String memberNic,
 			 String email) {
@@ -48,12 +52,18 @@ public class Member {
 	public Member(String memberId, String memberName, String memberNic,
 			 String email) {
 		super();
-		this.memberNo = memberNo;
+		
 		this.memberId = memberId;
 		
 		this.memberName = memberName;
 		this.memberNic = memberNic;
+		this.email = email;
 		
+	}
+	public Member(String memberName, String email) {
+		super();
+		this.memberName = memberName;
+		this.email = email;
 	}
 
 

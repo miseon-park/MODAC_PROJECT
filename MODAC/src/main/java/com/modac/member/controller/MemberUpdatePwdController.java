@@ -30,9 +30,9 @@ public class MemberUpdatePwdController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-request.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		
-		String memberId = request.getParameter("memberId");
+		String memberId = request.getParameter("userId");
 		String memberPwd = request.getParameter("memberPwd");
 		String updatePwd = request.getParameter("updatePwd");
 		

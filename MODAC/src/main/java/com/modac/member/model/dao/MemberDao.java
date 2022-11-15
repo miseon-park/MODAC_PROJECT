@@ -1,9 +1,13 @@
 package com.modac.member.model.dao;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import com.modac.common.JDBCTemplate;
@@ -13,10 +17,27 @@ public class MemberDao {
 	String fileName = MemberDao.class.getResource("/sql/member/member-mapper.xml").getPath();
 	private Properties prop = new Properties();
 	
+	public MemberDao() {
+		
+		try {
+			prop.loadFromXML(new FileInputStream(fileName));
+		} catch (InvalidPropertiesFormatException e) {
+			
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			
+			e.printStackTrace();
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+	}
+	
 	public Member loginMember(String memberId, String memberPwd, Connection conn) {
 		Member m = null;
 		PreparedStatement psmt = null;
 		ResultSet rset = null;
+		
 		String sql = prop.getProperty("loginMember");
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -44,8 +65,74 @@ public class MemberDao {
 		} finally {
 			JDBCTemplate.close(rset);
 			JDBCTemplate.close(psmt);
-		}
+		}	
 		return m;
+	}
+	/**
+	 * 회원가입
+	 * @param m
+	 * @param conn
+	 * @return
+	 */
+	public int insertMember(Member m , Connection conn) {
+	    
+	    // insert문 처리된 행의 갯수를 반환하여 result에 저장시킬것.
+	    int result = 0;
+	    
+	    PreparedStatement psmt = null;
+	    
+	    String sql = prop.getProperty("insertMember");
+	    try {
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1, m.getMemberId());
+			psmt.setString(2, m.getMemberPwd());
+			psmt.setString(3, m.getMemberName());
+			psmt.setString(4, m.getEmail());
+			psmt.setString(5, m.getMemberNic());
+			
+			result = psmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(psmt);
+		}
+	    return result;
+	}
+	
+	/**
+	 * 아이디 체크
+	 * @param conn
+	 * @param checkId
+	 * @return
+	 */
+	public int idcheck(Connection conn,String checkId) {
+	    
+	    int count = 0;
+	    PreparedStatement psmt = null;
+	    ResultSet rset = null;
+	    String sql = prop.getProperty("idCheck");
+	    try {
+            psmt = conn.prepareStatement(sql);
+            psmt.setString(1, checkId);
+            
+            rset = psmt.executeQuery();
+            
+            if(rset.next()) {
+                count = rset.getInt(1);
+            }
+            
+            
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally {
+            JDBCTemplate.close(rset);
+            JDBCTemplate.close(psmt);
+        }
+	    System.out.println(count);
+	    return count;
 	}
 	
 	
@@ -110,7 +197,7 @@ public class MemberDao {
 		return result;
 	}
 	
-public Member selectMember(String userId, Connection conn) {
+public Member selectMember(String memberId, Connection conn) {
 		
 		Member m = null;
 		PreparedStatement psmt = null;
@@ -128,7 +215,7 @@ public Member selectMember(String userId, Connection conn) {
 		try {
 			psmt = conn.prepareStatement(sql);
 			
-			psmt.setString(1, userId);
+			psmt.setString(1, memberId);
 			
 			rset = psmt.executeQuery();
 			
@@ -176,6 +263,109 @@ public int deleteMember(String memberId, String memberPwd, Connection conn) {
 		JDBCTemplate.close(psmt);
 	}
 	
+	return result;
+}
+/**
+ * 아이디 찾기
+ * @param memberName
+ * @param email
+ * @param conn
+ * @return
+ */
+public Member findId(String memberName,String email,Connection conn) {
+	Member m = null;
+	
+	PreparedStatement psmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("findId");
+	
+	
+	try {
+		psmt=conn.prepareStatement(sql);
+		
+		psmt.setString(1, memberName);
+		psmt.setString(2, email);
+		
+		rset=psmt.executeQuery();
+		
+		if(rset.next()) {
+			m = new Member();
+			m.setMemberId(rset.getString("MEMBER_ID"));
+			m.setMemberName(rset.getString("MEMBER_NAME"));	
+		}
+		
+		
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} finally {
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(psmt);
+	}
+		return m;
+}
+/**
+ * 비밀번호찾기
+ * @param memberId
+ * @param memberName
+ * @param email
+ * @param conn
+ * @return
+ */
+public Member findPwd(String memberId, String memberName, String email, Connection conn) {
+	Member m = null;
+	PreparedStatement psmt = null;
+	ResultSet rset = null;
+	String sql = prop.getProperty("findPwd");
+	
+	try {
+		psmt = conn.prepareStatement(sql);
+		
+		psmt.setString(1, memberId);
+		psmt.setString(2, memberName);
+		psmt.setString(3, email);
+		
+		rset = psmt.executeQuery();
+		if(rset.next()) {
+			m = new Member(rset.getString("MEMBER_PWD"));
+		}
+		System.out.println(m);
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+	
+	return m;
+}
+/**
+ * 비밀번호찾고 업데이트
+ * @return
+ */
+public int findUpdatePwd(String memberId, String memberName, String email, String updatePwd, Connection conn) {
+	int result = 0;
+	
+	PreparedStatement psmt =null;
+	
+	String sql = prop.getProperty("updateFindPwd");
+	try {
+		psmt = conn.prepareStatement(sql);
+		
+		psmt.setString(1, updatePwd);
+		psmt.setString(2, memberId);
+		psmt.setString(3, memberName);
+		psmt.setString(4, email);
+		
+		result = psmt.executeUpdate();
+		
+		
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} finally {
+		JDBCTemplate.close(psmt);
+	}
 	return result;
 }
 

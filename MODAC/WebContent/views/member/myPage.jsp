@@ -70,6 +70,7 @@
       
        
     %>
+    <br><br>
  <div class="content">
             <div class="content1">
 
@@ -109,7 +110,7 @@
                   </div>
                   <div class="form-floating mb-3">
                     <label for="floatingInput">EMAIL*</label>
-                    <input type="email" class="form-control" name="eamil" id="floatingInput" value="<%=email %>">
+                    <input type="email" class="form-control" name="email" id="floatingInput" value="<%=email %>">
 
                   </div>
 
@@ -117,10 +118,13 @@
                 <div align="center">
                     <button type="submit" class="btn btn-secondary btn-sm">정보변경</button>
                     <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#updatePwdForm">비밀번호 변경</button>
-                    <button type="button" class="btn btn-secondary btn-sm">회원탈퇴</button>
+                    <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#deleteForm">회원탈퇴</button>
                    </div>  
+                   
 
             </form>
+            </div>
+            </div>
             
   <div id = "updatePwdForm" class="modal" tabindex="-1">
   <div class="modal-dialog">
@@ -166,6 +170,50 @@
       		}
       	</script>
       	     
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<div id = "deleteForm" class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    
+      <div class="modal-header">
+        <h5 class="modal-title">회원탈퇴</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+ <div class="modal-body" align="center">
+ 		<b>탈퇴 후 복구가 불가능합니다.<br>
+ 			정말로 탈퇴하시겠습니까?<br><br></b>
+      	<form action="<%=contextPath%>/delete.me" method="post">
+      		
+      		<table>
+      			
+      			<tr>
+      				
+      				
+      				<td>현재 비밀번호</td>
+      				<td><input type="password" name="memberPwd" required></td>
+      			</tr>
+      			
+      		</table>
+      		<br>
+      		<button type = "submit" class = "btn btn-danger btn-sm">탈퇴하기</button>	
+      		
+      	</form>
+      	
+      	
+      	
+      
+      	
+      
+       
+        
       </div>
       
     </div>
