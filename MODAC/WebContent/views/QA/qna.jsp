@@ -41,6 +41,7 @@
 
 </head>
 <body>
+<%@ include file="../common/menubar.jsp" %>
 
         <div class="content">
             <div class="content1">
@@ -49,7 +50,7 @@
                     <a class="nav-link" href="<%=contextPath %>/noticeList">모닥불 소식</a> <br>
                     <a class="nav-link" href="#">캠핑 TIP</a> <br>
                     <a class="nav-link">Q&A</a> <br>
-                    <a class="nav-link">FAQ</a>
+                    <a class="nav-link" href="<%=contextPath%>/faqList">FAQ</a>
                   </nav>
             </div>
             <div class="content2">
@@ -63,7 +64,6 @@
                                 <option selected>검색옵션</option>
                                 <option value="1">제목</option>
                                 <option value="2">작성자</option>
-                                <option value="3">제목+작성자</option>
                             </select>
                             <input type="text" class="form-control" placeholder="검색어를 입력하세요" aria-label="Username" aria-describedby="basic-addon1" style="width: 350px;">
                             <button class="input-group-text" id="basic-addon1">검색</button>
@@ -72,11 +72,11 @@
                     </nav>
                 </div>
 
-                <% if(loginUser != null && loginUser.getMemberLevel.equals(1)){ %>
+                <%-- <% if(loginUser != null && loginUser.getMemberLevel.equals(1)){ %>
                     <div>
                         <button type="button" class="btn btn-warning" id="writeEdit">글 작성</button>
                     </div>
-                <% } %>
+                <% } %> --%>
 
                 <br><br><br>
                 <table class="table table-hover" style="text-align: center;">

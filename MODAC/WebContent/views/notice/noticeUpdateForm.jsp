@@ -55,17 +55,22 @@
           <h3>모닥불 소식</h3>
           <br>
 			
-		  <form id="enroll-form" action="<%=contextPath %>/noticeInsert" method="post">
+		  <form id="enroll-form" action="<%=contextPath %>/updateNotice" method="post">
 	          <div class="form-control" id="form-control">
 	          	<%-- <input type="hidden" name="userNo" value="<%=loginUser.getUserNo() %>"> --%>
-	              <select class="form-select" aria-label="noticeSelect">
-	                <option selected value="1">일반</option>
-	                <option value="2">필독</option>
+	              <select class="form-select" name="categoryNo" aria-label="noticeSelect">
+	                <option <% if(n.getNoticeCategory() == 1 ) { %>
+	                	selected
+	                <% } %> value="1">일반</option>
+	                <option <% if(n.getNoticeCategory() == 2 ) { %>
+	                	selected
+	                <% } %> value="2">필독</option>
 	              </select>
 	
-	              <input type="text" class="form-control" id="title" placeholder="제목을 입력해주세요." aria-label="title" value="<%= n.getNoticeTitle()%>">
+	              <input type="text" class="form-control" name = "title" id="title" placeholder="제목을 입력해주세요." aria-label="title" value="<%= n.getNoticeTitle()%>">
 	              <input type="file" class="form-control">
-	              <textarea class="form-control" style="height:500px;"><%=n.getNoticeContent() %></textarea>
+	              <textarea class="form-control" style="height:500px;" name='content'><%=n.getNoticeContent() %></textarea>
+	              <input type='hidden' name='nno' value='<%= n.getNoticeNo() %>'>
 	          </div>
 	          
 	          <br><br>
@@ -74,7 +79,7 @@
 		                
 		          <button type="button" class="btn btn-secondary" class="last1" onclick="history.back();">이전으로</button>
 		
-		          <button type="submit" class="btn btn-warning" class="last1">글올리기</button>
+		          <button type="submit" class="btn btn-warning" class="last1">수정하기</button>
 		        </div>
 		  </form>
 

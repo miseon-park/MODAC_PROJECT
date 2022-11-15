@@ -31,7 +31,7 @@ public class NoticeDetailController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// 클릭했을 때 공지사항 글번호 nno
-		int noticeNo = Integer.parseInt(request.getParameter("nno"));
+		String noticeNo = request.getParameter("nno");
 		
 		// 조회수 증가용 서비스 호출
 		int result = new NoticeService().increaseCount(noticeNo);

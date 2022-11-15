@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList , com.modac.notice.model.vo.Notice"%>
     
-<%ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list");  %>
+<%ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,7 +61,7 @@
                     <a class="nav-link" href="<%=contextPath %>/noticeList">모닥불 소식</a> <br>
                     <a class="nav-link" href="#">캠핑팁</a> <br>
                     <a class="nav-link">Q&A</a> <br>
-                    <a class="nav-link">FAQ</a>
+                    <a class="nav-link" href="<%=contextPath %>/faqList">FAQ</a>
                 </nav>
             </div>
             <div class="content2">
@@ -143,10 +143,6 @@
 							}
 						%>
 
-
-
-
-
 					</tbody>
                   </table>
                   </div> 
@@ -159,7 +155,7 @@
 					// 클릭시 해당 공지사항의 번호를 넘겨야함
 					// 해당 tr요소의 자손중에서 첫번째 td의 영역의 내용이 필요하다.
 					
-					let nno = $(this).children().eq(0).text(); // 1, 2 => '공지'를 어떻게 넘겨야할까?
+					let nno = $(this).children().eq(0).text(); 
 					// 현재 내가 클릭한 tr의 자손들중 0번째에 위치한 자식의 textnode내용을 가져온다
 					
 					// 요청할 url?키=밸류&키=밸류&키=밸류

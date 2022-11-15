@@ -42,7 +42,7 @@
                 <a class="nav-link" href="<%=contextPath %>/noticeList">모닥불 소식</a> <br>
                 <a class="nav-link" href="#">캠핑 팁</a> <br>
                 <a class="nav-link">Q&A</a> <br>
-                <a class="nav-link">FAQ</a> <br>
+                <a class="nav-link" href="<%=contextPath %>/faqList">FAQ</a> <br>
               </nav>
         </div>
 
@@ -59,9 +59,9 @@
 	                <option value="2">필독</option>
 	              </select>
 	
-	              <input type="text" class="form-control" id="title" placeholder="제목을 입력해주세요." aria-label="title">
+	              <input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요." aria-label="title">
 	              <input type="file" class="form-control">
-	              <textarea class="form-control" style="height:500px;"></textarea>
+	              <textarea class="form-control" style="height:500px;" name="content"></textarea>
 	          </div>
 	          
 	          <br><br>

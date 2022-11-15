@@ -1,30 +1,23 @@
 package com.modac.FAQ.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.modac.FAQ.model.service.FaqService;
-import com.modac.FAQ.model.vo.Faq;
-import com.modac.notice.model.service.NoticeService;
-import com.modac.notice.model.vo.Notice;
-
 /**
- * Servlet implementation class FaqListController
+ * Servlet implementation class FaqEnrollFormController
  */
-@WebServlet("/faqList")
-public class FaqListController extends HttpServlet {
+@WebServlet("/faqEnrollForm")
+public class FaqEnrollFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FaqListController() {
+    public FaqEnrollFormController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,11 +27,7 @@ public class FaqListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<Faq> list = new FaqService().selectFaqList();
-		
-		request.setAttribute("list", list);
-		
-		request.getRequestDispatcher("views/FAQ/faq.jsp").forward(request, response);
+		request.getRequestDispatcher("views/FAQ/faqEnrollForm.jsp").forward(request, response);
 	}
 
 	/**

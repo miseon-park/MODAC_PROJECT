@@ -2,8 +2,8 @@ package com.modac.FAQ.model.vo;
 
 public class Faq {
 
-	private int faqNo;
-	private int faqTitle;
+	private String faqNo;
+	private String faqTitle;
 	private String faqContent;
 	private String faqWriter;
 	
@@ -11,7 +11,7 @@ public class Faq {
 		super();
 	}
 	
-	public Faq(int faqNo, int faqTitle, String faqContent, String faqWriter) {
+	public Faq(String faqNo, String faqTitle, String faqContent, String faqWriter) {
 		super();
 		this.faqNo = faqNo;
 		this.faqTitle = faqTitle;
@@ -19,19 +19,26 @@ public class Faq {
 		this.faqWriter = faqWriter;
 	}
 
-	public int getFaqNo() {
+	public Faq(String faqNo, String faqTitle, String faqContent) {
+		super();
+		this.faqNo = faqNo;
+		this.faqTitle = faqTitle;
+		this.faqContent = faqContent;
+	}
+	
+	public String getFaqNo() {
 		return faqNo;
 	}
 
-	public void setFaqNo(int faqNo) {
+	public void setFaqNo(String faqNo) {
 		this.faqNo = faqNo;
 	}
 
-	public int getFaqTitle() {
+	public String getFaqTitle() {
 		return faqTitle;
 	}
 
-	public void setFaqTitle(int faqTitle) {
+	public void setFaqTitle(String faqTitle) {
 		this.faqTitle = faqTitle;
 	}
 

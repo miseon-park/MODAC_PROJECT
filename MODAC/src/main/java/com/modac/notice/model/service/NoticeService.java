@@ -21,7 +21,7 @@ public class NoticeService {
 	}
 	
 	
-	public int increaseCount(int noticeNo) {
+	public int increaseCount(String noticeNo) {
 		Connection conn = getConnection();
 		
 		int result = new NoticeDao().increaseCount(noticeNo, conn);
@@ -36,7 +36,7 @@ public class NoticeService {
 		return result;
 	}
 	
-	public Notice selectNotice(int noticeNo) {
+	public Notice selectNotice(String noticeNo) {
 		Connection conn = getConnection();
 		
 		Notice n = new NoticeDao().selectNotice(noticeNo, conn);
@@ -61,6 +61,42 @@ public class NoticeService {
 		close();
 		
 		return result;
+	}
+	
+	
+	public int updateNotice(Notice n) {
+		Connection conn = getConnection();
+		
+		int result = new NoticeDao().updateNotice(n, conn);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close();
+		return result;
+	}
+	
+	
+	public int deleteNotice(String noticeNo) {
+		Connection conn = getConnection();
+		
+		int result = new NoticeDao().deleteNotice(noticeNo, conn);
+		
+		commitOrRollback(result, conn);
+		
+		return result;
+	}
+	
+	public void commitOrRollback(int result, Connection conn) {
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close();
 	}
 	
 }

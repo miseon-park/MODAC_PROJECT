@@ -67,12 +67,13 @@
 <%--               <% } %> --%>
 
 
-               	<a href="<%=contextPath %>/updateNotice?nno=<%=n.getNoticeNo()%>" class="btn btn-secondary last1">수정하기</a> 
+               	<a href="<%=contextPath %>/updateForm.no?nno=<%=n.getNoticeNo()%>" class="btn btn-secondary last1">수정하기</a> 
                	<a href="<%=contextPath %>/deleteNotice?nno=<%=n.getNoticeNo()%>" class="btn btn-secondary last1">삭제하기</a> 
               
               </div>
           
           <div class="form-control">
+          	  <input type='hidden' name="nno" value="<%= n.getNoticeNo() %>">
               <br>
               <h3>&nbsp; <%=n.getNoticeTitle() %></h3>
               <br>
@@ -81,7 +82,7 @@
               <br>
               <br>
               <textarea class="form-control" style="height:500px;" disabled><%=n.getNoticeContent()%></textarea>
-
+				 
           </div>
           <br>
           <div align="center">

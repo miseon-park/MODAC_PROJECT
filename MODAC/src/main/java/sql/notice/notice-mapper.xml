@@ -14,7 +14,7 @@
 			            READ_COUNT
 			        FROM NOTICE N 
 					JOIN MEMBER M ON (MEMBER_NIC = WRITER)
-					WHERE M.STATUS = 'N' AND N.STATUS = 'N' AND CATEGORY_NO = '2'
+					WHERE M.STATUS = 'N' AND N.STATUS = 'N' AND CATEGORY_NO = '2' AND MEMBER_LEVEL = 10
 			        ORDER BY CREATE_DATE DESC, POST_NO DESC) X
 			<![CDATA[WHERE ROWNUM <= 3]]>
 
@@ -32,7 +32,7 @@
 	            READ_COUNT
 			FROM NOTICE N 
 			JOIN MEMBER M ON (MEMBER_NIC = WRITER)
-			WHERE M.STATUS = 'N' AND N.STATUS = 'N' AND CATEGORY_NO = '1'
+			WHERE M.STATUS = 'N' AND N.STATUS = 'N' AND CATEGORY_NO = '1' AND MEMBER_LEVEL = 10
 			ORDER BY CREATE_DATE DESC, POST_NO DESC) X
 	</entry>
 	
@@ -75,4 +75,40 @@
 		)
 	</entry>
 	
+	<entry key="updateNotice">
+		UPDATE NOTICE
+		SET NOTICE_TITLE = ?,
+			NOTICE_CONTENT = ?,
+			CATEGORY_NO = ?
+		WHERE POST_NO = ?
+			AND STATUS = 'N'
+	
+	</entry>
+	
+	<entry key="deleteNotice">
+		UPDATE NOTICE
+		SET STATUS = 'Y'
+		WHERE POST_NO = ?
+	</entry>
+	
 </properties>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

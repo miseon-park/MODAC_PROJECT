@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd"> 
+<properties>
+	<entry key="selectFaqList">
+		SELECT
+			POST_NO,
+			POST_TITLE,
+			POST_CONTENT
+		FROM FAQ
+	</entry>
+	
+	<entry key="selectFaq">
+		SELECT 
+			POST_NO,
+			POST_TITLE,
+			POST_CONTENT
+		FROM FAQ
+		WHERE POST_NO = ?
+	</entry>
+
+</properties>
