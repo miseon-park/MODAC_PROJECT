@@ -23,10 +23,10 @@
 		<input type="hidden" value="${memberName }" name="memberName"/>
 		<input type="hidden" value="${email }" name="email"/>
 	</div>
-	${memberId },${memberName },${email }<br>
+	${memberId },<br>${memberName },<br>${email }<br>
 		새 비밀번호 <input type="text" name=updatePwd required>
 		비밀번호 재입력 <input type="text" name=checkPwd required>	
-		<button type="submit" onclick="checking()">돌아가기</button>
+		<button type="submit" onclick="checking()">변경하기</button>
 	</form>
 	<script>
 		function checking() {
