@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.modac.member.model.vo.Member"%>
     <% 
-        String contextPath = request.getContextPath();
+/*         String contextPath = request.getContextPath();
 	    Member loginMember = (Member) session.getAttribute("loginMember");
-	    String alertMsg = (String) session.getAttribute("alertMsg");
+	    String alertMsg = (String) session.getAttribute("alertMsg"); */
 
     %>
 <!DOCTYPE html>
@@ -17,6 +17,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> -->
 <style>
 li{ list-style: none; }
 a{ text-decoration: none; }
@@ -86,6 +87,7 @@ h2{
 </style>
 </head>
 <body>
+<%@ include file="../common/menubar.jsp" %>
 	<script>
 		let msg = "<%= alertMsg%>"; // let msg = 성공적으로 로그인이 되었습니다.
 		if(msg != "null"){
@@ -97,25 +99,32 @@ h2{
 		}
 	</script>
 		<div id="back">
-		<%-- <%if(loginMember == null) {%> --%>
+<%-- 		<%if(loginMember == null) {%> --%>
      		<form action="<%=contextPath %>/login.me" method="post">
 				<div class="login" id="login_form">
 				<h2>로그인</h2>
 				     <input id="loginId" type="text" name="memberId" placeholder="아이디">
 				     <input id="loginPwd" type="password" name="memberPwd" placeholder="비밀번호">
 				     <input type="checkbox"><span>로그인유지</span>
-					<button id="loginbtn" style="background-color: #F0A500; color: white;" >로그인</button>
+
+<!-- 				<div class="alert alert-warning alert-dismissible fade show"
+					role="alert">
+					<strong>로그인 에러!</strong> 아이디 또는 비밀번호가 일치하지 않습니다.
+					<button type="button" class="close" data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div> -->
+
+
+				<button id="loginbtn" style="background-color: #F0A500; color: white;" >로그인</button>
 			      <ul>
-			          <li><a href="<%=contextPath%>/views/member/fineId.jsp">아이디/비밀번호찾기</a></li>
-			          <li><a href="<%=contextPath %>/views/member/memberEnrollForm.jsp">회원가입</a></li>
+			          <li><a href="<%=contextPath%>/MemberFineIdPwd.me">아이디/비밀번호찾기</a></li>
+			          <li><a href="<%=contextPath %>/enrollFrom.me">회원가입</a></li>
 			      </ul>
   				</div>
  			</form>
 		</div>
-<%-- 		<%}else {%>
-
-	<%} %> --%>
-
 </body>
 
 
