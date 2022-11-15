@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%
+    /* String contextPath = request.getContextPath(); */
+    %>
     
     
 <!DOCTYPE html>
@@ -49,7 +52,7 @@
         
 
         #divid{
-            border: 1px solid black;
+            /* display:inline; */
             text-align : center;
             margin-top: 50px;
         }
