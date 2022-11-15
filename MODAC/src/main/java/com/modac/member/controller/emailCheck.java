@@ -1,28 +1,25 @@
 package com.modac.member.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.modac.member.model.service.MemberService;
-import com.modac.member.model.vo.Member;
 
 /**
- * Servlet implementation class LoginController
+ * Servlet implementation class emailCheck
  */
-@WebServlet("/login.me")
-public class LoginController extends HttpServlet {
+@WebServlet("/emailCheck.me")
+public class emailCheck extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginController() {
+    public emailCheck() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,24 +27,15 @@ public class LoginController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    private MemberService ms = new MemberService();
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String checkEmail = request.getParameter("checkEmail");
 		
-		request.setCharacterEncoding("UTF-8");
-		String memberId = request.getParameter("memberId");
-		String memberPwd = request.getParameter("memberPwd");
+		int count = new MemberService().emailCheck(checkEmail);
 		
-		Member loginMember = ms.loginMember(memberId, memberPwd);
-		System.out.println(loginMember);
-		
-		if(loginMember == null) {
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		if(count>0) {
+			response.getWriter().print("NNNNN"); // 중복된아이디가있음
 		}else {
-			
-			HttpSession session = request.getSession();
-			session.setAttribute("loginMember", loginMember);
-			session.setAttribute("alertMsg", "성공적으로 로그인이 되었습니다.");
-			response.sendRedirect(request.getContextPath());
+			response.getWriter().print("NNNNY");
 		}
 	}
 

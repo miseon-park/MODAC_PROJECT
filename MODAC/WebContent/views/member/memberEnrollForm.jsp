@@ -88,7 +88,6 @@
         }
 
 
-
     </style>
 </head>
 <body>
@@ -122,6 +121,9 @@
         <div>
             <span>이메일</span>
             <input id="email" type="text" placeholder="이메일" name="email" required >
+            <p style="color:red; font-size: 15px;" id="checkemail">이메일이 중복되었습니다! 다시입력해주세요</p>
+            
+                
         </div>
         <div>
             <span>닉네임</span>
@@ -132,6 +134,8 @@
 		</form>
     </div>
     <script>
+        $('#checkemail').hide();
+
         function idCheck(){
             let $memberId = $("#enroll-form input[name=memberId]");
 
@@ -144,7 +148,7 @@
                         $memberId.focus();
                     }else{
                         if(confirm("사용가능한 아이디 입니다. 사용하시겠습니까?")){
-                            $("#inserCheck").removeAttr("disabled")
+                            // $("#inserCheck").removeAttr("disabled")
                             $memberId.attr("readonly",true);
                         } else {
                         	
@@ -155,6 +159,23 @@
                     console.log(req,err,gg,"아이디 중복체크");
                 }
             })
+        }
+        function emailCheck(){
+        	let $email = $("#enroll-form input[name=email]");
+        	$.ajax({
+        		url : "<%=request.getContextPath()%>/emailCheck.me",
+        		data : {checkEmail : $email.val()},
+        		success : function(result) {
+					if(result == "NNNNN"){
+						$("#checkemail").show();
+					}else{
+                        $("#inserCheck").removeAttr("disabled")
+                    }
+				},
+                error : function(){
+                    console.log("이메일중복체크");
+                }
+        	})
         }
     </script>
 </body>

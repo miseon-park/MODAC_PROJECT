@@ -65,5 +65,11 @@
 		WHERE MEMBER_ID = ?
 	</entry>
 	
+	<entry key="emailCheck">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE EMAIL = ?
+	</entry>
+	
 	
 </properties>

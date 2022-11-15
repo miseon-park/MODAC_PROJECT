@@ -110,5 +110,16 @@ public class MemberService {
 		JDBCTemplate.close();
 		return updateMem;
 	}
+	/**
+	 * 이메일 중복 체크
+	 * @param checkEamil
+	 * @return
+	 */
+	public int emailCheck(String checkEmail) {
+	    Connection conn = JDBCTemplate.getConnection();
+	    int count = new MemberDao().emailCheck(conn, checkEmail);
+	    JDBCTemplate.close();
+	    return count;
+	}
 	
 }

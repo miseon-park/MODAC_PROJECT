@@ -204,6 +204,7 @@ public class MemberDao {
 			psmt.setString(3, email);
 			
 			rset = psmt.executeQuery();
+			
 			if(rset.next()) {
 				m = new Member(rset.getString("MEMBER_PWD"));
 			}
@@ -263,6 +264,7 @@ public class MemberDao {
 			psmt.setString(1, memberId);
 			
 			rset = psmt.executeQuery();
+			
 				if(rset.next()) {
 					m = new Member(rset.getString("MEMBER_NO"),
 							rset.getString("MEMBER_ID"),
@@ -283,5 +285,30 @@ public class MemberDao {
 			JDBCTemplate.close(psmt);
 		}
 		return m;
+	}
+	
+	public int emailCheck(Connection conn, String checkEmail) {
+	    int count = 0;
+	    PreparedStatement psmt = null;
+	    ResultSet rset = null;
+	    String sql = prop.getProperty("emailCheck");
+	    try {
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1, checkEmail);
+			
+			rset = psmt.executeQuery();
+			
+			if(rset.next()) {
+				count=rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+            JDBCTemplate.close(rset);
+            JDBCTemplate.close(psmt);
+		}
+	    return count;
 	}
 }
