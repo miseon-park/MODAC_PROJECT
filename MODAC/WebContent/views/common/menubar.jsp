@@ -212,7 +212,7 @@
     <br> 
 
     <div id="image">
-        <img src="/resources/최종로고_1.png" width="300px" alt="정상적 출력 실패">
+        <a href="<%=contextPath %>"><img src="/resources/최종로고_1.png" width="300px" alt="정상적 출력 실패"></a>
     </div>
     
     
