@@ -45,8 +45,8 @@
                 <a class="nav-link active" aria-current="page" href="<%=contextPath %>/noticeList"><h3>공지사항</h3></a><br><br>
                 <a class="nav-link" href="<%=contextPath %>/noticeList">모닥불 소식</a> <br>
                 <a class="nav-link" href="#">캠핑 팁</a> <br>
-                <a class="nav-link" href="">Q&A</a> <br>
-                <a class="nav-link" href="">FAQ</a> <br>
+                <a class="nav-link" href="<%=contextPath%>/qaList">Q&A</a> <br>
+                <a class="nav-link" href="<%=contextPath%>/faqList">FAQ</a> <br>
               </nav>
         </div>
 
