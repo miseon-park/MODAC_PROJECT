@@ -15,7 +15,9 @@ public class CampReview {
 	private String status;
 	private String tagName;
 	
-	
+	public CampReview() {
+		super();
+	}
 
 	public CampReview(String boardNo, String postNo, String postTitle, String postContent, String memberNo,
 			Date createDate, int readCount, int tagNo, String status, String tagName) {
@@ -52,7 +54,6 @@ public class CampReview {
 		this.memberNo = memberNo;
 		this.createDate = createDate;
 	}
-	
 	
 	public String getBoardNo() {
 		return boardNo;

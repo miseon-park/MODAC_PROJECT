@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.modac.campReview.model.vo.CampReview"%>
+<%
+	CampReview cr = (CampReview)request.getAttribute("cr");
+%>
 <!DOCTYPE html>
 <html>
 <head><script type="text/javascript" src="/___vscode_livepreview_injected_script"></script>
@@ -46,14 +49,14 @@
                 <h3>캠핑장 리뷰</h3>
               <br>
               
-              <form id="enroll-form" action="<%=contextPath %>/insert.cr" method="post">
+              <form id="enroll-form" action="<%=contextPath %>/update.cr" method="post">
               
-              <input type="hidden" name="memberNo" value="<%=loginMember.getMemberNo() %>">
+              <input type="hidden" name="crno" value="<%=cr.getPostNo() %>">
 	              
 	              <div class="form-control">
-	                  <input type="text" class="form-control" placeholder="제목을 입력해주세요." name="title" aria-label="title">
+	                  <input type="text" class="form-control" placeholder="제목을 입력해주세요." aria-label="title" value="<%=cr.getPostTitle()%>">
 	                  <input type="file" class="form-control">
-	                  <textarea class="form-control" style="height:500px;" name="content"></textarea>
+	                  <textarea class="form-control" style="height:500px;"><%=cr.getPostContent()%></textarea>
 	
 	                  <div class="form-control">
 	                  <div class=" btn-group-sm" role="group" aria-label="Basic checkbox toggle button group">
@@ -77,15 +80,15 @@
 	                    <label class="btn btn-outline-primary" for="btncheck6">#주변 볼거리가 많아요</label>
 	                  </div>
 	                  </div>
-	            <div align="center">
-                
-                <button type="button" class="btn btn-secondary" class="last1" onclick="history.back();">목록으로</button>
-
-                <button type="submit" class="btn btn-secondary" class="last1">등록하기</button>
-              </div>
 	              </div>
 	          </form>
 	              <br>
+              <div align="center">
+                
+                <button type="button" class="btn btn-secondary" class="last1" onclick="history.back();">목록으로</button>
+
+                <button type="button" class="btn btn-secondary" class="last1">수정하기</button>
+              </div>
               <br>
 
 

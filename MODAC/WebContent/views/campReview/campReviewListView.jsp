@@ -69,31 +69,26 @@
 			<br>
 			<h3>캠핑장 리뷰</h3>
 			<br>
-			<div>
 				<nav class="navbar">
 					<form class="container-fluid">
-						<div class="input-group">
-							<button class="btn btn-outline-secondary dropdown-toggle"
-								type="button" data-bs-toggle="dropdown" aria-expanded="false">검색옵션</button>
-							<ul class="dropdown-menu">
-								<li><a class="dropdown-item" href="#">제목</a></li>
-								<li><a class="dropdown-item" href="#">작성자</a></li>
-								<li><a class="dropdown-item" href="#">제목+작성자</a></li>
-							</ul>
-							<input type="text" class="form-control" placeholder="검색어를 입력하세요"
-								aria-label="Username" aria-describedby="basic-addon1">
-							<button class="input-group-text" id="basic-addon1">검색</button>
-
-						</div>
-					</form>
-
-
+                        <div class="input-group">
+                            <select class="form-select" aria-label="Default select example" style="width:25%;">
+                                <option selected>검색옵션</option>
+                                <option value="1">제목</option>
+                                <option value="2">작성자</option>
+                                <option value="3">제목+작성자</option>
+                            </select>
+                            <input type="text" class="form-control" placeholder="검색어를 입력하세요" aria-label="Username" aria-describedby="basic-addon1" style="width: 60%;">
+                            <button class="input-group-text" id="basic-addon1">검색</button>
+                        </div>
+                        </form>
 					<br>
 				</nav>
-			</div>
 
 			<div class="list-area">
-				<a href="<%=contextPath %>/enrollForm.cr" class="btn btn-secondary btn-sm write">글쓰기</a> <br>
+				<div align="right" class="insert-area">
+	               	<a href="<%=contextPath %>/enrollForm.cr" class="btn btn-secondary last1">글쓰기</a> 
+	            </div>
 				<br>
 				<table class="table table-hover list">
 					<thead>
@@ -128,14 +123,13 @@
 				$(function(){
 					$(".list>tbody>tr").click(function(){
 						let crno = $(this).children().eq(0).text();
-								
 						location.href= '<%=contextPath%>/detail.cr?crno=' + crno;
 					});
 				})
 			</script>
 			
 
-			<div class="btn-group" aria-label="Basic example">
+			<div class="btn-group" aria-label="Basic example" align="center">
 				<button type="button" class="btn"><<</button>
 				<button type="button" class="btn">1</button>
 				<button type="button" class="btn">2</button>

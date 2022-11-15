@@ -13,5 +13,62 @@
 		WHERE M.STATUS = 'N' AND C.STATUS = 'N' 
 		ORDER BY CREATE_DATE DESC, POST_NO DESC
 	</entry>
+	
+	<entry key="increaseCount">
+		UPDATE CAMP_REVIEW
+		SET READ_COUNT = READ_COUNT + 1
+		WHERE POST_NO = ? 
+		  AND STATUS = 'N' 
+	</entry>
+	
+	<entry key="selectCampReview">
+		SELECT POST_NO,
+		       POST_TITLE,
+		       POST_CONTENT,
+		       MEMBER_NIC,
+		       CREATE_DATE
+		FROM CAMP_REVIEW C
+		JOIN MEMBER M USING(MEMBER_NO)
+		WHERE POST_NO = ?
+		  AND M.STATUS = 'N' AND C.STATUS = 'N'
+	</entry>
+	
+	<entry key="insertCampReview">
+		INSERT INTO CAMP_REVIEW
+		(
+			BOARD_NO,
+			POST_NO,
+			POST_TITLE,
+			POST_CONTENT,
+			MEMBER_NO
+		)
+		VALUES
+		(
+			6,
+			SEQ_REVNO.NEXTVAL,
+			?,
+			?,
+			?
+		)
+	</entry>
+	
+	<entry key = "updateCampReview">
+		UPDATE CAMP_REVIEW
+		SET POST_TITLE = ?,
+			POST_CONTENT = ?
+		WHERE POST_NO = ?
+		  AND STATUS = 'N' 
+	</entry>
+	
+	<entry key="deleteCampReview">
+		UPDATE CAMP_REVIEW
+		SET STATUS = 'Y'
+		WHERE POST_NO = ?
+	</entry>
+	
+	
+	
+	
+	
 
 </properties>

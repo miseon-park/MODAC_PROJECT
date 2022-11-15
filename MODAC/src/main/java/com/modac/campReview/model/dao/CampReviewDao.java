@@ -116,7 +116,77 @@ public class CampReviewDao {
 		 
 	 }
 	
+	 public int insertCampReview(CampReview cr, Connection conn) {
+		 
+		 int result = 0;
+		 
+		 PreparedStatement psmt = null;
+		 
+		 String sql = prop.getProperty("insertCampReview");
+		 
+		 try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, cr.getPostTitle());
+			psmt.setString(2, cr.getPostContent());
+			psmt.setString(3, cr.getMemberNo());
+
+			result = psmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(psmt);
+		}
+		 return result;
+	 }
 	
+	 public int updateCampReview(CampReview cr, Connection conn) {
+		 
+		 int result = 0;
+		 
+		 PreparedStatement psmt = null;
+		 
+		 String sql = prop.getProperty("updateCampReview");
+		 
+		 try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, cr.getPostTitle());
+			psmt.setString(2, cr.getPostContent());
+			psmt.setString(3, cr.getMemberNo());
+			
+			result = psmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(psmt);
+		}
+		 return result;
+		 
+	 }
+	 
+	 public int deleteCampReview(int CampReviewNo, Connection conn) {
+		 
+		 int result = 0;
+
+		 PreparedStatement psmt = null;
+		 
+		 String sql = prop.getProperty("deleteCampReview");
+		 
+		 try {
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setInt(1, CampReviewNo);
+			
+			result = psmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(psmt);
+		}
+		return result;
+		 
+	 }
 	
 	
 	

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+
+<entry key="loginMember">
+		SELECT * FROM MEMBER
+		WHERE MEMBER_ID = ?
+		AND MEMBER_PWD = ?
+		AND STATUS ='N'
+	</entry>
+	
+	<entry key="insertMember">
+		INSERT INTO MEMBER (MEMBER_NO,
+							MEMBER_ID,
+							MEMBER_PWD,
+							"MEMBER_NAME",
+							"EMAIL",
+							"MEMBER_NIC")
+							VALUES
+							(
+							SEQ_UNO.NEXTVAL,
+							?,
+							?,
+							?,
+							?,
+							?
+							)
+	</entry>
+	
+	<entry key="idCheck">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE MEMBER_ID = ?
+	</entry>
+
+<entry key="updateMember">
+	UPDATE MEMBER
+	SET MEMBER_NAME=?,
+		MEMBER_NIC=?,
+		EMAIL = ? ,	
+		MODI_DATE = SYSDATE
+	WHERE MEMBER_ID = ?
+	
+	</entry>
+	
+	<entry key = "selectMember">
+	SELECT * 
+	FROM MEMBER
+	WHERE MEMBER_ID = ?
+		AND STATUS = 'N'
+	</entry>
+	
+	<entry key = "updatePwdMember">
+		UPDATE MEMBER
+		SET MEMBER_PWD = ?,
+			MODI_DATE = SYSDATE
+		WHERE MEMBER_ID = ? AND MEMBER_PWD = ?
+	</entry>
+	
+	<entry key = "deleteMember">
+		UPDATE MEMBER
+		SET STATUS = 'N'
+			, MODI_DATE = SYSDATE
+			WHERE MEMBER_ID = ?
+			  AND MEMBER_PWD = ?
+	</entry>
+</properties>
