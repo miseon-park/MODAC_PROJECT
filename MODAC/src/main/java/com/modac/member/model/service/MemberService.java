@@ -40,7 +40,7 @@ public class MemberService {
 	        JDBCTemplate.rollback(conn);
 	    }
 	    JDBCTemplate.close();
-	    
+	    System.out.println("service : " + result);
 	    return result;
 	}
 	/**

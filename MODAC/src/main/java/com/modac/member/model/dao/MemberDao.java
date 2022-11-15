@@ -103,6 +103,7 @@ public class MemberDao {
 		} finally {
 			JDBCTemplate.close(psmt);
 		}
+	    System.out.println("dao : " + result);
 	    return result;
 	}
 	

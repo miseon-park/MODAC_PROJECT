@@ -39,6 +39,7 @@ public class MemberInsertController extends HttpServlet {
 		
 		Member m = new Member(memberId, memberPwd, memberName,  memberNic, email);
 		int result = new MemberService().insertMember(m);
+		System.out.println("controller : "+result);
 		if(result > 0) {
 			HttpSession session = request.getSession();
 			session.setAttribute("alertMsg", "회원가입에 성공했습니다.");
