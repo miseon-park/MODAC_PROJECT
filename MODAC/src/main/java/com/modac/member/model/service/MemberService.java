@@ -69,15 +69,6 @@ public class MemberService {
 		return m;
 		
 	}
-	/**
-	 * 
-	 */
-	/*
-	 * public Member updatePwd(String memberPwd, String updatePwd) { Connection conn
-	 * = JDBCTemplate.getConnection();
-	 * 
-	 * }
-	 */
 	
 	/**
 	 * 비밀번호찾기

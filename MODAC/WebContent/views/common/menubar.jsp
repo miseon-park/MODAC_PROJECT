@@ -183,9 +183,9 @@
 
             <nav id="mini" >
                 <ul id="miniCon">
-                    <li><a href="views/member/login.jsp">로그인</a></li>
-                    <li><a href="<%=contextPath %>/enrollFrom.me">회원가입</a></li>
-                    <li><a href="<%=contextPath%>/views/member/fineId.jsp">아이디·비밀번호 찾기</a></li>
+                    <li><a href="<%=contextPath%>/MemberloginForm.me">로그인</a></li>
+                    <li><a href="<%=contextPath%>/enrollFrom.me">회원가입</a></li>
+                    <li><a href="<%=contextPath%>/MemberFineIdPwd.me">아이디·비밀번호 찾기</a></li>
                 </ul>
             </nav>
 		

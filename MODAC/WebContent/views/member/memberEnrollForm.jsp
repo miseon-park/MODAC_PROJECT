@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%
-    String contextPath = request.getContextPath();
+/*     String contextPath = request.getContextPath();
     
-    String alertMsg = (String) session.getAttribute("alertMsg"); 
+    String alertMsg = (String) session.getAttribute("alertMsg");  */
     
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>B CLASS</title>
+<title>회원가입</title>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -92,6 +92,7 @@
     </style>
 </head>
 <body>
+<%@ include file="../common/menubar.jsp" %>
     <div id="wrapper">
         <h1>회원가입</h1>
         <hr>

@@ -112,32 +112,30 @@
 	            <span>이메일</span><input name="email" id="email" type="text" placeholder="이메일을 입력해주세요">
 	        </div>
 	        <div>
-	            <%-- <p class="check" id="check">${check}</p><br/> --%>
+	            <p class="check" id="check">${check}</p><br/>
 	            <button class="button" id="btn" type="submit" onclick="id_search();">아이디찾기</button>
 	        </div>
         </form>
 	
         <script>
-/*            $("#memberName").focusout(function(){
+            $("#memberName").focusout(function(){
+                if($('#memberName').val() == ""){
+                        $('#check').text('이름을 입력해주세요.');
+                        $('#check').css('color', 'red');
                 
-           if($('#memberName').val() == ""){
-                 $('#check').text('이름을 입력해주세요.');
-                   $('#check').css('color', 'red');
-         
-           }else{
-               $('#check').hide();
-           }
-           });
+                }else{
+                    $('#check').hide();
+                }
+            });
            
             $("#email").focusout(function(){
-           if($('#email').val() == ""){
-                 $('#check').text('이메일을 입력해주세요');
-                   $('#check').css('color', 'red');
-           }else{
-               $('#check').hide();
-           }
-           }); */
-            
+                if($('#email').val() == ""){
+                        $('#check').text('이메일을 입력해주세요');
+                        $('#check').css('color', 'red');
+                }else{
+                    $('#check').hide();
+                }
+            });
             
     </script>
     </div>    
