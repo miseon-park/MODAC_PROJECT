@@ -1,11 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.modac.member.model.vo.Member"%>
-    <% 
-        String contextPath = request.getContextPath();
-	    Member loginMember = (Member) session.getAttribute("loginMember");
-	    String alertMsg = (String) session.getAttribute("alertMsg");
-
-    %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -86,6 +80,7 @@ h2{
 </style>
 </head>
 <body>
+	<%@ include file = "../common/menubar.jsp" %>
 
 		<div id="back">
      		<form action="<%=contextPath %>/login.me" method="post">
@@ -96,8 +91,8 @@ h2{
 				     <input type="checkbox"><span>로그인유지</span>
 					<button id="loginbtn" style="background-color: #F0A500; color: white;" >로그인</button>
 			      <ul>
-			          <li><a href="#">아이디/비밀번호찾기</a></li>
-			          <li><a href="<%=contextPath %>/views/member/memberEnrollForm.jsp">회원가입</a></li>
+			          <li><a href="<%=contextPath%>/MemberFineIdPwd.me">아이디/비밀번호찾기</a></li>
+			          <li><a href="<%=contextPath %>/enrollFrom.me">회원가입</a></li>
 			      </ul>
   				</div>
  			</form>

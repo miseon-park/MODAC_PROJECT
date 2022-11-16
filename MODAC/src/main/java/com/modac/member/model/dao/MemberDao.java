@@ -32,6 +32,14 @@ public class MemberDao {
 		}		
 	}
 	
+	
+	/**
+	 * 로그인
+	 * @param memberId
+	 * @param memberPwd
+	 * @param conn
+	 * @return
+	 */
 	public Member loginMember(String memberId, String memberPwd, Connection conn) {
 		Member m = null;
 		PreparedStatement psmt = null;
@@ -68,6 +76,14 @@ public class MemberDao {
 		return m;
 	}
 	
+	
+	
+	/**
+	 * 회원가입
+	 * @param m
+	 * @param conn
+	 * @return
+	 */
 	public int insertMember(Member m , Connection conn) {
 	    
 	    // insert문 처리된 행의 갯수를 반환하여 result에 저장시킬것.
@@ -96,6 +112,94 @@ public class MemberDao {
 	}
 	
 	
+	/**
+	 * 아이디 체크
+	 * @param conn
+	 * @param checkId
+	 * @return
+	 */
+	public int idcheck(Connection conn,String checkId) {
+	    
+	    int count = 0;
+	    PreparedStatement psmt = null;
+	    ResultSet rset = null;
+	    String sql = prop.getProperty("idCheck");
+	    try {
+            psmt = conn.prepareStatement(sql);
+            psmt.setString(1, checkId);
+            
+            rset = psmt.executeQuery();
+            
+            if(rset.next()) {
+                count = rset.getInt(1);
+            }
+            
+            
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally {
+            JDBCTemplate.close(rset);
+            JDBCTemplate.close(psmt);
+        }
+	    System.out.println(count);
+	    return count;
+	}
+	
+	
+	
+	/**
+	 * 아이디 찾기
+	 * @param memberName
+	 * @param email
+	 * @param conn
+	 * @return
+	 */
+	public Member fineId(String memberName,String email,Connection conn) {
+		Member m = null;
+		
+		PreparedStatement psmt = null;
+		
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("fineId");
+		
+		
+		try {
+			psmt=conn.prepareStatement(sql);
+			
+			psmt.setString(1, memberName);
+			psmt.setString(2, email);
+			
+			rset=psmt.executeQuery();
+			
+			if(rset.next()) {
+				m = new Member();
+				m.setMemberId(rset.getString("MEMBER_ID"));
+				m.setMemberName(rset.getString("MEMBER_NAME"));	
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(psmt);
+		}
+			return m;
+	}
+	
+	
+	
+	/**
+	 * 비밀번호찾기
+	 * @param memberId
+	 * @param memberName
+	 * @param email
+	 * @param conn
+	 * @return
+	 */
 	public Member findPwd(String memberId, String memberName, String email, Connection conn) {
 		Member m = null;
 		PreparedStatement psmt = null;
@@ -122,6 +226,81 @@ public class MemberDao {
 		return m;
 		
 	}
+	
+	
+	
+	/**
+	 * 비밀번호찾고 업데이트
+	 * @return
+	 */
+	public int fineUpdatePwd(String memberId, String memberName, String email, String updatePwd, Connection conn) {
+		int result = 0;
+		
+		PreparedStatement psmt =null;
+		
+		String sql = prop.getProperty("updateFinePwd");
+		try {
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1, updatePwd);
+			psmt.setString(2, memberId);
+			psmt.setString(3, memberName);
+			psmt.setString(4, email);
+			
+			result = psmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(psmt);
+		}
+		return result;
+	}
+	
+	
+	/**
+	 * 맴버커밋
+	 * @param memberId
+	 * @param conn
+	 * @return
+	 */
+	public Member selectMember(String memberId, Connection conn) {
+		Member m = null;
+		PreparedStatement psmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectMember");
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1, memberId);
+			
+			rset = psmt.executeQuery();
+				if(rset.next()) {
+					m = new Member(rset.getString("MEMBER_NO"),
+							rset.getString("MEMBER_ID"),
+							rset.getString("MEMBER_PWD"),
+							rset.getString("MEMBER_NAME"),
+							rset.getString("MEMBER_NIC"),
+							rset.getString("STATUS"),
+							rset.getDate("IN_DATE"),
+							rset.getDate("MODI_DATE"),
+							rset.getInt("MEMBER_LEVEL"),
+							rset.getString("EMAIL"));
+				}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(psmt);
+		}
+		return m;
+	}
+	
 	
 	
 	

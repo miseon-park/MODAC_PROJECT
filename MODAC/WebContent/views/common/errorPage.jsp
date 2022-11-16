@@ -12,7 +12,6 @@
 </head>
 <body>
 	<h1 style="color:red; text-align:center;"><%=errorMsg %></h1>
-	<h1>로그인에 실패</h1>
 	
 </body>
 </html>

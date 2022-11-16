@@ -183,9 +183,9 @@
 
             <nav id="mini" >
                 <ul id="miniCon">
-                    <li><a href="views/member/login.jsp">로그인</a></li>
-                    <li><a href="views/member/memberEnrollForm.jsp">회원가입</a></li>
-                    <li><a href="views/member/findPwd.jsp">아이디·비밀번호 찾기</a></li>
+                    <li><a href="<%=contextPath %>/MemberloginForm.me">로그인</a></li>
+                    <li><a href="<%=contextPath %>/enrollFrom.me">회원가입</a></li>
+                    <li><a href="<%=contextPath%>/MemberFineIdPwd.me">아이디·비밀번호 찾기</a></li>
                 </ul>
             </nav>
 		
@@ -195,7 +195,7 @@
 			<div id="member-info" class="menu">
 				<b><%=loginMember.getMemberNic() %></b> 님 환영합니다! :)<br>
 				<div style="margin-top: 5px;">
-                    <a href="">로그아웃</a>
+                    <a href="<%=contextPath%>/logout.me">로그아웃</a>
                     <a href="">마이페이지</a>
 				</div>
                 <br clear="both">
@@ -212,7 +212,9 @@
     <br> 
 
     <div id="image">
-        <img src="/resources/최종로고_1.png" width="300px" alt="정상적 출력 실패">
+        <a href="<%=contextPath%>">
+            <img src="<%=contextPath %>/resources/최종로고_1.png" width="300px" alt="정상적 출력 실패" >
+        </a>
     </div>
     
     

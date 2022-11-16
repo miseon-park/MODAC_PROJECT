@@ -111,15 +111,16 @@
     
 </head>
 <body>
+	
 
 	<form action="<%=contextPath %>/findPw.me" method="post" class="content">
 	    <div id="wrapper">
 	        <div id="fine">
 	            <div id="fineid">
-	                <button class="button">아이디찾기</button>
+	                <button class="button" onclick="location.href ='<%=contextPath %>/views/member/fineId.jsp'">아이디찾기</button>
 	            </div>
 	            <div id="finepwd">
-	                <button class="button">비밀번호찾기</button>
+	                <button class="button" onclick="location.href = '<%=contextPath%>/views/member/findPwd.jsp'">비밀번호찾기</button>
 	            </div> 
 	        </div>
 	        <div id="divid">
@@ -138,7 +139,7 @@
 	            <button id="btn" class="button" type="submit">비밀번호찾기</button>
 	        </div>
 	    </div>
-	</form>
+    </form>
 
 
     <script>

@@ -45,7 +45,49 @@ public class MemberService {
 	
 	
 	
+	/**
+	 * 
+	 * @param checkId => 회원가입 아이디 체크
+	 * @return
+	 */
+	public int idcheck(String checkId) {
+	    Connection conn = JDBCTemplate.getConnection();
+	    int count = new MemberDao().idcheck(conn, checkId);
+	    JDBCTemplate.close();
+	    return count;
+	}
 	
+	
+	
+	
+	
+	
+	/**
+	 * 아이디 찾기
+	 * @param memberName
+	 * @param email
+	 * @return
+	 */
+	public Member fineId(String memberName, String email) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		Member m = new MemberDao().fineId(memberName, email, conn);
+		JDBCTemplate.close();
+		
+		return m;
+		
+	}
+	
+	
+	
+	
+	/**
+	 * 비밀번호찾기
+	 * @param memberId
+	 * @param memberName
+	 * @param email
+	 * @return
+	 */
 	public Member findPwd(String memberId, String memberName, String email) {
 		
 		Connection conn = JDBCTemplate.getConnection();
@@ -56,6 +98,31 @@ public class MemberService {
 		
 		return m;
 	}
+	
+	
+	/**
+	 * 비밀번호찾고변경
+	 */
+	public Member fineupdatePwd(String memberId, String memberName, String email, String updatePwd) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		Member updateMem = null;
+		
+		int result = 0;
+		
+		result = new MemberDao().fineUpdatePwd(memberId, memberName, email, updatePwd,conn);
+		System.out.println("result : "+result);
+		if(result > 0){
+			JDBCTemplate.commit(conn);
+			updateMem = new MemberDao().selectMember(memberId,conn);
+			System.out.println("updateMem Service : " + updateMem);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close();
+		return updateMem;
+	}
+	
 	
 	
 }

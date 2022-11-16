@@ -9,6 +9,12 @@
 
 <style>
 
+#main-img{
+	text-align: center;
+	margin-left: 0px;
+	margin-bottom: 100px;
+}
+
 #where{
         background-color: rgb(230, 213, 184);
         text-align: center;
@@ -75,6 +81,10 @@
 <body>
 
 	<%@ include file="/views/common/menubar.jsp" %>
+
+	<div id="main-img">
+		<img src="<%= request.getContextPath() %>/resources/메인 홈페이지 배너.png" alt="이미지 로딩 실패" width="1500px">
+	</div>
 
 
 	<!-- 사이트 소개 이미지 -->

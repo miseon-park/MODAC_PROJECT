@@ -52,7 +52,10 @@ public class findPwdController extends HttpServlet {
 		}else {
 			RequestDispatcher rd = request.getRequestDispatcher("views/member/newPwd.jsp");
 			
-			request.setAttribute("findpPwd", findPwd);
+			request.setAttribute("memberId", memberId);
+			request.setAttribute("memberName", memberName);
+			request.setAttribute("email", email);
+			
 			rd.forward(request, response);
 			
 		}
