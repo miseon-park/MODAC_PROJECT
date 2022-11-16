@@ -18,10 +18,15 @@
             cursor: pointer;
         }
 
+        #displayId, #displayPwd {
+            /* border: 1px solid black; */
+            margin-bottom: 50px;
+        }
+
 
         .wrapper{
             border: 5px solid #F0A500;
-            margin:0 auto;
+            margin: auto;
             width: 600px;
             height: 500px;
         }
@@ -88,7 +93,7 @@
         }
         
 
-        #content {
+        .content {
             text-align: center;
             /* border: 1px solid black; */
         
@@ -195,7 +200,7 @@
                 <button id="pwdbtn1" onclick="toggleDisplayPWD()">비밀번호 찾기</button>
             </div>
 
-            <div id="content">
+            <div class="content">
                 <form id="fineidform" action="<%=contextPath %>/fineId.me" method="post" >
                     <div id="id-content">
                         <div id="divname1">
@@ -226,17 +231,17 @@
                 <button id="pwdbtn2">비밀번호 찾기</button> 
             </div>
 
-            <div id="content">
+            <div class="content">
                 <form action="<%=contextPath %>/findPw.me" method="post" class="content">
                     <div id="pwd-content">
                         <div id="divid">
-                            <span>아이디</span><input name="memberId" id="memberId" class="form-control" type="text" placeholder="아아디를 입력해주세요" required>
+                            <span>아이디</span><input name="memberId" id="memberId"  type="text" placeholder="아아디를 입력해주세요" required>
                         </div>
                         <div id="divname2">
-                            <span>이름</span><input name="memberName" id="memberName" class="form-control" type="text" placeholder="이름을 입력해주세요" required>
+                            <span>이름</span><input name="memberName" id="memberName"  type="text" placeholder="이름을 입력해주세요" required>
                         </div>
                         <div id="divemail2">
-                            <span>이메일</span><input name="email" id="email" class="form-control" type="text" placeholder="이메일을 입력해주세요" required>
+                            <span>이메일</span><input name="email" id="email"  type="text" placeholder="이메일을 입력해주세요" required>
                         </div>
                     </div>
                     <div id="btn-area2">
