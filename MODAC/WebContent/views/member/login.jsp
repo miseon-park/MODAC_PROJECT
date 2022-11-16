@@ -77,6 +77,7 @@ h2{
     position: relative; 
     top: -2px;
 }
+</style>
 </head>
 <body>
 <%@ include file="../common/menubar.jsp" %>
@@ -88,7 +89,9 @@ h2{
 			// 안그러면 menubar.jsp가 로딩될때마다 매번 alert가 계속 뜰것
 			<% session.removeAttribute("alertMsg");%>
 		}
+		/* <button id="loginbtn" style="background-color: #F0A500; color: white; border:none" onclick="submitLogin()">로그인</button> */
 	</script>
+	
 		<div id="back">
      		<form action="<%=contextPath %>/login.me" method="post" id="loginform">
 				<div class="login" id="login_form">
@@ -97,7 +100,8 @@ h2{
                     <input id="loginPwd" type="password" name="memberPwd" placeholder="비밀번호">
                     <input type="checkbox" id="saveId"><span>아이디저장</span>
 
-                    <button id="loginbtn" style="background-color: #F0A500; color: white; border:none" onclick="submitLogin()">로그인</button>
+                    
+                    <button id="loginbtn" type="button" class="btn btn-warning" onclick="submitLogin()">로그인</button>
                 <ul>
                     <li><a href="<%=contextPath%>/MemberFineIdPwd.me">아이디/비밀번호찾기</a></li>
                     <li><a href="<%=contextPath %>/enrollFrom.me">회원가입</a></li>

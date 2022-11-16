@@ -39,6 +39,14 @@
             margin-left: 90px;
             height: 30px;
         }
+        div>#checkId{
+            width: 110px;
+            height: 30px;
+            background-color: #F0A500;
+            color: white;
+            border: none;
+            margin-bottom: 5px;
+        }
         div>#email, div>#nickname{
             margin-left: 90px;
             height: 30px;
@@ -64,21 +72,16 @@
             height: 30px;
             width: 260px;
         }
-        div>#checkId{
-            width: 100px;
-            height: 30px;
-            background-color: #F0A500;
-            color: white;
-            border: none;
-        }
-        input[type=submit]{
-            margin-top: 40px;
-            margin-left: 130px;
+
+        #inserCheck{
+            margin-top: 20px;
+            margin-left: 100px;
             width: 300px;
             height: 50px;
             border: none;
-            
+            <!-- background-color: #F0A500; -->
         }
+
     </style>
 </head>
 <body>
@@ -91,8 +94,9 @@
         <div id="insertId">
             <span>아이디</span>
             <input id="id" type="text" placeholder="아이디입력" name="memberId" required >
-
-            <button type="button" id="checkId" onclick="idCheck();">아이디 확인</button>
+			
+			<button type="button" class="btn btn-warning" id="checkId" onclick="idCheck();">아이디 확인</button>
+            <!-- <button type="button" id="checkId" onclick="idCheck();">아이디 확인</button> -->
 
             <p>영문자로 시작하는 5~15자 이내의 영문,숫자로 구성 가능</p>
         </div>
@@ -105,6 +109,11 @@
             <span>비밀번호 확인</span>
             <input id="checkpassword" type="password" placeholder="비밀번호 확인" required>
         </div>
+        
+			<div class="alert alert-success" id="alert-success">비밀번호가 일치합니다.</div>
+			<div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div>
+			
+		
         <div>
             <span>이름</span>
             <input id="name"type="text" placeholder="이름" name="memberName" required >
@@ -164,7 +173,7 @@
                     }else{
                         $("#checkemail").html('사용할 수 있는 이메일입니다.').css('color','green');
                         $("#email").attr("readonly");
-                        $("#inserCheck").removeAttr("disabled");
+                        $("#inserCheck").removeAttr("disabled").css("background-color","#F0A500");
                     } 
                 },
                 error : function(){
@@ -173,6 +182,27 @@
                 
             })
         })
+        
+            $(function(){
+        $("#alert-success").hide();
+        $("#alert-danger").hide();
+        $("input").keyup(function(){
+            var pwd1=$("#password").val();
+            var pwd2=$("#checkpassword").val();	
+            
+            if(pwd1 != "" || pwd2 != ""){
+                if(pwd1 == pwd2){
+                    $("#alert-success").show();
+                    $("#alert-danger").hide();
+                    $("#submit").removeAttr("disabled");
+                }else{
+                    $("#alert-success").hide();
+                    $("#alert-danger").show();
+                    $("#submit").attr("disabled", "disabled");
+                }    
+            }
+        });
+    });
         
         
         
