@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Main</title>
+<title>모닥불 : 모두의 캠핑정보 공유 사이트</title>
 
 
 <style>

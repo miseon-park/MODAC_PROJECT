@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.modac.member.model.vo.Member"%>
     <%
-    	String contextPath =request.getContextPath();
     	Member fineId = (Member) session.getAttribute("fineId");
     	
     %>
@@ -17,6 +16,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 </head>
 <body>
+
+    <%@ include file="../common/menubar.jsp" %>
     <style>
         .found-success{
             border: 2px solid #F0A500;
@@ -49,6 +50,7 @@
             background-color: gray;
             color: white;
             width: 250px;
+            border: none;
         }
         .found-id{
             text-align : center;
@@ -63,6 +65,19 @@
             text-align: center;
             padding-top: 60px;
             padding-bottom: 50px;
+        }
+        .container {
+            margin-top: 65px;
+        }
+        #btnback {
+            background-color: gray;
+            color: white;
+            border: none;
+        }
+        #enroll {
+            background-color: #F0A500;
+            color: white;
+            border: none;
         }
     </style>
   <form name="idsearch" method="post">
@@ -82,7 +97,7 @@
 
             <div class = "found-login">
                 <input type="button" class="btn" id="btnLogin" value="로그인" onClick = "location.href = '<%=contextPath %>/views/member/login.jsp'"/>
-                <input type="button" class="btn" id="main" value="비밀번호찾기" onClick = "location.href = '<%=contextPath%>/views/member/findPwd.jsp'"/>
+                <input type="button" class="btn" id="main" value="비밀번호찾기" onClick = "location.href = '<%=contextPath%>/views/member/fineIdPwd.jsp'"/>
             </div>
 
         </div>
@@ -91,11 +106,11 @@
 } else {
 %>
     <div class = "container">
-        <div class = "found-fail" style="border: 1px solid black;">
+        <div class = "found-fail" style="border: 2px solid #F0A500;">
             <h4>  등록된 정보가 없습니다. </h4>
             <div class = "found-login">
                 <input type="button" class="btn" id="btnback" value="다시찾기" onClick="history.back()"/>
-                <input type="button" class="btn" id="enroll" value="회원가입" onClick="<%=contextPath %>/enrollFrom.me"/>
+                <input type="button" class="btn" id="enroll" value="회원가입" onClick="location.href='<%=contextPath %>/enrollFrom.me'"/>
             </div>
         </div>
     </div>
