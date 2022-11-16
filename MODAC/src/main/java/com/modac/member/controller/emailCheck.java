@@ -28,15 +28,21 @@ public class emailCheck extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String checkEmail = request.getParameter("checkEmail");
+		request.setCharacterEncoding("UTF-8");
+		String checkemail = request.getParameter("checkemail");
 		
-		int count = new MemberService().emailCheck(checkEmail);
+		int result = new MemberService().emailCheck(checkemail);
 		
-		if(count>0) {
-			response.getWriter().print("NNNNN"); // 중복된아이디가있음
-		}else {
-			response.getWriter().print("NNNNY");
+		if(result == 1){
+			
+			System.out.println("이미 존재하는 아이디입니다.");
+		} else {
+			
+			System.out.println("사용 가능한 아이디입니다.");
 		}
+		response.getWriter().print(result);
+			
+
 	}
 
 	/**

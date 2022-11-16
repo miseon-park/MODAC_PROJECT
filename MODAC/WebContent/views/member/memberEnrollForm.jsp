@@ -13,8 +13,6 @@
 <title>회원가입</title>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 	
     <style>
@@ -121,7 +119,7 @@
         <div>
             <span>이메일</span>
             <input id="email" type="text" placeholder="이메일" name="email" required >
-            <p style="color:red; font-size: 15px;" id="checkemail">이메일이 중복되었습니다! 다시입력해주세요</p>
+            <div id="checkemail"></div>
             
                 
         </div>
@@ -134,7 +132,7 @@
 		</form>
     </div>
     <script>
-        $('#checkemail').hide();
+      
 
         function idCheck(){
             let $memberId = $("#enroll-form input[name=memberId]");
@@ -148,7 +146,7 @@
                         $memberId.focus();
                     }else{
                         if(confirm("사용가능한 아이디 입니다. 사용하시겠습니까?")){
-                            // $("#inserCheck").removeAttr("disabled")
+                            /* $("#inserCheck").removeAttr("disabled") */
                             $memberId.attr("readonly",true);
                         } else {
                         	
@@ -160,23 +158,30 @@
                 }
             })
         }
-        function emailCheck(){
-        	let $email = $("#enroll-form input[name=email]");
-        	$.ajax({
-        		url : "<%=request.getContextPath()%>/emailCheck.me",
-        		data : {checkEmail : $email.val()},
-        		success : function(result) {
-					if(result == "NNNNN"){
-						$("#checkemail").show();
-					}else{
-                        $("#inserCheck").removeAttr("disabled")
-                    }
-				},
+        $('#email').focusout(function(){
+            $.ajax({
+                url : "emailCheck.me",
+                type : "post",
+                data : {
+                    checkemail : $('#email').val(),
+                },
+                success : function(result){
+                    if(result == 1){
+                        $("#checkemail").html('사용할 수 없는 이메일입니다.').css('color','red')
+                    }else{
+                        $("#checkemail").html('사용할 수 있는 이메일입니다.').css('color','green');
+                        $("#email").attr("readonly");
+                        $("#inserCheck").removeAttr("disabled");
+                    } 
+                },
                 error : function(){
-                    console.log("이메일중복체크");
+                    alert("서버요청실패")
                 }
-        	})
-        }
+                
+            })
+        })
+        
+        
     </script>
 </body>
 </html>

@@ -287,7 +287,7 @@ public class MemberDao {
 		return m;
 	}
 	
-	public int emailCheck(Connection conn, String checkEmail) {
+	public int emailCheck(Connection conn, String checkemail) {
 	    int count = 0;
 	    PreparedStatement psmt = null;
 	    ResultSet rset = null;
@@ -295,13 +295,13 @@ public class MemberDao {
 	    try {
 			psmt = conn.prepareStatement(sql);
 			
-			psmt.setString(1, checkEmail);
+			psmt.setString(1, checkemail);
 			
 			rset = psmt.executeQuery();
 			
 			if(rset.next()) {
-				count=rset.getInt(1);
-			}
+				count = rset.getInt(1);
+			} 
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -115,11 +115,13 @@ public class MemberService {
 	 * @param checkEamil
 	 * @return
 	 */
-	public int emailCheck(String checkEmail) {
+	public int emailCheck(String checkemail) {
 	    Connection conn = JDBCTemplate.getConnection();
-	    int count = new MemberDao().emailCheck(conn, checkEmail);
+	    System.out.println(checkemail);
+	    int result = new MemberDao().emailCheck(conn, checkemail);
+	    System.out.println(result);
 	    JDBCTemplate.close();
-	    return count;
+	    return result;
 	}
 	
 }

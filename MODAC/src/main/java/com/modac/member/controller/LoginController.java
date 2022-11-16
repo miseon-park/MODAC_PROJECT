@@ -41,9 +41,11 @@ public class LoginController extends HttpServlet {
 		System.out.println(loginMember);
 		
 		if(loginMember == null) {
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+//			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			HttpSession session = request.getSession();
+			session.setAttribute("alertMsg", "아이디 또는 비밀번호가 틀렸습니다.");
+			response.sendRedirect(request.getContextPath()+"/MemberloginForm.me");
 		}else {
-			
 			HttpSession session = request.getSession();
 			session.setAttribute("loginMember", loginMember);
 			session.setAttribute("alertMsg", "성공적으로 로그인이 되었습니다.");

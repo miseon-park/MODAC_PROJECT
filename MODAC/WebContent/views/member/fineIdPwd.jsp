@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%
-    /* String contextPath = request.getContextPath(); */
-    %>
     
     
 <!DOCTYPE html>
@@ -52,12 +49,12 @@
         
 
         #divid{
-            /* display:inline; */
+            border: 1px solid black;
             text-align : center;
             margin-top: 50px;
         }
         #divid>input{
-            margin-left: 20px;
+            margin-left: 30px;
             width: 200px;
             height: 30px;
         }
@@ -137,13 +134,13 @@
             </div>
         <form action="<%=contextPath %>/findPw.me" method="post" class="content">
                 <div id="divid">
-                    <span>아이디</span><input name="memberId" id="memberId" class="form-control" type="text" placeholder="아아디를 입력해주세요" required>
+                    <span>아이디</span><input name="memberId" id="memberId" type="text" placeholder="아아디를 입력해주세요" required>
                 </div>
                 <div id="divname">
-                    <span>이름</span><input name="memberName" id="memberName" class="form-control" type="text" placeholder="이름을 입력해주세요" required>
+                    <span>이름</span><input name="memberName" id="memberName"  type="text" placeholder="이름을 입력해주세요" required>
                 </div>
                 <div id="divemail">
-                    <span>이메일</span><input name="email" id="email" class="form-control" type="text" placeholder="이메일을 입력해주세요" required>
+                    <span>이메일</span><input name="email" id="email" type="text" placeholder="이메일을 입력해주세요" required>
                 </div>
                 <div id="msg">
                     <p class="checks" id="check"></p>
