@@ -8,8 +8,6 @@
 </head>
 <body>
 
-	잘 되는가?
-	
 	<%@ include file="/views/common/menubar.jsp" %>
 
 </body>

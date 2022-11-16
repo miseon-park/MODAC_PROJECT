@@ -1,11 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.modac.member.model.vo.Member"%>
-    <% 
-/*         String contextPath = request.getContextPath();
-	    Member loginMember = (Member) session.getAttribute("loginMember");
-	    String alertMsg = (String) session.getAttribute("alertMsg"); */
-
-    %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,8 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-	
 <style>
 li{ list-style: none; }
 a{ text-decoration: none; }
@@ -28,7 +23,7 @@ body{
 }
 
 #login_form{
-    width: 400px; height: 500px;
+    width: 400px; height: 600px;
     margin: auto; /* 블록요소를 부모영역에서 가운데 처리 */
     border: 1px solid red;
 }
@@ -46,14 +41,14 @@ h2{
     margin: 30px auto;
     padding: 0 20px;
     box-sizing: border-box;
-    border: 1px solid black;
+    border: none;
    
 }
 .login input[type=checkbox]{
     margin-left: 50px;
 }
 .login span{
-    font-size: 15px;
+    font-size: 15px;	
     padding: 10px;
 }
 
@@ -82,7 +77,6 @@ h2{
     position: relative; 
     top: -2px;
 }
-</style>
 </head>
 <body>
 <%@ include file="../common/menubar.jsp" %>

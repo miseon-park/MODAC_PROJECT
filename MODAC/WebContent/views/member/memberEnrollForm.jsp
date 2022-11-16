@@ -31,7 +31,6 @@
             padding: 20px;
             padding-left: 50px;
         }
-
         span{
             font-size: 20px;
             box-sizing: border-box;
@@ -40,7 +39,6 @@
             margin-left: 90px;
             height: 30px;
         }
-
         div>#email, div>#nickname{
             margin-left: 90px;
             height: 30px;
@@ -51,7 +49,6 @@
             margin-top: 5px;
             color: gray;
         }
-
         div>#password{
             margin-left: 70px;
             height: 30px;
@@ -66,7 +63,6 @@
             margin-left: 110px;
             height: 30px;
             width: 260px;
-
         }
         div>#checkId{
             width: 100px;
@@ -80,12 +76,9 @@
             margin-left: 130px;
             width: 300px;
             height: 50px;
-
             border: none;
             
         }
-
-
     </style>
 </head>
 <body>
@@ -118,7 +111,7 @@
         </div>
         <div>
             <span>이메일</span>
-            <input id="email" type="text" placeholder="이메일" name="email" required >
+            <input id="email" type="email" placeholder="이메일" name="email" required >
             <div id="checkemail"></div>
             
                 
@@ -180,6 +173,7 @@
                 
             })
         })
+        
         
         
     </script>
