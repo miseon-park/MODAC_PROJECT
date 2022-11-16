@@ -54,9 +54,9 @@
               <input type="hidden" name="crno" value="<%=cr.getPostNo() %>">
 	              
 	              <div class="form-control">
-	                  <input type="text" class="form-control" placeholder="제목을 입력해주세요." aria-label="title" value="<%=cr.getPostTitle()%>">
+	                  <input type="text" class="form-control" placeholder="제목을 입력해주세요." name="title" aria-label="title" value="<%=cr.getPostTitle()%>">
 	                  <input type="file" class="form-control">
-	                  <textarea class="form-control" style="height:500px;"><%=cr.getPostContent()%></textarea>
+	                  <textarea class="form-control" name="content" style="height:500px;"><%=cr.getPostContent()%></textarea>
 	
 	                  <div class="form-control">
 	                  <div class=" btn-group-sm" role="group" aria-label="Basic checkbox toggle button group">
@@ -81,20 +81,20 @@
 	                  </div>
 	                  </div>
 	              </div>
-	          </form>
+	          
 	              <br>
               <div align="center">
                 
                 <button type="button" class="btn btn-secondary" class="last1" onclick="history.back();">목록으로</button>
 
-                <button type="button" class="btn btn-secondary" class="last1">수정하기</button>
+                <button type="submit" class="btn btn-secondary" class="last1">수정하기</button>
               </div>
               <br>
 
 
 				<br>
             </div>
-
+</form>
 			
         </div>
 

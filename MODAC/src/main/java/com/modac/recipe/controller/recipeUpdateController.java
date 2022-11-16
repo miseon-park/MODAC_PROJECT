@@ -1,4 +1,4 @@
-package com.modac.campReview.controller;
+package com.modac.recipe.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,20 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.modac.campReview.model.service.CampReviewService;
-import com.modac.campReview.model.vo.CampReview;
+import com.modac.recipe.model.service.RecipeService;
+import com.modac.recipe.model.vo.Recipe;
 
 /**
  * Servlet implementation class campReviewUpdateController
  */
-@WebServlet("/update.cr")
-public class campReviewUpdateController extends HttpServlet {
+@WebServlet("/update.r")
+public class recipeUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public campReviewUpdateController() {
+    public recipeUpdateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,17 +34,28 @@ public class campReviewUpdateController extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		String postNo = request.getParameter("crno");
+		String postNo = request.getParameter("rno");
 		String postTitle =  request.getParameter("title");
 		String postContent =  request.getParameter("content");
-
-		CampReview cr = new CampReview();
-		cr.setPostNo(postNo);
-		cr.setPostTitle(postTitle);
-		cr.setPostContent(postContent);
+		String time = request.getParameter("time");
+		String difficulty = request.getParameter("difficulty");
+		String mainIngre = request.getParameter("mainIngre");
+		String subIngre = request.getParameter("subIngre");
+		String titleImg = request.getParameter("titleImg");
 		
-		int result = new CampReviewService().updateCampReview(cr);
-		System.out.println(result);
+
+		Recipe r = new Recipe();
+		r.setPostNo(postNo);
+		r.setPostTitle(postTitle);
+		r.setPostContent(postContent);
+		r.setTime(time);
+		r.setDifficulty(difficulty);
+		r.setMainIngre(mainIngre);
+		r.setSubIngre(subIngre);
+		r.setTitleImg(titleImg);
+		
+		int result = new RecipeService().updateRecipe(r);
+		
 		if(result > 0) {
 			request.getSession().setAttribute("alertMsg","성공적으로 수정되었습니다.");
 			response.sendRedirect(request.getContextPath()+"/detail.cr?crno="+postNo);
@@ -53,7 +64,7 @@ public class campReviewUpdateController extends HttpServlet {
 			request.getRequestDispatcher("views/common.errorPage.jsp").forward(request, response);
 		}
 		
-	
+		
 	}
 
 	/**

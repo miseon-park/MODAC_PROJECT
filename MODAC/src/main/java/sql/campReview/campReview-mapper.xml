@@ -3,15 +3,26 @@
 <properties>
 
 	<entry key="selectCampRevieList">
-		SELECT POST_NO,
-		       POST_TITLE,
-		       MEMBER_NIC,
-		       CREATE_DATE,
-		       READ_COUNT
-		FROM CAMP_REVIEW C
-		JOIN MEMBER M USING(MEMBER_NO)
-		WHERE M.STATUS = 'N' AND C.STATUS = 'N' 
-		ORDER BY CREATE_DATE DESC, POST_NO DESC
+		SELECT * 
+		FROM (
+			SELECT ROWNUM RNUM, A.*
+			FROM (SELECT POST_NO,
+				         POST_TITLE,
+			             MEMBER_NIC,
+				         CREATE_DATE,
+				         READ_COUNT
+			    	FROM CAMP_REVIEW C
+		    		JOIN MEMBER M USING(MEMBER_NO)
+		    		WHERE M.STATUS = 'N' AND C.STATUS = 'N' 
+		    		ORDER BY CREATE_DATE DESC, POST_NO DESC) A
+		     )
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectListCount">
+		SELECT COUNT(*) COUNT
+		FROM CAMP_REVIEW
+		WHERE STATUS = 'Y'
 	</entry>
 	
 	<entry key="increaseCount">
@@ -23,7 +34,7 @@
 	
 	<entry key="selectCampReview">
 		SELECT POST_NO,
-		       POST_TITLE,
+			   POST_TITLE,
 		       POST_CONTENT,
 		       MEMBER_NIC,
 		       CREATE_DATE

@@ -1,8 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="java.util.ArrayList , com.modac.campReview.model.vo.CampReview"%>
+	import="java.util.ArrayList , com.modac.campReview.model.vo.CampReview, com.modac.common.model.vo.PageInfo"%>
 <%
 	ArrayList<CampReview> list = (ArrayList<CampReview>)request.getAttribute("list");
+	PageInfo pi = (PageInfo) request.getAttribute("pi");
+	
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -110,7 +117,7 @@
 								<tr>
 									<th scope="row" style="text-align: center;"><%= c.getPostNo() %></th>
 									<td><%= c.getPostTitle() %></td>
-									<td><%= c.getMemberNo() %></td>
+									<td><%= c.getMemberNic() %></td>
 									<td><%= c.getCreateDate() %></td>
 									<td style="text-align: center;"><%= c.getReadCount() %></td>
 								</tr>
@@ -128,14 +135,29 @@
 				})
 			</script>
 			
-
-			<div class="btn-group" aria-label="Basic example" align="center">
-				<button type="button" class="btn"><<</button>
-				<button type="button" class="btn">1</button>
-				<button type="button" class="btn">2</button>
-				<button type="button" class="btn">3</button>
-				<button type="button" class="btn">>></button>
+			<div class="btn-group" aria-label="Basic example" align="center" class="paging-area">
+				<% if(currentPage != 1) { %>
+				<button onclick ="doPageClick(<%=currentPage-1%>)">&lt;</button>
+				<% } %>
+				
+				<%for(int i = startPage; i<=endPage; i++) {%>
+					<% if(i != currentPage) {%>
+						<button onclick="doPageClick(<%=i%>)"><%=i%></button>
+					<%}else{ %>
+						<button disabled><%=i %></button>
+					<%} %>
+				<%} %>
+				<%if(currentPage != maxPage) {%>
+				<button onclick ="doPageClick(<%=currentPage+1%>)">&gt;</button>
+				<%} %>
 			</div>
+			
+			<script>
+				function doPageClick(currentPage){
+					location.href = "<%=contextPath%>/board/list.cr?currentPage="+currentPage;
+				}
+			</script>
+			
 		</div>
 
 

@@ -43,7 +43,7 @@
         line-height: 30px;
     }
     #miniCon li:first-child {
-        border-left: none;
+        border-left: none;s
     }
     #mini {
         float: right;
@@ -217,7 +217,7 @@
             <li><a href="">모닥불 이야기</a>
                 <ul id="subMenu2">
                     <li><a href="<%=contextPath%>/list.cr">캠핑장 리뷰</a></li>
-                    <li><a href="">레시피 자랑</a></li>
+                    <li><a href="<%=contextPath%>/list.r">레시피 자랑</a></li>
                     <li><a href="">사진스타그램</a></li>
                 </ul>
             </li>

@@ -1,4 +1,4 @@
-package com.modac.campReview.controller;
+package com.modac.recipe.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,20 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.modac.campReview.model.service.CampReviewService;
-import com.modac.campReview.model.vo.CampReview;
-
 /**
- * Servlet implementation class campReviewUpdateFormController
+ * Servlet implementation class campReviewEnrollFormController
  */
-@WebServlet("/updateForm.cr")
-public class campReviewUpdateFormController extends HttpServlet {
+@WebServlet("/enrollForm.r")
+public class recipeEnrollFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public campReviewUpdateFormController() {
+    public recipeEnrollFormController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,15 +26,8 @@ public class campReviewUpdateFormController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-	    
-		int postNo = Integer.parseInt(request.getParameter("crno"));
+		request.getRequestDispatcher("views/recipe/recipeEnrollForm.jsp").forward(request, response);
 		
-		CampReview cr = new CampReviewService().selectCampReview(postNo);
-		
-		request.setAttribute("cr", cr);
-		request.getRequestDispatcher("views/campReview/campReviewUpdateForm.jsp").forward(request,response);
-
 	}
 
 	/**

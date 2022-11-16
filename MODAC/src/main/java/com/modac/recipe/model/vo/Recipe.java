@@ -43,8 +43,7 @@ public class Recipe {
 	}
 	
 	//목록
-	public Recipe(String postTitle, String memberNo, Date createDate, String time, String difficulty, String mainIngre,
-			String titleImg) {
+	public Recipe(String postTitle, String memberNo, Date createDate, String time, String difficulty, String mainIngre) {
 		super();
 		this.postTitle = postTitle;
 		this.memberNo = memberNo;
@@ -52,7 +51,6 @@ public class Recipe {
 		this.time = time;
 		this.difficulty = difficulty;
 		this.mainIngre = mainIngre;
-		this.titleImg = titleImg;
 	}
 
 	//디테일

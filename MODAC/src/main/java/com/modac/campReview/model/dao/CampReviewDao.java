@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.modac.campReview.model.vo.CampReview;
+import com.modac.common.model.vo.PageInfo;
 
 import static com.modac.common.JDBCTemplate.*;
 
@@ -27,7 +28,35 @@ public class CampReviewDao {
 			e.printStackTrace();
 		}
 	}
-	 public ArrayList<CampReview> selectCampReviewList(Connection conn){
+	
+	public int selectListCount(Connection conn) {
+		
+		int listCount = 0;
+		 PreparedStatement psmt = null;
+		 ResultSet rset = null;
+		 String sql = prop.getProperty("selectListCount");
+		 
+		 try {
+			psmt = conn.prepareStatement(sql);
+			
+			rset = psmt. executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("COUNT");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(psmt);
+		}
+		 return listCount;
+		 
+	}
+	
+	
+	 public ArrayList<CampReview> selectCampReviewList(Connection conn, PageInfo pi){
 		 
 		 ArrayList<CampReview> list = new ArrayList<>();
 		 
@@ -39,6 +68,12 @@ public class CampReviewDao {
 		 
 		 try {
 			psmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			
+			psmt.setInt(1,  startRow);
+			psmt.setInt(2, endRow);
 			
 			rset = psmt.executeQuery();
 			
@@ -83,7 +118,7 @@ public class CampReviewDao {
 		return result;
 	 }
 	 
-	 public CampReview selectCampReview(int campReviewNo, Connection conn) {
+	 public CampReview selectCampReview(int postNo, Connection conn) {
 		 
 		 ResultSet rset = null;
 		 
@@ -95,11 +130,12 @@ public class CampReviewDao {
 		 
 		 try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setInt(1, campReviewNo);
+			psmt.setInt(1, postNo);
 			rset = psmt.executeQuery();
 			
 			if(rset.next()) {
-				cr = new CampReview( rset.getString("POST_TITLE"),
+				cr = new CampReview( rset.getString("POST_NO"),
+									 rset.getString("POST_TITLE"),
 						             rset.getString("POST_CONTENT"),
 						             rset.getString("MEMBER_NIC"),
 						             rset.getDate("CREATE_DATE")
@@ -152,7 +188,7 @@ public class CampReviewDao {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, cr.getPostTitle());
 			psmt.setString(2, cr.getPostContent());
-			psmt.setString(3, cr.getMemberNo());
+			psmt.setString(3, cr.getPostNo());
 			
 			result = psmt.executeUpdate();
 		} catch (SQLException e) {
@@ -160,11 +196,12 @@ public class CampReviewDao {
 		}finally {
 			close(psmt);
 		}
+		 
 		 return result;
 		 
 	 }
 	 
-	 public int deleteCampReview(int CampReviewNo, Connection conn) {
+	 public int deleteCampReview(int postNo, Connection conn) {
 		 
 		 int result = 0;
 
@@ -175,7 +212,7 @@ public class CampReviewDao {
 		 try {
 			psmt = conn.prepareStatement(sql);
 			
-			psmt.setInt(1, CampReviewNo);
+			psmt.setInt(1, postNo);
 			
 			result = psmt.executeUpdate();
 			

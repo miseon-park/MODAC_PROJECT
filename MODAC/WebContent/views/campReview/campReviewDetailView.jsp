@@ -58,23 +58,20 @@
               <div align="right" class="insert-area">
               
               
-<%--               <% if(loginMember != null && loginMember.getMemberNic().equal(cr.getMemberNo())) {%> --%>
-<%--               	<a href="<%=contextPath %>/updateForm.cr?crno=<%=cr.getPostNo()%>" class="btn btn-secondary last1">수정하기</a> --%>
-<%--               	<a href="<%=contextPath %>/delete.cr?crno=<%=cr.getPostNo()%>" class="btn btn-secondary last1">삭제하기</a> --%>
-<%--               <% } %> --%>
+              <% if(loginMember != null && loginMember.getMemberNic().equals(cr.getMemberNic())) {%>
+              	<a href="<%=contextPath %>/updateForm.cr?crno=<%=cr.getPostNo()%>" class="btn btn-secondary last1">수정하기</a>
+              	<a href="<%=contextPath %>/delete.cr?crno=<%=cr.getPostNo()%>" class="btn btn-secondary last1">삭제하기</a>
+              <% } %>
 
-
-               	<a href="<%=contextPath %>/updateForm.cr?crno=<%=cr.getPostNo()%>" class="btn btn-secondary last1">수정하기</a> 
-               	<a href="<%=contextPath %>/delete.cr?crno=<%=cr.getPostNo()%>" class="btn btn-secondary last1">삭제하기</a> 
-              
               </div>
 			<br>
              <div class="form-control insert-area">
                 <br>
+                <input type="hidden" name="postNo" value="<%=cr.getPostNo() %>">
                 <h3>&nbsp;<%=cr.getPostTitle()%></h3>
                  
                 <br>
-                <span>&nbsp; <%=cr.getMemberNo() %></span>
+                <span>&nbsp; <%=cr.getMemberNic() %></span>
                  
                 <span class="date">작성일 : <%=cr.getCreateDate() %></span>
                  

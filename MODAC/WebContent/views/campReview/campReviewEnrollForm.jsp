@@ -17,7 +17,7 @@
 
         .content2{
             width: 80%;
-		      	padding: 10px 50px 20px;
+		    padding: 10px 50px 20px;
             float: left; 
         }
         .form-control {

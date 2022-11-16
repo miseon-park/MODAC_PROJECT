@@ -14,13 +14,14 @@ public class CampReview {
 	private int tagNo;
 	private String status;
 	private String tagName;
+	private String memberNic;
 	
 	public CampReview() {
 		super();
 	}
 
 	public CampReview(String boardNo, String postNo, String postTitle, String postContent, String memberNo,
-			Date createDate, int readCount, int tagNo, String status, String tagName) {
+			Date createDate, int readCount, int tagNo, String status, String tagName, String memberNic) {
 		super();
 		this.boardNo = boardNo;
 		this.postNo = postNo;
@@ -32,26 +33,28 @@ public class CampReview {
 		this.tagNo = tagNo;
 		this.status = status;
 		this.tagName = tagName;
+		this.memberNic = memberNic;
 	}
 	
 	//목록
-	public CampReview(String postNo, String postTitle, String memberNo,
+	public CampReview(String postNo, String postTitle, String memberNic,
 			Date createDate, int readCount) {
 		super();
 		this.postNo = postNo;
 		this.postTitle = postTitle;
-		this.memberNo = memberNo;
+		this.memberNic = memberNic;
 		this.createDate = createDate;
 		this.readCount = readCount;
 	}
 	
 	// 디테일 
-	public CampReview(String postTitle, String postContent, String memberNo,
+	public CampReview(String postNo, String postTitle, String postContent, String memberNic,
 			Date createDate ) {
 		super();
+		this.postNo = postNo;
 		this.postTitle = postTitle;
 		this.postContent = postContent;
-		this.memberNo = memberNo;
+		this.memberNic = memberNic;
 		this.createDate = createDate;
 	}
 	
@@ -135,13 +138,21 @@ public class CampReview {
 		this.tagName = tagName;
 	}
 
+	public String getMemberNic() {
+		return memberNic;
+	}
+
+	public void setMemberNic(String memberNic) {
+		this.memberNic = memberNic;
+	}
+
 	@Override
 	public String toString() {
 		return "CampReview [boardNo=" + boardNo + ", postNo=" + postNo + ", postTitle=" + postTitle + ", postContent="
 				+ postContent + ", memberNo=" + memberNo + ", createDate=" + createDate + ", readCount=" + readCount
-				+ ", tagNo=" + tagNo + ", status=" + status +", tagName=" + tagName + "]";
+				+ ", tagNo=" + tagNo + ", status=" + status + ", tagName=" + tagName + ", memberNic=" + memberNic + "]";
 	}
-	
+
 	
 	
 

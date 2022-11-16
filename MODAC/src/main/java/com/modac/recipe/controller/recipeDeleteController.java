@@ -1,4 +1,4 @@
-package com.modac.campReview.controller;
+package com.modac.recipe.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,20 +7,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.modac.campReview.model.service.CampReviewService;
-import com.modac.campReview.model.vo.CampReview;
+import com.modac.recipe.model.service.RecipeService;
 
 /**
- * Servlet implementation class campReviewUpdateFormController
+ * Servlet implementation class campReviewDeleteController
  */
-@WebServlet("/updateForm.cr")
-public class campReviewUpdateFormController extends HttpServlet {
+@WebServlet("/delete.r")
+public class recipeDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public campReviewUpdateFormController() {
+    public recipeDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,15 +28,20 @@ public class campReviewUpdateFormController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-	    
+		
 		int postNo = Integer.parseInt(request.getParameter("crno"));
 		
-		CampReview cr = new CampReviewService().selectCampReview(postNo);
+		int result = new RecipeService().deleteRecipe(postNo);
 		
-		request.setAttribute("cr", cr);
-		request.getRequestDispatcher("views/campReview/campReviewUpdateForm.jsp").forward(request,response);
-
+		if(result > 0) {
+			request.getSession().setAttribute("alertMsg", "성공적으로 공지사항이 삭제되었습니다.");
+			
+			response.sendRedirect(request.getContextPath()+"/list.cr");
+		} else {
+			request.setAttribute("errorPage", "삭제에 실패하였습니다.");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
+		
 	}
 
 	/**

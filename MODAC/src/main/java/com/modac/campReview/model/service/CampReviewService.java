@@ -5,16 +5,25 @@ import java.util.ArrayList;
 
 import com.modac.campReview.model.dao.CampReviewDao;
 import com.modac.campReview.model.vo.CampReview;
+import com.modac.common.model.vo.PageInfo;
 
 import static com.modac.common.JDBCTemplate.*;
 
 public class CampReviewService {
+	
+	public int selectListCount() {
+		
+		Connection conn = getConnection();
+		int listCount = new CampReviewDao().selectListCount(conn);
+		close();
+		return listCount;
+	}
 
-	public ArrayList<CampReview> selectCampReviewList(){
+	public ArrayList<CampReview> selectCampReviewList(PageInfo pi){
 		
 		Connection conn = getConnection();
 		
-		ArrayList<CampReview> list = new CampReviewDao().selectCampReviewList(conn);
+		ArrayList<CampReview> list = new CampReviewDao().selectCampReviewList(conn, pi);
 		
 		close();
 		
@@ -38,11 +47,11 @@ public class CampReviewService {
 		return result;		
 	}
 	
-	public CampReview selectCampReview(int campReviewNo) {
+	public CampReview selectCampReview(int postNo) {
 		
 		Connection conn = getConnection();
 		
-		CampReview cr= new CampReviewDao().selectCampReview(campReviewNo, conn);
+		CampReview cr= new CampReviewDao().selectCampReview(postNo, conn);
 		
 		close();
 		
@@ -68,7 +77,7 @@ public class CampReviewService {
 		Connection conn = getConnection();
 		
 		int result = new CampReviewDao().updateCampReview(cr,conn);
-		
+
 		if(result > 0) {
 			commit(conn);
 		} else {
@@ -79,10 +88,10 @@ public class CampReviewService {
 		return result;
 	}
 	
-	public int deleteCampReview(int CampReviewNo) {
+	public int deleteCampReview(int postNo) {
 		Connection conn = getConnection();
 		
-		int result = new CampReviewDao().deleteCampReview(CampReviewNo, conn);
+		int result = new CampReviewDao().deleteCampReview(postNo, conn);
 		
 		commitRollback(result, conn);
 		

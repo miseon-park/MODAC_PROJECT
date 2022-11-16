@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="selectRecipeList">
+		SELECT POST_TITLE,
+		       MEMBER_NIC,
+		       CREATE_DATE,
+		       TIME,
+		       DIFFICULTY,
+		       MAIN_INGRE
+		FROM RECIPE R
+		JOIN MEMBER M USING(MEMBER_NO)
+		WHERE M.STATUS = 'N' AND R.STATUS = 'N' 
+		ORDER BY CREATE_DATE DESC, POST_NO DESC
+	</entry>
+	
+	<entry key="selectRecipe">
+		SELECT POST_NO,
+		       POST_TITLE,
+		       POST_CONTENT,
+		       MEMBER_NIC,
+		       CREATE_DATE,
+		       TIME,
+		       DIFFICULTY,
+		       MAIN_INGRE,
+		       SUB_INGRE
+		FROM CAMP_REVIEW C
+		JOIN MEMBER M USING(MEMBER_NO)
+		WHERE POST_NO = ?
+		  AND M.STATUS = 'N' AND C.STATUS = 'N'
+	</entry>
+	
+	<entry key="insertRecipe">
+		INSERT INTO RECIPE
+		(
+			BOARD_NO,
+			POST_NO,
+			POST_TITLE,
+			POST_CONTENT,
+			MEMBER_NO,
+			TIME,
+			DIFFICULTY,
+		    MAIN_INGRE,
+		    SUB_INGRE
+		)
+		VALUES
+		(
+			7,
+			SEQ_RECNO.NEXTVAL,
+			?,
+			?,
+			?,
+			?,
+			?,
+			?,
+			?
+		)
+	</entry>
+	
+	<entry key = "updateRecipe">
+		UPDATE RECIPE
+		SET POST_TITLE = ?,
+			POST_CONTENT = ?
+			TIME = ?
+			DIFFICULTY = ?
+		    MAIN_INGRE = ?
+		    SUB_INGRE = ?
+		WHERE POST_NO = ?
+		  AND STATUS = 'N' 
+	</entry>
+	
+	<entry key="deleteRecipe">
+		UPDATE RECIPE
+		SET STATUS = 'Y'
+		WHERE POST_NO = ?
+	</entry>
+	
+	
+	
+	
+	
+
+</properties>

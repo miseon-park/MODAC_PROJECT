@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.modac.campReview.model.service.CampReviewService;
 import com.modac.campReview.model.vo.CampReview;
+import com.modac.common.model.vo.PageInfo;
 
 /**
  * Servlet implementation class campReviewListController
@@ -32,12 +33,40 @@ public class campReviewListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<CampReview> list = new CampReviewService().selectCampReviewList();
+		//-- 페이징처리-----
+		int listCount;
+		int currentPage;
+		int pageLimit;
+		int boardLimit;
+		int maxPage;
+		int startPage;
+		int endPage;
 		
-		System.out.println(list);
+		listCount = new CampReviewService().selectListCount();
+		currentPage = Integer.parseInt(request.getParameter("currentPage") == null ? "1" : request.getParameter("currentPage"));
+		pageLimit = 5;
+		boardLimit = 10;
+		maxPage = (int)Math.ceil((double)listCount / boardLimit);
+		startPage = (currentPage - 1) / pageLimit * pageLimit +1;
+		endPage = startPage + pageLimit -1;
+		
+	
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
+		
+		
+		//---------------
+		
+		
+		
+		
+		ArrayList<CampReview> list = new CampReviewService().selectCampReviewList(pi);
 		
 		request.setAttribute("list", list);
-		
+		request.setAttribute("pi", pi);
 		request.getRequestDispatcher("views/campReview/campReviewListView.jsp").forward(request, response);
 		
 		
