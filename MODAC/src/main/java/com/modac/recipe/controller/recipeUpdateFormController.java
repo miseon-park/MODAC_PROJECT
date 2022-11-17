@@ -35,7 +35,7 @@ public class recipeUpdateFormController extends HttpServlet {
 		Recipe r = new RecipeService().selectRecipe(postNo);
 		
 		request.setAttribute("r", r);
-		request.getRequestDispatcher("views/Recipe/RecipeupdateForm.jsp").forward(request,response);
+		request.getRequestDispatcher("views/recipe/recipeUpdateForm.jsp").forward(request,response);
 		
 		
 	}

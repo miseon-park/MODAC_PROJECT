@@ -39,20 +39,21 @@
 	</entry>
 	
 	<entry key="selectRecipe">
-		SELECT POST_NO,
-		       POST_TITLE,
-		       POST_CONTENT,
-		       MEMBER_NIC,
-		       CREATE_DATE,
-		       TIME,
-		       DIFFICULTY,
-		       MAIN_INGRE,
-		       SUB_INGRE,
-		       PATH || NEW_NAME AS "TITLEIMG"
-		FROM RECIPE R
-		JOIN MEMBER M USING(MEMBER_NO)
-		WHERE POST_NO = ?
-		  AND M.STATUS = 'N' AND R.STATUS = 'N'
+			SELECT POST_NO,
+			       POST_TITLE,
+			       POST_CONTENT,
+			       MEMBER_NIC,
+			       CREATE_DATE,
+			       TIME,
+			       DIFFICULTY,
+			       MAIN_INGRE,
+			       SUB_INGRE,
+			       PATH || NEW_NAME AS "TITLEIMG"
+			FROM RECIPE R
+			JOIN MEMBER M USING(MEMBER_NO)
+	        JOIN ATTACHMENT USING(POST_NO)
+			WHERE POST_NO = ?
+			  AND M.STATUS = 'N' AND R.STATUS = 'N'
 	</entry>
 	
 	
@@ -108,10 +109,10 @@
 	<entry key = "updateRecipe">
 		UPDATE RECIPE
 		SET POST_TITLE = ?,
-			POST_CONTENT = ?
-			TIME = ?
-			DIFFICULTY = ?
-		    MAIN_INGRE = ?
+			POST_CONTENT = ?,
+			TIME = ?,
+			DIFFICULTY = ?,
+		    MAIN_INGRE = ?,
 		    SUB_INGRE = ?
 		WHERE POST_NO = ?
 		  AND STATUS = 'N' 

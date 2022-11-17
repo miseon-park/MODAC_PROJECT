@@ -39,7 +39,7 @@ public class recipeUpdateController extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 		
-if(ServletFileUpload.isMultipartContent(request)) {
+		if(ServletFileUpload.isMultipartContent(request)) {
 			
 			int maxSize = 1024 * 1024 * 10;
 			
@@ -95,6 +95,8 @@ if(ServletFileUpload.isMultipartContent(request)) {
             //            => Board Update, Attachment update
             // case3 : 새로운 첨부파일 있는 경우(o), 기존 첨부파일도 없는 경우(x) => b, at에 refNo 
             //            => Board Update, Attachment insert
+			
+			System.out.println("result"+result);
             
             if(result > 0) { //수정성공 => 상세조회페이지
                 request.getSession().setAttribute("alertMsg","성공적으로 수정되었습니다.");

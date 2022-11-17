@@ -55,6 +55,7 @@ Attachment at = (Attachment)request.getAttribute("at");
 
               <form id="enroll-form" action="<%=contextPath %>/insert.r" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="postNo" value="<%=r.getPostNo() %>">
+                <input type="hidden" name="memberNo" value="<%=r.getMemberNo() %>">
               <input type="text" class="form-control" placeholder="제목을 입력해주세요." aria-label="title" name="title" value="<%=r.getPostTitle() %>">
                   <input type="file" class="form-control" name="upfile">      
 
