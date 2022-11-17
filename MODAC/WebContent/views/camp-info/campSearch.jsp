@@ -9,7 +9,7 @@
 <style>
 
     #search-area {
-        border: 1px solid black;
+        /* border: 1px solid black; */
         background-color: rgb(230, 213, 184);
         width: 800px;
         margin:  auto;
@@ -19,15 +19,75 @@
     span {
         color: rgb(74,57,51);
         font-size: large;
-        font-weight: 450px;
+        font-weight: bold;
     }
 
+
+    #loacation-s {
+        margin-top: 30px;
+        margin-bottom: 30px;
+        
+    }
     #loacation-s>span {
+        margin-left: 40px;
+    }
+    #loc1 {
+        width: 200px;
+        height: 30px;
+        margin-left: 80px;
+    }
+    #loc2 {
+        width: 300px;
+        height: 30px;
         margin-left: 30px;
     }
 
-    #loc1 {
-        width: 150px;
+
+
+    #facility-s>span {
+        margin-left: 10px;
+    }
+
+    #facility-s table {
+        margin-left: 30px;
+        margin-top: 20px;        
+    }
+
+    
+
+    table {
+        border-spacing: 10px;
+    }
+    .them {
+        font-size: 16px;
+        font-weight: bold;
+        color: rgb(74,57,51);
+        padding-right: 25px;
+        border-right: 1px solid darkgray;
+    }
+    td {
+        padding-bottom: 15px;
+    }
+
+  
+
+
+
+    #btn-area>input {
+        background-color: rgb(240, 165, 0);
+        border: none;
+        color: white;
+        width: 300px;
+        height: 40px;
+    }
+
+
+
+
+    #result {
+        border: 1px solid black;
+        width: 1200px;
+        margin: auto;
     }
 
 
@@ -75,16 +135,16 @@
 
         <div id="facility-s">
             <span>테마 및 편의 시설</span>
-            <table style="border: 1px solid red;">
+            <table>
                 <tr>
-                   <td>자연경관</td>
+                   <td class="them">자연경관</td>
                    <td><input type="checkbox" name="" id="valley"><label for="valley">계곡</label></td>
                    <td><input type="checkbox" name="" id="ocean"><label for="ocean">바다</label></td>
                    <td><input type="checkbox" name="" id="mountain"><label for="mountain">산</label></td>
                    <td><input type="checkbox" name="" id="river"><label for="river">강</label></td>
                 </tr>
                 <tr>
-                    <td>지형</td>
+                    <td class="them">지형</td>
                     <td><input type="checkbox" name="" id="grass"><label for="grass">잔디</label></td>
                     <td><input type="checkbox" name="" id="deck"><label for="deck">데크</label></td>
                     <td><input type="checkbox" name="" id="rock"><label for="rock">파쇄석</label></td>
@@ -92,7 +152,7 @@
                     <td><input type="checkbox" name="" id="etc"><label for="etc">기타</label></td>
                 </tr>
                 <tr>
-                    <td>편의시설</td>
+                    <td class="them">편의시설</td>
                     <td><input type="checkbox" name="" id="toilet"><label for="toilet">공용화장실</label></td>
                     <td><input type="checkbox" name="" id="shower"><label for="shower">공용샤워실</label></td>
                     <td><input type="checkbox" name="" id="wifi"><label for="wifi">와이파이</label></td>
@@ -101,7 +161,7 @@
                     <td><input type="checkbox" name="" id="store"><label for="store">매점</label></td>
                 </tr>
                 <tr>
-                    <td>반려동물 동반</td>
+                    <td class="them">반려동물 동반</td>
                     <td><input type="checkbox" name="pet" id="pet-yes" onclick="petCheck(this);"><label for="pet-yes">가능</label></td>
                     <td><input type="checkbox" name="pet" id="pet-no" onclick="petCheck(this);"><label for="pet-no">불가능</label></td>
                 </tr>
@@ -109,10 +169,16 @@
             
             <br>
 
-            <div id="btn-area">
+            <div id="btn-area" align="right">
                 <input type="button" value="검색">
             </div>
         </div>
+    </div>
+
+    <br> <br>
+
+    <div id="result">
+
     </div>
 
 
