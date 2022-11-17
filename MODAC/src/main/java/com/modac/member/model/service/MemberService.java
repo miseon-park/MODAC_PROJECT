@@ -82,7 +82,7 @@ public class MemberService {
 		Connection conn = JDBCTemplate.getConnection();
 		
 		Member m = new MemberDao().findPwd(memberId, memberName, email, conn);
-		
+		System.out.println("ser"+m);
 		JDBCTemplate.close();
 		
 		return m;

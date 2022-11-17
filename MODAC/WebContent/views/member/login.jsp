@@ -25,7 +25,7 @@ body{
 #login_form{
     width: 400px; height: 600px;
     margin: auto; /* 블록요소를 부모영역에서 가운데 처리 */
-    border: 1px solid red;
+    border: 4px solid #F0A500;
 }
 h2{
     height: 80px;
@@ -41,7 +41,7 @@ h2{
     margin: 30px auto;
     padding: 0 20px;
     box-sizing: border-box;
-    border: none;
+    border: 1px solid black;
    
 }
 .login input[type=checkbox]{
@@ -96,8 +96,8 @@ h2{
      		<form action="<%=contextPath %>/login.me" method="post" id="loginform">
 				<div class="login" id="login_form">
 				<h2>로그인</h2>
-                    <input id="loginId" type="text" name="memberId" placeholder="아이디">
-                    <input id="loginPwd" type="password" name="memberPwd" placeholder="비밀번호">
+                    <input class="inp" id="loginId" type="text" name="memberId" placeholder="아이디">
+                    <input class="inp" id="loginPwd" type="password" name="memberPwd" placeholder="비밀번호">
                     <input type="checkbox" id="saveId"><span>아이디저장</span>
 
                     

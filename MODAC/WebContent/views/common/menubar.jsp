@@ -163,19 +163,14 @@
 
 
 <body>
-
-	<script>
-		
+    <script>
 		let msg = "<%=alertMsg%>";
-		
 		if(msg != "null") {
 			alert(msg);
-		
 			<% session.removeAttribute("alertMsg"); %>
 		}
-		
-	
 	</script>
+
 	
 
     <div id="top-menu" class="menu">

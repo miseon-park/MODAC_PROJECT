@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    
 
     <title>비밀번호 재설정</title>
     <style>
@@ -92,7 +92,7 @@
             padding: 0px;
         }
 
-        #btn {
+        #submit {
             text-align: center;
             margin-top: 0px;
             width: 300px;
@@ -142,21 +142,21 @@
                     
                     <div id="newPwd-content">
                         <div id="divUpdatePwd">
-                            <span>새 비밀번호</span><input name="updatePwd" id="updatePwd" type="text" placeholder="내용을 입력해주세요" required>
+                            <span>새 비밀번호</span><input name="updatePwd" id="updatePwd" type="password" placeholder="내용을 입력해주세요" required>
                         </div>
                         <div id="divCheckPwd">
-                            <span>비밀번호 재입력</span><input name="checkPwd" id="checkPwd" type="text" placeholder="내용을 재입력해주세요" required>
+                            <span>비밀번호 재입력</span><input name="checkPwd" id="checkPwd" type="password" placeholder="내용을 재입력해주세요" required>
                         </div>
                     </div>
                     <div id="btn-area">
                         	<div class="alert alert-success" id="alert-success">비밀번호가 일치합니다.</div>
 							<div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div>
-                        <button id="btn" class="button" type="submit" onclick="checking();" disabled>비밀번호 재설정</button>
                     </div>
+                        <input id="submit" type="submit" onclick="return validate();"disabled value="비밀번호 재설정">
                 </form>
             </div>
 	    </div>
-<script type="text/javascript">
+<script>
     $(function(){
         $("#alert-success").hide();
         $("#alert-danger").hide();
@@ -177,6 +177,15 @@
             }
         });
     });
+    function validate() {
+    let pwd1=$("#updatePwd").val();
+    let pwdCheck2 = /^[a-z\d!@#$%^&*]{5,15}$/;
+    if (!pwdCheck2.test(pwd1)) {
+      alert("비밀번호는 영문자+숫자+특수문자 조합으로 5~15자리 사용해야 합니다.");
+      return false;
+    	};
+    }
+    
 </script>
 
 

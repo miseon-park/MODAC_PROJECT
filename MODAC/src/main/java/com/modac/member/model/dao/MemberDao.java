@@ -208,7 +208,8 @@ public class MemberDao {
 			if(rset.next()) {
 				m = new Member(rset.getString("MEMBER_PWD"));
 			}
-			System.out.println(m);
+			System.out.println("dao : " + m);
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
