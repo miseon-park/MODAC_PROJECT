@@ -16,6 +16,7 @@ public class Recipe {
 	private String mainIngre;
 	private String subIngre;
 	private String status;
+	private String memberNic;
 	
 	private String titleImg; // 썸네일 파일명 
 
@@ -25,7 +26,7 @@ public class Recipe {
 
 	public Recipe(String boardNo, String postNo, String postTitle, String postContent, String memberNo, Date createDate,
 			int readCount, String time, String difficulty, String mainIngre, String subIngre, String status,
-			String titleImg) {
+			String titleImg, String memberNic) {
 		super();
 		this.boardNo = boardNo;
 		this.postNo = postNo;
@@ -40,13 +41,16 @@ public class Recipe {
 		this.subIngre = subIngre;
 		this.status = status;
 		this.titleImg = titleImg;
+		this.memberNic = memberNic;
 	}
 	
 	//목록
-	public Recipe(String postTitle, String memberNo, Date createDate, String time, String difficulty, String mainIngre) {
+	public Recipe(String titleImg, String postNo, String postTitle, String memberNic, Date createDate, String time, String difficulty, String mainIngre) {
 		super();
+		this.titleImg = titleImg;
+		this.postNo = postNo;
 		this.postTitle = postTitle;
-		this.memberNo = memberNo;
+		this.memberNic = memberNic;
 		this.createDate = createDate;
 		this.time = time;
 		this.difficulty = difficulty;
@@ -54,12 +58,13 @@ public class Recipe {
 	}
 
 	//디테일
-	public Recipe(String postTitle, String postContent, String memberNo, Date createDate, String time,
+	public Recipe(String postNo, String postTitle, String postContent, String memberNic, Date createDate, String time,
 			String difficulty, String mainIngre, String subIngre, String titleImg) {
 		super();
+		this.postNo = postNo;
 		this.postTitle = postTitle;
 		this.postContent = postContent;
-		this.memberNo = memberNo;
+		this.memberNic = memberNic;
 		this.createDate = createDate;
 		this.time = time;
 		this.difficulty = difficulty;
@@ -173,13 +178,23 @@ public class Recipe {
 		this.titleImg = titleImg;
 	}
 
+	public String getMemberNic() {
+		return memberNic;
+	}
+
+	public void setMemberNic(String memberNic) {
+		this.memberNic = memberNic;
+	}
+
 	@Override
 	public String toString() {
 		return "Recipe [boardNo=" + boardNo + ", postNo=" + postNo + ", postTitle=" + postTitle + ", postContent="
 				+ postContent + ", memberNo=" + memberNo + ", createDate=" + createDate + ", readCount=" + readCount
 				+ ", time=" + time + ", difficulty=" + difficulty + ", mainIngre=" + mainIngre + ", subIngre="
-				+ subIngre + ", status=" + status + ", titleImg=" + titleImg + "]";
+				+ subIngre + ", status=" + status + ", memberNic=" + memberNic + ", titleImg=" + titleImg + "]";
 	}
+
+
 	
 	
 

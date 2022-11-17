@@ -22,7 +22,7 @@
 	<entry key="selectListCount">
 		SELECT COUNT(*) COUNT
 		FROM CAMP_REVIEW
-		WHERE STATUS = 'Y'
+		WHERE STATUS = 'N'
 	</entry>
 	
 	<entry key="increaseCount">

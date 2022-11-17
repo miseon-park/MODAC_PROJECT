@@ -3,6 +3,8 @@
 	import="java.util.ArrayList , com.modac.campReview.model.vo.CampReview, com.modac.common.model.vo.PageInfo"%>
 <%
 	ArrayList<CampReview> list = (ArrayList<CampReview>)request.getAttribute("list");
+	
+
 	PageInfo pi = (PageInfo) request.getAttribute("pi");
 	
 	int currentPage = pi.getCurrentPage();
@@ -93,9 +95,11 @@
 				</nav>
 
 			<div class="list-area">
+				<% if(loginMember != null) { %>
 				<div align="right" class="insert-area">
 	               	<a href="<%=contextPath %>/enrollForm.cr" class="btn btn-secondary last1">글쓰기</a> 
 	            </div>
+	            <% } %>
 				<br>
 				<table class="table table-hover list">
 					<thead>
@@ -154,7 +158,7 @@
 			
 			<script>
 				function doPageClick(currentPage){
-					location.href = "<%=contextPath%>/board/list.cr?currentPage="+currentPage;
+					location.href = "<%=contextPath%>/list.cr?currentPage="+currentPage;
 				}
 			</script>
 			

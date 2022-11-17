@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.modac.recipe.model.service.RecipeService;
+import com.modac.common.model.vo.Attachment;
 import com.modac.recipe.model.vo.Recipe;
 
 /**
@@ -31,12 +32,18 @@ public class recipeDetailController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int recipeNo = Integer.parseInt(request.getParameter("rno"));
-		
-		int result = new RecipeService().increaseCount(recipeNo);
+		System.out.println("rno"+recipeNo);
+		RecipeService rService = new RecipeService();
+
+		int result = rService.increaseCount(recipeNo);
 		
 		if(result > 0 ) { // 성공, 상세조회 페이지 
 			Recipe r = new RecipeService().selectRecipe(recipeNo);
+			Attachment at = new RecipeService().selectAttachment(recipeNo);
+			
 			request.setAttribute("r", r);
+			request.setAttribute("at", at);
+			
 			request.getRequestDispatcher("views/recipe/recipeDetailView.jsp").forward(request, response);
 			
 		}else { // 실패, 에러페이지 

@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.modac.common.model.vo.PageInfo;
+import com.modac.common.model.vo.Attachment;
 import com.modac.recipe.model.vo.Recipe;
 
 import static com.modac.common.JDBCTemplate.*;
@@ -27,7 +29,34 @@ public class RecipeDao {
 			e.printStackTrace();
 		}
 	}
-	 public ArrayList<Recipe> selectRecipeList(Connection conn){
+	
+	public int selectListCount(Connection conn) {
+		
+		int listCount = 0;
+		 PreparedStatement psmt = null;
+		 ResultSet rset = null;
+		 String sql = prop.getProperty("selectListCount");
+		 
+		 try {
+			psmt = conn.prepareStatement(sql);
+			
+			rset = psmt. executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("COUNT");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(psmt);
+		}
+		 return listCount;
+		 
+	}
+	
+	 public ArrayList<Recipe> selectRecipeList(Connection conn, PageInfo pi){
 		 
 		 ArrayList<Recipe> list = new ArrayList<>();
 		 
@@ -40,15 +69,23 @@ public class RecipeDao {
 		 try {
 			psmt = conn.prepareStatement(sql);
 			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			
+			psmt.setInt(1, startRow);
+			psmt.setInt(2, endRow);
+			
 			rset = psmt.executeQuery();
 			
 			while(rset.next()) {
-				list.add(new Recipe(rset.getString("POST_TITLE"),
+				list.add(new Recipe(rset.getString("TITLEIMG"),
+		                				rset.getString("POST_NO"),
+						                rset.getString("POST_TITLE"),
 										rset.getString("MEMBER_NIC"),
 										rset.getDate("CREATE_DATE"),
 										rset.getString("TIME"),
 										rset.getString("DIFFICULTY"),
-										rset.getString("MAININGRE")
+										rset.getString("MAIN_INGRE")
 										));
 			}
 			
@@ -63,7 +100,30 @@ public class RecipeDao {
 		return list;
 	 };
 	 
-	 public Recipe selectCampReview(int recipeNo, Connection conn) {
+	 public int increaseCount(int recipeNo, Connection conn) {
+		 
+		 int result = 0;
+		 
+		 PreparedStatement psmt = null;
+		 
+		 String sql = prop.getProperty("increaseCount");
+		 
+		 try {
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setInt(1, recipeNo);
+			
+			result = psmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(psmt);
+		}
+		return result;
+	 }
+	 
+	 
+	 public Recipe selectRecipe(int recipeNo, Connection conn) {
 		 
 		 ResultSet rset = null;
 		 
@@ -79,14 +139,15 @@ public class RecipeDao {
 			rset = psmt.executeQuery();
 			
 			if(rset.next()) {
-				r = new Recipe( rset.getString("POST_TITLE"),
+				r = new Recipe( rset.getString("POST_NO"),
+						             rset.getString("POST_TITLE"),
 						             rset.getString("POST_CONTENT"),
 						             rset.getString("MEMBER_NIC"),
 						             rset.getDate("CREATE_DATE"),
 						             rset.getString("TIME"),
 						             rset.getString("DIFFICULTY"),
-						             rset.getString("MAININGRE"),
-						             rset.getString("SUBINGRE"),
+						             rset.getString("MAIN_INGRE"),
+						             rset.getString("SUB_INGRE"),
 						             rset.getString("TITLEIMG")
 						            );
 			}
@@ -98,6 +159,42 @@ public class RecipeDao {
 			close(psmt);
 		}
 		return r;
+		 
+	 }
+	 
+	 
+	 public Attachment selectAttachment(int recipeNo, Connection conn) {
+		 
+		 Attachment at = null;
+		
+		 PreparedStatement psmt = null;
+		 
+		 ResultSet rset = null;
+
+		 String sql = prop.getProperty("selectAttachment");
+		 
+		 try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, recipeNo);
+			rset = psmt.executeQuery();
+			
+			if(rset.next()) {
+				at = new Attachment();
+				
+				at.setPhotoNo(rset.getString("PHOTO_NO"));
+				at.setOriginName(rset.getString("ORIGIN_NAME"));
+				at.setNewName(rset.getString("NEW_NAME"));
+				at.setPath(rset.getString("PATH"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(psmt);
+		}
+		 
+		return at;
 		 
 	 }
 	
@@ -128,7 +225,56 @@ public class RecipeDao {
 		}
 		 return result;
 	 }
+	 
+	 public int insertAttachment(Attachment at, Connection conn) {
 	
+		 int result = 0;
+		 
+		 PreparedStatement psmt = null;
+		 
+		 String sql = prop.getProperty("insertAttachment");
+		 
+		 try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, at.getOriginName());
+			psmt.setString(2, at.getNewName());
+			psmt.setString(3, at.getPath());
+
+			result = psmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(psmt);
+		}
+		 return result;
+	 }
+	
+	 public int insertNewAttachment(Attachment at, Connection conn) {
+			
+		 int result = 0;
+		 
+		 PreparedStatement psmt = null;
+		 
+		 String sql = prop.getProperty("insertNewAttachment");
+		 
+		 try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, at.getPostNo());
+			psmt.setString(2, at.getOriginName());
+			psmt.setString(3, at.getNewName());
+			psmt.setString(4, at.getPath());
+
+			result = psmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(psmt);
+		}
+		 return result;
+	 }
+	 
 	 public int updateRecipe(Recipe r, Connection conn) {
 		 
 		 int result = 0;
@@ -158,6 +304,31 @@ public class RecipeDao {
 		 
 	 }
 	 
+	 public int updateAttachment(Attachment at, Connection conn) {
+			
+		 int result = 0;
+		 
+		 PreparedStatement psmt = null;
+		 
+		 String sql = prop.getProperty("updateAttachment");
+		 
+		 try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, at.getOriginName());
+			psmt.setString(2, at.getNewName());
+			psmt.setString(3, at.getPath());
+			psmt.setString(4, at.getPostNo());
+
+			result = psmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(psmt);
+		}
+		 return result;
+	 }
+	 
 	 public int deleteRecipe(int RecipeNo, Connection conn) {
 		 
 		 int result = 0;
@@ -179,6 +350,27 @@ public class RecipeDao {
 			close(psmt);
 		}
 		return result;
+		 
+	 }
+	 
+	 public void deleteAttachment(int RecipeNo, Connection conn) {
+
+		 PreparedStatement psmt = null;
+		 
+		 String sql = prop.getProperty("deleteAttachment");
+		 
+		 try {
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setInt(1, RecipeNo);
+			
+			psmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(psmt);
+		}
 		 
 	 }
 	

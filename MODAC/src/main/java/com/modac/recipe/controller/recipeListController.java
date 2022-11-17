@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.modac.common.model.vo.PageInfo;
 import com.modac.recipe.model.service.RecipeService;
 import com.modac.recipe.model.vo.Recipe;
 
@@ -32,12 +33,35 @@ public class recipeListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<Recipe> list = new RecipeService().selectRecipeList();
 		
-		System.out.println(list);
+		int listCount;
+		int currentPage;
+		int pageLimit;
+		int boardLimit;
+		int maxPage;
+		int startPage;
+		int endPage;
 		
+		listCount = new RecipeService().selectListCount();
+		currentPage = Integer.parseInt(request.getParameter("currentPage") == null ? "1" : request.getParameter("currentPage"));
+		pageLimit = 5;
+		boardLimit = 9;
+		maxPage = (int)Math.ceil((double)listCount / boardLimit);
+		startPage = (currentPage - 1) / pageLimit * pageLimit +1;
+		endPage = startPage + pageLimit -1;
+		
+	
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
+		
+		
+		ArrayList<Recipe> list = new RecipeService().selectRecipeList(pi);
+
 		request.setAttribute("list", list);
-		
+		request.setAttribute("pi", pi); 
 		request.getRequestDispatcher("views/recipe/recipeListView.jsp").forward(request, response);
 		
 		

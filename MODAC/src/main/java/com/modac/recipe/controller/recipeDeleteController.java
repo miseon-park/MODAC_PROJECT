@@ -29,14 +29,14 @@ public class recipeDeleteController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int postNo = Integer.parseInt(request.getParameter("crno"));
+		int postNo = Integer.parseInt(request.getParameter("rno"));
 		
 		int result = new RecipeService().deleteRecipe(postNo);
 		
 		if(result > 0) {
-			request.getSession().setAttribute("alertMsg", "성공적으로 공지사항이 삭제되었습니다.");
+			request.getSession().setAttribute("alertMsg", "삭제되었습니다.");
 			
-			response.sendRedirect(request.getContextPath()+"/list.cr");
+			response.sendRedirect(request.getContextPath()+"/list.r");
 		} else {
 			request.setAttribute("errorPage", "삭제에 실패하였습니다.");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

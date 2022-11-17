@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.modac.recipe.model.vo.Recipe"%>
+    pageEncoding="UTF-8" import="com.modac.recipe.model.vo.Recipe, com.modac.common.model.vo.*"%>
 <%
 Recipe r = (Recipe)request.getAttribute("r");
+
+Attachment at = (Attachment)request.getAttribute("at");
 %>
 <!DOCTYPE html>
 <html>
@@ -57,8 +59,10 @@ Recipe r = (Recipe)request.getAttribute("r");
 
               <div align="right" class="insert-area">
             
-               	<a href="<%=contextPath %>/updateForm.r?rno=<%=r.getPostNo()%>" class="btn btn-secondary last1">수정하기</a> 
-               	<a href="<%=contextPath %>/delete.r?rno=<%=r.getPostNo()%>" class="btn btn-secondary last1">삭제하기</a> 
+              <% if(loginMember != null && loginMember.getMemberNic().equals(r.getMemberNic())) {%>
+              	<a href="<%=contextPath %>/updateForm.r?rno=<%=r.getPostNo()%>" class="btn btn-secondary last1">수정하기</a>
+              	<a href="<%=contextPath %>/delete.r?rno=<%=r.getPostNo()%>" class="btn btn-secondary last1">삭제하기</a>
+              <% } %>
               
               </div>
 			<br>
@@ -67,7 +71,7 @@ Recipe r = (Recipe)request.getAttribute("r");
                 <h3>&nbsp;<%=r.getPostTitle()%></h3>
                  
                 <br>
-                <span>&nbsp; <%=r.getMemberNo() %></span>
+                <span>&nbsp; <%=r.getMemberNic() %></span>
                  
                 <span class="date">작성일 : <%=r.getCreateDate() %></span>
                  
@@ -92,11 +96,40 @@ Recipe r = (Recipe)request.getAttribute("r");
                     <path d="M4 10a1 1 0 0 1 2 0v2a1 1 0 0 1-2 0v-2zm3 0a1 1 0 0 1 2 0v2a1 1 0 0 1-2 0v-2zm3 0a1 1 0 1 1 2 0v2a1 1 0 0 1-2 0v-2z" />
                     <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-.623l-1.844 6.456a.75.75 0 0 1-.722.544H3.69a.75.75 0 0 1-.722-.544L1.123 8H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172zM2.163 8l1.714 6h8.246l1.714-6H2.163z"/> </svg> 부재료 :  <%=r.getSubIngre() %></label>
                   </div> 
-                    
+                  <%=r.getTitleImg() %>
                   <%=r.getPostContent() %>
                 </div>
             </div>
             <br>
+            <div id="reply-area">
+		<table border="1" align="center">
+			<thead>
+				<% if(loginMember != null) { %>
+					<!-- 로그인이 되어있을 경우 -->
+					<tr>
+						<th>댓글작성</th>
+						<td>
+							<textarea id="replyContent" col="50" row="3" style="resize:none;"></textarea>
+						</td>
+						<td><button onclick ="insertReply();">댓글등록</button></td>
+					</tr>
+				<% } else { %>
+					<!-- 로그인이 안 되어있을 경우 -->
+					<tr>
+						<th>댓글작성</th>
+						<td>
+							<textarea col="50" row="3" style="resize:none;" readonly>로그인 후 이용가능한 서비스입니다.</textarea>
+						</td>
+						<td><button disabled>댓글등록</button></td>
+					</tr>
+				<%} %>
+			</thead>
+			<tbody>
+				
+			</tbody>
+		</table>
+	
+	</div>
             
             <div align="center">
               <a href="<%=contextPath %>/list.r" class="btn btn-secondary last1">목록으로</a>

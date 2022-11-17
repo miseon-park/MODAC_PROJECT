@@ -1,5 +1,6 @@
 package com.modac.recipe.controller;
 
+import java.io.File;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -7,8 +8,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
+import com.modac.campReview.model.vo.MyFileRenamePolicy;
+import com.modac.common.model.vo.Attachment;
 import com.modac.recipe.model.service.RecipeService;
 import com.modac.recipe.model.vo.Recipe;
+import com.oreilly.servlet.MultipartRequest;
 
 /**
  * Servlet implementation class campReviewUpdateController
@@ -30,41 +36,75 @@ public class recipeUpdateController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// server6 05:09:00 참조, 로그인 되어있고 본인 게시물일때 가능하게 해야함. 
-		
+
 		request.setCharacterEncoding("UTF-8");
 		
-		String postNo = request.getParameter("rno");
-		String postTitle =  request.getParameter("title");
-		String postContent =  request.getParameter("content");
-		String time = request.getParameter("time");
-		String difficulty = request.getParameter("difficulty");
-		String mainIngre = request.getParameter("mainIngre");
-		String subIngre = request.getParameter("subIngre");
-		String titleImg = request.getParameter("titleImg");
-		
+if(ServletFileUpload.isMultipartContent(request)) {
+			
+			int maxSize = 1024 * 1024 * 10;
+			
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/recipe_upfiles/");
+			
+			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+			
 
-		Recipe r = new Recipe();
-		r.setPostNo(postNo);
-		r.setPostTitle(postTitle);
-		r.setPostContent(postContent);
-		r.setTime(time);
-		r.setDifficulty(difficulty);
-		r.setMainIngre(mainIngre);
-		r.setSubIngre(subIngre);
-		r.setTitleImg(titleImg);
-		
-		int result = new RecipeService().updateRecipe(r);
-		
-		if(result > 0) {
-			request.getSession().setAttribute("alertMsg","성공적으로 수정되었습니다.");
-			response.sendRedirect(request.getContextPath()+"/detail.cr?crno="+postNo);
-		}else {
-			request.setAttribute("errorPage", "작성글 수정 실패하였습니다.");
-			request.getRequestDispatcher("views/common.errorPage.jsp").forward(request, response);
+			String postNo = multiRequest.getParameter("postNo");
+			String postTitle = multiRequest.getParameter("title");
+			String postContent = multiRequest.getParameter("content");
+			String time = multiRequest.getParameter("time");
+			String difficulty = multiRequest.getParameter("difficulty");
+			String mainIngre = multiRequest.getParameter("mainIngre");
+			String subIngre = multiRequest.getParameter("subIngre");
+			
+			Recipe r = new Recipe();
+			r.setPostTitle(postTitle);
+			r.setPostContent(postContent);
+			r.setMemberNo(postNo);
+			r.setTime(time);
+			r.setDifficulty(difficulty);
+			r.setMainIngre(mainIngre);
+			r.setSubIngre(subIngre);
+			
+			Attachment at = null;
+			
+			if(multiRequest.getOriginalFileName("upfile") != null) {
+				
+				at = new Attachment();
+				at.setOriginName(multiRequest.getOriginalFileName("upfile"));// 원본명
+				at.setNewName(multiRequest.getFilesystemName("upfile"));//수정명(실제 서버에 업로드되어있는 파일명)
+				at.setPath("resources/recipe_upfiles/");
+			}
+			
+            if(multiRequest.getParameter("originFileNo") != null) {
+
+                at.setPhotoNo(multiRequest.getParameter("originFileNo"));
+                
+                new File(savePath+multiRequest.getParameter("originFileName")).delete();
+            }else {
+                // 기존에 파일이 없는 경우
+                // => insert Attachment
+                // ref_bno + 현재 게시물 번호 
+                at.setPostNo(postNo);
+            }
+			
+			
+			int result = new RecipeService().updateRecipe(r, at);
+			
+            // case1 : 새로운 첨부파일 없는 경우(x) => b, null -> Board Update
+            // case2 : 새로운 첨부파일 있는 경우(o), 기존 첨부파일도 있는 경우(o) => b, at에 fileNo 
+            //            => Board Update, Attachment update
+            // case3 : 새로운 첨부파일 있는 경우(o), 기존 첨부파일도 없는 경우(x) => b, at에 refNo 
+            //            => Board Update, Attachment insert
+            
+            if(result > 0) { //수정성공 => 상세조회페이지
+                request.getSession().setAttribute("alertMsg","성공적으로 수정되었습니다.");
+                response.sendRedirect(request.getContextPath()+"/detail.r?rno=" + postNo);
+            }else { // 수정실패 => errorPage
+                request.setAttribute("errorMsg", "게시글 수정에 실패했습니다.");
+                request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+                
+            }
 		}
-		
-		
 	}
 
 	/**

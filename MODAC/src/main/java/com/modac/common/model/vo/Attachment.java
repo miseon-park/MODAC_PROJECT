@@ -1,4 +1,4 @@
-package com.modac.recipe.model.vo;
+package com.modac.common.model.vo;
 
 import java.sql.Date;
 
@@ -11,7 +11,7 @@ public class Attachment {
 	private String path;
 	private Date uploadDate;
 	private String status;
-	private String fileLevel;
+	private int fileLevel;
 	private String boardNo;
 	
 	public Attachment() {
@@ -19,7 +19,7 @@ public class Attachment {
 	}
 
 	public Attachment(String photoNo, String postNo, String originName, String newName, String path, Date uploadDate,
-			String status, String fileLevel, String boardNo) {
+			String status, int fileLevel, String boardNo) {
 		super();
 		this.photoNo = photoNo;
 		this.postNo = postNo;
@@ -88,11 +88,11 @@ public class Attachment {
 		this.status = status;
 	}
 
-	public String getFileLevel() {
+	public int getFileLevel() {
 		return fileLevel;
 	}
 
-	public void setFileLevel(String fileLevel) {
+	public void setFileLevel(int fileLevel) {
 		this.fileLevel = fileLevel;
 	}
 

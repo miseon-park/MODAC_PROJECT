@@ -1,5 +1,6 @@
 package com.modac.recipe.controller;
 
+import java.io.File;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -7,8 +8,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
 import com.modac.recipe.model.service.RecipeService;
+import com.modac.campReview.model.vo.MyFileRenamePolicy;
+import com.modac.common.model.vo.Attachment;
 import com.modac.recipe.model.vo.Recipe;
+import com.oreilly.servlet.MultipartRequest;
 
 /**
  * Servlet implementation class campReviewInsertController
@@ -30,39 +36,62 @@ public class recipeInsertController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		
 		request.setCharacterEncoding("UTF-8");
 		
-		String memberNo = request.getParameter("memberNo");
-		String postTitle = request.getParameter("title");
-		String postContent = request.getParameter("content");
-		String time = request.getParameter("time");
-		String difficulty = request.getParameter("difficulty");
-		String mainIngre = request.getParameter("mainIngre");
-		String subIngre = request.getParameter("subIngre");
-		String titleImg = request.getParameter("titleImg");
-		
-		Recipe r = new Recipe();
-		r.setPostTitle(postTitle);
-		r.setPostContent(postContent);
-		r.setMemberNo(memberNo);
-		r.setTime(time);
-		r.setDifficulty(difficulty);
-		r.setMainIngre(mainIngre);
-		r.setSubIngre(subIngre);
-		r.setTitleImg(titleImg);
-		
-		int result = new RecipeService().insertRecipe(r);
-		
-		if(result > 0) { // 성공시 => list.cr로 리다이랙트 
-			request.getSession().setAttribute("alertMsg", "성공적으로 글이 등록되었습니다. ");
-			response.sendRedirect(request.getContextPath()+"/list.r");
-		} else {
-			request.setAttribute("errorMsg", "글 등록에 실패하였습니다.");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+
+		if(ServletFileUpload.isMultipartContent(request)) {
 			
+			int maxSize = 1024 * 1024 * 10;
+			
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/recipe_upfiles/");
+			
+			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+			
+
+			String memberNo = multiRequest.getParameter("memberNo");
+			String postTitle = multiRequest.getParameter("title");
+			String postContent = multiRequest.getParameter("content");
+			String time = multiRequest.getParameter("time");
+			String difficulty = multiRequest.getParameter("difficulty");
+			String mainIngre = multiRequest.getParameter("mainIngre");
+			String subIngre = multiRequest.getParameter("subIngre");
+			
+			Recipe r = new Recipe();
+			r.setPostTitle(postTitle);
+			r.setPostContent(postContent);
+			r.setMemberNo(memberNo);
+			r.setTime(time);
+			r.setDifficulty(difficulty);
+			r.setMainIngre(mainIngre);
+			r.setSubIngre(subIngre);
+			
+			Attachment at = null;
+			
+			if(multiRequest.getOriginalFileName("upfile") != null) {
+				
+				at = new Attachment();
+				at.setOriginName(multiRequest.getOriginalFileName("upfile"));// 원본명
+				at.setNewName(multiRequest.getFilesystemName("upfile"));//수정명(실제 서버에 업로드되어있는 파일명)
+				at.setPath("resources/recipe_upfiles/");
+			}
+			
+			int result = new RecipeService().insertRecipe(r, at);
+			
+			if(result > 0) {// 성공=> list.bo?currentPage=1
+				request.getSession().setAttribute("alertMsg", "게시글 작성 성공!");
+				response.sendRedirect(request.getContextPath()+"/list.r");
+			
+			}else { //실패시 => 첨부파일 있엇을경우 이미 업로드된 첨부파일을 서버에 보관할 이유가 없다(용량만차지)
+				if(at != null) {
+					// 삭제시키고자 하는 파일객체 생성 -> delete메소드 호출
+					new File(savePath+at.getNewName()).delete();
+				}
+				
+				request.setAttribute("errorMsg","게시글 작성 실패");
+				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			}
 		}
-	
-	
 	}
 
 	/**
