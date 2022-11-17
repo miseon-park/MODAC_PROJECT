@@ -74,11 +74,11 @@
  <div class="content">
             <div class="content1">
 
-                    <a class="nav-link" aria-current="page" href="#" style="text-align: center;color: orange;">개인정보 변경</a>
+                    <a class="nav-link" aria-current="page" href="<%=contextPath%>/myPage.me" style="text-align: center;color: orange;">개인정보 변경</a>
                     <br><br>
                     <a class="nav-link" href="#" style="text-align: center;">북마크 모음</a>
                     <br><br>
-                    <a class="nav-link" href="#"style="text-align: center;">자기글 모음</a>
+                    <a class="nav-link" href="<%=contextPath%>/myPageSelf.me"style="text-align: center;">자기글 모음</a>
 
 
 
@@ -110,7 +110,7 @@
                   </div>
                   <div class="form-floating mb-3">
                     <label for="floatingInput">EMAIL*</label>
-                    <input type="email" class="form-control" name="email" id="floatingInput" value="<%=email %>">
+                    <input type="email" class="form-control" name="email" id="floatingInput" value="<%=email %>" readonly>
 
                   </div>
 

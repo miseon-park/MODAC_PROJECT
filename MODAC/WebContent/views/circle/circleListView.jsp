@@ -1,8 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="java.util.ArrayList , com.modac.circle.model.vo.Circle"%>
+	import="java.util.ArrayList , com.modac.circle.model.vo.Circle , com.modac.common.model.vo.PageInfo" %>
 <%
 	ArrayList<Circle> list = (ArrayList<Circle>)request.getAttribute("list");
+PageInfo pi = (PageInfo) request.getAttribute("pi");
+int currentPage = pi.getCurrentPage();
+int startPage = pi.getStartPage();
+int endPage = pi.getEndPage();
+int maxPage = pi.getMaxPage();
 
 	
 %>
@@ -126,10 +131,40 @@
 					$(".list>tbody>tr").click(function(){
 						let bno = $(this).children().eq(0).text();
 								
-						location.href= '<%=contextPath%>/cdetail.bo?bno=' + bno;
+						location.href= '<%=contextPath%>/cdetail.bo?bno='+ bno;
 					});
 				})
 			</script>
+			
+			<br><br>
+ 	
+ 	<div align="center" class = "paging-area">
+ 		<%if(currentPage !=1){ %>
+ 		<button onclick="doPageClick(<%=currentPage-1 %>)">&lt;</button>
+ 		
+ 		<%} %>
+ 		
+ 		<% for(int i = startPage; i<=endPage; i++){ %>
+ 			<%if(i != currentPage){ %>
+ 			<button onclick="doPageClick(<%=i %>)"><%=i %></button>
+ 			
+ 			<%} else{ %>
+ 				<button disabled><%=i %></button>
+ 			<%} %>
+ 		<%} %>
+ 		
+ 		<%if(currentPage != maxPage){ %>
+ 		<button onclick="doPageClick(<%=currentPage+1 %>)">&gt;</button>
+ 		
+ 		<%}  %>
+ 		
+ 		
+ 	</div>
+ 			<script>
+ 				function doPageClick(currentPage){
+ 					location.href = "<%=contextPath%>/clist.bo?currentPage="+currentPage;
+ 				}
+ 			</script>
 			
 
 			

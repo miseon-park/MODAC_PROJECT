@@ -8,20 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.modac.circle.model.service.CircleBoardService;
-import com.modac.circle.model.vo.Circle;
-import com.modac.common.model.vo.Attachment;
 
 /**
- * Servlet implementation class CircleDetailController
+ * Servlet implementation class CircleDeleteController
  */
-@WebServlet("/cdetail.bo")
-public class CircleDetailController extends HttpServlet {
+@WebServlet("/cdelete.bo")
+public class CircleDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CircleDetailController() {
+    public CircleDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,29 +30,19 @@ public class CircleDetailController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int postNo = Integer.parseInt(request.getParameter("bno"));
 		
-		CircleBoardService cService = new CircleBoardService();
+		int result = new CircleBoardService().deleteBoard(postNo);
 		
-		//조회수 증가 / 게시글 조회 (Board)/ 첨부파일 조회(Attachment)
-		
-		int result = cService.increaseCount(postNo);
-		
-		if(result>0) { // 유효한 게시글 일때 => 게시글, 첨부파일 => 상세조회 페이지
+		if(result > 0) {
 			
-			Circle c = cService.selectBoard(postNo);
-			Attachment at = cService.selectAttachment(postNo);
+			request.getSession().setAttribute("alertMsg", "성공적으로 게시글을 삭제했습니다.");
 			
-			
-			request.setAttribute("c", c);
-			request.setAttribute("at", at);
-			
-			
-			request.getRequestDispatcher("views/circle/circleDetailView.jsp").forward(request, response);
+			response.sendRedirect(request.getContextPath()+"/clist.bo");
 			
 			
 			
-		}else {//에러페이지
-			request.setAttribute("errorMsg", "게시글 상세조회 실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}else {
+			request.setAttribute("errorMsg", "게시글 삭제 실패");
+			request.getRequestDispatcher("view/common/errorPage.jsp").forward(request, response);
 			
 		}
 	}

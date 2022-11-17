@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import = "com.modac.circle.model.vo.*"%>
+    pageEncoding="UTF-8" import = "com.modac.circle.model.vo.*, com.modac.common.model.vo.*"%>
     <%
  	Circle c = (Circle)request.getAttribute("c");
  // 게시글번호, 카테고리명, 제목, 내용, 작성자아이디, 작성일
  
- 	//Attachment at = (Attachment)request.getAttribute("at");
+ 	Attachment at = (Attachment)request.getAttribute("at");
  //파일번호, 원본명, 수정명, 저장경로
  %>
 <!DOCTYPE html>
@@ -64,10 +64,29 @@
                  
                 <br>
                 <br>
-                <div class="form-control" style="height:500px;"><%=c.getPostContent() %></div>
+                
+                
+                
+                <div class="form-control" style="height:500px;"><%=c.getPostContent() %>
+                
+                
+                <div class="form-control">
+                <%if(at==null){ %>
+						<!-- 첨부파일이 없는경우 -->
+						첨부파일이 없습니다.
+						<%} else {%>
+							<!-- 첨부파일이 있는경우 -->
+							<!-- 브라우저에서 http://localhost:8001/jsp/resources/board_upfiles/xxx.jpg -->
+							<a href="<%=contextPath %>/<%=at.getPath()+at.getNewName() %>"
+							download="<%=at.getOriginName() %>">
+								<%=at.getOriginName() %>
+							</a>
+						<%} %>
+                
+                </div>
 
                 <div align="center">
-				<a href="<%=contextPath %>/circle/clist.bo?currentPage=1" class="btn btn-secondary btn-sm">목록가기</a>
+				<a href="<%=contextPath %>/clist.bo?currentPage=1" class="btn btn-secondary btn-sm">목록가기</a>
 			<%if(loginMember != null && loginMember.getMemberNo().equals(c.getMemberNo())){ %>
 			
 			<!-- 현재 로그인한 사용자가 해당 글을 작성한 작성자일 경우에만 보여진다. -->

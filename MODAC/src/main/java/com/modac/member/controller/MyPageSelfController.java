@@ -1,29 +1,24 @@
-package com.modac.circle.controller;
+package com.modac.member.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.modac.circle.model.service.CircleBoardService;
-import com.modac.circle.model.vo.Circle;
-import com.modac.common.model.vo.Attachment;
+import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class CircleUpdateFormController
+ * Servlet implementation class MyPageSelfController
  */
-@WebServlet("/cupdateForm.bo")
-public class CircleUpdateFormController extends HttpServlet {
+@WebServlet("/myPageSelf.me")
+public class MyPageSelfController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CircleUpdateFormController() {
+    public MyPageSelfController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,24 +27,14 @@ public class CircleUpdateFormController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		CircleBoardService cService = new CircleBoardService();
+		HttpSession session = request.getSession();
 		
-		int postNo = Integer.parseInt(request.getParameter("bno"));
-		
-		
-		
-		
-		Circle c = cService.selectBoard(postNo);
-		
-	
-		Attachment at = cService.selectAttachment(postNo);
-		
-		request.setAttribute("c", c);
-	
-		request.setAttribute("at", at);
-		
-		
-		request.getRequestDispatcher("views/circle/circleUpdateForm.jsp").forward(request, response);
+		if(session.getAttribute("loginMember") == null) {// 로그인 안한상태
+			session.setAttribute("alertMsg", "로그인 후 이용가능한 서비스 입니다.");
+			response.sendRedirect(request.getContextPath());
+		}else {// 로그인 한상태
+			request.getRequestDispatcher("views/member/myPageSelf.jsp").forward(request, response);
+		}
 	}
 
 	/**

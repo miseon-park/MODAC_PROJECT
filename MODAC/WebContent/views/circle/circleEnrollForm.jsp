@@ -30,16 +30,16 @@
 
             <div class="content2">
 				<br>
-                <h3>캠핑장 리뷰</h3>
+                <h3>동아리 모집</h3>
               <br>
               
-              <form id="enroll-form" action="<%=contextPath %>/cinsert.bo" method="post">
+              <form id="enroll-form" action="<%=contextPath %>/cinsert.bo" method="post" enctype="multipart/form-data">
               
               	<input type="hidden" name="memberNo" value="<%=loginMember.getMemberNo()%>">
 	              
 	              <div class="form-control">
 	                  <input type="text" class="form-control" placeholder="제목을 입력해주세요." aria-label="title" name="title">
-	                  <input type="file" class="form-control">
+	                  <input type="file" class="form-control" name="upfile">
 	                  <textarea class="form-control" style="height:500px;" placeholder="내용을 입력해 주세요" name="content"></textarea>
 	
 	                  <div align="center">

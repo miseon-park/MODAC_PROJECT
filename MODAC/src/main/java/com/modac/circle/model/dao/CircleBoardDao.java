@@ -11,6 +11,8 @@ import java.util.Properties;
 
 import com.modac.circle.model.vo.Circle;
 import com.modac.common.JDBCTemplate;
+import com.modac.common.model.vo.Attachment;
+import com.modac.common.model.vo.PageInfo;
 
 public class CircleBoardDao {
 private Properties prop = new Properties();
@@ -49,6 +51,83 @@ private Properties prop = new Properties();
 		return result;
 	}
 	
+public int insertAttachment(Attachment at, Connection conn) {
+		
+		int result = 0;
+		PreparedStatement psmt = null;
+		
+		String sql = prop.getProperty("insertAttachment");
+		
+		try {
+			psmt=conn.prepareStatement(sql);
+			
+			psmt.setString(1, at.getOriginName());
+			psmt.setString(2, at.getNewName());
+			psmt.setString(3, at.getPath());
+			
+			
+			result = psmt.executeUpdate();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(psmt);
+		}
+		System.out.println("result:" + result);
+		
+		return result;
+	}
+
+public int insertNewAttachment(Attachment at, Connection conn) {
+	
+	int result = 0;
+	PreparedStatement psmt = null;
+	
+	String sql = prop.getProperty("insertNewAttachment");
+	
+	try {
+		psmt=conn.prepareStatement(sql);
+		
+		psmt.setString(1, at.getPostNo());
+		psmt.setString(2, at.getOriginName());
+		psmt.setString(3, at.getNewName());
+		psmt.setString(4, at.getPath());
+		
+		
+		result = psmt.executeUpdate();
+	} catch (SQLException e) {
+		
+		e.printStackTrace();
+	}finally {
+		JDBCTemplate.close(psmt);
+	}
+
+	
+	return result;
+}
+
+public int updateAttachment(Attachment at, Connection conn) {
+	
+	int result = 0;
+	PreparedStatement psmt = null;
+	String sql = prop.getProperty("updateAttachment");
+	
+	try {
+		psmt = conn.prepareStatement(sql);
+		psmt.setString(1, at.getOriginName());
+		psmt.setString(2, at.getNewName());
+		psmt.setString(3, at.getPath());
+		psmt.setString(4, at.getPhotoNo());
+		result=psmt.executeUpdate();
+	} catch (SQLException e) {
+					e.printStackTrace();
+	}finally {
+		JDBCTemplate.close(psmt);
+	}
+	return result;
+	
+}
+	
 
 	public int increaseCount(Connection conn, int postNo) {
 		int result = 0;
@@ -68,7 +147,7 @@ private Properties prop = new Properties();
 		}finally {
 			JDBCTemplate.close(psmt);
 		}
-		System.out.println("dao" + result);
+		
 		return result;
 	}
 	
@@ -111,7 +190,7 @@ public Circle selectBoard(Connection conn, int postNo) {
 		return c;
 	}
 
-public ArrayList<Circle> selectList(Connection conn){
+public ArrayList<Circle> selectList(Connection conn, PageInfo pi){
 	
 	//select문 => ResultSet
 	
@@ -141,11 +220,11 @@ public ArrayList<Circle> selectList(Connection conn){
 		 * 
 		 */
 		
-		//int startRow = (pi.getCurrentPage()-1)* pi.getBoardLimit() +1;
-		//int endRow = startRow + pi.getBoardLimit()-1;
+		int startRow = (pi.getCurrentPage()-1)* pi.getBoardLimit() +1;
+		int endRow = startRow + pi.getBoardLimit()-1;
 		
-		//psmt.setInt(1, startRow);
-		//psmt.setInt(2, endRow);
+		psmt.setInt(1, startRow);
+		psmt.setInt(2, endRow);
 		
 		rset = psmt.executeQuery();
 		
@@ -186,9 +265,93 @@ public int updateBoard(Connection conn, Circle c) {
 	}finally {
 		JDBCTemplate.close(psmt);
 	}
+	
 	return result;
 }
 
+public int deleteBoard(int postNo, Connection conn) {
+	int result = 0;
+	PreparedStatement psmt = null;
+	String sql = prop.getProperty("deleteBoard");
+	
+	try {
+		psmt = conn.prepareStatement(sql);
+		psmt.setInt(1, postNo);
+		result=psmt.executeUpdate();
+	} catch (SQLException e) {
+		
+		e.printStackTrace();
+	}finally {
+		JDBCTemplate.close(psmt);
+	}
+	return result;
+}
+
+public int selectListCount(Connection conn) {
+	// select문 -> Result객체
+	int listCount = 0;
+	
+	PreparedStatement psmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("selectListCount");
+	
+	try {
+		psmt = conn.prepareStatement(sql);
+		
+		rset = psmt.executeQuery();
+		
+		if(rset.next()) {
+			listCount = rset.getInt("READ_COUNT");
+		}
+		
+	} catch (SQLException e) {
+		
+		e.printStackTrace();
+	}finally {
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(psmt);
+	}
+	
+	return listCount;
+	
+	
+	
+}
+
+public Attachment selectAttachment(Connection conn, int postNo) {
+	
+	Attachment at = null;
+	PreparedStatement psmt = null;
+	ResultSet rset=null;
+	
+	String sql = prop.getProperty("selectAttachment");
+	
+	try {
+		psmt = conn.prepareStatement(sql);
+		psmt.setInt(1, postNo);
+		
+		rset = psmt.executeQuery();
+		
+		if(rset.next()) {
+			at = new Attachment();
+			
+			at.setPhotoNo(rset.getString("PHOTO_NO"));
+			at.setOriginName(rset.getString("ORIGIN_NAME"));
+			at.setNewName(rset.getString("NEW_NAME"));
+			at.setPath(rset.getString("PATH"));
+		}
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}finally {
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(psmt);
+	}
+	return at;
+	
+}
 
 
 }

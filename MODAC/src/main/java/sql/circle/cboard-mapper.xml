@@ -2,7 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
-<entry key = "selectList">
+<!-- <entry key = "selectList">
 	
 	
 	
@@ -20,7 +20,7 @@
 		
 		
 		
-</entry>
+</entry> -->
 
 
 
@@ -28,6 +28,16 @@
 	INSERT INTO CIRCLE(BOARD_NO,POST_NO, POST_TITLE, POST_CONTENT, MEMBER_NO)
 	VALUES(10,SEQ_CIRNO.NEXTVAL, ?, ?, ?)
 
+</entry>
+
+<entry key="insertAttachment">
+	INSERT INTO ATTACHMENT(PHOTO_NO, BOARD_NO,POST_NO, ORIGIN_NAME, NEW_NAME, PATH)
+	VALUES(SEQ_FNO.NEXTVAL, 10,SEQ_CIRNO.CURRVAL ,?, ?, ?)
+</entry>
+
+<entry key="insertNewAttachment">
+	INSERT INTO ATTACHMENT(PHOTO_NO, BOARD_NO, POST_NO, ORIGIN_NAME, NEW_NAME, PATH)
+	VALUES(SEQ_FNO.NEXTVAL, 10,? ,?, ?, ?)
 </entry>
 <entry key = "increaseCount">
 	UPDATE CIRCLE
@@ -40,20 +50,38 @@
 
 </entry>
 
-<entry key="selectBoard">
-	SELECT POST_NO,
-			POST_TITLE,
-			POST_CONTENT,
-			CREATE_DATE,
-			MEMBER_NO
+<entry key="updateAttachment">
+		UPDATE ATTACHMENT
+		SET ORIGIN_NAME = ?,
+			NEW_NAME = ?,
+			PATH = ?,
+			UPLOAD_DATE = SYSDATE
+		WHERE PHOTO_NO = ? 
+	</entry>
+
+<entry key = "selectList">
+	SELECT *
+	FROM(
+	SELECT ROWNUM RNUM, A.*
+		FROM (
+		SELECT POST_NO,
+			   
+			   POST_TITLE,
+			   MEMBER_NO,
+			   READ_COUNT,
+			   CREATE_DATE
 			
 	FROM CIRCLE C
 	
 	JOIN MEMBER  M USING (MEMBER_NO)
-	WHERE POST_NO=?
-		AND C.STATUS='N' AND M.STATUS='N'
-
+	WHERE C.STATUS='N' AND M.STATUS='N'
+		ORDER BY CREATE_DATE ASC
+		)A
+		)
+		 WHERE RNUM BETWEEN ? AND ?
 </entry>
+
+
 
 <entry key="updateBoard">
 
@@ -65,5 +93,42 @@
 
 </entry>
 
+<entry key="deleteBoard">
+
+	UPDATE CIRCLE
+	SET STATUS = 'Y'
+	WHERE POST_NO = ?
+</entry>
+
+<entry key = "selectListCount">
+	SELECT COUNT(*) READ_COUNT
+	FROM CIRCLE
+	WHERE STATUS = 'N'	
+</entry>
+
+<entry key="selectBoard">
+	SELECT POST_NO,
+			
+			POST_TITLE,
+			POST_CONTENT,
+			CREATE_DATE,
+			MEMBER_NO
+	FROM CIRCLE C
+	
+	JOIN MEMBER M USING (MEMBER_NO)
+	WHERE POST_NO =? AND C.STATUS='N'AND M.STATUS='N'
+
+</entry>
+
+<entry key="selectAttachment">
+	SELECT PHOTO_NO,
+			ORIGIN_NAME,
+			NEW_NAME,
+			PATH,
+			FILE_LEVEL
+	FROM ATTACHMENT
+	WHERE POST_NO = ? AND BOARD_NO=10
+	ORDER BY FILE_LEVEL
+</entry>
 
 </properties>
