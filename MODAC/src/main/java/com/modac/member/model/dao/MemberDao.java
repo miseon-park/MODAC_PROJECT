@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
-import com.modac.common.JDBCTemplate;
+import static com.modac.common.JDBCTemplate.*;
 import com.modac.member.model.vo.Member;
 
 public class MemberDao {
@@ -70,8 +70,8 @@ public class MemberDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			JDBCTemplate.close(rset);
-			JDBCTemplate.close(psmt);
+			close(rset);
+			close(psmt);
 		}
 		return m;
 	}
@@ -106,7 +106,7 @@ public class MemberDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			JDBCTemplate.close(psmt);
+			close(psmt);
 		}
 	    return result;
 	}
@@ -139,8 +139,8 @@ public class MemberDao {
             // TODO Auto-generated catch block
             e.printStackTrace();
         } finally {
-            JDBCTemplate.close(rset);
-            JDBCTemplate.close(psmt);
+            close(rset);
+            close(psmt);
         }
 	    System.out.println(count);
 	    return count;
@@ -184,8 +184,8 @@ public class MemberDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			JDBCTemplate.close(rset);
-			JDBCTemplate.close(psmt);
+			close(rset);
+			close(psmt);
 		}
 			return m;
 	}
@@ -254,7 +254,7 @@ public class MemberDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			JDBCTemplate.close(psmt);
+			close(psmt);
 		}
 		return result;
 	}
@@ -295,8 +295,8 @@ public class MemberDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			JDBCTemplate.close(rset);
-			JDBCTemplate.close(psmt);
+			close(rset);
+			close(psmt);
 		}
 		return m;
 	}

@@ -2,7 +2,7 @@ package com.modac.member.model.service;
 
 import java.sql.Connection;
 
-import com.modac.common.JDBCTemplate;
+import static com.modac.common.JDBCTemplate.*;
 import com.modac.member.model.dao.MemberDao;
 import com.modac.member.model.vo.Member;
 
@@ -15,10 +15,10 @@ public class MemberService {
 	 */
 	public Member loginMember(String memberId , String memberPwd) {
 		
-		Connection conn = JDBCTemplate.getConnection();
+		Connection conn = getConnection();
 		Member m = new MemberDao().loginMember(memberId , memberPwd , conn);
 		
-		JDBCTemplate.close();
+		close();
 		
 		return m;
 	}
@@ -29,16 +29,16 @@ public class MemberService {
 	 */
 	public int insertMember(Member m) {
 	    
-	    Connection conn = JDBCTemplate.getConnection();
+	    Connection conn = getConnection();
 	    
 	    int result = new MemberDao().insertMember(m , conn);
 	    
 	    if(result > 0) {
-	        JDBCTemplate.commit(conn);
+	        commit(conn);
 	    }else {
-	        JDBCTemplate.rollback(conn);
+	        rollback(conn);
 	    }
-	    JDBCTemplate.close();
+	    close();
 	    
 	    return result;
 	}
@@ -51,9 +51,9 @@ public class MemberService {
 	 * @return
 	 */
 	public int idcheck(String checkId) {
-	    Connection conn = JDBCTemplate.getConnection();
+	    Connection conn = getConnection();
 	    int count = new MemberDao().idcheck(conn, checkId);
-	    JDBCTemplate.close();
+	    close();
 	    return count;
 	}
 	
@@ -69,10 +69,10 @@ public class MemberService {
 	 * @return
 	 */
 	public Member fineId(String memberName, String email) {
-		Connection conn = JDBCTemplate.getConnection();
+		Connection conn = getConnection();
 		
 		Member m = new MemberDao().fineId(memberName, email, conn);
-		JDBCTemplate.close();
+		close();
 		
 		return m;
 		
@@ -90,11 +90,11 @@ public class MemberService {
 	 */
 	public Member findPwd(String memberId, String memberName, String email) {
 		
-		Connection conn = JDBCTemplate.getConnection();
+		Connection conn = getConnection();
 		
 		Member m = new MemberDao().findPwd(memberId, memberName, email, conn);
 		
-		JDBCTemplate.close();
+		close();
 		
 		return m;
 	}
@@ -104,7 +104,7 @@ public class MemberService {
 	 * 비밀번호찾고변경
 	 */
 	public Member fineupdatePwd(String memberId, String memberName, String email, String updatePwd) {
-		Connection conn = JDBCTemplate.getConnection();
+		Connection conn = getConnection();
 		
 		Member updateMem = null;
 		
@@ -113,13 +113,13 @@ public class MemberService {
 		result = new MemberDao().fineUpdatePwd(memberId, memberName, email, updatePwd,conn);
 		System.out.println("result : "+result);
 		if(result > 0){
-			JDBCTemplate.commit(conn);
+			commit(conn);
 			updateMem = new MemberDao().selectMember(memberId,conn);
 			System.out.println("updateMem Service : " + updateMem);
 		}else {
-			JDBCTemplate.rollback(conn);
+			rollback(conn);
 		}
-		JDBCTemplate.close();
+		close();
 		return updateMem;
 	}
 	
