@@ -1,0 +1,297 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>캠핑장 검색</title>
+
+<style>
+
+    #search-area {
+        /* border: 1px solid black; */
+        background-color: rgb(230, 213, 184);
+        width: 800px;
+        margin:  auto;
+        padding: 50px 50px;
+    }
+    
+    span {
+        color: rgb(74,57,51);
+        font-size: large;
+        font-weight: bold;
+    }
+
+
+    #loacation-s {
+        margin-top: 30px;
+        margin-bottom: 30px;
+        
+    }
+    #loacation-s>span {
+        margin-left: 40px;
+    }
+    #loc1 {
+        width: 200px;
+        height: 30px;
+        margin-left: 80px;
+    }
+    #loc2 {
+        width: 300px;
+        height: 30px;
+        margin-left: 30px;
+    }
+
+
+
+    #facility-s>span {
+        margin-left: 10px;
+    }
+
+    #facility-s table {
+        margin-left: 30px;
+        margin-top: 20px;        
+    }
+
+    
+
+    table {
+        border-spacing: 10px;
+    }
+    .them {
+        font-size: 16px;
+        font-weight: bold;
+        color: rgb(74,57,51);
+        padding-right: 25px;
+        border-right: 1px solid darkgray;
+    }
+    td {
+        padding-bottom: 15px;
+    }
+
+  
+
+
+
+    #btn-area>input {
+        background-color: rgb(240, 165, 0);
+        border: none;
+        color: white;
+        width: 300px;
+        height: 40px;
+    }
+
+
+
+
+    #result {
+        border: 1px solid black;
+        width: 1200px;
+        margin: auto;
+    }
+
+
+
+
+</style>
+
+</head>
+<body>
+
+    <%@ include file = "../common/menubar.jsp" %>
+
+    <h2 style="color: rgb(74,57,51);" align="center">캠핑장 검색</h2>
+    <div id="search-area">
+        <div id="loacation-s">
+            <span>지역 검색</span>
+            <select id="loc1" onchange="changeLocation(this)" name="loc1">
+                <option value="z">전체/도/시</option>
+                <option value="a">강원도</option>
+                <option value="b">경기도</option>
+                <option value="c">경상남도</option>
+                <option value="d">경상북도</option>
+                <option value="e">전라남도</option>
+                <option value="f">전라북도</option>
+                <option value="g">충청남도</option>
+                <option value="h">충청북도</option>
+                <option value="i">제주도</option>
+                <option value="j">광주시</option>
+                <option value="k">서울시</option>
+                <option value="l">세종시</option>
+                <option value="m">대전시</option>
+                <option value="n">인천시</option>
+                <option value="o">대구시</option>
+                <option value="p">울산시</option>
+                <option value="q">부산시</option>
+            </select>
+
+            <select name="loc2" id="loc2">
+                <option>전체/시/군/기타</option>
+            </select>
+        </div>
+
+        <br>
+
+        <div id="facility-s">
+            <span>테마 및 편의 시설</span>
+            <table>
+                <tr>
+                   <td class="them">자연경관</td>
+                   <td><input type="checkbox" name="" id="valley"><label for="valley">계곡</label></td>
+                   <td><input type="checkbox" name="" id="ocean"><label for="ocean">바다</label></td>
+                   <td><input type="checkbox" name="" id="mountain"><label for="mountain">산</label></td>
+                   <td><input type="checkbox" name="" id="river"><label for="river">강</label></td>
+                </tr>
+                <tr>
+                    <td class="them">지형</td>
+                    <td><input type="checkbox" name="" id="grass"><label for="grass">잔디</label></td>
+                    <td><input type="checkbox" name="" id="deck"><label for="deck">데크</label></td>
+                    <td><input type="checkbox" name="" id="rock"><label for="rock">파쇄석</label></td>
+                    <td><input type="checkbox" name="" id="soil"><label for="soil">맨흙</label></td>
+                    <td><input type="checkbox" name="" id="etc"><label for="etc">기타</label></td>
+                </tr>
+                <tr>
+                    <td class="them">편의시설</td>
+                    <td><input type="checkbox" name="" id="toilet"><label for="toilet">공용화장실</label></td>
+                    <td><input type="checkbox" name="" id="shower"><label for="shower">공용샤워실</label></td>
+                    <td><input type="checkbox" name="" id="wifi"><label for="wifi">와이파이</label></td>
+                    <td><input type="checkbox" name="" id="cook"><label for="cook">개수대(취사장)</label></td>
+                    <td><input type="checkbox" name="" id="elec"><label for="elec">전기</label></td>
+                    <td><input type="checkbox" name="" id="store"><label for="store">매점</label></td>
+                </tr>
+                <tr>
+                    <td class="them">반려동물 동반</td>
+                    <td><input type="checkbox" name="pet" id="pet-yes" onclick="petCheck(this);"><label for="pet-yes">가능</label></td>
+                    <td><input type="checkbox" name="pet" id="pet-no" onclick="petCheck(this);"><label for="pet-no">불가능</label></td>
+                </tr>
+            </table>
+            
+            <br>
+
+            <div id="btn-area" align="right">
+                <input type="button" value="검색">
+            </div>
+        </div>
+    </div>
+
+    <br> <br>
+
+    <div id="result">
+        <div id="resultdiv">
+            <table>
+                <thead>
+                    <tr>
+                        <td>LOCATION_1</td>
+                        <td>LOCATION_2</td>
+                        <td>CAMP_NAME</td>
+                        <td>ADDRESS</td>
+                        <td>CAMP_NO</td>
+                        <td>CAMP_CALL</td>
+                        <td>CAMP_WEB</td>
+                        <td>CAMP_CONTENT</td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+
+
+    <script>
+        // 지역 검색
+        function changeLocation(e) {
+            var loc2_a = ['강릉시','동해시','원주시','양양군','영월군','인제군','철원군','평창군','홍천군','횡성군'];
+            var loc2_b = ['남양주시','안산시','양주시','용인시','화성시','포천시','가평군','양평군','연천군'];
+            var loc2_c = ['김해시','밀양시','사천시','남해군','함안군','합천군'];
+            var loc2_d = ['구미시','영천시','포항시','고령군','영덕군','울진군','청도군','칠곡군'];
+            var loc2_e = ['광양시','목포시','여수시','고흥군','곡성군','구례군','담양군','무안군','영암군','장성군'];
+            var loc2_f = ['군산시','남원시','익산시','정읍시','고창군','부안군','순창군','완주군','임실군','장수군'];
+            var loc2_g = ['논산시','당진시','서산시','아산시','부여군','청양군','태안군','홍성군'];
+            var loc2_h = ['제천시','청주시','충주시','보은군','옥천군','음성군','진천군'];
+            var loc2_i = ['제주시'];
+            var loc2_j = ['남구'];
+            var loc2_k = ['마포구','은평구'];
+            var loc2_l = ['세종시'];
+            var loc2_m = ['서구','유성구'];
+            var loc2_n = ['계양구','남동구','강화군'];
+            var loc2_o = ['동구','달성군'];
+            var loc2_p = ['중구','울주군'];
+            var loc2_q = ['기장군'];
+            var loc2_z = ['전체/시/군/기타']
+            var target = document.getElementById("loc2");
+
+            var d;
+
+            switch(e.value) {
+                case 'a' : d = loc2_a; break;
+                case 'b' : d = loc2_b; break;
+                case 'c' : d = loc2_c; break;
+                case 'd' : d = loc2_d; break;
+                case 'e' : d = loc2_e; break;
+                case 'f' : d = loc2_f; break;
+                case 'g' : d = loc2_g; break;
+                case 'h' : d = loc2_h; break;
+                case 'i' : d = loc2_i; break;
+                case 'j' : d = loc2_j; break;
+                case 'k' : d = loc2_k; break;
+                case 'l' : d = loc2_l; break;
+                case 'm' : d = loc2_m; break;
+                case 'n' : d = loc2_n; break;
+                case 'o' : d = loc2_o; break;
+                case 'p' : d = loc2_p; break;
+                case 'q' : d = loc2_q; break;
+                case 'z' : d = loc2_z; break;
+            }
+
+            target.options.length = 0;
+
+            for(x in d) {
+                var opt = document.createElement("option");
+                opt.value = d[x];
+                opt.innerHTML = d[x];
+                target.appendChild(opt);
+            }
+        }
+
+        
+        // 반려동물 동반 하나만 체크
+        function petCheck(element) {
+            var checkboxes = document.getElementsByName("pet");
+            checkboxes.forEach((e) => {
+                e.checked = false;
+            })
+            element.checked = true;
+        } 
+        function test(){
+        	$.ajax({
+        		url : "option.ci",
+        		success : function(result){
+
+        			let str = "";
+
+        			for(let i=0; i <result.length; i++){
+        	               str += "<tr>"
+                               +"<td>"+ result[i].LOCATION_1 +"</td>"
+                               +"<td>"+ result[i].LOCATION_2 +"</td>"
+                               +"<td>"+ result[i].CAMP_NAME +"</td>"
+                               +"<td>"+ result[i].ADDRESS +"</td>"
+                               +"<td>"+ result[i].CAMP_NO +"</td>"
+                               +"<td>"+ result[i].CAMP_CALL +"</td>"
+                               +"<td>"+ result[i].CAMP_WEB +"</td>"
+                               +"<td>"+ result[i].CAMP_CONTENT +"</td>"
+                      str + "</tr>";
+        			}
+
+        			$("#resultdiv tbody").html(str);
+        		},
+                error : function(req, status, err){
+                console.log(req, status, err);
+                }
+        	});
+        }
+        
+    </script>
+
+
+
+</body>
+</html>

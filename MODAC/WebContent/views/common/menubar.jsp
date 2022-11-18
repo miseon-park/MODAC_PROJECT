@@ -219,7 +219,7 @@
     
     <div id="nav-area" align="center">
         <ul id="mainMenu">
-            <li><a href="">캠핑장 검색</a></li>
+            <li><a href="<%= contextPath%>/views/camp-info/campSearch.jsp">캠핑장 검색</a></li>
             <li><a href="">공지사항</a>
                 <ul id="subMenu1">
                     <li><a href="">모닥불 소식</a></li>
