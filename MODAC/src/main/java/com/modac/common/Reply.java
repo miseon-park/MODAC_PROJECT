@@ -13,6 +13,9 @@ public class Reply {
 	private Date createDate;
 	private String status;
 	
+	public Reply() {
+		super();
+	}
 	
 	public Reply(String boardNo, String postNo, String replyNo, String replyContent, String writer, String hiddenReply,
 			Date createDate, String status) {

@@ -60,7 +60,7 @@
             
             <% if(loginUser != null && loginUser.getMemberLevel.equals(10)){ %>
                 <div>
-                    <button type="button" class="btn btn-warning" id="writeEdit">글 작성</button>
+                    <a type="button" class="btn btn-warning" id="writeEdit" href="">글 작성</a>
                 </div>
             <% } %>
 

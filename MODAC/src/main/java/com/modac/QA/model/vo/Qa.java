@@ -16,6 +16,9 @@ public class Qa {
 	private String hiddenPost;
 	private String postPwd;
 	
+	public Qa() {
+		super();
+	}
 	
 	public Qa(String boardNo, String memberNo, String qaNo, String qaTitle, String qaContent, String memberNic,
 			Date createDate, int count, String status, String hiddenPost, String postPwd) {
@@ -34,16 +37,14 @@ public class Qa {
 	}
 
 	// 리스트
-	public Qa(String qaNo, String qaTitle, String qaContent, String memberNic, Date createDate, int count,
-			String hiddenPost) {
+	public Qa(String qaNo, String qaTitle, String hiddenPost, String memberNic, Date createDate, int count) {
 		super();
 		this.qaNo = qaNo;
 		this.qaTitle = qaTitle;
-		this.qaContent = qaContent;
+		this.hiddenPost = hiddenPost;
 		this.memberNic = memberNic;
 		this.createDate = createDate;
 		this.count = count;
-		this.hiddenPost = hiddenPost;
 	}
 
 	// 디테일

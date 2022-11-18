@@ -14,7 +14,10 @@ public class Attachment {
 	private String status;
 	private int fileLevel;
 	
-	
+	public Attachment() {
+		super();
+	}
+
 	public Attachment(String boardNo, String photoNo, String postNo, String originName, String newName, String path,
 			Date uploadDate, String status, int fileLevel) {
 		super();
@@ -30,8 +33,25 @@ public class Attachment {
 	}
 
 	// 추가된다면 더 추가할 것
+	public Attachment(String photoNo, String originName, String newName, String path, String boardNo, String postNo) {
+		super();
+		this.photoNo = photoNo;
+		this.originName = originName;
+		this.newName = newName;
+		this.path = path;
+		this.boardNo = boardNo;
+		this.postNo = postNo;
+	}
 	
+	public Attachment(String photoNo, String originName, String newName, String path) {
+		super();
+		this.photoNo = photoNo;
+		this.originName = originName;
+		this.newName = newName;
+		this.path = path;
+	}
 	
+
 	// getter & setter
 	public String getBoardNo() {
 		return boardNo;

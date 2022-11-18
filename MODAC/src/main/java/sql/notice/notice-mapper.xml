@@ -58,7 +58,7 @@
 	
 	<entry key="insertNotice">
 		INSERT INTO NOTICE
-		(
+		(	BOARD_NO,
 			POST_NO,
 			CATEGORY_NO,
 			NOTICE_TITLE,
@@ -66,13 +66,38 @@
 			WRITER
 		)
 		VALUES
-		(
+		(	2,
 			SEQ_NNO.NEXTVAL,
 			?,
 			?,
 			?,
 			?
 		)
+	</entry>
+	
+	<entry key="insertAttachmentList">
+		INSERT INTO ATTACHMENT (
+				PHOTO_NO, 
+				BOARD_NO, 
+				POST_NO, 
+				ORIGIN_NAME, 
+				NEW_NAME, 
+				PATH,
+				FILE_LEVEL)
+		VALUES 
+				(SEQ_FNO.NEXTVAL, 
+				2, 
+				SEQ_NNO.CURRVAL, 
+				?, 
+				?, 
+				?,
+				?)
+	</entry>
+	
+	<entry key="insertNewAttachment">
+		INSERT INTO ATTACHMENT (PHOTO_NO, BOARD_NO, POST_NO, ORIGIN_NAME, NEW_NAME, PATH, FILE_LEVEL)
+		VALUES (SEQ_FNO.NEXTVAL, 2, ?, ?, ?, ?, ?)
+	
 	</entry>
 	
 	<entry key="updateNotice">
@@ -89,6 +114,26 @@
 		UPDATE NOTICE
 		SET STATUS = 'Y'
 		WHERE POST_NO = ?
+	</entry>
+	
+	<entry key="selectAttachment">
+		SELECT PHOTO_NO,
+		       ORIGIN_NAME,
+		       NEW_NAME,
+		       PATH
+		FROM ATTACHMENT
+		WHERE BOARD_NO = 2
+		  AND POST_NO = ?
+	</entry>
+	
+	<entry key="updateAttachment">
+		UPDATE ATTACHMENT
+      SET ORIGIN_NAME = ?,
+         NEW_NAME = ?,
+         PATH = ?,
+         UPLOAD_DATE = SYSDATE,
+         FILE_LEVEL = ?
+      WHERE PHOTO_NO = ? 
 	</entry>
 	
 </properties>

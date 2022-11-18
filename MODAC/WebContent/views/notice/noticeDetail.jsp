@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.modac.notice.model.vo.Notice"%>
+    pageEncoding="UTF-8" import="com.modac.notice.model.vo.Notice, com.modac.common.Attachment, java.util.ArrayList"%>
 <%
 	Notice n = (Notice)request.getAttribute("n");
+	//Attachment at = (Attachment)request.getAttribute("at");
+	ArrayList<Attachment> list = (ArrayList<Attachment>)request.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html>
@@ -73,7 +75,7 @@
               </div>
           
           <div class="form-control">
-          	  <input type='hidden' name="nno" value="<%= n.getNoticeNo() %>">
+          	  <input type='hidden' name="noticeNo" value="<%= n.getNoticeNo() %>">
               <br>
               <h3>&nbsp; <%=n.getNoticeTitle() %></h3>
               <br>
@@ -81,8 +83,24 @@
               <span class="date"><%=n.getCreateDate() %></span>
               <br>
               <br>
-              <textarea class="form-control" style="height:500px;" disabled><%=n.getNoticeContent()%></textarea>
-				 
+              <textarea class="form-control" style="height:500px;" disabled>
+              <% for(int i = 1; i<list.size(); i++){ %>
+						<img src="<%= contextPath%>/<%= list.get(i).getPath()+list.get(i).getNewName() %>" width="200" height="150">
+			  <%} %>
+              <%=n.getNoticeContent()%>
+              </textarea>
+			  <% if(list.isEmpty()) {%>
+			  	 첨부파일 없음
+			  <%}else{
+				  int i = 1;%>
+			  	<% for(Attachment at : list){ %>
+			  	<a href="<%=contextPath %>/<%= at.getPath() %><%=at.getNewName() %>" download="<%=at.getOriginName()%>" name="upfile<%=i %>" value="<%=at.getFileLevel()%>">
+			  		<%= at.getOriginName() %>
+			  	</a>
+			  	<%
+			  	i++;
+			  	} %>
+			  <%} %>
           </div>
           <br>
           <div align="center">

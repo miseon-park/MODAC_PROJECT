@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.modac.notice.model.vo.Notice"%>
+    pageEncoding="UTF-8" import="com.modac.notice.model.vo.Notice, com.modac.common.Attachment, java.util.ArrayList"%>
     
 <%
 	Notice n = (Notice)request.getAttribute("n");
+	//Attachment at = (Attachment)request.getAttribute("at");
+	ArrayList<Attachment> list = (ArrayList<Attachment>)request.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html>
@@ -55,7 +57,7 @@
           <h3>모닥불 소식</h3>
           <br>
 			
-		  <form id="enroll-form" action="<%=contextPath %>/updateNotice" method="post">
+		  <form id="enroll-form" action="<%=contextPath %>/updateNotice" method="post" enctype="multipart/form-data">
 	          <div class="form-control" id="form-control">
 	          	<%-- <input type="hidden" name="userNo" value="<%=loginUser.getUserNo() %>"> --%>
 	              <select class="form-select" name="categoryNo" aria-label="noticeSelect">
@@ -68,8 +70,24 @@
 	              </select>
 	
 	              <input type="text" class="form-control" name = "title" id="title" placeholder="제목을 입력해주세요." aria-label="title" value="<%= n.getNoticeTitle()%>">
-	              <input type="file" class="form-control">
 	              <textarea class="form-control" style="height:500px;" name='content'><%=n.getNoticeContent() %></textarea>
+	             
+	              <%if(!list.isEmpty()){ %>
+	              <% int i = 0; 
+	              	 for(Attachment at : list){ 
+	              %>
+                  <%= at.getOriginName() %>
+                  <!-- 원본파일의 파일번호, 수정명을 hidden으로 넘길것. -->
+                  <input type="hidden" name="originFileNo" value="<%=at.getPhotoNo()%>">
+                  <input type="hidden" name="originFileName" value="<%=at.getNewName()%>">
+               <% i++;
+               	  }	 
+	              }%>
+                 <input type="file" class="form-control" name="upfile1" value="1">
+                 <input type="file" class="form-control" name="upfile2" value="2">
+                 <input type="file" class="form-control" name="upfile3" value="3">
+                 <input type="file" class="form-control" name="upfile4" value="4">
+	              
 	              <input type='hidden' name='nno' value='<%= n.getNoticeNo() %>'>
 	          </div>
 	          

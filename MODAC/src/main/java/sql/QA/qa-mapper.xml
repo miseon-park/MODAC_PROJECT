@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd"> 
+<properties>
+	<entry key="selectQaList">
+		SELECT 
+  		  	POST_NO,
+    		POST_TITLE,
+    		HIDDEN_POST,
+    		MEMBER_NIC,
+    		CREATE_DATE,
+    		READ_COUNT
+		FROM QA Q
+		JOIN MEMBER M USING (MEMBER_NO)
+		WHERE Q.STATUS = 'N' AND M.STATUS = 'N'
+		ORDER BY CREATE_DATE DESC, POST_NO DESC
+	</entry>
+</properties>

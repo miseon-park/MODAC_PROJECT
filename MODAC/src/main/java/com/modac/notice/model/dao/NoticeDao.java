@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
+import com.modac.common.Attachment;
 import com.modac.notice.model.vo.Notice;
 
 import static com.modac.common.JDBCTemplate.*;
@@ -151,7 +152,7 @@ public class NoticeDao {
 			psmt.setInt(1, n.getNoticeCategory());
 			psmt.setString(2, n.getNoticeTitle());
 			psmt.setString(3, n.getNoticeContent());
-			psmt.setInt(4, Integer.parseInt(n.getNoticeWriter()));
+			psmt.setString(4, n.getNoticeWriter());
 			
 			result = psmt.executeUpdate();
 			
@@ -163,6 +164,41 @@ public class NoticeDao {
 		
 		return result;
 		
+	}
+	
+	
+	public int insertAttachmentList(ArrayList<Attachment> list, Connection conn) {
+		int result = 1;
+
+		int result2 = 1;
+
+		PreparedStatement psmt = null;
+
+		String sql = prop.getProperty("insertAttachmentList");
+
+		try {
+			psmt = conn.prepareStatement(sql);
+			for (Attachment at : list) {
+
+				psmt.setString(1, at.getOriginName());
+				psmt.setString(2, at.getNewName());
+				psmt.setString(3, at.getPath());
+				psmt.setInt(4, at.getFileLevel());
+
+				// 실행
+				result2 = psmt.executeUpdate();
+				if (result2 == 0) {
+					result = 0;
+				}
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(psmt);
+		}
+
+		return result;
 	}
 	
 	
@@ -193,6 +229,74 @@ public class NoticeDao {
 		return result;
 	}
 
+	public int insertNewAttachment(ArrayList<Attachment> list, Connection conn) {
+
+		int result = 0;
+
+		PreparedStatement psmt = null;
+
+		String sql = prop.getProperty("insertNewAttachment");
+
+		try {
+			psmt = conn.prepareStatement(sql);
+
+			for (Attachment at : list) {
+				psmt.setString(1, at.getPostNo());
+				psmt.setString(2, at.getOriginName());
+				psmt.setString(3, at.getNewName());
+				psmt.setString(4, at.getPath());
+				psmt.setInt(5, at.getFileLevel());
+
+				result = psmt.executeUpdate();
+
+				if (result == 0) {
+					result = 0;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(psmt);
+		}
+		System.out.println("result : " + result);
+
+		return result;
+	}
+	
+	
+	public int updateAttachment(ArrayList<Attachment> list, Connection conn) {
+
+		int result = 0;
+		PreparedStatement psmt = null;
+		String sql = prop.getProperty("updateAttachment");
+
+		try {
+			psmt = conn.prepareStatement(sql);
+
+			for (Attachment at : list) {
+
+				psmt.setString(1, at.getOriginName());
+				psmt.setString(2, at.getNewName());
+				psmt.setString(3, at.getPath());
+				psmt.setInt(4, at.getFileLevel());
+				psmt.setString(5, at.getPhotoNo());
+
+				result = psmt.executeUpdate();
+
+				if (result == 0) {
+					result = 0;
+				}
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(psmt);
+		}
+		System.out.println("result: " + result);
+
+		return result;
+	}
 	
 	public int deleteNotice(String noticeNo, Connection conn) {
 		
@@ -217,30 +321,42 @@ public class NoticeDao {
 		return result;
 	}
 	
+	
+	
+	public ArrayList<Attachment> selectAttachmentList(Connection conn, String noticeNo) {
+		
+		ArrayList<Attachment> list = new ArrayList<>();
+		PreparedStatement psmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectAttachment");
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, noticeNo);
+			
+			rset = psmt.executeQuery();
+			
+			while(rset.next()) {
+				Attachment at = new Attachment();
+				
+				at.setPhotoNo(rset.getString("PHOTO_NO"));
+				at.setOriginName(rset.getString("ORIGIN_NAME"));
+				at.setNewName(rset.getString("NEW_NAME"));
+				at.setPath(rset.getString("PATH"));
+				
+				list.add(at);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(psmt);
+		}
+		return list;
+		
+	}
+	
+
+	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

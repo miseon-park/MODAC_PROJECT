@@ -1,29 +1,23 @@
-package com.modac.notice.controller;
+package com.modac.QA.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.modac.common.Attachment;
-import com.modac.notice.model.service.NoticeService;
-import com.modac.notice.model.vo.Notice;
-
 /**
- * Servlet implementation class NoticeUpdateFromController
+ * Servlet implementation class QaInsertController
  */
-@WebServlet("/updateForm.no")
-public class NoticeUpdateFromController extends HttpServlet {
+@WebServlet("/qaInsert")
+public class QaInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeUpdateFromController() {
+    public QaInsertController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,16 +26,9 @@ public class NoticeUpdateFromController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String noticeNo = request.getParameter("nno");
-		
-		Notice n = new NoticeService().selectNotice(noticeNo);
-		ArrayList<Attachment> list = new NoticeService().selectAttachment(noticeNo);
-		
-		request.setAttribute("n", n);
-		request.setAttribute("list", list);
-		
-		request.getRequestDispatcher("views/notice/noticeUpdateForm.jsp").forward(request, response);
+
+	
+	
 	}
 
 	/**
