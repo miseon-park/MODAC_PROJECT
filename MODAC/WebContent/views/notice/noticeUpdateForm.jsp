@@ -73,13 +73,13 @@
 	              <textarea class="form-control" style="height:500px;" name='content'><%=n.getNoticeContent() %></textarea>
 	             
 	              <%if(!list.isEmpty()){ %>
-	              <% int i = 0; 
+	              <% int i = 1; 
 	              	 for(Attachment at : list){ 
 	              %>
                   <%= at.getOriginName() %>
                   <!-- 원본파일의 파일번호, 수정명을 hidden으로 넘길것. -->
-                  <input type="hidden" name="originFileNo" value="<%=at.getPhotoNo()%>">
-                  <input type="hidden" name="originFileName" value="<%=at.getNewName()%>">
+                  <input type="hidden" name="originFileNo<%=i %>" value="<%=at.getPhotoNo()%>">
+                  <input type="hidden" name="originFileName<%=i %>" value="<%=at.getNewName()%>">
                <% i++;
                	  }	 
 	              }%>

@@ -84,9 +84,6 @@
               <br>
               <br>
               <textarea class="form-control" style="height:500px;" disabled>
-              <% for(int i = 1; i<list.size(); i++){ %>
-						<img src="<%= contextPath%>/<%= list.get(i).getPath()+list.get(i).getNewName() %>" width="200" height="150">
-			  <%} %>
               <%=n.getNoticeContent()%>
               </textarea>
 			  <% if(list.isEmpty()) {%>

@@ -263,6 +263,35 @@ public class NoticeDao {
 		return result;
 	}
 	
+	public int insertNewAttachment(Attachment at, Connection conn) {
+
+		int result = 0;
+
+		PreparedStatement psmt = null;
+
+		String sql = prop.getProperty("insertNewAttachment");
+
+		try {
+			psmt = conn.prepareStatement(sql);
+
+			psmt.setString(1, at.getPostNo());
+			psmt.setString(2, at.getOriginName());
+			psmt.setString(3, at.getNewName());
+			psmt.setString(4, at.getPath());
+			psmt.setInt(5, at.getFileLevel());
+
+			result = psmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(psmt);
+		}
+		System.out.println("result : " + result);
+
+		return result;
+	}
+	
 	
 	public int updateAttachment(ArrayList<Attachment> list, Connection conn) {
 
@@ -283,10 +312,36 @@ public class NoticeDao {
 
 				result = psmt.executeUpdate();
 
-				if (result == 0) {
-					result = 0;
-				}
 			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(psmt);
+		}
+		System.out.println("result: " + result);
+
+		return result;
+	}
+	
+	public int updateAttachment(Attachment at, Connection conn) {
+
+		int result = 0;
+		PreparedStatement psmt = null;
+		String sql = prop.getProperty("updateAttachment");
+
+		try {
+			psmt = conn.prepareStatement(sql);
+
+
+				psmt.setString(1, at.getOriginName());
+				psmt.setString(2, at.getNewName());
+				psmt.setString(3, at.getPath());
+				psmt.setInt(4, at.getFileLevel());
+				psmt.setString(5, at.getPhotoNo());
+
+				result = psmt.executeUpdate();
+
 
 		} catch (SQLException e) {
 			e.printStackTrace();

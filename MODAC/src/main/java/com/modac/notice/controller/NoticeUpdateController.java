@@ -63,40 +63,38 @@ public class NoticeUpdateController extends HttpServlet {
 			n.setNoticeContent(noticeContent);
 			n.setNoticeCategory(noticeCategory);
 
-			ArrayList<Attachment> list = new NoticeService().selectAttachment(noticeNo);
-
-			int i = 1;
-			for(Attachment at : list) {
-				
+			//ArrayList<Attachment> list = new NoticeService().selectAttachment(noticeNo);
+			ArrayList<Attachment> list = new ArrayList<>();
+			for(int i = 1 ; i<=4; i++) {
 				String key = "upfile" + i;
-				
 				if (multiRequest.getOriginalFileName(key) != null) {
 					
 					// 3가지 공통적으로 필요한 변수 셋팅
-					at = new Attachment();
+					Attachment at = new Attachment();
 					at.setOriginName(multiRequest.getOriginalFileName(key));
 					at.setNewName(multiRequest.getFilesystemName(key));
 					at.setPath("resources/notice_upfiles/");
 					
 					// 첨부파일이 있을경우 원본파일의 파일번호, 수정명을 hidden으로 넘겨받았음.
-					if (multiRequest.getParameter("originFileNo") != null) {
+					if (multiRequest.getParameter("originFileNo"+i) != null) {
 						// 기존에 파일이 있는경우
 						// => update Attachment
 						// 기존의 파일번호를 가지고
-						at.setPhotoNo(multiRequest.getParameter("originFileNo"));
+						at.setPhotoNo(multiRequest.getParameter("originFileNo"+i));
 						
 						// 기존의 첨부파일 삭제
-						new File(savePath + multiRequest.getParameter("originFileName")).delete();
+						new File(savePath + multiRequest.getParameter("originFileName"+i)).delete();
 					} else {
 						// 기존의 파일이 없는경우
 						// => insert Attachment
 						
 						at.setPostNo(noticeNo);
 					}
-				
+					list.add(at);
 				}
-				i++;
 			}
+			
+			
 
 			// 모두 하나의 트랜잭션으로 처리하기.
 			int result = new NoticeService().updateNotice(n, list);

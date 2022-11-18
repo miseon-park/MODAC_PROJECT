@@ -95,9 +95,9 @@ public class NoticeService {
 			for(Attachment at : list) {
 				// 기존에 첨부파일이 없었을 경우 => insert문 실행
 				if(at.getPhotoNo() == null) {
-					result2 = new NoticeDao().insertNewAttachment(list, conn);
+					result2 = new NoticeDao().insertNewAttachment(at, conn);
 				}else { // 기존에 첨부파일이 있었을 경우 => update문 실행
-					result2 = new NoticeDao().updateAttachment(list, conn);
+					result2 = new NoticeDao().updateAttachment(at, conn);
 				}
 			}
 		}
