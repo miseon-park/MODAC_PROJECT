@@ -1,6 +1,8 @@
 package com.modac.campReview.controller;
 
 import java.io.IOException;
+import java.util.Arrays;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,11 +37,16 @@ public class campReviewInsertController extends HttpServlet {
 		String memberNo = request.getParameter("memberNo");
 		String postTitle = request.getParameter("title");
 		String postContent = request.getParameter("content");
+		String[] tag = request.getParameterValues("tag");
+				
+		System.out.println(Arrays.toString(tag));
 		
 		CampReview cr = new CampReview();
 		cr.setPostTitle(postTitle);
 		cr.setPostContent(postContent);
 		cr.setMemberNo(memberNo);
+		cr.setTag(tag);
+		
 		
 		int result = new CampReviewService().insertCampReview(cr);
 		

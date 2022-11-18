@@ -33,7 +33,7 @@ public class recipeListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
+		//----- 페이징 ------
 		int listCount;
 		int currentPage;
 		int pageLimit;
@@ -56,7 +56,7 @@ public class recipeListController extends HttpServlet {
 		}
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-		
+		//----- 페이징 ------
 		
 		ArrayList<Recipe> list = new RecipeService().selectRecipeList(pi);
 

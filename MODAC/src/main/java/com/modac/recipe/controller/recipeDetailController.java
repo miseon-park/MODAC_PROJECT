@@ -29,26 +29,28 @@ public class recipeDetailController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+	int recipeNo = Integer.parseInt(request.getParameter("rno"));
+	RecipeService rService = new RecipeService();
+    
+	System.out.println(recipeNo);
+	
+	int result = rService.increaseCount(recipeNo);
+	
+	if(result > 0 ) { // 성공, 상세조회 페이지 
+		Recipe r = rService.selectRecipe(recipeNo);
+		Attachment at = rService.selectAttachment(recipeNo);
 		
-		int recipeNo = Integer.parseInt(request.getParameter("rno"));
-		RecipeService rService = new RecipeService();
-
-		int result = rService.increaseCount(recipeNo);
+		request.setAttribute("r", r);
+		request.setAttribute("at", at);
 		
-		if(result > 0 ) { // 성공, 상세조회 페이지 
-			Recipe r = new RecipeService().selectRecipe(recipeNo);
-			Attachment at = new RecipeService().selectAttachment(recipeNo);
-			
-			request.setAttribute("r", r);
-			request.setAttribute("at", at);
-			
-			request.getRequestDispatcher("views/recipe/recipeDetailView.jsp").forward(request, response);
-			
-		}else { // 실패, 에러페이지 
-			request.setAttribute("errorMsg", "게시글 조회 실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request,response);
-		}
+		request.getRequestDispatcher("views/recipe/recipeDetailView.jsp").forward(request, response);
+		
+	}else { // 실패, 에러페이지 
+		request.setAttribute("errorMsg", "게시글 조회 실패");
+		request.getRequestDispatcher("views/common/errorPage.jsp").forward(request,response);
+	}
 	}
 
 	/**

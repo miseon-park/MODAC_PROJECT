@@ -15,13 +15,14 @@ public class CampReview {
 	private String status;
 	private String tagName;
 	private String memberNic;
+	private String[] tag;
 	
 	public CampReview() {
 		super();
 	}
 
 	public CampReview(String boardNo, String postNo, String postTitle, String postContent, String memberNo,
-			Date createDate, int readCount, int tagNo, String status, String tagName, String memberNic) {
+			Date createDate, int readCount, int tagNo, String status, String tagName, String memberNic, String[] tag) {
 		super();
 		this.boardNo = boardNo;
 		this.postNo = postNo;
@@ -34,6 +35,7 @@ public class CampReview {
 		this.status = status;
 		this.tagName = tagName;
 		this.memberNic = memberNic;
+		this.tag = tag;
 	}
 	
 	//목록
@@ -49,13 +51,14 @@ public class CampReview {
 	
 	// 디테일 
 	public CampReview(String postNo, String postTitle, String postContent, String memberNic,
-			Date createDate ) {
+			Date createDate, String[] tag ) {
 		super();
 		this.postNo = postNo;
 		this.postTitle = postTitle;
 		this.postContent = postContent;
 		this.memberNic = memberNic;
 		this.createDate = createDate;
+		this.tag = tag;
 	}
 	
 	public String getBoardNo() {
@@ -145,6 +148,14 @@ public class CampReview {
 	public void setMemberNic(String memberNic) {
 		this.memberNic = memberNic;
 	}
+	
+	public String[] getTag() {
+		return tag;
+	}
+
+	public void setTag(String[] tag) {
+		this.tag = tag;
+	}
 
 	@Override
 	public String toString() {
@@ -152,6 +163,8 @@ public class CampReview {
 				+ postContent + ", memberNo=" + memberNo + ", createDate=" + createDate + ", readCount=" + readCount
 				+ ", tagNo=" + tagNo + ", status=" + status + ", tagName=" + tagName + ", memberNic=" + memberNic + "]";
 	}
+
+
 
 	
 	

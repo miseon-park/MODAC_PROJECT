@@ -24,6 +24,7 @@
 	}
 	.form-control {
 		margin: 5px;
+		
 	}
 	.last {
 		margin: auto;
@@ -35,12 +36,25 @@
 		width: 80%;
 		margin: auto;
 	}
+	.foorm-control {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+	}
 </style>
 </head>
 <body>
 <%@ include file="../common/menubar.jsp" %>
-       <div class="content">
-       
+
            <div class="content1">
                <nav class="flex-column">
                    <a class="nav-link active" aria-current="page" href="#">모닥불이야기</a><br><br>
@@ -55,62 +69,60 @@
                <h3>캠핑장 리뷰</h3>
              <br>
 
-              <div align="right" class="insert-area">
-              
-              
-              <% if(loginMember != null && loginMember.getMemberNic().equals(cr.getMemberNic())) {%>
-              	<a href="<%=contextPath %>/updateForm.cr?crno=<%=cr.getPostNo()%>" class="btn btn-secondary last1">수정하기</a>
-              	<a href="<%=contextPath %>/delete.cr?crno=<%=cr.getPostNo()%>" class="btn btn-secondary last1">삭제하기</a>
-              <% } %>
+             <div class="insert-area" style="height:100%">
+              	  <div class="date">
+	              <% if(loginMember != null && loginMember.getMemberNic().equals(cr.getMemberNic())) {%>
+	              	<a href="<%=contextPath %>/updateForm.cr?crno=<%=cr.getPostNo()%>" class="btn btn-secondary last1">수정하기</a>
+	              	<a href="<%=contextPath %>/delete.cr?crno=<%=cr.getPostNo()%>" class="btn btn-secondary last1">삭제하기</a>
+	              <% } %>
+	              </div>
+				 <br><br>
+	             <div class="foorm-control">
+	                <input type="hidden" name="postNo" value="<%=cr.getPostNo() %>">
+	                <br>
+	                <h3>&nbsp;<%=cr.getPostTitle()%></h3>
+	                 
+	                <br>
+	                <span>&nbsp; <%=cr.getMemberNic() %></span>
+	                <span class="date">작성일 : <%=cr.getCreateDate() %></span>
+	                 
+	                <br>
+	                <br>
+	                <div class="form-control" style="height:500px;">
+	               		 <%=cr.getPostContent() %>
+	                </div>
+	
+	                <div class=" btn-group-sm foorm-control" role="group" aria-label="Basic checkbox toggle button group">
+	
+	                  <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="on">
+	                  <label class="btn btn-outline-primary" for="btncheck1">#사장님이 친절해요</label>
+	                
+	                  <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="on">
+	                  <label class="btn btn-outline-primary" for="btncheck2">#시설이 깔끔해요</label>
+	                
+	                  <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="on">
+	                  <label class="btn btn-outline-primary" for="btncheck3">#주변 경관이 좋아요</label>
+	               
+	                  <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="on">
+	                  <label class="btn btn-outline-primary" for="btncheck4">#매너시간이 잘 지켜져요</label>
+	                
+	                  <input type="checkbox" class="btn-check" id="btncheck5" autocomplete="on">
+	                  <label class="btn btn-outline-primary" for="btncheck5">#사이트 공간이 넓어요</label>
+	                
+	                  <input type="checkbox" class="btn-check" id="btncheck6" autocomplete="on">
+	                  <label class="btn btn-outline-primary" for="btncheck6">#주변 볼거리가 많아요</label>
+	               </div>
+	            </div>
+	            <br>
+	            
+	            <div align="center">
+	              <a href="<%=contextPath %>/list.cr" class="btn btn-secondary last1">목록으로</a>
+	            </div>
+	            <br>
+			    <br>
+		     </div>
+	      </div>
 
-              </div>
-			<br>
-             <div class="form-control insert-area">
-                <br>
-                <input type="hidden" name="postNo" value="<%=cr.getPostNo() %>">
-                <h3>&nbsp;<%=cr.getPostTitle()%></h3>
-                 
-                <br>
-                <span>&nbsp; <%=cr.getMemberNic() %></span>
-                 
-                <span class="date">작성일 : <%=cr.getCreateDate() %></span>
-                 
-                <br>
-                <br>
-                <div class="form-control" style="height:500px;"><%=cr.getPostContent() %></div>
-
-                <div class="form-control">
-                <div class=" btn-group-sm" role="group" aria-label="Basic checkbox toggle button group">
-
-                  <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="on">
-                  <label class="btn btn-outline-primary" for="btncheck1">#사장님이 친절해요</label>
-                
-                  <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="on">
-                  <label class="btn btn-outline-primary" for="btncheck2">#시설이 깔끔해요</label>
-                
-                  <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="on">
-                  <label class="btn btn-outline-primary" for="btncheck3">#주변 경관이 좋아요</label>
-               
-                  <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="on">
-                  <label class="btn btn-outline-primary" for="btncheck4">#매너시간이 잘 지켜져요</label>
-                
-                  <input type="checkbox" class="btn-check" id="btncheck5" autocomplete="on">
-                  <label class="btn btn-outline-primary" for="btncheck5">#사이트 공간이 넓어요</label>
-                
-                  <input type="checkbox" class="btn-check" id="btncheck6" autocomplete="on">
-                  <label class="btn btn-outline-primary" for="btncheck6">#주변 볼거리가 많아요</label>
-                </div>
-                </div>
-            </div>
-            <br>
-            
-            <div align="center">
-              <a href="<%=contextPath %>/list.cr" class="btn btn-secondary last1">목록으로</a>
-            </div>
-            <br>
-		    <br>
-          </div>
-      </div>
 
  
 
