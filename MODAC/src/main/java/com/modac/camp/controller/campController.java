@@ -15,7 +15,7 @@ import com.modac.camp.model.vo.Camp;
 /**
  * Servlet implementation class campController
  */
-@WebServlet("/option.ci")
+@WebServlet("/jqAjax4.do")
 public class campController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
