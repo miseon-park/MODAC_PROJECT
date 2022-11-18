@@ -1,6 +1,6 @@
-package com.modac.campinfo.model.vo;
+package com.modac.camp.model.vo;
 
-public class Campinfo {
+public class Camp {
 	private String location_1;
 	private String location_2;
 	private String campName;
@@ -13,17 +13,28 @@ public class Campinfo {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
+	@Override
+	public String toString() {
+		return "Camp [location_1=" + location_1 + ", location_2=" + location_2 + ", campName=" + campName + ", address="
+				+ address + ", campNo=" + campNo + ", campCall=" + campCall + ", campWeb=" + campWeb + ", campContent="
+				+ campContent + "]";
+	}
 
-	public Campinfo(String location_1, String location_2, String campName, String address, String campNo,
-			String campCall, String campWeb, String campContent) {
+
+	public Camp(String location_1, String location_2) {
+		super();
+		this.location_1 = location_1;
+		this.location_2 = location_2;
+	}
+
+
+	public Camp() {
+		super();
+	}
+	
+	
+	public Camp(String location_1, String location_2, String campName, String address, String campNo, String campCall,
+			String campWeb, String campContent) {
 		super();
 		this.location_1 = location_1;
 		this.location_2 = location_2;
@@ -82,13 +93,7 @@ public class Campinfo {
 	public void setCampContent(String campContent) {
 		this.campContent = campContent;
 	}
-	@Override
-	public String toString() {
-		return "Campinfo [location_1=" + location_1 + ", location_2=" + location_2 + ", campName=" + campName
-				+ ", address=" + address + ", campNo=" + campNo + ", campCall=" + campCall + ", campWeb=" + campWeb
-				+ ", campContent=" + campContent + "]";
-	}
 	
 	
-
+	
 }

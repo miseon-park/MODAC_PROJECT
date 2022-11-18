@@ -1,4 +1,4 @@
-package com.modac.campinfo.model.dao;
+package com.modac.camp.model.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,12 +7,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.modac.campinfo.model.vo.Campinfo;
+import com.modac.camp.model.vo.Camp;
+import com.modac.common.JDBCTemplate;
 
-public class CampinfoDao {
+
+public class CampDao{
 	
-	public ArrayList<Campinfo> searchList(Connection conn, String loc1, String loc2){
-		ArrayList<Campinfo> list = new ArrayList<>();
+	public ArrayList<Camp> searchList(Connection conn, String loc1, String loc2){
+		ArrayList<Camp> list = new ArrayList<>();
 		PreparedStatement psmt = null;
 		ResultSet rset = null;
 		Properties prop = new Properties();
@@ -23,11 +25,19 @@ public class CampinfoDao {
 			psmt.setString(2, loc2);
 			rset=psmt.executeQuery();
 			
-			while
+			while(rset.next()) {
+				Camp c = new Camp();
+				c.setLocation_1(rset.getString("LOCATION_1"));
+				c.setLocation_2(rset.getString("LOCATION_2"));
+				list.add(c);
+			}
 		} catch (SQLException e) {
 			// 
 			e.printStackTrace();
-		}
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(psmt);
+		} return list;
 	}
 
 }

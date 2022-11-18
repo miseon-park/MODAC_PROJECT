@@ -169,31 +169,30 @@
             <br>
 
             <div id="btn-area" align="right">
-                <input type="button" value="검색">
+                <input type="button" value="검색" onclick="test()">
             </div>
         </div>
     </div>
 
     <br> <br>
 
-    <div id="result">
         <div id="resultdiv">
             <table>
                 <thead>
                     <tr>
                         <td>LOCATION_1</td>
                         <td>LOCATION_2</td>
-                        <td>CAMP_NAME</td>
+                        <!-- <td>CAMP_NAME</td>
                         <td>ADDRESS</td>
                         <td>CAMP_NO</td>
                         <td>CAMP_CALL</td>
                         <td>CAMP_WEB</td>
-                        <td>CAMP_CONTENT</td>
+                        <td>CAMP_CONTENT</td> -->
                     </tr>
                 </thead>
             </table>
         </div>
-    </div>
+
 
 
     <script>
@@ -272,12 +271,12 @@
         	               str += "<tr>"
                                +"<td>"+ result[i].LOCATION_1 +"</td>"
                                +"<td>"+ result[i].LOCATION_2 +"</td>"
-                               +"<td>"+ result[i].CAMP_NAME +"</td>"
-                               +"<td>"+ result[i].ADDRESS +"</td>"
-                               +"<td>"+ result[i].CAMP_NO +"</td>"
-                               +"<td>"+ result[i].CAMP_CALL +"</td>"
-                               +"<td>"+ result[i].CAMP_WEB +"</td>"
-                               +"<td>"+ result[i].CAMP_CONTENT +"</td>"
+                            //    +"<td>"+ result[i].CAMP_NAME +"</td>"
+                            //    +"<td>"+ result[i].ADDRESS +"</td>"
+                            //    +"<td>"+ result[i].CAMP_NO +"</td>"
+                            //    +"<td>"+ result[i].CAMP_CALL +"</td>"
+                            //    +"<td>"+ result[i].CAMP_WEB +"</td>"
+                            //    +"<td>"+ result[i].CAMP_CONTENT +"</td>"
                       str + "</tr>";
         			}
 
