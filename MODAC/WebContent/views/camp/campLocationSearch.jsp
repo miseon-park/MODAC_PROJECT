@@ -141,34 +141,35 @@
             <table>
                 <tr>
                    <td class="them">자연경관</td>
-                   <td><input type="checkbox" name="" id="valley"><label for="valley">계곡</label></td>
-                   <td><input type="checkbox" name="" id="ocean"><label for="ocean">바다</label></td>
-                   <td><input type="checkbox" name="" id="mountain"><label for="mountain">산</label></td>
-                   <td><input type="checkbox" name="" id="river"><label for="river">강</label></td>
+                   <td><input type="checkbox" name="natu" value="valley" id="valley"><label for="valley">계곡</label></td>
+                   <td><input type="checkbox" name="natu" value="ocean" id="ocean"><label for="ocean">바다</label></td>
+                   <td><input type="checkbox" name="natu" value="mountain" id="mountain"><label for="mountain">산</label></td>
+                   <td><input type="checkbox" name="natu" value="river" id="river"><label for="river">강</label></td>
                 </tr>
                 <tr>
                     <td class="them">지형</td>
-                    <td><input type="checkbox" name="" id="grass"><label for="grass">잔디</label></td>
-                    <td><input type="checkbox" name="" id="deck"><label for="deck">데크</label></td>
-                    <td><input type="checkbox" name="" id="rock"><label for="rock">파쇄석</label></td>
-                    <td><input type="checkbox" name="" id="soil"><label for="soil">맨흙</label></td>
-                    <td><input type="checkbox" name="" id="etc"><label for="etc">기타</label></td>
+                    <td><input type="checkbox" name="natu" value="grass" id="grass"><label for="grass">잔디</label></td>
+                    <td><input type="checkbox" name="natu" value="deck" id="deck"><label for="deck">데크</label></td>
+                    <td><input type="checkbox" name="natu" value="rock" id="rock"><label for="rock">파쇄석</label></td>
+                    <td><input type="checkbox" name="natu" value="soil" id="soil"><label for="soil">맨흙</label></td>
+                    <td><input type="checkbox" name="natu" value="etc" id="etc"><label for="etc">기타</label></td>
                 </tr>
                 <tr>
                     <td class="them">편의시설</td>
-                    <td><input type="checkbox" name="" id="toilet"><label for="toilet">공용화장실</label></td>
-                    <td><input type="checkbox" name="" id="shower"><label for="shower">공용샤워실</label></td>
-                    <td><input type="checkbox" name="" id="wifi"><label for="wifi">와이파이</label></td>
-                    <td><input type="checkbox" name="" id="cook"><label for="cook">개수대(취사장)</label></td>
-                    <td><input type="checkbox" name="" id="elec"><label for="elec">전기</label></td>
-                    <td><input type="checkbox" name="" id="store"><label for="store">매점</label></td>
+                    <td><input type="checkbox" name="j" id="toilet"><label for="toilet">공용화장실</label></td>
+                    <td><input type="checkbox" name="k" id="shower"><label for="shower">공용샤워실</label></td>
+                    <td><input type="checkbox" name="l" id="wifi"><label for="wifi">와이파이</label></td>
+                    <td><input type="checkbox" name="n" id="cook"><label for="cook">개수대(취사장)</label></td>
+                    <td><input type="checkbox" name="m" id="elec"><label for="elec">전기</label></td>
+                    <td><input type="checkbox" name="o" id="store"><label for="store">매점</label></td>
                 </tr>
                 <tr>
                     <td class="them">반려동물 동반</td>
-                    <td><input type="checkbox" name="pet" id="pet-yes" onclick="petCheck(this);"><label for="pet-yes">가능</label></td>
-                    <td><input type="checkbox" name="pet" id="pet-no" onclick="petCheck(this);"><label for="pet-no">불가능</label></td>
+                    <td><input type="checkbox" name="usepet" id="pet-yes" onclick="petCheck(this);"><label for="pet-yes">가능</label></td>
+                    <td><input type="checkbox" name="unusepet" id="pet-no" onclick="petCheck(this);"><label for="pet-no">불가능</label></td>
                 </tr>
             </table>
+            
             
             <br>
 
@@ -178,6 +179,16 @@
         </div>
     </div>
 </form>
+<script>
+	$(function(){
+		let natu = "";
+		$("input[type=checkbox]").each(function(){
+			if(natu.search($(this).val() != -1){
+				$(this).attr("checked", true);
+			})
+		})
+	})
+</script>
     <br> <br>
 
     <div id="result">

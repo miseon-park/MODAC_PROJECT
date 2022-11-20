@@ -74,9 +74,9 @@ public class CampDao{
 			
 			while(rset.next()) {
 				campSelect.add(new Camp(
-						rset.getString("CAMP_NAME"),
-						rset.getString("ADDRESS"),
-						rset.getString("NATURAL_ATTRI")
+						rset.getString(1),
+						rset.getString(2),
+						rset.getString(5)
 						));
 			}
 			

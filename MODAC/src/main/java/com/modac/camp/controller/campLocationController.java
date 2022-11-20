@@ -16,13 +16,13 @@ import com.modac.camp.model.vo.Camp;
  * Servlet implementation class test
  */
 @WebServlet("/test.ci")
-public class test extends HttpServlet {
+public class campLocationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public test() {
+    public campLocationController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,6 +36,8 @@ public class test extends HttpServlet {
 		String loc1 = request.getParameter("loc1");
 		String loc2 = request.getParameter("loc2");
 		
+		String [] value = request.getParameterValues("them");
+		System.out.println(value);
 		switch(loc1) {
 		case "a" : loc1 = "강원도"; break;
 		case "b" : loc1 = "경기도"; break;
