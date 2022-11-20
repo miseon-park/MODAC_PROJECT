@@ -1,5 +1,7 @@
 package com.modac.camp.model.dao;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,31 +15,51 @@ import com.modac.common.JDBCTemplate;
 
 public class CampDao{
 	
-	public ArrayList<Camp> searchList(Connection conn, String loc1, String loc2){
+	private Properties prop = new Properties();
+	public CampDao() {
+		
+		
+		String fileName = CampDao.class.getResource("/sql/camp/camp-mapper.xml").getPath();
+		
+		try {
+			prop.loadFromXML(new FileInputStream(fileName));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public ArrayList<Camp> selectCampList(Connection conn) {
+		
+		// select 여러 행 조회
 		ArrayList<Camp> list = new ArrayList<>();
 		PreparedStatement psmt = null;
 		ResultSet rset = null;
-		Properties prop = new Properties();
-		String sql = prop.getProperty("searchList");
+		String sql = prop.getProperty("selectCampList");
+		
 		try {
+			
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, loc1);
-			psmt.setString(2, loc2);
-			rset=psmt.executeQuery();
+			
+			rset = psmt.executeQuery();
 			
 			while(rset.next()) {
-				Camp c = new Camp();
-				c.setLocation_1(rset.getString("LOCATION_1"));
-				c.setLocation_2(rset.getString("LOCATION_2"));
-				list.add(c);
+				list.add(new Camp(rset.getString("CAMP_NAME"),
+									rset.getString("ADDRESS"),
+									rset.getString("NATURAL_ATTRI")
+						));
+			       
 			}
+			
 		} catch (SQLException e) {
-			// 
 			e.printStackTrace();
 		} finally {
-			JDBCTemplate.close(rset);
-			JDBCTemplate.close(psmt);
-		} return list;
+			close(rset);
+			close(psmt);
+		}
+		
+		return list;
 	}
+
+}
 
 }

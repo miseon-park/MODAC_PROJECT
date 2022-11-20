@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.modac.camp.model.vo.Camp"%>
+    <%
+    ArrayList<Camp> list = (ArrayList<Camp>) request.getAttribute("list");
+    %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -176,22 +179,34 @@
 
     <br> <br>
 
-        <div id="resultdiv">
-            <table>
-                <thead>
-                    <tr>
-                        <td>LOCATION_1</td>
-                        <td>LOCATION_2</td>
-                        <!-- <td>CAMP_NAME</td>
-                        <td>ADDRESS</td>
-                        <td>CAMP_NO</td>
-                        <td>CAMP_CALL</td>
-                        <td>CAMP_WEB</td>
-                        <td>CAMP_CONTENT</td> -->
-                    </tr>
-                </thead>
-            </table>
-        </div>
+    <div id="result">
+		<table class="list-area" align="center">
+			<thead>
+				<tr>
+					<th>캠핑장 이름</th>
+					<th width="400">캠핑장 주소</th>
+					<th width="100">캠핑장 경관</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% if(list.isEmpty()) { %>
+					<!-- 리스트가 비어있는 경우 -->
+					<tr>
+						<td colspan="5">존재하는 공지사항이 없습니다.</td>
+					</tr>
+				<% } else { %>
+					<% for(Camp c : list) { %>
+						<tr>
+							<td><%=c.getCampName() %></td>
+							<td><%=c.getAddress() %></td>
+							<td><%=c.getNaturalAttri() %></td>
+						</tr>
+					<% } %>
+				<% } %>
+			</tbody>
+		</table>
+		
+    </div>
 
 
 
@@ -260,7 +275,7 @@
             })
             element.checked = true;
         } 
-        function test(){
+/*         function test(){
         	$.ajax({
         		url : "option.ci",
         		success : function(result){
@@ -287,7 +302,7 @@
                 }
         	});
         }
-        
+         */
     </script>
 
 

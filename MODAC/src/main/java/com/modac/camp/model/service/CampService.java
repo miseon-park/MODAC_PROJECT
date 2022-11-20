@@ -9,14 +9,16 @@ import com.modac.common.JDBCTemplate;
 
 public class CampService {
 	
-	public ArrayList <Camp> searchList(String loc1, String loc2){
-        Connection conn = JDBCTemplate.getConnection();
-        
-        ArrayList<Camp> list = new CampDao().searchList(conn, loc1, loc2);
-        
-        JDBCTemplate.close();
-        
-        return list;
+	public ArrayList<Camp> selectCampList() {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Camp> list = new CampDao().selectCampList(conn);
+		
+		JDBCTemplate.close();
+		
+		return list;
+		
 	}
 
 }

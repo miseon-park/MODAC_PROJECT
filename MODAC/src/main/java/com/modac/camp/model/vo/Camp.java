@@ -11,8 +11,26 @@ public class Camp {
 	private String campContent;
 	
 	
+	private String naturalAttri;
+	
+	// 캠핑장 조회 리스트
+	public Camp(String campName, String address, String naturalAttri) {
+		super();
+		this.campName = campName;
+		this.address = address;
+		this.naturalAttri = naturalAttri;
+	}
 	
 	
+	// 캠핑장 세부 조회
+	public Camp(String campName, String address, String campCall, String campWeb, String campContent) {
+		super();
+		this.campName = campName;
+		this.address = address;
+		this.campCall = campCall;
+		this.campWeb = campWeb;
+		this.campContent = campContent;
+	}
 	@Override
 	public String toString() {
 		return "Camp [location_1=" + location_1 + ", location_2=" + location_2 + ", campName=" + campName + ", address="
@@ -44,6 +62,15 @@ public class Camp {
 		this.campCall = campCall;
 		this.campWeb = campWeb;
 		this.campContent = campContent;
+	}
+	public String getNaturalAttri() {
+		return naturalAttri;
+	}
+
+
+
+	public void setNaturalAttri(String naturalAttri) {
+		this.naturalAttri = naturalAttri;
 	}
 	public String getLocation_1() {
 		return location_1;
