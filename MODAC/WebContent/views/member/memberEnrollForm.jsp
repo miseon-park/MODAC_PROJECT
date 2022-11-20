@@ -204,22 +204,21 @@
             }
         });
     });
-       function validate() {
+/*        function validate() {
         //변수에 담아주기
         let id = document.getElementById("id");
         let idCheck2 = /^[a-zA-Z0-9]{5,15}$/;
         if(!idCheck2.test(id.value)){
-            alert("영문자로 시작하는 5~15자 이내의 영문, 숫자로 구성 가능합니다.");
+            alert("아이디는 영문자로 시작하는 5~15자 이내의 영문, 숫자로 구성 가능합니다.");
             return false;
-            
-        } 
-        let pwd1=$("#password").val();
+        }
+	     let pwd1=$("#password").val();
         let pwdCheck2 = /^[a-z\d!@#$%^&*]{5,15}$/;
         if (!pwdCheck2.test(pwd1)) {
           alert("비밀번호는 영문자+숫자+특수문자 조합으로 5~15자리 사용해야 합니다.");
           return false;
         };
-        
+
         let regexp = /^[관리자]|[운영자]$/
         let nicName = $("#nickname").val()
         if(regexp.test(nicName)){
@@ -227,7 +226,7 @@
         	return false;
         }
         
-	} 
+	}  */
       
         
         

@@ -17,8 +17,6 @@ public class CampDao{
 	
 	private Properties prop = new Properties();
 	public CampDao() {
-		
-		
 		String fileName = CampDao.class.getResource("/sql/camp/camp-mapper.xml").getPath();
 		
 		try {
@@ -53,8 +51,8 @@ public class CampDao{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(rset);
-			close(psmt);
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(psmt);
 		}
 		
 		return list;
@@ -62,4 +60,3 @@ public class CampDao{
 
 }
 
-}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="selectCampList">
+		SELECT
+		CAMP_NAME,
+		ADDRESS,
+		NATURAL_ATTRI
+		FROM CAMP_INFO CI
+		JOIN CAMP_NATURAL CN USING (CAMP_NO)
+		JOIN "NATURAL" NA ON (CN.NATURAL_NO = NA.NATURAL_NO);
+	</entry>
+
+</properties>
