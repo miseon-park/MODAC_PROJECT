@@ -34,9 +34,13 @@ public class test extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String loc1 = request.getParameter("loc1");
 		String loc2 = request.getParameter("loc2");
+		String ld1 = "";
+		switch(loc1) {
+		case "a" : ld1 = "강원도";
+		}
 		
-		ArrayList <Camp> campSelect = new CampService().campSelect(loc1,loc2);
-		System.out.println("test loc1 loc2 : " +loc1 + loc2);
+		ArrayList <Camp> campSelect = new CampService().campSelect(ld1,loc2);
+		System.out.println("test loc1 loc2 : " +ld1 + loc2);
 		
 		request.setAttribute("campSelect", campSelect);
 		request.getRequestDispatcher("views/camp/campSearch.jsp").forward(request, response);

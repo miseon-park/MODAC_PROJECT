@@ -35,8 +35,6 @@ public class campController extends HttpServlet {
 		
 		ArrayList<Camp> list = new CampService().selectCampList();
 		
-		System.out.print(list);
-		
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("views/camp/campSearch.jsp").forward(request, response);
 		
