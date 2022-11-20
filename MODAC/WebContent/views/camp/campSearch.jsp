@@ -2,6 +2,8 @@
     pageEncoding="UTF-8" import="java.util.ArrayList, com.modac.camp.model.vo.Camp"%>
     <%
     ArrayList<Camp> list = (ArrayList<Camp>) request.getAttribute("list");
+    ArrayList<Camp> campSelect = (ArrayList<Camp>) request.getAttribute("campSelect");
+    
     %>
 <!DOCTYPE html>
 <html>
@@ -180,7 +182,7 @@
 </form>
     <br> <br>
 
-    <div id="result">
+<%--     <div id="result">
 		<table class="list-area" align="center">
 			<thead>
 				<tr>
@@ -206,7 +208,7 @@
 				<% } %>
 			</tbody>
 		</table>
-    </div>
+    </div> --%>
     
     <div id="test">
     <table>
@@ -218,7 +220,7 @@
     		</tr>
     	</thead>
     	<tbody>
-    	<%for (Camp c : list) { %>
+    	<%for (Camp c : campSelect) { %>
     		<tr>
 				<td><%=c.getCampName() %></td>
 				<td><%=c.getAddress() %></td>
