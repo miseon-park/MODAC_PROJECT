@@ -28,7 +28,7 @@ public class campEnrollForm extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    RequestDispatcher view = request.getRequestDispatcher("views/member/campSearch.jsp");
+	    RequestDispatcher view = request.getRequestDispatcher("views/camp/campSearch.jsp");
 	    view.forward(request, response);
 	}
 
