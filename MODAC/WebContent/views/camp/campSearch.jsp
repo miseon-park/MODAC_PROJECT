@@ -103,6 +103,7 @@
 
     <%@ include file = "../common/menubar.jsp" %>
 
+<form action="test.ci">
     <h2 style="color: rgb(74,57,51);" align="center">캠핑장 검색</h2>
     <div id="search-area">
         <div id="loacation-s">
@@ -172,11 +173,11 @@
             <br>
 
             <div id="btn-area" align="right">
-                <input type="button" value="검색" onclick="test()">
+                <input type="submit" value="검색" onclick="test()">
             </div>
         </div>
     </div>
-
+</form>
     <br> <br>
 
     <div id="result">
@@ -205,8 +206,31 @@
 				<% } %>
 			</tbody>
 		</table>
-		
     </div>
+    
+    <div id="test">
+    <table>
+    	<thead>
+    		<tr>
+   				<th>캠핑장 이름</th>
+				<th width="400">캠핑장 주소</th>
+				<th width="100">캠핑장 경관</th>
+    		</tr>
+    	</thead>
+    	<tbody>
+    	<%for (Camp c : list) { %>
+    		<tr>
+				<td><%=c.getCampName() %></td>
+				<td><%=c.getAddress() %></td>
+				<td><%=c.getNaturalAttri() %></td>
+    		</tr>
+    		<%} %>
+    	</tbody>
+    </table>
+    </div>
+    <script>
+
+    </script>
 
 
 

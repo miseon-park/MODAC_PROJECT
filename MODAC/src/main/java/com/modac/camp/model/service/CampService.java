@@ -20,5 +20,16 @@ public class CampService {
 		return list;
 		
 	}
+	
+	public ArrayList<Camp> campSelect(String loc1, String loc2) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Camp> campSelect = new CampDao().campSelect(loc1, loc2, conn);
+		
+		JDBCTemplate.close();
+		
+		return campSelect;
+	}
 
 }
