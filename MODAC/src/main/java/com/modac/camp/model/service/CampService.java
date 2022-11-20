@@ -21,11 +21,11 @@ public class CampService {
 		
 	}
 	
-	public ArrayList<Camp> campSelect(String ld1, String loc2) {
+	public ArrayList<Camp> campSelect(String loc1, String loc2) {
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
-		ArrayList<Camp> campSelect = new CampDao().campSelect(ld1, loc2, conn);
+		ArrayList<Camp> campSelect = new CampDao().campSelect(loc1, loc2, conn);
 		
 		JDBCTemplate.close();
 		

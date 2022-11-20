@@ -34,7 +34,6 @@ public class campController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		ArrayList<Camp> list = new CampService().selectCampList();
-		
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("views/camp/campSearch.jsp").forward(request, response);
 		

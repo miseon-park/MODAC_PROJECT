@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, com.modac.camp.model.vo.Camp"%>
     <%
-    ArrayList<Camp> list = (ArrayList<Camp>) request.getAttribute("list");
+     ArrayList<Camp> list = (ArrayList<Camp>) request.getAttribute("list"); 
     ArrayList<Camp> campSelect = (ArrayList<Camp>) request.getAttribute("campSelect");
     
     %>
@@ -105,7 +105,7 @@
 
     <%@ include file = "../common/menubar.jsp" %>
 
-<form action="test.ci">
+<form action="test.ci" method="post">
     <h2 style="color: rgb(74,57,51);" align="center">캠핑장 검색</h2>
     <div id="search-area">
         <div id="loacation-s">
@@ -182,7 +182,7 @@
 </form>
     <br> <br>
 
-<%--     <div id="result">
+    <div id="result">
 		<table class="list-area" align="center">
 			<thead>
 				<tr>
@@ -208,7 +208,7 @@
 				<% } %>
 			</tbody>
 		</table>
-    </div> --%>
+    </div>
     
     <div id="test">
     <table>

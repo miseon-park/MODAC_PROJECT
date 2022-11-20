@@ -58,7 +58,7 @@ public class CampDao{
 		return list;
 	}
 	
-	public ArrayList<Camp> campSelect(String ld1, String loc2, Connection conn) {
+	public ArrayList<Camp> campSelect(String loc1, String loc2, Connection conn) {
 		ArrayList<Camp> c = null;
 		PreparedStatement psmt = null;
 		ResultSet rset = null;
@@ -66,7 +66,7 @@ public class CampDao{
 		try {
 			psmt = conn.prepareStatement(sql);
 			
-			psmt.setString(1, ld1);
+			psmt.setString(1, loc1);
 			psmt.setString(2, loc2);
 			
 			rset = psmt.executeQuery();
