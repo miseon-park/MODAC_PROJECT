@@ -2,6 +2,7 @@
     pageEncoding="UTF-8" import="java.util.ArrayList, com.modac.camp.model.vo.Camp"%>
 <%
 	ArrayList<Camp> list = (ArrayList<Camp>) request.getAttribute("list");
+	ArrayList<Camp> clist = (ArrayList<Camp>) request.getAttribute("clist");
 %>
 <!DOCTYPE html>
 <html>
@@ -141,45 +142,45 @@
 
         <br>
 
-        <form name="searchForm" action="campSearch.cb">
+        <form name="searchForm" action="campSearch.ca">
             <div id="facility-s">
                 <span>테마 및 편의 시설</span>
                 <table>
                     <tr>
                     <td class="them">자연경관</td>
-                    <td><input type="checkbox" name="" id="valley"><label for="valley">계곡</label></td>
-                    <td><input type="checkbox" name="" id="ocean"><label for="ocean">바다</label></td>
-                    <td><input type="checkbox" name="" id="mountain"><label for="mountain">산</label></td>
-                    <td><input type="checkbox" name="" id="river"><label for="river">강</label></td>
+                    <td><input type="checkbox" name="item1" id="valley" value="계곡"><label for="valley">계곡</label></td>
+                    <td><input type="checkbox" name="item1" id="ocean" value="바다"><label for="ocean">바다</label></td>
+                    <td><input type="checkbox" name="item1" id="mountain" value="산"><label for="mountain">산</label></td>
+                    <td><input type="checkbox" name="item1" id="river" value="강"><label for="river">강</label></td>
                     </tr>
                     <tr>
                         <td class="them">지형</td>
-                        <td><input type="checkbox" name="" id="grass"><label for="grass">잔디</label></td>
-                        <td><input type="checkbox" name="" id="deck"><label for="deck">데크</label></td>
-                        <td><input type="checkbox" name="" id="rock"><label for="rock">파쇄석</label></td>
-                        <td><input type="checkbox" name="" id="soil"><label for="soil">맨흙</label></td>
-                        <td><input type="checkbox" name="" id="etc"><label for="etc">기타</label></td>
+                        <td><input type="checkbox" name="item2" id="grass" value="잔디"><label for="grass">잔디</label></td>
+                        <td><input type="checkbox" name="item2" id="deck" value="데크"><label for="deck">데크</label></td>
+                        <td><input type="checkbox" name="item2" id="rock" value="파쇄석"><label for="rock">파쇄석</label></td>
+                        <td><input type="checkbox" name="item2" id="soil" value="맨흙"><label for="soil">맨흙</label></td>
+                        <td><input type="checkbox" name="item2" id="etc" value="기타"><label for="etc">기타</label></td>
                     </tr>
                     <tr>
                         <td class="them">편의시설</td>
-                        <td><input type="checkbox" name="" id="toilet"><label for="toilet">공용화장실</label></td>
-                        <td><input type="checkbox" name="" id="shower"><label for="shower">공용샤워실</label></td>
-                        <td><input type="checkbox" name="" id="wifi"><label for="wifi">와이파이</label></td>
-                        <td><input type="checkbox" name="" id="cook"><label for="cook">개수대(취사장)</label></td>
-                        <td><input type="checkbox" name="" id="elec"><label for="elec">전기</label></td>
-                        <td><input type="checkbox" name="" id="store"><label for="store">매점</label></td>
+                        <td><input type="checkbox" name="item2" id="toilet" value="공용화장실"><label for="toilet">공용화장실</label></td>
+                        <td><input type="checkbox" name="item2" id="shower" value="공용샤워실"><label for="shower">공용샤워실</label></td>
+                        <td><input type="checkbox" name="item2" id="wifi" value="와이파이"><label for="wifi">와이파이</label></td>
+                        <td><input type="checkbox" name="item2" id="cook" value="개수대(취사장)"><label for="cook">개수대(취사장)</label></td>
+                        <td><input type="checkbox" name="item2" id="elec" value="전기"><label for="elec">전기</label></td>
+                        <td><input type="checkbox" name="item2" id="store" value="매점"><label for="store">매점</label></td>
                     </tr>
                     <tr>
                         <td class="them">반려동물 동반</td>
-                        <td><input type="checkbox" name="pet" id="pet-yes" onclick="petCheck(this);"><label for="pet-yes">가능</label></td>
-                        <td><input type="checkbox" name="pet" id="pet-no" onclick="petCheck(this);"><label for="pet-no">불가능</label></td>
+                        <td><input type="checkbox" name="pet" id="pet-yes" value="가능" onclick="petCheck(this);"><label for="pet-yes">가능</label></td>
+                        <td><input type="checkbox" name="pet" id="pet-no" value="불가능" onclick="petCheck(this);"><label for="pet-no">불가능</label></td>
                     </tr>
                 </table>
                 
                 <br>
 
                 <div id="btn-area" align="right">
-                    <input type="submit" id="searchBtn" value="검색">
+                    <input type="button" id="searchBtn" value="검색">
                 </div>
             </div>
 
@@ -205,6 +206,14 @@
 					<tr>
 						<td colspan="5">존재하는 공지사항이 없습니다.</td>
 					</tr>
+			<%-- 	<% } else if(clist.isEmpty()) { %>
+					<% for(Camp c : list) { %>
+						<tr>
+							<td><%=c.getCampName() %></td>
+							<td><%=c.getAddress() %></td>
+							<td><%=c.getNaturalAttri() %></td>
+						</tr>
+					<% } %> --%>
 				<% } else { %>
 					<% for(Camp c : list) { %>
 						<tr>

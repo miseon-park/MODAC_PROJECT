@@ -57,5 +57,45 @@ public class CampDao {
 		
 		return list;
 	}
+	
+	
+	
+	public ArrayList<Camp> cSelect(String [] item1, Connection conn) {
+		ArrayList<Camp> clist = new ArrayList<>();
+		String sql = prop.getProperty("cSelect");
+		int c = item1.length;
+		
+		for(int i=0; i<c; i++) {
+			
+			PreparedStatement psmt = null;
+			ResultSet rset = null;
+			
+			try {
+				
+				psmt = conn.prepareStatement(sql);
+				
+				psmt.setString(1, item1[i]);
+				
+				rset = psmt.executeQuery();
+				
+				while(rset.next()) {
+					clist.add(new Camp(rset.getString("CAMP_NAME"),
+										rset.getString("ADDRESS"),
+										rset.getString("NATURAL_ATTRI")
+							));
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(psmt);
+			}
+			
+		}
+		
+		return clist;
+		
+	}
 
 }

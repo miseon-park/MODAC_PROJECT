@@ -19,7 +19,20 @@ public class CampService {
 		
 		close();
 		
-		return list;
+		return list;	
+	}
+	
+	
+	
+	public ArrayList<Camp> cSelect(String [] item1) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Camp> clist = new CampDao().cSelect(item1, conn);
+		
+		close();
+		
+		return clist;
 		
 	}
 	

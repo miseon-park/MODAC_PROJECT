@@ -13,16 +13,16 @@ import com.modac.camp.model.service.CampService;
 import com.modac.camp.model.vo.Camp;
 
 /**
- * Servlet implementation class CampListController
+ * Servlet implementation class CheckFindController
  */
-@WebServlet("/list.ca")
-public class CampListController extends HttpServlet {
+@WebServlet("/campSearch.ca")
+public class CheckFindController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CampListController() {
+    public CheckFindController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,14 +31,18 @@ public class CampListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		request.setCharacterEncoding("UTF-8");
 		
-		ArrayList<Camp> list = new CampService().selectCampList();
+		String [] item1 = request.getParameterValues("item1");
 		
-		System.out.print(list);
+		ArrayList<Camp> clist = new CampService().cSelect(item1);
 		
-		request.setAttribute("list", list);
+		System.out.print(clist);
+		
+		request.setAttribute("clist", clist);
 		request.getRequestDispatcher("views/camp/campSearch.jsp").forward(request, response);
+		
 		
 		
 	}
