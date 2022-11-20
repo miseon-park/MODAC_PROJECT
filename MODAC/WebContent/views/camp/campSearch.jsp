@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, com.modac.camp.model.vo.Camp"%>
     <%
-     ArrayList<Camp> list = (ArrayList<Camp>) request.getAttribute("list"); 
-    ArrayList<Camp> campSelect = (ArrayList<Camp>) request.getAttribute("campSelect");
-    
+     ArrayList<Camp> list = (ArrayList<Camp>) request.getAttribute("list");    
     %>
 <!DOCTYPE html>
 <html>
@@ -209,30 +207,6 @@
 			</tbody>
 		</table>
     </div>
-    
-    <div id="test">
-    <table>
-    	<thead>
-    		<tr>
-   				<th>캠핑장 이름</th>
-				<th width="400">캠핑장 주소</th>
-				<th width="100">캠핑장 경관</th>
-    		</tr>
-    	</thead>
-    	<tbody>
-    	<%for (Camp c : campSelect) { %>
-    		<tr>
-				<td><%=c.getCampName() %></td>
-				<td><%=c.getAddress() %></td>
-				<td><%=c.getNaturalAttri() %></td>
-    		</tr>
-    		<%} %>
-    	</tbody>
-    </table>
-    </div>
-    <script>
-
-    </script>
 
 
 
@@ -301,34 +275,6 @@
             })
             element.checked = true;
         } 
-/*         function test(){
-        	$.ajax({
-        		url : "option.ci",
-        		success : function(result){
-
-        			let str = "";
-
-        			for(let i=0; i <result.length; i++){
-        	               str += "<tr>"
-                               +"<td>"+ result[i].LOCATION_1 +"</td>"
-                               +"<td>"+ result[i].LOCATION_2 +"</td>"
-                            //    +"<td>"+ result[i].CAMP_NAME +"</td>"
-                            //    +"<td>"+ result[i].ADDRESS +"</td>"
-                            //    +"<td>"+ result[i].CAMP_NO +"</td>"
-                            //    +"<td>"+ result[i].CAMP_CALL +"</td>"
-                            //    +"<td>"+ result[i].CAMP_WEB +"</td>"
-                            //    +"<td>"+ result[i].CAMP_CONTENT +"</td>"
-                      str + "</tr>";
-        			}
-
-        			$("#resultdiv tbody").html(str);
-        		},
-                error : function(req, status, err){
-                console.log(req, status, err);
-                }
-        	});
-        }
-         */
     </script>
 
 
