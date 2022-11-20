@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList , com.modac.notice.model.vo.Notice"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList , com.modac.notice.model.vo.Notice, com.modac.member.model.vo.Member"%>
     
 <%ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list"); %>
 <!DOCTYPE html>
@@ -78,12 +78,12 @@
                       </nav>
                 </div>
 
-                <%-- <% if(loginUser != null && loginUser.getMemberLevel.equals(10)){ %>
-                <% } %> --%>
-
+                 <% if(loginMember != null && loginMember.getMemberLevel() == 10){ %>
                     <div>
                         <a id="writeEdit" class="btn btn-secondary" href="<%=contextPath %>/noticeEnrollForm">글 작성</a>
                     </div>
+                <% } %> 
+
                 <br><br><br>
                 
                 <div class="list-area">
