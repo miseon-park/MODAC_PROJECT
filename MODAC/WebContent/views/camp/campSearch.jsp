@@ -14,7 +14,7 @@
     #search-area {
         /* border: 1px solid black; */
         background-color: rgb(230, 213, 184);
-        width: 800px;
+        width: 1000px;
         margin:  auto;
         padding: 50px 50px;
     }
@@ -70,6 +70,7 @@
     }
     td {
         padding-bottom: 15px;
+        padding-left: 20px;
     }
 
   
@@ -111,54 +112,56 @@
     <h2 style="color: rgb(74,57,51);" align="center">캠핑장 검색</h2>
 
     <div id="search-area">
-        <div id="loacation-s">
-            <span>지역 검색</span>
-            <select id="loc1" onchange="changeLocation(this)">
-                <option value="z">전체/도/시</option>
-                <option value="a">강원도</option>
-                <option value="b">경기도</option>
-                <option value="c">경상남도</option>
-                <option value="d">경상북도</option>
-                <option value="e">전라남도</option>
-                <option value="f">전라북도</option>
-                <option value="g">충청남도</option>
-                <option value="h">충청북도</option>
-                <option value="i">제주도</option>
-                <option value="j">광주시</option>
-                <option value="k">서울시</option>
-                <option value="l">세종시</option>
-                <option value="m">대전시</option>
-                <option value="n">인천시</option>
-                <option value="o">대구시</option>
-                <option value="p">울산시</option>
-                <option value="q">부산시</option>
-            </select>
+        <form action="">
+            <div id="loacation-s">
+                <span>지역 검색</span>
+                <select id="loc1" onchange="changeLocation(this)">
+                    <option value="z">전체/도/시</option>
+                    <option value="a">강원도</option>
+                    <option value="b">경기도</option>
+                    <option value="c">경상남도</option>
+                    <option value="d">경상북도</option>
+                    <option value="e">전라남도</option>
+                    <option value="f">전라북도</option>
+                    <option value="g">충청남도</option>
+                    <option value="h">충청북도</option>
+                    <option value="i">제주도</option>
+                    <option value="j">광주시</option>
+                    <option value="k">서울시</option>
+                    <option value="l">세종시</option>
+                    <option value="m">대전시</option>
+                    <option value="n">인천시</option>
+                    <option value="o">대구시</option>
+                    <option value="p">울산시</option>
+                    <option value="q">부산시</option>
+                </select>
 
-            <select name="" id="loc2">
-                <option>전체/시/군/기타</option>
-            </select>
-        </div>
+                <select name="" id="loc2">
+                    <option>전체/시/군/기타</option>
+                </select>
+            </div>
 
-        <br>
+            <br>
 
-        <form name="searchForm" action="campSearch.cb">
             <div id="facility-s">
                 <span>테마 및 편의 시설</span>
                 <table>
                     <tr>
                     <td class="them">자연경관</td>
-                    <td><input type="checkbox" name="" id="valley"><label for="valley">계곡</label></td>
-                    <td><input type="checkbox" name="" id="ocean"><label for="ocean">바다</label></td>
-                    <td><input type="checkbox" name="" id="mountain"><label for="mountain">산</label></td>
-                    <td><input type="checkbox" name="" id="river"><label for="river">강</label></td>
+                    <td><input type="checkbox" name="" id="valley"><label for="valley">계곡</label>
+                        <input type="checkbox" name="" id="ocean"><label for="ocean">바다</label>
+                        <input type="checkbox" name="" id="mountain"><label for="mountain">산</label>
+                        <input type="checkbox" name="" id="river"><label for="river">강</label>
+                    </td>
                     </tr>
                     <tr>
                         <td class="them">지형</td>
-                        <td><input type="checkbox" name="" id="grass"><label for="grass">잔디</label></td>
-                        <td><input type="checkbox" name="" id="deck"><label for="deck">데크</label></td>
-                        <td><input type="checkbox" name="" id="rock"><label for="rock">파쇄석</label></td>
-                        <td><input type="checkbox" name="" id="soil"><label for="soil">맨흙</label></td>
-                        <td><input type="checkbox" name="" id="etc"><label for="etc">기타</label></td>
+                        <td><input type="checkbox" name="" id="grass"><label for="grass">잔디</label>
+                            <input type="checkbox" name="" id="deck"><label for="deck">데크</label>
+                            <input type="checkbox" name="" id="rock"><label for="rock">파쇄석</label>
+                            <input type="checkbox" name="" id="soil"><label for="soil">맨흙</label>
+                            <input type="checkbox" name="" id="etc"><label for="etc">기타</label>
+                        </td>
                     </tr>
                     <tr>
                         <td class="them">편의시설</td>
@@ -183,6 +186,7 @@
                 </div>
             </div>
         </form>
+        
 
     </div>
 
