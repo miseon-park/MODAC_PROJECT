@@ -1,468 +1,281 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.modac.camp.model.vo.Camp"%>
+    <%
+     ArrayList<Camp> campSelect = (ArrayList<Camp>) request.getAttribute("campSelect");    
+    %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<title>캠핑장 검색</title>
+
+<style>
+
+    #search-area {
+        /* border: 1px solid black; */
+        background-color: rgb(230, 213, 184);
+        width: 800px;
+        margin:  auto;
+        padding: 50px 50px;
+    }
+    
+    span {
+        color: rgb(74,57,51);
+        font-size: large;
+        font-weight: bold;
+    }
+
+
+    #loacation-s {
+        margin-top: 30px;
+        margin-bottom: 30px;
+        
+    }
+    #loacation-s>span {
+        margin-left: 40px;
+    }
+    #loc1 {
+        width: 200px;
+        height: 30px;
+        margin-left: 80px;
+    }
+    #loc2 {
+        width: 300px;
+        height: 30px;
+        margin-left: 30px;
+    }
+
+
+
+    #facility-s>span {
+        margin-left: 10px;
+    }
+
+    #facility-s table {
+        margin-left: 30px;
+        margin-top: 20px;        
+    }
+
+    
+
+    table {
+        border-spacing: 10px;
+    }
+    .them {
+        font-size: 16px;
+        font-weight: bold;
+        color: rgb(74,57,51);
+        padding-right: 25px;
+        border-right: 1px solid darkgray;
+    }
+    td {
+        padding-bottom: 15px;
+    }
+
+  
+
+
+
+    #btn-area>input {
+        background-color: rgb(240, 165, 0);
+        border: none;
+        color: white;
+        width: 300px;
+        height: 40px;
+    }
+
+
+
+
+    #result {
+        border: 1px solid black;
+        width: 1200px;
+        margin: auto;
+    }
+
+
+
+
+</style>
+
 </head>
 <body>
-    <h1>AJAX 개요</h1>
 
-    <p>
-        Asynchronous JavaScript And XML의 약자로 <br>
-        서버로부터 데이터를 가져와 전체 페이지를 새로 고치지 않고 일부만 로드할 수 있게 하는 기법<br>
-        우리가 기존에 a 태그로 요청 및 form을 통해 요청했던 방식은 동기식 요청방식<br>
-        => 응답페이지가 돌아와야 볼 수 있음(페이지화면 깜박거림)<br>
-        비동기식 요청을 보내기 위해서는 AJAX라는 기술이 필요함<br>
+    <%@ include file = "../common/menubar.jsp" %>
 
-        * 동기식 / 비동기식 <br>
+<form action="test.ci" method="post">
+    <h2 style="color: rgb(74,57,51);" align="center">캠핑장 검색</h2>
+    <div id="search-area">
+        <div id="loacation-s">
+            <span>지역 검색</span>
+            <select id="loc1" onchange="changeLocation(this)" name="loc1">
+                <option value="z">전체/도/시</option>
+                <option value="a">강원도</option>
+                <option value="b">경기도</option>
+                <option value="c">경상남도</option>
+                <option value="d">경상북도</option>
+                <option value="e">전라남도</option>
+                <option value="f">전라북도</option>
+                <option value="g">충청남도</option>
+                <option value="h">충청북도</option>
+                <option value="i">제주도</option>
+                <option value="j">광주시</option>
+                <option value="k">서울시</option>
+                <option value="l">세종시</option>
+                <option value="m">대전시</option>
+                <option value="n">인천시</option>
+                <option value="o">대구시</option>
+                <option value="p">울산시</option>
+                <option value="q">부산시</option>
+            </select>
 
-        - 동기식 : 요청 처리 후 그에 해당하는 응답 페이지가 돌아와야만 그 다음 작업 가능<br>
-        만약 서버에서 호출된 결과까지의 시간이 지연되면 무작정 계속 기다려야함(흰화면으로 보이게됨)<br>
-        전체 페이지가 리로드됨(새로고침 즉, 페이지가 기본적으로 깜빡거림)<br>
+            <select name="loc2" id="loc2">
+                <option>전체/시/군/기타</option>
+            </select>
+        </div>
 
-        - 비동기식 : 현재 페이지를 그대로 유지하면서 중간중간 추가적인 요청을 보내줄 수 있음 <br>
-        요청을 한다고 해서 다른 페이지로 넘어가지 않음(현재페이지 그대로) <br>
-        요청을 보내놓고 그에 해당하는 응답이 돌아올때 까지 현재페이지에서 다른 작업을 할 수 있음(페이지 깜박거리지 않음)<br>
-        ex) 네이버 홈페이지 실시간 검색기능 or 검색어 자동완성기능 or 아이디 중복체크기능.
+        <br>
 
-        * 비동기식의 단점 <br>
-        - 현재 페이지에 지속적으로 리소스가 쌓임 -> 페이지가 느려질 수 있음.<br>
-        - 페이징내 복잡도가 기하급수적으로 증가 => 에러발생시 대처가 어려워짐<br>
-        - 요청 후 들어온 응답데이터를 가지고 현재페이지에서 새로운 요소를 만들어서 뿌려줘야함<br>
-            => DOM 요소를 새로이 만들어내는 구문을 잘 숙지하고 있어야함 <br><br>
-    </p>
-    <h1>javscript 방식을 이용한 AJAX 테스트</h1>
-
-    <h3>1. 버튼 클릭시 get방식으로 서버에 데이터 전송 및 응답</h3>
-
-    <h3>자바스크립트를 이용한 ajax 통신</h3>
-    <button onclick="ajaxtest1();"> javascript ajax 테스트 1 </button>
-
-    <button onclick="ajaxTest2();">javascript ajax 테스트2 (post 방식)</button> 
-
-    <div id="target"></div>
-
-    <script>
-        const ajaxtest1 = () => {
-            // Ajax로 서버와 통신하기.
-            // 1, XMLHttpRequest 객체 생성하기
-            const xhr = new XMLHttpRequest();
-
-            // 2. XMLHttpRequest 객체를 설정하기.
-            // open() 함수를 이용해서 통신값을 설정.
-            // 1) : 방식(get, post)     2) : 요청을 보내는 주소     [3) : 동기식, 비동기식 설정]
-            // * 클라이언트가 보내는 값을 파라미터로 전송.
-            xhr.open("GET","<%= request.getContextPath() %>/ajaxTest.do?id=admin");
-
-            // 3. 요청에 대한 서버응답 처리할 함수를 저장.
-            // xhr 객체의 onreadystatechange속성에 함수를 대입
-            // xhr 객체 내부의 상태를 관리하는 속성
-            // 1) readyState : 전송상태 관리
-            // 2) status : 응답결과 관리
-            xhr.onreadystatechange = () => {
-                if(xhr.readyState == 4){ // 0 == 대기상태,  4 == 응답이 제대로왓을때 라는 뜻
-                    if(xhr.status == 200){
-                        // 응답메시지를 정상적으로 수신.
-                        // 서버가 응답한 내용은 xhr 객체의 responseText 속성에 자동으로 들어감
-                        console.log(xhr.responseText);
-                        document.getElementById("target").innerHTML += "<h3>" +  xhr.responseText + "</h3>";
-                    }
-                    else if(xhr.status == 404){
-                        alert("찾는 페이지가 존재하지 않습니다.");
-                    }
-                    else{
-                        alert("에러가 발생했습니다.")
-                    }
-                }
-
-            }
-            // 모든값에 대한 설정을 완료한후 요청을 전송.
-            xhr.send();
-        };
-
-        const ajaxTest2 = () => {
-            const xhr = new XMLHttpRequest();
-
-            xhr.open("post","<%= request.getContextPath()%>/ajaxTest.do");
-
-            xhr.onreadystatechange = () => {
-                if(xhr.readyState == 4){
-                    if(xhr.status == 200){
-                        document.getElementById("target").innerHTML += "<h4>" + xhr.responseText + "</h4>";
-                    }
-                }
-            }
-            // post 방식 으로 데이터 전송시 파리미터 설정 방법
-            // url 에 데이터 내용을 작성하지 않고, send함수의 매개변수로 작성.
-            // 전송방식도 수정해야됨.
-
-            
-            xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');	
-            xhr.send("id=user01");
-
-        }
-
-    </script>
-    <pre>
-    	* jQuery 방식에서의 AJAX통신
-    	$.ajax({
-    		속성명:속성값,
-    		속성명:속성값,
-    		속성명:속성값,
-    		...
-   		});
-    	
-    	* 주요속성
-    	- url : 요청할 url(필수)
-    	- type|method : 요청전송방식(get/post, 생략시 기본값 get)
-    	- data : 요청시 전달할 값
-    	- success : ajax 통신 성공시 실행할 함수를 정의.
-    	- error : ajax 통신 실패시 함수를 정의.
-    	- complete : ajax 실패든 성공이든, 무조건 실행할 함수 정의
-    	
-    	* 부수적인 속성
-    	- async : 서버와의 비동기 처리방식 설정 여부( 기본값 true )
-    	- contentType : request의 데이터 인코딩 방식 정의( 보내는 측의 데이터 인코딩 )
-    	- dataType : 서버에서 response로 오는 데이터의 데이터 형설정, 값이 없다면 알아서 판단함.
-    				xml : 트리형태 구조
-    				json : map 형태 구조 (일반적인 데이터 구조)
-    				script : javascript 및 일반 String 형태의 데이터
-    				html : html 태그 자체를 return하는 방식
-    				text : String 데이터
-    	++++++++++++
-		- accept : 파라미터의 타입 설정 (사용자 특화된 파라미터 타입 설정 가능)
-		- beforeSend : ajax요청을 하기전 실행되는 이벤트 callback 함수(데이터 가공 및 header관련 설정)
-		- cache : 요청 및 결과 값을 scope에서 갖고있지 않도록 하는것(기본값 true)
-		- contents : jQuery에서 response의 데이터를 파싱하는 방식 정의
-		- crossDomain : 타 도메인 호출 가능 여부 설정(기본값 false)
-		- dataFilter : response 데이터를 받앗을때 정상적인 값을 return 할수 있도록 데이터와 데이터 타입 설정
-		- global : 기본 이벤트 사용여부(ajaxStart, ajaxStop) => 버퍼링 같이 시작과 끝을 나타날때, 선처리 작업시 사용
-		- password : 서버의 접속권한이 필요한경우 설정.
-		- processData : 서버로 보내는 값에 대한 형태 설정 여부 (기본데이터를 원하는 경우 false 설정)
-		- timeout : 서버 요청시 응답 대기 시간(ms로 설정) 
-    </pre>
-    <h1>jQuery 방식을 이용한 AJAX 테스트</h1>
-
-    <h3> 1. 버튼 클릭시 get 방식으로 서버에 데이터 전송 및 응답</h3>
-
-    입력 : <input type="text" id="input1">
-    <button id="btn1">전송</button>
-    <br>
-
-    응답 : <label id="output1">현재 응답 없음</label>
-
-    <script>
-        $(function(){
-            $("#btn1").click(function(){
-                // 기존 방식은 동기식방식
-                // location.href = '/ajax/url.do?input=' + $("#input1").val();
-                // 404 에러 발생됨
-
-                // 비동기식 방식으로 통신시 페이지가 전환되지 않기때문에 에러가 발생하지않음.
-                $.ajax({
-                    url : "jqAjax1.do",
-                    data : {input : $("#input1").val()},
-                    type : "get",
-                    success : function(result){ // 익명함수, 매개변수로 오는 값은, 서블릿으로부터 전달받은 값
-                        console.log(result);
-                        $("#output1").text(result);
-                    },
-                    error : function(){
-                        console.log("ajax통신 실패!");
-                    },
-                    complete : function(){
-                        console.log("ajax통신 여부와 상관없이 실행됨.");
-                    }
-                })
-            })
-        })
-    </script>
-    <br>
-    <hr>
-    <br>
-	<h3>2. 버튼클릭시 post 방식 으로 서버에 데이터 전송 및 응답</h3>
-
-    이름 : <input type="text" id="input2_1"><br>
-    나이 : <input type="number" id = "input2_2"><br>
-    <button onclick="test2();">전송</button>
-    <br>
-
-    응답 : <label id="output2">현재 응답 없음</label>
-
-     <script>
-/*         function test2(){
-            $.ajax({
-                url : "jqAjax2.do",
-                data : {
-                    name : $("#input2_1").val(),
-                    age : $("#input2_2").val()
-                },
-                type : "post",
-                success : function(result){
-                    $("#output2").text(result);
-                    // 입력값을 초기화
-                    $("#input2_1").val("");
-                    $("#input2_2").val("");
-                },
-                error : function(){
-                    console.log("통신실패");
-                }
-            });
-        } */
-        
-        function test2() {
-            $.ajax({
-                url : "jqAjax2.do",
-                data : {
-                    name : $("#input2_1").val(),
-                    age : $("#input2_2").val()
-                },
-                type : "post",
-                success : function(result){
-                    //$("#output2").text(result);
-                    console.log(result);
-                    
-                    // JSONArray로 응답받을 경우
-                    // $("#output2").text("이름 : " + result[0] + ", 나이 : " + result[1]);
-                    
-                    // JSONObject로 응답받을 경우
-                    $("#output2").text("이름 : " + result.name + ", 나이 : " + result["age"]);
-                    
-                    
-                    
-                    // 입력값을 초기화
-                    $("#input2_1").val("");
-                    $("#input2_2").val("");
-                },
-                error : function(){
-                    console.log("통신실패");
-                }
-            });
-		}
-    </script>
-
-    <h3>3. 서버로 데이터 전송 후, 조회된 객체를 응답데이터로 받기</h3>
-
-    회원번호 입력 : <input type="number" id="input3">
-    <button onclick="test3()">조회</button>
-
-    <div id="output3"></div>
-
-    <script>
-        function test3(){
-            $.ajax({
-                url : "jqAjax3.do",
-                data : {
-                    no : $("#input3").val(),
-                },
-                success : function(result){
-                	
-                	console.log(result);
-                	
-                    let resultStr = "회원번호 : " + result.memberNo + "<br>"
-                                    + "이름 : " + result.memberName + "<br>"
-                                    + "나이 : " + result.age + "<br>"
-                                    + "성별 : " + result.gender + "<br>";
-                    $("#output3").html(resultStr);
-                },
-               
-	            error : function(request, status, error){
-	                console.log(request, status, error);
-            	}
-            });
-        }
-    </script>
-	
-<h3>4. 응답 데이터로 여러개의 객체들이 담겨있는 ArrayList 받기</h3>
-   <button onclick="test4();">회원 전체조회</button>
-   
-   <table id="output4" border = "1" style = "text-align:center">
-      <thead>
-         <tr>
-				<th>LOCATION_1</th>
-				<th>LOCATION_2</th>
-         </tr>
-      </thead>
-      <tbody>
-      
-      </tbody>
-   </table>
-   
-   <script>
-      function test4(){
-         $.ajax({
-            url: "jqAjax4.do",
-            success : function(result){
-               
-               let str = "";
-               
-               for(let i=0; i< result.length; i++){                  
-               str += "<tr>"
-					+ "<td>" + result[i].location_1 + "</td>"
-					+ "<td>" + result[i].location_2 + "</td>"
-               str + "</tr>";
-               }
-               
-               $("#output4 tbody").html(str);
-               
-            },
-            error : function(req, status, err){
-               console.log(req, status, err);
-            }
-         });
-      }
-   </script>
-   
-<h2>5. ajax를 이용한 자동완성 구현하기</h2>
-   
-   <input id="keyword" list ="list" type = "text" placeholder="찾을 게시글을 작성하세요.">
-   <datalist id="list">
-
-   </datalist>
-	<script>
-      $(function(){
-         $("#keyword").keyup(function(e){
-            $.ajax({
-               url:"jqAutoSearch.do",
-               data : {keyword : $("#keyword").val() },
-               success: function(data){
-                  $("#list").html("");//리스트 비워주기 / 안비워주면 전에 기록했던 내용이 그대로 남아있다.\
-                  let str="";
-                  for(let i = 0 ;i<data.length; i++){
-                     
-                     str+="<option>"
-                        +data[i].boardTitle
-                        +"</option>"
-                  }
-                  $("#list").html(str);
-               }
-            })   
-         });
-         
-      })
-      
-   
-   </script>
-   
-   <h2>6. Ajax로 html 파일 받아오기</h2>
-   <button id = "htmlAjax">html 문서 받기</button>
-   <div></div>
-   <script>
-        $(function(){
-            $("#htmlAjax").click(function(){
-                $.ajax({
-                    url : "<%=request.getContextPath()%>/jqHtmlTest.do",
-                    type : "get",
-                    dataType : "html",
-                    success : function(data){
-                        console.log(data); // <!doctype ~ /html>
-                        $("#htmlAjax+div").html(data);
-                    }
-                })
-            })
-        })
-   </script>
-
-    <h2>7. xml 데이터 가져오기</h2>
-    <button id="xmlTest">xml 데이터 가져오기</button>
-    <div id = 'fiction'>
-            <h2>소설</h2>
-            <table id="fiction-info">
-                
+        <div id="facility-s">
+            <span>테마 및 편의 시설</span>
+            <table>
+                <tr>
+                   <td class="them">자연경관</td>
+                   <td><input type="checkbox" name="" id="valley"><label for="valley">계곡</label></td>
+                   <td><input type="checkbox" name="" id="ocean"><label for="ocean">바다</label></td>
+                   <td><input type="checkbox" name="" id="mountain"><label for="mountain">산</label></td>
+                   <td><input type="checkbox" name="" id="river"><label for="river">강</label></td>
+                </tr>
+                <tr>
+                    <td class="them">지형</td>
+                    <td><input type="checkbox" name="" id="grass"><label for="grass">잔디</label></td>
+                    <td><input type="checkbox" name="" id="deck"><label for="deck">데크</label></td>
+                    <td><input type="checkbox" name="" id="rock"><label for="rock">파쇄석</label></td>
+                    <td><input type="checkbox" name="" id="soil"><label for="soil">맨흙</label></td>
+                    <td><input type="checkbox" name="" id="etc"><label for="etc">기타</label></td>
+                </tr>
+                <tr>
+                    <td class="them">편의시설</td>
+                    <td><input type="checkbox" name="" id="toilet"><label for="toilet">공용화장실</label></td>
+                    <td><input type="checkbox" name="" id="shower"><label for="shower">공용샤워실</label></td>
+                    <td><input type="checkbox" name="" id="wifi"><label for="wifi">와이파이</label></td>
+                    <td><input type="checkbox" name="" id="cook"><label for="cook">개수대(취사장)</label></td>
+                    <td><input type="checkbox" name="" id="elec"><label for="elec">전기</label></td>
+                    <td><input type="checkbox" name="" id="store"><label for="store">매점</label></td>
+                </tr>
+                <tr>
+                    <td class="them">반려동물 동반</td>
+                    <td><input type="checkbox" name="pet" id="pet-yes" onclick="petCheck(this);"><label for="pet-yes">가능</label></td>
+                    <td><input type="checkbox" name="pet" id="pet-no" onclick="petCheck(this);"><label for="pet-no">불가능</label></td>
+                </tr>
             </table>
+            
+            <br>
+
+            <div id="btn-area" align="right">
+                <input type="submit" value="검색">
+            </div>
+        </div>
     </div>
-    <div id="it">
-        <h2>프로그래밍</h2>
-        <table id="it-info">
+</form>
+    <br> <br>
 
-        </table>
+    <div id="result">
+		<table class="list-area" align="center">
+			<thead>
+				<tr>
+					<th>캠핑장 이름</th>
+					<th width="400">캠핑장 주소</th>
+					<th width="100">캠핑장 경관</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% if(campSelect.isEmpty()) { %>
+					<!-- 리스트가 비어있는 경우 -->
+					<tr>
+						<td colspan="5">존재하는 공지사항이 없습니다.</td>
+					</tr>
+				<% } else { %>
+					<% for(Camp c : campSelect) { %>
+						<tr>
+							<td><%=c.getCampName() %></td>
+							<td><%=c.getAddress() %></td>
+							<td><%=c.getNaturalAttri() %></td>
+						</tr>
+					<% } %>
+				<% } %>
+			</tbody>
+		</table>
     </div>
+
+
+
     <script>
-        $(function(){
-            $("#xmlTest").click( () => {
-                $.ajax({
-                    url : "books.xml",
-                    success : data => {
-                        let ficheader = "<tr><th>제목</th><th>저자</th></tr>";
-                        let itheader = ficheader;
+        // 지역 검색
+        function changeLocation(e) {
+            var loc2_a = ['강릉시','동해시','원주시','양양군','영월군','인제군','철원군','평창군','홍천군','횡성군'];
+            var loc2_b = ['남양주시','안산시','양주시','용인시','화성시','포천시','가평군','양평군','연천군'];
+            var loc2_c = ['김해시','밀양시','사천시','남해군','함안군','합천군'];
+            var loc2_d = ['구미시','영천시','포항시','고령군','영덕군','울진군','청도군','칠곡군'];
+            var loc2_e = ['광양시','목포시','여수시','고흥군','곡성군','구례군','담양군','무안군','영암군','장성군'];
+            var loc2_f = ['군산시','남원시','익산시','정읍시','고창군','부안군','순창군','완주군','임실군','장수군'];
+            var loc2_g = ['논산시','당진시','서산시','아산시','부여군','청양군','태안군','홍성군'];
+            var loc2_h = ['제천시','청주시','충주시','보은군','옥천군','음성군','진천군'];
+            var loc2_i = ['제주시'];
+            var loc2_j = ['남구'];
+            var loc2_k = ['마포구','은평구'];
+            var loc2_l = ['세종시'];
+            var loc2_m = ['서구','유성구'];
+            var loc2_n = ['계양구','남동구','강화군'];
+            var loc2_o = ['동구','달성군'];
+            var loc2_p = ['중구','울주군'];
+            var loc2_q = ['기장군'];
+            var loc2_z = ['전체/시/군/기타']
+            var target = document.getElementById("loc2");
 
-                        console.log(data);
-                        let entity = $(data).find(":root");
-                        console.log(entity);
-                        let books = $(entity).find("book");
-                        console.log(books);
+            var d;
 
-                        books.each(function(index, value){
-                            let info = "<tr><td>" + $(value).find("title").text()+"</td>"
-                                        + "<td>" + $(value).find("author").text()+"</td></tr>";
-                            let subject = $(value).find("subject").text();
-                            if(subject == "소설"){
-                                ficheader += info;
-                            }else if(subject == "프로그래밍"){
-                                itheader += info;
-                            }
-                        });
-                        $("#fiction-info").html(ficheader);
-                        $("#it-info").html(itheader);
-                    }
-                });
-            })
-        })
-    </script>
-    
-    <h2>8. ajax를 이용한 파일업로드 처리하기</h2>
-    <input type="file" id="upfile" multiple>
-    <button onclick="sendFile()">파일전송</button>
-    <script>
-        function sendFile(){
-            // 파일전송시 FormData객체를 생성해서 전달하기.
-            let form = new FormData();
-            // form.append("upfile", $("#upfile")[0].files[0]);
-            // console.log($("#upfile")[0],$("#upfile").files[0])
-            $.each($("#upfile")[0].files, function(index, file){
-                console.log(index, file);
-                form.append("upfile"+index, file);
-            });
-            form.append("name","장민석");
+            switch(e.value) {
+                case 'a' : d = loc2_a; break;
+                case 'b' : d = loc2_b; break;
+                case 'c' : d = loc2_c; break;
+                case 'd' : d = loc2_d; break;
+                case 'e' : d = loc2_e; break;
+                case 'f' : d = loc2_f; break;
+                case 'g' : d = loc2_g; break;
+                case 'h' : d = loc2_h; break;
+                case 'i' : d = loc2_i; break;
+                case 'j' : d = loc2_j; break;
+                case 'k' : d = loc2_k; break;
+                case 'l' : d = loc2_l; break;
+                case 'm' : d = loc2_m; break;
+                case 'n' : d = loc2_n; break;
+                case 'o' : d = loc2_o; break;
+                case 'p' : d = loc2_p; break;
+                case 'q' : d = loc2_q; break;
+                case 'z' : d = loc2_z; break;
+            }
 
-            $.ajax({
-                url : "fileUpload.do",
-                data : form,
-                type : "post",
-                processData :false,
-                contentType : false,
-                success : function(data){
-                    alert("업로드성공");
-                    $("#upfile").val("");
-                }
-            })
+            target.options.length = 0;
 
-
+            for(x in d) {
+                var opt = document.createElement("option");
+                opt.value = d[x];
+                opt.innerHTML = d[x];
+                target.appendChild(opt);
+            }
         }
+
+        
+        // 반려동물 동반 하나만 체크
+        function petCheck(element) {
+            var checkboxes = document.getElementsByName("pet");
+            checkboxes.forEach((e) => {
+                e.checked = false;
+            })
+            element.checked = true;
+        } 
     </script>
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -59,7 +59,8 @@ public class CampDao{
 	}
 	
 	public ArrayList<Camp> campSelect(String loc1, String loc2, Connection conn) {
-		ArrayList<Camp> c = null;
+		
+		ArrayList<Camp> campSelect = new ArrayList<>();
 		PreparedStatement psmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("campSelect");
@@ -72,7 +73,8 @@ public class CampDao{
 			rset = psmt.executeQuery();
 			
 			while(rset.next()) {
-				c.add(new Camp(rset.getString("CAMP_NAME"),
+				campSelect.add(new Camp(
+						rset.getString("CAMP_NAME"),
 						rset.getString("ADDRESS"),
 						rset.getString("NATURAL_ATTRI")
 						));
@@ -84,7 +86,8 @@ public class CampDao{
 		} finally {
 			JDBCTemplate.close(rset);
 			JDBCTemplate.close(psmt);
-		} 		return c;
+		} 
+		return campSelect;
 		
 	}
 

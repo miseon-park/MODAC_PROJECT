@@ -173,7 +173,7 @@
             <br>
 
             <div id="btn-area" align="right">
-                <input type="submit" value="검색" onclick="test()">
+                <input type="submit" value="검색">
             </div>
         </div>
     </div>
