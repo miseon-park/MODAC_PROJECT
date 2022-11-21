@@ -24,11 +24,11 @@ public class CampService {
 	
 	
 	
-	public ArrayList<Camp> cSelect(String [] item1) {
+	public ArrayList<Camp> cSelect(String [] item1, String [] item2) {
 		
 		Connection conn = getConnection();
 		
-		ArrayList<Camp> clist = new CampDao().cSelect(item1, conn);
+		ArrayList<Camp> clist = new CampDao().cSelect(item1, item2, conn);
 		
 		close();
 		

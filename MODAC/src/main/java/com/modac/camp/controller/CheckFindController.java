@@ -35,13 +35,14 @@ public class CheckFindController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		String [] item1 = request.getParameterValues("item1");
+		String [] item2 = request.getParameterValues("item2");
 		
-		ArrayList<Camp> clist = new CampService().cSelect(item1);
+		ArrayList<Camp> clist = new CampService().cSelect(item1, item2);
 		
 		System.out.print(clist);
 		
 		request.setAttribute("clist", clist);
-		request.getRequestDispatcher("views/camp/campSearch.jsp").forward(request, response);
+		request.getRequestDispatcher("views/camp/campCheckSearch.jsp").forward(request, response);
 		
 		
 		

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, com.modac.camp.model.vo.Camp"%>
 <%
-	ArrayList<Camp> list = (ArrayList<Camp>) request.getAttribute("list");
+	ArrayList<Camp> clist = (ArrayList<Camp>) request.getAttribute("clist");
 %>
 <!DOCTYPE html>
 <html>
@@ -201,17 +201,18 @@
 			</thead>
 			<tbody>
 				
-				<% if(list.isEmpty()) { %>
+				<% if(clist.isEmpty()) { %>
 					<!-- 리스트가 비어있는 경우 -->
 					<tr>
 						<td colspan="5">존재하는 공지사항이 없습니다.</td>
 					</tr>
 				<% } else { %>
-					<% for(Camp c : list) { %>
+					<% for(Camp c : clist) { %>
 						<tr>
 							<td><%=c.getCampName() %></td>
 							<td><%=c.getAddress() %></td>
 							<td><%=c.getNaturalAttri() %></td>
+							<td><%=c.getNaturalAttri2() %></td>
 						</tr>
 					<% } %>
 				<% } %>
