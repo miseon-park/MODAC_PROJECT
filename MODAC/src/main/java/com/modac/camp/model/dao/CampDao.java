@@ -60,47 +60,41 @@ public class CampDao {
 	
 	
 	
-	public ArrayList<Camp> cSelect(String [] item1, String [] item2, Connection conn) {
+	public ArrayList<Camp> cSelect(String [] item1, String pet, Connection conn) {
+		
 		ArrayList<Camp> clist = new ArrayList<>();
 		String sql = prop.getProperty("cSelect");
 		int c = item1.length;
-		int d = item2.length;
 		
 		for(int i=0; i<c; i++) {
 			
+			PreparedStatement psmt = null;
+			ResultSet rset = null;
 			
-			for(int j=0; j<d; j++) {
-			
-				PreparedStatement psmt = null;
-				ResultSet rset = null;
+			try {
+				psmt = conn.prepareStatement(sql);
 				
-				try {
-					
-					psmt = conn.prepareStatement(sql);
-					
-					psmt.setString(1, item1[i]);
-					psmt.setString(2, item2[j]);
-					
-					System.out.println(item1[i]);
-					System.out.println(item2[j]);
-					
-					rset = psmt.executeQuery();
-					
-					while(rset.next()) {
-						clist.add(new Camp(rset.getString("CAMP_NAME"),
-											rset.getString("ADDRESS"),
-											rset.getString("NATURAL_ATTRI"),
-											rset.getString("NATURAL_ATTRI")
-								));
-					}
-					
-				} catch (SQLException e) {
-					e.printStackTrace();
-				} finally {
-					close(rset);
-					close(psmt);
+				psmt.setString(1, item1[i]);
+				psmt.setString(2, pet);
+				
+				System.out.println(item1[i]+", "+pet);
+				
+				rset = psmt.executeQuery();
+				
+				while(rset.next()) {
+					clist.add(new Camp(rset.getString("CAMP_NAME"),
+							rset.getString("ADDRESS"),
+							rset.getString("NATURAL_ATTRI")
+				));
 				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(psmt);
 			}
+			
 		}
 		
 		return clist;

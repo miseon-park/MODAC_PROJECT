@@ -35,9 +35,9 @@ public class CheckFindController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		String [] item1 = request.getParameterValues("item1");
-		String [] item2 = request.getParameterValues("item2");
+		String pet = request.getParameter("pet");
 		
-		ArrayList<Camp> clist = new CampService().cSelect(item1, item2);
+		ArrayList<Camp> clist = new CampService().cSelect(item1, pet);
 		
 		System.out.print(clist);
 		

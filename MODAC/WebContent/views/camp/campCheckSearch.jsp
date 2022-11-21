@@ -154,20 +154,20 @@
                     </tr>
                     <tr>
                         <td class="them">지형</td>
-                        <td><input type="checkbox" name="item2" id="grass" value="잔디"><label for="grass">잔디</label></td>
-                        <td><input type="checkbox" name="item2" id="deck" value="데크"><label for="deck">데크</label></td>
-                        <td><input type="checkbox" name="item2" id="rock" value="파쇄석"><label for="rock">파쇄석</label></td>
-                        <td><input type="checkbox" name="item2" id="soil" value="맨흙"><label for="soil">맨흙</label></td>
-                        <td><input type="checkbox" name="item2" id="etc" value="기타"><label for="etc">기타</label></td>
+                        <td><input type="checkbox" name="item1" id="grass" value="잔디"><label for="grass">잔디</label></td>
+                        <td><input type="checkbox" name="item1" id="deck" value="데크"><label for="deck">데크</label></td>
+                        <td><input type="checkbox" name="item1" id="rock" value="파쇄석"><label for="rock">파쇄석</label></td>
+                        <td><input type="checkbox" name="item1" id="soil" value="맨흙"><label for="soil">맨흙</label></td>
+                        <td><input type="checkbox" name="item1" id="etc" value="기타"><label for="etc">기타</label></td>
                     </tr>
                     <tr>
                         <td class="them">편의시설</td>
-                        <td><input type="checkbox" name="item3" id="toilet" value="공용화장실"><label for="toilet">공용화장실</label></td>
-                        <td><input type="checkbox" name="item3" id="shower" value="공용샤워실"><label for="shower">공용샤워실</label></td>
-                        <td><input type="checkbox" name="item3" id="wifi" value="와이파이"><label for="wifi">와이파이</label></td>
-                        <td><input type="checkbox" name="item3" id="cook" value="개수대(취사장)"><label for="cook">개수대(취사장)</label></td>
-                        <td><input type="checkbox" name="item3" id="elec" value="전기"><label for="elec">전기</label></td>
-                        <td><input type="checkbox" name="item3" id="store" value="매점"><label for="store">매점</label></td>
+                        <td><input type="checkbox" name="item1" id="toilet" value="공용화장실"><label for="toilet">공용화장실</label></td>
+                        <td><input type="checkbox" name="item1" id="shower" value="공용샤워실"><label for="shower">공용샤워실</label></td>
+                        <td><input type="checkbox" name="item1" id="wifi" value="와이파이"><label for="wifi">와이파이</label></td>
+                        <td><input type="checkbox" name="item1" id="cook" value="개수대(취사장)"><label for="cook">개수대(취사장)</label></td>
+                        <td><input type="checkbox" name="item1" id="elec" value="전기"><label for="elec">전기</label></td>
+                        <td><input type="checkbox" name="item1" id="store" value="매점"><label for="store">매점</label></td>
                     </tr>
                     <tr>
                         <td class="them">반려동물 동반</td>
@@ -191,12 +191,12 @@
 
     <div id="result">
 
-		<table class="list-area" align="center">
+		<table class="list-area" align="center" style="width: 1200px;">
 			<thead>
 				<tr>
 					<th>캠핑장 이름</th>
-					<th width="400">캠핑장 주소</th>
-					<th width="100">캠핑장 경관</th>
+					<th>캠핑장 주소</th>
+					<th>캠핑장 경관</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -212,7 +212,6 @@
 							<td><%=c.getCampName() %></td>
 							<td><%=c.getAddress() %></td>
 							<td><%=c.getNaturalAttri() %></td>
-							<td><%=c.getNaturalAttri2() %></td>
 						</tr>
 					<% } %>
 				<% } %>
