@@ -65,23 +65,20 @@ public class CampDao {
 	public ArrayList<Camp> cSelect(String loc1, String loc2, String [] item1, String pet, Connection conn) {
 		
 		ArrayList<Camp> clist = new ArrayList<>();
-		int c = item1.length;
 		
-		for(int i=0; i<c; i++) {
-					
+		if(item1==null) {
+			
 			PreparedStatement psmt = null;
 			ResultSet rset = null;
-			String sql = prop.getProperty("cSelect");
+			String sql = prop.getProperty("locationPetSelect");
 			
 			try {
+				
 				psmt = conn.prepareStatement(sql);
-				
+			
 				psmt.setString(1, loc1);
-				psmt.setString(2, loc2);				
-				psmt.setString(3, item1[i]);
-				psmt.setString(4, pet);
-				
-				System.out.println(loc1+", "+loc2+", "+item1[i]+", "+pet);
+				psmt.setString(2, loc2);
+				psmt.setString(3, pet);
 				
 				rset = psmt.executeQuery();
 				
@@ -98,8 +95,47 @@ public class CampDao {
 				close(rset);
 				close(psmt);
 			}
+			return clist;
+			
+		} else {
+			
+			int c = item1.length;
+			
+			for(int i=0; i<c; i++) {
+						
+				PreparedStatement psmt = null;
+				ResultSet rset = null;
+				String sql = prop.getProperty("cSelect");
+				
+				try {
+					psmt = conn.prepareStatement(sql);
+					
+					psmt.setString(1, loc1);
+					psmt.setString(2, loc2);				
+					psmt.setString(3, item1[i]);
+					psmt.setString(4, pet);
+					
+					System.out.println(loc1+", "+loc2+", "+item1[i]+", "+pet);
+					
+					rset = psmt.executeQuery();
+					
+					while(rset.next()) {
+						clist.add(new Camp(rset.getString("CAMP_NAME"),
+								rset.getString("ADDRESS"),
+								rset.getString("NATURAL_ATTRI")
+								));
+					}
+					
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					close(rset);
+					close(psmt);
+				}
+			}
+			return clist;
+			
 		}
-		return clist;
 	}
 	
 	
@@ -145,76 +181,108 @@ public class CampDao {
 	public ArrayList<Camp> cSelect(String [] item1, String pet, Connection conn) {
 		
 		ArrayList<Camp> clist = new ArrayList<>();
-		int c = item1.length;
 		
-		// 반려동물 선택안했을 경우
-		if(pet == null) {
+		
+		if(item1==null) {
 			
-			for(int i=0; i<c; i++) {
-				PreparedStatement psmt = null;
-				ResultSet rset = null;
-				String sql = prop.getProperty("noPetBoxSelect");
+			PreparedStatement psmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("noCheckBoxSelect");
+			
+			try {
+				psmt = conn.prepareStatement(sql);
 				
-				try {
-					psmt = conn.prepareStatement(sql);
-					
-					psmt.setString(1, item1[i]);
-					
-					System.out.println(item1[i]+", "+pet);
-					
-					rset = psmt.executeQuery();
-					
-					while(rset.next()) {
-						clist.add(new Camp(rset.getString("CAMP_NAME"),
-								rset.getString("ADDRESS"),
-								rset.getString("NATURAL_ATTRI")
-								));
-					}
-					
-				} catch (SQLException e) {
-					e.printStackTrace();
-				} finally {
-					close(rset);
-					close(psmt);
+				psmt.setString(1, pet);
+				
+				System.out.println(pet);
+				
+				rset = psmt.executeQuery();
+				
+				while(rset.next()) {
+					clist.add(new Camp(rset.getString("CAMP_NAME"),
+							rset.getString("ADDRESS"),
+							rset.getString("NATURAL_ATTRI")
+							));
 				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(psmt);
 			}
 			return clist;
+		} else {
+			int c = item1.length;
 			
-		} else { // 둘다 선택했을 경우
-			for(int i=0; i<c; i++) {
+			// 반려동물 선택안했을 경우
+			if(pet == null) {
 				
-				PreparedStatement psmt = null;
-				ResultSet rset = null;
-				String sql = prop.getProperty("boxSelect");
-				
-				try {
-					psmt = conn.prepareStatement(sql);
-								
-					psmt.setString(1, item1[i]);
-					psmt.setString(2, pet);
+				for(int i=0; i<c; i++) {
+					PreparedStatement psmt = null;
+					ResultSet rset = null;
+					String sql = prop.getProperty("noPetBoxSelect");
 					
-					System.out.println(item1[i]+", "+pet);
-					
-					rset = psmt.executeQuery();
-					
-					while(rset.next()) {
-						clist.add(new Camp(rset.getString("CAMP_NAME"),
-								rset.getString("ADDRESS"),
-								rset.getString("NATURAL_ATTRI")
-								));
+					try {
+						psmt = conn.prepareStatement(sql);
+						
+						psmt.setString(1, item1[i]);
+						
+						System.out.println(item1[i]+", "+pet);
+						
+						rset = psmt.executeQuery();
+						
+						while(rset.next()) {
+							clist.add(new Camp(rset.getString("CAMP_NAME"),
+									rset.getString("ADDRESS"),
+									rset.getString("NATURAL_ATTRI")
+									));
+						}
+						
+					} catch (SQLException e) {
+						e.printStackTrace();
+					} finally {
+						close(rset);
+						close(psmt);
 					}
-					
-				} catch (SQLException e) {
-					e.printStackTrace();
-				} finally {
-					close(rset);
-					close(psmt);
 				}
+				return clist;
+				
+			} else { // 둘다 선택했을 경우
+				for(int i=0; i<c; i++) {
+					
+					PreparedStatement psmt = null;
+					ResultSet rset = null;
+					String sql = prop.getProperty("boxSelect");
+					
+					try {
+						psmt = conn.prepareStatement(sql);
+									
+						psmt.setString(1, item1[i]);
+						psmt.setString(2, pet);
+						
+						System.out.println(item1[i]+", "+pet);
+						
+						rset = psmt.executeQuery();
+						
+						while(rset.next()) {
+							clist.add(new Camp(rset.getString("CAMP_NAME"),
+									rset.getString("ADDRESS"),
+									rset.getString("NATURAL_ATTRI")
+									));
+						}
+						
+					} catch (SQLException e) {
+						e.printStackTrace();
+					} finally {
+						close(rset);
+						close(psmt);
+					}
+				}
+				return clist;
 			}
-			return clist;
+			
 		}
-			
-		
 		
 	}
 	
