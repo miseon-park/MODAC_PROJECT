@@ -174,8 +174,8 @@
                 
 	    		<form action="list.mk">  
                		<select class="sort" name="sort" id="sort" onchange="this.form.submit()">
-	                    <option name="sort" value="sortOfDate" id="sortOfDate">최신순</option>
-	                    <option name="sort" value="sortOfCount" id="sortOfCount">조회순</option>
+	                    <option name="sort" value="sortOfDate" id="sortOfDate"  ${(param.sort == "sortOfDate")? "selected":""} >최신순</option>
+	                    <option name="sort" value="sortOfCount" id="sortOfCount" ${(param.sort == "sortOfCount")? "selected":""}>조회순</option>
 	                </select>
 	            </form>    
             </div>
@@ -274,10 +274,10 @@
 			});
    		})
    		
-    		//셀렉박스 
-    		$(function() {
-	    	$("select[name=sort]").val((("${market.sort}" == '') ? "" : "${market.sort}")).prop("selected", true); 
-	    });
+    	//셀렉박스 
+//    		$(function() {
+//     		$("select[name=sort]").val((("${market.sort}" == '') ? "" : "${market.sort}")).prop("selected", true); 
+// 	    });
     </script>	 
 	    
 

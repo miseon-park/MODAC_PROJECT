@@ -1,8 +1,10 @@
 package com.modac.usedProduct.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,8 +41,6 @@ public class MarketInsertController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//ImageIcon modacLogo = new ImageIcon("resources/modacLogo/logo.png");
-		
 		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			
@@ -68,12 +68,12 @@ public class MarketInsertController extends HttpServlet {
 			
 			//첨부파일 저장
 			ArrayList<Attachment> list = new ArrayList<>();
-			Attachment at = new Attachment();
 			
 			String titleImg = multirequest.getParameter("titleImg");
 			
 			
 			for(int i = 1; i <= 4; i++) {
+				Attachment at = new Attachment();
 				String key = "file" + i;
 				
 				if(multirequest.getOriginalFileName(key) != null) { //첨부파일이 있을 경우
@@ -84,14 +84,16 @@ public class MarketInsertController extends HttpServlet {
 					at.setFileLevel(i);
 					
 					list.add(at);	
-				} 
+				}else {
+					at.setOriginName("logo.png");
+					at.setNewName("logo.png");
+					at.setPath("/resources/modacLogo/");
+					at.setFileLevel(i);
+					
+					list.add(at);
+				}
 			}
 			
-			if(list.isEmpty()) {
-				titleImg = "";
-			}
-			
-			request.setAttribute("titleImg", titleImg);
 			
 			int result = new MarketService().insertMarketPost(m , list);
 			System.out.println(list);

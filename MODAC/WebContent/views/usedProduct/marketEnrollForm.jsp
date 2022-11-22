@@ -172,7 +172,7 @@
 					}
 				}
 				
-//				기본 썸네일 추가-실패				
+				//기본 썸네일 추가-실패				
 // 				$(function(){
 // 					let file = $("#file1").prop("files")[0];
 // 					if(file == null){
