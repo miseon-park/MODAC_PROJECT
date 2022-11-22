@@ -111,14 +111,15 @@ Attachment at = (Attachment)request.getAttribute("at");
 	                      </svg></label>부재료 :  <%=r.getSubIngre() %>
 	                  </div>
 	                  <br>
-	                  <div class="foorm-control">
-	                      <br>
-	                      <img src="<%=contextPath%>/<%=r.getTitleImg()%>" width="400px" height="300px">
-	                  	
-	                  	  <br>
-	                      <%=r.getPostContent() %>
-	                      <br>
-	                  </div>
+		                <div class="foorm-control" style="height:100%;">
+		                	<div style="text-align:center">
+		                     <% if(r.getTitleImg() != null ) { %>
+			               		 <img src="<%=contextPath%>/<%=r.getTitleImg()%>" width="600px" height="100%">
+			                 <% } %>
+			                 </div>
+			                  	 <br><br>
+			               		 <%=r.getPostContent() %>
+		                </div>
 	                  <br>
 	           
 		               <div id="reply-area">

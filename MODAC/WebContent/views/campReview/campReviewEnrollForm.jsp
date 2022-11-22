@@ -63,12 +63,12 @@
               <h3>캠핑장 리뷰</h3>
               <br>
               
-              <form id="enroll-form" action="<%=contextPath %>/insert.cr" method="post">
+              <form id="enroll-form" action="<%=contextPath %>/insert.cr" method="post" enctype="multipart/form-data">
               	<input type="hidden" name="memberNo" value="<%=loginMember.getMemberNo() %>">
 	              
 	            <div class="foorm-control">
 	            	<input type="text" class="form-control" placeholder="제목을 입력해주세요." name="title" aria-label="title">
-	                <input type="file" class="form-control">
+	                <input type="file" class="form-control" name="upfile">
 	                <textarea class="form-control" style="height:500px;" name="content"></textarea>
 	
 	                <div class=" btn-group-sm foorm-control" role="group" aria-label="Basic checkbox toggle button group">

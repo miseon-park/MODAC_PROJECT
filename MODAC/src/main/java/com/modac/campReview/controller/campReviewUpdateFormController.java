@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.modac.campReview.model.service.CampReviewService;
 import com.modac.campReview.model.vo.CampReview;
+import com.modac.campReview.model.vo.ReviewTag;
+import com.modac.common.model.vo.Attachment;
 
 /**
  * Servlet implementation class campReviewUpdateFormController
@@ -30,12 +32,15 @@ public class campReviewUpdateFormController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-	    
 		int postNo = Integer.parseInt(request.getParameter("crno"));
 		
 		CampReview cr = new CampReviewService().selectCampReview(postNo);
+		ReviewTag rt = new CampReviewService().selectReviewTag(postNo);
+		Attachment at = new CampReviewService().selectAttachment(postNo);
 		
 		request.setAttribute("cr", cr);
+		request.setAttribute("rt", rt);
+		request.setAttribute("at", at);
 		request.getRequestDispatcher("views/campReview/campReviewUpdateForm.jsp").forward(request,response);
 
 	}

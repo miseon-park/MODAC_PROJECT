@@ -3,13 +3,13 @@ package com.modac.campReview.model.vo;
 public class ReviewTag {
 	
 	private String postNo;
-	private Number tagNo;
+	private String tagNo;
 	
 	public ReviewTag(){
 		super();
 	}
 
-	public ReviewTag(String postNo, Number tagNo) {
+	public ReviewTag(String postNo, String tagNo) {
 		super();
 		this.postNo = postNo;
 		this.tagNo = tagNo;
@@ -23,11 +23,11 @@ public class ReviewTag {
 		this.postNo = postNo;
 	}
 
-	public Number getTagNo() {
+	public String getTagNo() {
 		return tagNo;
 	}
 
-	public void setTagNo(Number tagNo) {
+	public void setTagNo(String tagNo) {
 		this.tagNo = tagNo;
 	}
 	

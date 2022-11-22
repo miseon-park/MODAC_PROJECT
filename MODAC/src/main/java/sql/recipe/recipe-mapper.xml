@@ -18,8 +18,7 @@
 			FROM RECIPE R
 			JOIN ATTACHMENT A USING(POST_NO)
 			JOIN MEMBER M USING(MEMBER_NO)
-			WHERE M.STATUS = 'N' 
-			  AND R.STATUS = 'N' 
+			WHERE $ LIKE ? AND M.STATUS = 'N' AND R.STATUS = 'N' 
 			ORDER BY CREATE_DATE DESC, POST_NO DESC) A
 		     )
 		WHERE RNUM BETWEEN ? AND ?
@@ -48,7 +47,7 @@
 			       DIFFICULTY,
 			       MAIN_INGRE,
 			       SUB_INGRE,
-			       PATH || NEW_NAME AS "TITLEIMG"
+			       PATH || NEW_NAME AS "TITLE_IMG"
 			FROM RECIPE R
 			JOIN MEMBER M USING(MEMBER_NO)
 	        JOIN ATTACHMENT USING(POST_NO)
@@ -134,7 +133,7 @@
 		WHERE POST_NO = ?
 	</entry>
 	
-		<entry key="deleteAttachment">
+	<entry key="deleteAttachment">
 		UPDATE ATTACHMENT
 		SET STATUS = 'Y'
 		WHERE BOARD_NO = 7

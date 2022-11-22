@@ -1,7 +1,10 @@
 package com.modac.campReview.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,8 +12,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
 import com.modac.campReview.model.service.CampReviewService;
 import com.modac.campReview.model.vo.CampReview;
+import com.modac.campReview.model.vo.MyFileRenamePolicy;
+import com.modac.common.model.vo.Attachment;
+import com.oreilly.servlet.MultipartRequest;
 
 /**
  * Servlet implementation class campReviewInsertController
@@ -34,30 +42,59 @@ public class campReviewInsertController extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		String memberNo = request.getParameter("memberNo");
-		String postTitle = request.getParameter("title");
-		String postContent = request.getParameter("content");
-		String[] tag = request.getParameterValues("tag");
-				
-		System.out.println(Arrays.toString(tag));
-		
-		CampReview cr = new CampReview();
-		cr.setPostTitle(postTitle);
-		cr.setPostContent(postContent);
-		cr.setMemberNo(memberNo);
-		cr.setTag(tag);
-		
-		
-		int result = new CampReviewService().insertCampReview(cr);
-		
-		if(result > 0) { // 성공시 => list.cr로 리다이랙트 
-			request.getSession().setAttribute("alertMsg", "성공적으로 글이 등록되었습니다. ");
-			response.sendRedirect(request.getContextPath()+"/list.cr");
-		} else {
-			request.setAttribute("errorMsg", "글 등록에 실패하였습니다.");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		if(ServletFileUpload.isMultipartContent(request)) {
 			
+			int maxSize = 1024 * 1024 * 10;
+			
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/campReview_upfiles/");
+			
+			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+					
+			String memberNo = multiRequest.getParameter("memberNo");
+			String postTitle = multiRequest.getParameter("title");
+			String postContent = multiRequest.getParameter("content");
+			
+			String[] tagNo = multiRequest.getParameterValues("tag"); 
+			
+			CampReview cr = new CampReview();
+			cr.setPostTitle(postTitle);
+			cr.setPostContent(postContent);
+			cr.setMemberNo(memberNo);
+			
+			ArrayList<Integer> tagList = new ArrayList<>();
+			for(int i=0; i<tagNo.length; i++){
+			    tagList.add(Integer.parseInt(tagNo[i]));
+			}
+			cr.setTagList(tagList);
+			
+			Attachment at = null;
+			
+			if(multiRequest.getOriginalFileName("upfile") != null) {
+				
+				at = new Attachment();
+				at.setOriginName(multiRequest.getOriginalFileName("upfile"));// 원본명
+				at.setNewName(multiRequest.getFilesystemName("upfile"));//수정명(실제 서버에 업로드되어있는 파일명)
+				at.setPath("resources/campReview_upfiles/");
+			}else {
+				//기본사진 
+			}
+			
+		int result = new CampReviewService().insertCampReview(cr, at);
+
+		if(result > 0) {
+			request.getSession().setAttribute("alertMsg", "게시글 작성 성공!");
+			response.sendRedirect(request.getContextPath()+"/list.cr");
+		
+		}else { //실패시 => 첨부파일 있엇을경우 이미 업로드된 첨부파일을 서버에 보관할 이유가 없다(용량만차지)
+			if(at != null) {
+				// 삭제시키고자 하는 파일객체 생성 -> delete메소드 호출
+				new File(savePath+at.getNewName()).delete();
+			}
+			
+			request.setAttribute("errorMsg","게시글 작성 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
+	}
 	
 	
 	}

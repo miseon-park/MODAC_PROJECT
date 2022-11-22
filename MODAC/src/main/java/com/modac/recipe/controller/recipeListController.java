@@ -32,6 +32,17 @@ public class recipeListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			
+		  String field_ = request.getParameter("f");
+	      String query_ = request.getParameter("q");
+	   
+	      String field = "POST_TITLE";
+	      if(field_ != null)
+	         field = field_;
+	      
+	      String query = "";
+	      if(query_!=null)
+	         query = query_;
 		
 		//----- 페이징 ------
 		int listCount;
@@ -58,7 +69,7 @@ public class recipeListController extends HttpServlet {
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		//----- 페이징 ------
 		
-		ArrayList<Recipe> list = new RecipeService().selectRecipeList(pi);
+		ArrayList<Recipe> list = new RecipeService().selectRecipeList(pi, field, query);
 
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi); 

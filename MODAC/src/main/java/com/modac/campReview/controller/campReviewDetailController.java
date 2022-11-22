@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.modac.campReview.model.service.CampReviewService;
 import com.modac.campReview.model.vo.CampReview;
+import com.modac.campReview.model.vo.ReviewTag;
+import com.modac.common.model.vo.Attachment;
 
 /**
  * Servlet implementation class campReviewDetailController
@@ -34,9 +36,16 @@ public class campReviewDetailController extends HttpServlet {
 		
 		int result = new CampReviewService().increaseCount(campReviewNo);
 		
+		
 		if(result > 0 ) { // 성공, 상세조회 페이지 
 			CampReview cr = new CampReviewService().selectCampReview(campReviewNo);
+			ReviewTag rt = new CampReviewService().selectReviewTag(campReviewNo);
+			Attachment at = new CampReviewService().selectAttachment(campReviewNo);
+			
 			request.setAttribute("cr", cr);
+			request.setAttribute("rt", rt);
+			request.setAttribute("at", at);
+			
 			request.getRequestDispatcher("views/campReview/campReviewDetailView.jsp").forward(request, response);
 			
 		}else { // 실패, 에러페이지 

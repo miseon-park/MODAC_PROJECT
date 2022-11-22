@@ -56,7 +56,7 @@ public class RecipeDao {
 		 
 	}
 	
-	 public ArrayList<Recipe> selectRecipeList(Connection conn, PageInfo pi){
+	 public ArrayList<Recipe> selectRecipeList(Connection conn, PageInfo pi, String field, String query){
 		 
 		 ArrayList<Recipe> list = new ArrayList<>();
 		 
@@ -65,6 +65,7 @@ public class RecipeDao {
 		 ResultSet rset = null;
 		 
 		 String sql = prop.getProperty("selectRecipeList");
+		 sql = sql.replace("$", field);
 		 
 		 try {
 			psmt = conn.prepareStatement(sql);
@@ -72,8 +73,9 @@ public class RecipeDao {
 			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 			int endRow = startRow + pi.getBoardLimit() -1;
 			
-			psmt.setInt(1, startRow);
-			psmt.setInt(2, endRow);
+			psmt.setString(1, "%"+query+"%");
+			psmt.setInt(2, startRow);
+			psmt.setInt(3, endRow);
 			
 			rset = psmt.executeQuery();
 			
@@ -148,7 +150,7 @@ public class RecipeDao {
 						             rset.getString("DIFFICULTY"),
 						             rset.getString("MAIN_INGRE"),
 						             rset.getString("SUB_INGRE"),
-						             rset.getString("TITLEIMG")
+						             rset.getString("TITLE_IMG")
 						            );
 			}
 			

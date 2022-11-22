@@ -21,11 +21,11 @@ public class RecipeService {
 	}
 
 	
-	public ArrayList<Recipe> selectRecipeList(PageInfo pi){
+	public ArrayList<Recipe> selectRecipeList(PageInfo pi, String field, String query){
 		
 		Connection conn = getConnection();
 		
-		ArrayList<Recipe> list = new RecipeDao().selectRecipeList(conn, pi);
+		ArrayList<Recipe> list = new RecipeDao().selectRecipeList(conn, pi, field, query);
 		
 		close();
 		

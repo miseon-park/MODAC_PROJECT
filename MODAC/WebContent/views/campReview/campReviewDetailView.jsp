@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.modac.campReview.model.vo.CampReview"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.modac.campReview.model.vo.*, com.modac.common.model.vo.Attachment"%>
 <%
 	CampReview cr = (CampReview)request.getAttribute("cr");
+	ReviewTag rt = (ReviewTag)request.getAttribute("rt");
+	Attachment at = (Attachment)request.getAttribute("at");
 %>
 <!DOCTYPE html>
 <html>
@@ -68,51 +70,83 @@
 			 <br>
                <h3>캠핑장 리뷰</h3>
              <br>
-
+			 
              <div class="insert-area" style="height:100%">
-              	  <div class="date">
-	              <% if(loginMember != null && loginMember.getMemberNic().equals(cr.getMemberNic())) {%>
-	              	<a href="<%=contextPath %>/updateForm.cr?crno=<%=cr.getPostNo()%>" class="btn btn-secondary last1">수정하기</a>
-	              	<a href="<%=contextPath %>/delete.cr?crno=<%=cr.getPostNo()%>" class="btn btn-secondary last1">삭제하기</a>
+              	  <% if(loginMember != null && loginMember.getMemberNic().equals(cr.getMemberNic())) { %>
+              	  	<div class="date">
+		              	<a href="<%=contextPath %>/updateForm.cr?crno=<%=cr.getPostNo()%>" class="btn btn-secondary last1">수정하기</a>
+		              	<a href="<%=contextPath %>/delete.cr?crno=<%=cr.getPostNo()%>" class="btn btn-secondary last1">삭제하기</a>
+	              	</div>
 	              <% } %>
-	              </div>
 				 <br><br>
-	             <div class="foorm-control">
-	                <input type="hidden" name="postNo" value="<%=cr.getPostNo() %>">
-	                <br>
+				 	<div class="foorm-control">
+	                <br><br>
 	                <h3>&nbsp;<%=cr.getPostTitle()%></h3>
 	                 
-	                <br>
-	                <span>&nbsp; <%=cr.getMemberNic() %></span>
-	                <span class="date">작성일 : <%=cr.getCreateDate() %></span>
+	                <br> 
+	                <span>&nbsp; 작성자 : <%=cr.getMemberNic()%></span>
+	                <span class="date">작성일 : <%=cr.getCreateDate() %>&nbsp;</span>
 	                 
 	                <br>
 	                <br>
-	                <div class="form-control" style="height:500px;">
-	               		 <%=cr.getPostContent() %>
+	                <div class="form-control" style="height:100%;">
+	                	<div style="text-align:center">
+	                     <% if(cr.getTitleImg() != null ) { %>
+		               		 <img src="<%=contextPath%>/<%=cr.getTitleImg()%>" width="600px" height="100%">
+		                 <% } %>
+		                 <br>
+				         <% if(at==null) { %>
+					 		<!--  첨부파일이 없는경우 -->
+					  	 <% } else {%>
+							<!-- 첨부파일이 있는경우 -->
+							<!-- 브라우저에서 http://localhost:8001/jsp/resources/board_upfiles/xxx.jpg -->
+							<a href ="<%=contextPath%>/<%= at.getPath() + at.getNewName() %>"
+							download="<%=at.getOriginName() %>">
+								<%=at.getOriginName() %>
+							</a>
+						 <% } %>
+		                 
+		                 </div>
+		                  	 <br><br>
+		               		 <%=cr.getPostContent() %>
 	                </div>
 	
 	                <div class=" btn-group-sm foorm-control" role="group" aria-label="Basic checkbox toggle button group">
-	
-	                  <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="on">
+	                  <input type="checkbox" class="btn-check" name="tag" value="1" id="btncheck1" autocomplete="off">
 	                  <label class="btn btn-outline-primary" for="btncheck1">#사장님이 친절해요</label>
-	                
-	                  <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="on">
+	                  
+	                  <input type="checkbox" class="btn-check" name="tag" value="2" id="btncheck2" autocomplete="off">
 	                  <label class="btn btn-outline-primary" for="btncheck2">#시설이 깔끔해요</label>
-	                
-	                  <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="on">
+	                  
+	                  <input type="checkbox" class="btn-check" name="tag" value="3" id="btncheck3" autocomplete="off">
 	                  <label class="btn btn-outline-primary" for="btncheck3">#주변 경관이 좋아요</label>
-	               
-	                  <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="on">
+	                 
+	                  <input type="checkbox" class="btn-check" name="tag" value="4" id="btncheck4" autocomplete="off">
 	                  <label class="btn btn-outline-primary" for="btncheck4">#매너시간이 잘 지켜져요</label>
-	                
-	                  <input type="checkbox" class="btn-check" id="btncheck5" autocomplete="on">
+	                  
+	                  <input type="checkbox" class="btn-check" name="tag" value="5" id="btncheck5" autocomplete="off">
 	                  <label class="btn btn-outline-primary" for="btncheck5">#사이트 공간이 넓어요</label>
-	                
-	                  <input type="checkbox" class="btn-check" id="btncheck6" autocomplete="on">
+	                  
+	                  <input type="checkbox" class="btn-check" name="tag" value="6" id="btncheck6" autocomplete="off">
 	                  <label class="btn btn-outline-primary" for="btncheck6">#주변 볼거리가 많아요</label>
 	               </div>
 	            </div>
+	            </div>
+			   <script>
+			   <% if(rt != null) {%>
+		            $(function(){
+		                let tag = "<%= rt.getTagNo()%>"
+		                $("input[type=checkbox]").each(function(){
+		                    // 순차적으로 접근한 input 요소의 value값이 interest에 포함될경우
+		                    // -> 해당 input 요소에 checked 속성을 부여할것.
+		                    if(tag.search($(this).val()) != -1){ 
+		                        // interest문자열로부터 현재 체크박스의 value가 포함되어있지 않다면 -1을 반환
+		                        $(this).attr("checked", true);
+		                    }
+		                })
+		            })
+	           <% }%>
+		        </script>
 	            <br>
 	            
 	            <div align="center">

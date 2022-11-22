@@ -33,6 +33,19 @@ public class campReviewListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		//-- 검색 -------
+		  String field_ = request.getParameter("f");
+	      String query_ = request.getParameter("q");
+	   
+	      String field = "POST_TITLE";
+	      if(field_ != null)
+	         field = field_;
+	      
+	      String query = "";
+	      if(query_!=null)
+	         query = query_;
+	      
+		
 		//-- 페이징처리-----
 		int listCount;
 		int currentPage;
@@ -62,7 +75,7 @@ public class campReviewListController extends HttpServlet {
 		
 		
 		
-		ArrayList<CampReview> list = new CampReviewService().selectCampReviewList(pi);
+		ArrayList<CampReview> list = new CampReviewService().selectCampReviewList(pi, field, query);
 		
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);

@@ -36,10 +36,8 @@ public class recipeInsertController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
 		request.setCharacterEncoding("UTF-8");
 		
-
 		if(ServletFileUpload.isMultipartContent(request)) {
 			
 			int maxSize = 1024 * 1024 * 10;

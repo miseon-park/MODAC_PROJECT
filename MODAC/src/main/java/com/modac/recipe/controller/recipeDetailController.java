@@ -32,10 +32,9 @@ public class recipeDetailController extends HttpServlet {
 protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 	int recipeNo = Integer.parseInt(request.getParameter("rno"));
-	RecipeService rService = new RecipeService();
-    
-	System.out.println(recipeNo);
 	
+	RecipeService rService = new RecipeService();
+
 	int result = rService.increaseCount(recipeNo);
 	
 	if(result > 0 ) { // 성공, 상세조회 페이지 

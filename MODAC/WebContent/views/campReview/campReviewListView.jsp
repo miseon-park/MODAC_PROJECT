@@ -3,7 +3,6 @@
 	import="java.util.ArrayList , com.modac.campReview.model.vo.CampReview, com.modac.common.model.vo.PageInfo"%>
 <%
 	ArrayList<CampReview> list = (ArrayList<CampReview>)request.getAttribute("list");
-	
 
 	PageInfo pi = (PageInfo) request.getAttribute("pi");
 	
@@ -80,15 +79,13 @@
 			<br>
 				<nav class="navbar">
 					<form class="container-fluid">
-                        <div class="input-group">
-                            <select class="form-select" aria-label="Default select example" style="width:25%;">
-                                <option selected>검색옵션</option>
-                                <option value="1">제목</option>
-                                <option value="2">작성자</option>
-                                <option value="3">제목+작성자</option>
-                            </select>
-                            <input type="text" class="form-control" placeholder="검색어를 입력하세요" aria-label="Username" aria-describedby="basic-addon1" style="width: 60%;">
-                            <button class="input-group-text" id="basic-addon1">검색</button>
+                         <div class="input-group">
+                            <select class="form-select" name ="f" aria-label="Default select example" style="width:25%;">
+                                <option  ${(param.f == "POST_TITLE")? "selected":""} value="POST_TITLE">제목</option>
+                                <option  ${(param.f == "MEMBER_NIC")? "selected":""} value="MEMBER_NIC">작성자</option>
+                               </select>
+                            <input type="text" name ="q" class="form-control" placeholder="검색어를 입력하세요" aria-label="Username" aria-describedby="basic-addon1" style="width: 60%;" value="${param.q}">
+                            <input type="submit" class="input-group-text" id="basic-addon1" value="검색">
                         </div>
                         </form>
 					<br>
