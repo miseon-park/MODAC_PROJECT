@@ -183,7 +183,8 @@
                     <li><a href="<%=contextPath%>/MemberFineIdPwd.me">아이디·비밀번호 찾기</a></li>
                 </ul>
             </nav>
-		
+
+
 		<% } else { %>
 			<!-- 로그인 성공 후 -->
 			
@@ -196,11 +197,48 @@
                 <br clear="both">
 			</div>
             <br clear="both">
+                        <!-- 좋아요 -->
+   			<button class="w3-button w3-black w3-round" id="rec_update">
+				<i class="fa fa-heart" style="font-size:16px;color:red"></i>
+				&nbsp;<span class="rec_count"></span>
+			</button> 
 			
 		<% } %>
 	
 	
     </div>  
+            <script>
+            $(function(){
+                // 추천버튼 클릭시(추천 추가 또는 추천 제거)
+                $("#rec_update").click(function(){
+                    $.ajax({
+                        url: "RecUpdate.do",
+                        type: "POST",
+                        data: {
+                            no: ${board_no},
+                            id: ${memberId}
+                        },
+                        success: function () {
+                            recCount();
+                        },
+                    })
+                })
+                
+                // 게시글 추천수
+                function recCount() {
+                    $.ajax({
+                        url: "RecCount.do",
+                        type: "POST",
+                        data: {
+                            no: ${board_no}
+                        },
+                        success: function (count) {
+                            $(".rec_count").html(count);
+                        },
+                    })
+                };
+                recCount(); // 처음 시작했을 때 실행되도록 해당 함수 호출
+        </script>
 
 
     <br clear="both">

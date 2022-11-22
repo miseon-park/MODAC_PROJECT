@@ -36,8 +36,6 @@ public class campLocationController extends HttpServlet {
 		String loc1 = request.getParameter("loc1");
 		String loc2 = request.getParameter("loc2");
 		
-		String [] value = request.getParameterValues("them");
-		System.out.println(value);
 		switch(loc1) {
 		case "a" : loc1 = "강원도"; break;
 		case "b" : loc1 = "경기도"; break;
@@ -65,7 +63,7 @@ public class campLocationController extends HttpServlet {
 		
 		request.setAttribute("campSelect", campSelect);
 		
-		request.getRequestDispatcher("views/camp/test.jsp").forward(request, response);
+		request.getRequestDispatcher("views/camp/campLocationSearch.jsp").forward(request, response);
 		
 		
 		
