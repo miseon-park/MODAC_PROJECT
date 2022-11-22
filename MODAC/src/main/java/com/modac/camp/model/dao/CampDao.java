@@ -26,6 +26,8 @@ public class CampDao {
 		}
 	}
 	
+	
+	// 전체 검색
 	public ArrayList<Camp> selectCampList(Connection conn) {
 		
 		// select 여러 행 조회
@@ -59,25 +61,27 @@ public class CampDao {
 	}
 	
 	
-	
-	public ArrayList<Camp> cSelect(String [] item1, String pet, Connection conn) {
+	// 검색 박스 모두 사용
+	public ArrayList<Camp> cSelect(String loc1, String loc2, String [] item1, String pet, Connection conn) {
 		
 		ArrayList<Camp> clist = new ArrayList<>();
-		String sql = prop.getProperty("cSelect");
 		int c = item1.length;
 		
 		for(int i=0; i<c; i++) {
-			
+					
 			PreparedStatement psmt = null;
 			ResultSet rset = null;
+			String sql = prop.getProperty("cSelect");
 			
 			try {
 				psmt = conn.prepareStatement(sql);
 				
-				psmt.setString(1, item1[i]);
-				psmt.setString(2, pet);
+				psmt.setString(1, loc1);
+				psmt.setString(2, loc2);				
+				psmt.setString(3, item1[i]);
+				psmt.setString(4, pet);
 				
-				System.out.println(item1[i]+", "+pet);
+				System.out.println(loc1+", "+loc2+", "+item1[i]+", "+pet);
 				
 				rset = psmt.executeQuery();
 				
@@ -85,7 +89,7 @@ public class CampDao {
 					clist.add(new Camp(rset.getString("CAMP_NAME"),
 							rset.getString("ADDRESS"),
 							rset.getString("NATURAL_ATTRI")
-				));
+							));
 				}
 				
 			} catch (SQLException e) {
@@ -94,11 +98,127 @@ public class CampDao {
 				close(rset);
 				close(psmt);
 			}
-			
 		}
+		return clist;
+	}
+	
+	
+	
+	// 지역 검색
+	public ArrayList<Camp> cSelect(String loc1, String loc2, Connection conn) {
 		
+			ArrayList<Camp> clist = new ArrayList<>();
+			
+			PreparedStatement psmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("locationSelect");
+			
+			try {
+				
+				psmt = conn.prepareStatement(sql);
+				
+				psmt.setString(1, loc1);
+				psmt.setString(2, loc2);
+				
+				rset = psmt.executeQuery();
+				
+				while(rset.next()) {
+					clist.add(new Camp(rset.getString("CAMP_NAME"),
+							rset.getString("ADDRESS"),
+							rset.getString("NATURAL_ATTRI")
+							));
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(psmt);
+			}
 		return clist;
 		
 	}
+	
+	
+	
+	// 체크박스 검색
+	public ArrayList<Camp> cSelect(String [] item1, String pet, Connection conn) {
+		
+		ArrayList<Camp> clist = new ArrayList<>();
+		int c = item1.length;
+		
+		// 반려동물 선택안했을 경우
+		if(pet == null) {
+			
+			for(int i=0; i<c; i++) {
+				PreparedStatement psmt = null;
+				ResultSet rset = null;
+				String sql = prop.getProperty("noPetBoxSelect");
+				
+				try {
+					psmt = conn.prepareStatement(sql);
+					
+					psmt.setString(1, item1[i]);
+					
+					System.out.println(item1[i]+", "+pet);
+					
+					rset = psmt.executeQuery();
+					
+					while(rset.next()) {
+						clist.add(new Camp(rset.getString("CAMP_NAME"),
+								rset.getString("ADDRESS"),
+								rset.getString("NATURAL_ATTRI")
+								));
+					}
+					
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					close(rset);
+					close(psmt);
+				}
+			}
+			return clist;
+			
+		} else { // 둘다 선택했을 경우
+			for(int i=0; i<c; i++) {
+				
+				PreparedStatement psmt = null;
+				ResultSet rset = null;
+				String sql = prop.getProperty("boxSelect");
+				
+				try {
+					psmt = conn.prepareStatement(sql);
+								
+					psmt.setString(1, item1[i]);
+					psmt.setString(2, pet);
+					
+					System.out.println(item1[i]+", "+pet);
+					
+					rset = psmt.executeQuery();
+					
+					while(rset.next()) {
+						clist.add(new Camp(rset.getString("CAMP_NAME"),
+								rset.getString("ADDRESS"),
+								rset.getString("NATURAL_ATTRI")
+								));
+					}
+					
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					close(rset);
+					close(psmt);
+				}
+			}
+			return clist;
+		}
+			
+		
+		
+	}
+	
+	
+	
 
 }

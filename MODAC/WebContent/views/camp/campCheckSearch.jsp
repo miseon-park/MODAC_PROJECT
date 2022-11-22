@@ -111,37 +111,38 @@
     <h2 style="color: rgb(74,57,51);" align="center">캠핑장 검색</h2>
 
     <div id="search-area">
-        <div id="loacation-s">
-            <span>지역 검색</span>
-            <select id="loc1" onchange="changeLocation(this)">
-                <option value="z">전체/도/시</option>
-                <option value="a">강원도</option>
-                <option value="b">경기도</option>
-                <option value="c">경상남도</option>
-                <option value="d">경상북도</option>
-                <option value="e">전라남도</option>
-                <option value="f">전라북도</option>
-                <option value="g">충청남도</option>
-                <option value="h">충청북도</option>
-                <option value="i">제주도</option>
-                <option value="j">광주시</option>
-                <option value="k">서울시</option>
-                <option value="l">세종시</option>
-                <option value="m">대전시</option>
-                <option value="n">인천시</option>
-                <option value="o">대구시</option>
-                <option value="p">울산시</option>
-                <option value="q">부산시</option>
-            </select>
-
-            <select name="" id="loc2">
-                <option>전체/시/군/기타</option>
-            </select>
-        </div>
-
-        <br>
-
         <form name="searchForm" action="campSearch.ca">
+            <div id="loacation-s">
+                <span>지역 검색</span>
+                <select name="loc1" id="loc1" onchange="changeLocation(this)">
+                    <option value="z">전체/도/시</option>
+                    <option value="a">강원도</option>
+                    <option value="b">경기도</option>
+                    <option value="c">경상남도</option>
+                    <option value="d">경상북도</option>
+                    <option value="e">전라남도</option>
+                    <option value="f">전라북도</option>
+                    <option value="g">충청남도</option>
+                    <option value="h">충청북도</option>
+                    <option value="i">제주도</option>
+                    <option value="j">광주시</option>
+                    <option value="k">서울시</option>
+                    <option value="l">세종시</option>
+                    <option value="m">대전시</option>
+                    <option value="n">인천시</option>
+                    <option value="o">대구시</option>
+                    <option value="p">울산시</option>
+                    <option value="q">부산시</option>
+                </select>
+
+                <select name="loc2" id="loc2">
+                    <option>전체/시/군/기타</option>
+                </select>
+            </div>
+
+            <br>
+
+        
             <div id="facility-s">
                 <span>테마 및 편의 시설</span>
                 <table>
