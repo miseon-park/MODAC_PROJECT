@@ -146,24 +146,15 @@
 <%-- 					<img id="contentImg3" <%if(!filePath[4].equals("")){ %>src="<%=filePath[4] %>" <%} %> width="180" height="130" value="4"> --%>
 					
 					<table>
-                    	<tr>
-							<td>
-								<%if(list.get(0) != null) %>
-								<input type="button" class="btn-close" aria-label="Close" onclick="deleteAttachment()">
-							</td>
-							<td>
-								<%if(list.get(1) != null) %>
-								<input type="button" class="btn-close" aria-label="Close">
-							</td>
-							<td>
-								<%if(list.get(2) != null) %>
-								<input type="button" class="btn-close" aria-label="Close">
-							</td>
-							<td>
-								<%if(list.get(3) != null) %>
-								<input type="button" class="btn-close" aria-label="Close">
-							</td>
-	                    </tr>
+						<% if(!list.isEmpty()) {%>
+                          <% int i = 1;%>
+                  		  <% for(Attachment at : list){ %>
+                    	<th>
+							<input type="button" class="btn-close" id="deleteBtn<%=i%>" aria-label="Close" onclick="deleteAttachment();">
+	                    </th>
+	                   <% i++;
+                    	} %>
+                    	<%} %>
 	                    <tr>
 	                       <td>
 	                      		<img id="titleImg" src="<%=filePath[1] %>" width="180" height="130" value="1">                        
@@ -196,6 +187,31 @@
 				<br><br>
 			</div>
 			<br>
+			
+			<script>
+				$(function(0{
+					for(int i = 1; i <= 4; i++){
+						deleteBtn+
+					}
+				}))
+			
+				<!-- 이미지 삭제버튼 -->
+				function deleteAttachment(photoNo){
+			         $.ajax({
+			            url : "<%= request.getContextPath() %>/delete.at",
+			            data : { photoNo : photoNo},
+			            success : function(result){
+			               //삭제성공시
+			               if(result == 1){
+			                  alert("삭제에 성공했습니다");
+			                  location.reload();
+			               }else{
+			                  alert("삭제에 실패했습니다.");
+			               }
+			            }
+			         })
+			      }
+			</script>
 
 			<script>
 				$(function(){
@@ -266,45 +282,7 @@
 					}
 				}
 			</script>
-			<script type="text/javascript">
-//  			$(".btn-close").click(function(e){
-//  				let selectImg = e.target.dataset.id;
-//  				$.ajax({
-<%--  					url : "<%= request.getContextPath() %>/delete.at", --%>
-// 		            data : { photoNo : selectImg},
-// 		            success : function(result){
-// 		               //삭제성공시
-// 		               if(result == 1){
-// 		                  alert("삭제에 성공했습니다");
-// 		                  location.reload();
-// 		               }else{
-// 		                  alert("삭제에 실패했습니다.");
-// 		               }
-// 		            }
-//  				})
-//  			})
-				
 			
-			
-				<!-- 이미지 삭제버튼 -->
-// 				function deleteAttachment(photoNo){
-// 			         $.ajax({
-<%-- 			            url : "<%= request.getContextPath() %>/delete.at", --%>
-// 			            data : { input : $("#file1").val()},
-// 			            success : function(result){
-// 			               //삭제성공시
-// 			               if(result == 1){
-// 			                  alert("삭제에 성공했습니다");
-// 			                  location.reload();
-// 			               }else{
-// 			                  alert("삭제에 실패했습니다.");
-// 			               }
-// 			            }
-// 			         })
-// 			      }
-		</script>
-	
-
 			<a href="<%=contextPath%>/list.mk" class="btn btn-secondary btn-sm" id="backBtn">목록</a>
 			<input type="submit" class="btn btn-secondary" id="updateBtn" value="수정">
 		</form>
