@@ -373,8 +373,7 @@ public int insertReply(Connection conn, Reply r) {
 		psmt = conn.prepareStatement(sql);
 		psmt.setString(1, r.getReplyContent());
 		psmt.setString(2, r.getPostNo());
-		psmt.setInt(3,Integer.parseInt(r.getWriter()));
-		
+		psmt.setString(3,r.getWriter());
 		result = psmt.executeUpdate();
 		
 	} catch (SQLException e) {

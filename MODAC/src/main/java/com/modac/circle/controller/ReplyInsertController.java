@@ -32,7 +32,7 @@ public class ReplyInsertController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String replyContent = request.getParameter("replycontent");
 		String postNo = request.getParameter("bno");
-		String memberNic =((Member)request.getSession().getAttribute("loginMember")).getMemberNic();
+		String memberNic =((Member)request.getSession().getAttribute("loginMember")).getMemberNo();
 		
 		Reply r = new Reply();
 		r.setReplyContent(replyContent);
