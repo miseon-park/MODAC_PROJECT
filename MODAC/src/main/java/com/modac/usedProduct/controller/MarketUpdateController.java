@@ -95,9 +95,6 @@ public class MarketUpdateController extends HttpServlet {
 			
 			//모두 하나의 트랜잭션으로 처리하기
 			int result = new MarketService().updateMarket(m, list);
-			System.out.println(result);
-			System.out.println(m);
-			System.out.println(list);
 			
 			/*
 			 * case1 : 새로운 첨부파일이 없는 경우(x) => b, null => Board Update

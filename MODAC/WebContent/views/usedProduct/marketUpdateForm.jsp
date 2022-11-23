@@ -15,8 +15,7 @@
 <title>게시글 수정페이지</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <style>
 	h3{
 		margin: auto;
@@ -61,7 +60,7 @@
 		outline: none;
 	}
 	.imgAtt{
-		border: 1px solid white;
+		border: 1px solid orange;
 		width: 93%;
 		margin: auto;
 		margin-top: 10;
@@ -97,6 +96,17 @@
 	.test{
 		border: 1px solid purple;
 	}
+	.btn-close {
+    box-sizing: content-box;
+    width: 0.2em;
+    height: 1em;
+    padding: 0.25em 0.25em;
+    color: #000;
+    background: transparent url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e) center/1em auto no-repeat;
+    border: 0;
+    border-radius: 0.375rem;
+    opacity: .5;
+	}
 </style>
 </head>
 <body>
@@ -130,10 +140,45 @@
 							<input type="hidden" name="newPhotoName<%=i %>" value="<%=at.getNewName() %>">
 						 <% i++; } 
 					   } %>
-					<img id="titleImg" src="<%=filePath[1] %>" width="180" height="130" value="1">
-					<img id="contentImg1" <%if(!filePath[2].equals("")){ %>src="<%=filePath[2] %>" <%} %> width="180" height="130" value="2">
-					<img id="contentImg2" <%if(!filePath[3].equals("")){ %>src="<%=filePath[3] %>" <%} %> width="180" height="130" value="3">
-					<img id="contentImg3" <%if(!filePath[4].equals("")){ %>src="<%=filePath[4] %>" <%} %> width="180" height="130" value="4">
+<%-- 					<img id="titleImg" src="<%=filePath[1] %>" width="180" height="130" value="1"> --%>
+<%-- 					<img id="contentImg1" <%if(!filePath[2].equals("")){ %>src="<%=filePath[2] %>" <%} %> width="180" height="130" value="2"> --%>
+<%-- 					<img id="contentImg2" <%if(!filePath[3].equals("")){ %>src="<%=filePath[3] %>" <%} %> width="180" height="130" value="3"> --%>
+<%-- 					<img id="contentImg3" <%if(!filePath[4].equals("")){ %>src="<%=filePath[4] %>" <%} %> width="180" height="130" value="4"> --%>
+					
+					<table>
+                    	<tr>
+							<td>
+								<%if(list.get(0) != null) %>
+								<input type="button" class="btn-close" aria-label="Close" onclick="deleteAttachment()">
+							</td>
+							<td>
+								<%if(list.get(1) != null) %>
+								<input type="button" class="btn-close" aria-label="Close">
+							</td>
+							<td>
+								<%if(list.get(2) != null) %>
+								<input type="button" class="btn-close" aria-label="Close">
+							</td>
+							<td>
+								<%if(list.get(3) != null) %>
+								<input type="button" class="btn-close" aria-label="Close">
+							</td>
+	                    </tr>
+	                    <tr>
+	                       <td>
+	                      		<img id="titleImg" src="<%=filePath[1] %>" width="180" height="130" value="1">                        
+	                       </td>
+	                       <td>
+								<img id="contentImg1" <%if(!filePath[2].equals("")){ %>src="<%=filePath[2] %>" <%} %> width="180" height="130" value="2">
+	                       </td>
+	                       <td>
+	                          	<img id="contentImg2" <%if(!filePath[3].equals("")){ %>src="<%=filePath[3] %>" <%} %> width="180" height="130" value="3">
+	                       </td>
+	                       <td>
+	                          	<img id="contentImg3" <%if(!filePath[4].equals("")){ %>src="<%=filePath[4] %>" <%} %> width="180" height="130" value="4"> <br>
+	                       </td>
+	                    </tr>
+	                 </table>
 					
 					<input type="hidden" name="postNo" value='<%=m.getPostNo() %>'>
 				</div>
@@ -221,24 +266,43 @@
 					}
 				}
 			</script>
-			
 			<script type="text/javascript">
-				function deleteAttachment(fileNo){
-			         $.ajax({
-			            url : "<%= request.getContextPath() %>/delete.at",
-			            data : {file_no : file_no},
-			            success : function(result){
-			               //삭제성공시
-			               if(result == 1){
-			                  alert("삭제에성공했습니다");
-			                  location.reload();
-			               }else{
-			                  alert("삭제에 실패했습니다.");
-			               }
-			            }
-			         })
-			      }
-			</script>
+//  			$(".btn-close").click(function(e){
+//  				let selectImg = e.target.dataset.id;
+//  				$.ajax({
+<%--  					url : "<%= request.getContextPath() %>/delete.at", --%>
+// 		            data : { photoNo : selectImg},
+// 		            success : function(result){
+// 		               //삭제성공시
+// 		               if(result == 1){
+// 		                  alert("삭제에 성공했습니다");
+// 		                  location.reload();
+// 		               }else{
+// 		                  alert("삭제에 실패했습니다.");
+// 		               }
+// 		            }
+//  				})
+//  			})
+				
+			
+			
+				<!-- 이미지 삭제버튼 -->
+// 				function deleteAttachment(photoNo){
+// 			         $.ajax({
+<%-- 			            url : "<%= request.getContextPath() %>/delete.at", --%>
+// 			            data : { input : $("#file1").val()},
+// 			            success : function(result){
+// 			               //삭제성공시
+// 			               if(result == 1){
+// 			                  alert("삭제에 성공했습니다");
+// 			                  location.reload();
+// 			               }else{
+// 			                  alert("삭제에 실패했습니다.");
+// 			               }
+// 			            }
+// 			         })
+// 			      }
+		</script>
 	
 
 			<a href="<%=contextPath%>/list.mk" class="btn btn-secondary btn-sm" id="backBtn">목록</a>
@@ -249,5 +313,7 @@
 	
 
 <br><br><br><br><br>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
 </body>
 </html>
