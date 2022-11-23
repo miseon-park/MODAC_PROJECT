@@ -32,12 +32,12 @@ public class ReplyInsertController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String replyContent = request.getParameter("replycontent");
 		String postNo = request.getParameter("bno");
-		String memberNic =((Member)request.getSession().getAttribute("loginMember")).getMemberNo();
+		String memberNo =((Member)request.getSession().getAttribute("loginMember")).getMemberNo();
 		
 		Reply r = new Reply();
 		r.setReplyContent(replyContent);
 		r.setPostNo(postNo);;
-		r.setWriter(memberNic+"");// 데이터 저장
+		r.setWriter(memberNo+"");// 데이터 저장
 		
 		int result = new CircleBoardService().insertReply(r);// 넘겨주고
 		

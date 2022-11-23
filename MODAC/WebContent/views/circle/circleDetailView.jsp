@@ -186,7 +186,7 @@
 							
 							
 							result+="<tr>"
-										+"<td>"+i.memberNic+"</td>"
+										+"<td>"+i.memberNo+"</td>"
 										+"<td>"+i.replyContent+"</td>"
 										+"<td>"+i.createDate+"</td>"
 								  +"</tr>";	
