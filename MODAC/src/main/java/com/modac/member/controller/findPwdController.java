@@ -41,6 +41,7 @@ public class findPwdController extends HttpServlet {
 		String email = request.getParameter("email");
 		
 		Member findPwd = ms.findPwd(memberId, memberName, email);
+		System.out.println("findPwd : "+findPwd); 
 		
 		if(findPwd == null) {
 			

@@ -6,22 +6,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.modac.member.model.service.MemberService;
-import com.modac.member.model.vo.Member;
 
 /**
- * Servlet implementation class MemberFineId
+ * Servlet implementation class MemberFineIdPwd
  */
-@WebServlet("/findId.me")
-public class MemberFindId extends HttpServlet {
+@WebServlet("/MemberFineIdPwd.me")
+public class MemberFineIdPwd extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberFindId() {
+    public MemberFineIdPwd() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,19 +25,9 @@ public class MemberFindId extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    private MemberService ms = new MemberService();
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+		request.getRequestDispatcher("views/member/fineIdPwd.jsp").forward(request, response);
 		
-		String memberName = request.getParameter("memberName");
-		String email = request.getParameter("email");
-		
-		Member fineId = ms.findId(memberName, email);
-		
-			HttpSession session = request.getSession();
-			session.setAttribute("findId", fineId);
-			request.getRequestDispatcher("views/member/SuccessFindId.jsp").forward(request, response);
-
 		
 	}
 

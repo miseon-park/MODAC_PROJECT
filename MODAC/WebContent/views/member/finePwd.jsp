@@ -27,24 +27,24 @@
             background-color: white;
         }
 
-        #findid{
+        #fineid{
             float: left;
             /* border: 1px solid black; */
             width: 250px;
             text-align : center;
             padding : 20px 0;
         }
-        #findid>button{
+        #fineid>button{
             width: 250px;
             height: 70px;
             /* background-color: #F0A500; */
         }
-        #findpwd{
+        #finepwd{
             
             text-align : center;
             padding : 20px 0;
         }
-        #findpwd>button{
+        #finepwd>button{
             width: 247px;
             height: 70px;
         }
@@ -114,12 +114,12 @@
 
 	<form action="<%=contextPath %>/findPw.me" method="post" class="content">
 	    <div id="wrapper">
-	        <div id="find">
-	            <div id="findid">
-	                <button class="button" onclick="location.href = '<%=contextPath %>/views/member/findId.jsp'">아이디찾기</button>
+	        <div id="fine">
+	            <div id="fineid">
+	                <button class="button" onclick="location.href = '<%=contextPath %>/views/member/fineId.jsp'">아이디찾기</button>
 	            </div>
-	            <div id="findpwd">
-	                <button class="button" onclick="location.href = '<%=contextPath %>/views/member/findPwd.jsp'">비밀번호찾기</button>
+	            <div id="finepwd">
+	                <button class="button" onclick="location.href = '<%=contextPath %>/views/member/finePwd.jsp'">비밀번호찾기</button>
 	            </div> 
 	        </div>
 	        <div id="divid">
@@ -130,7 +130,7 @@
 	            <span>이름</span><input name="memberName" id="memberName" class="form-control" type="text" placeholder="이름을 입력해주세요" required>
 	        </div>
 	        <div id="divemail">
-	            <span>이메일</span><input name="email" id="email" class="form-control" type="email" placeholder="이메일을 입력해주세요" required>
+	            <span>이메일</span><input name="email" id="email" class="form-control" type="text" placeholder="이메일을 입력해주세요" required>
 	        </div>
             <div id="msg">
                 <p class="checks" id="check"></p>

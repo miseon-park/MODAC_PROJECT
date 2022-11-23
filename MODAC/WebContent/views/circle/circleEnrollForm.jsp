@@ -40,6 +40,8 @@
 	              <div class="form-control">
 	                  <input type="text" class="form-control" placeholder="제목을 입력해주세요." aria-label="title" name="title">
 	                  <input type="file" class="form-control" name="upfile">
+	                   
+	                
 	                  <textarea class="form-control" style="height:500px;" placeholder="내용을 입력해 주세요" name="content"></textarea>
 	
 	                  <div align="center">

@@ -130,9 +130,10 @@ public class Attachment {
 				+ newName + ", path=" + path + ", uploadDate=" + uploadDate + ", status=" + status + ", fileLevel="
 				+ fileLevel + ", boardNo=" + boardNo + "]";
 	}
+
+
 	
-	
-	
+
 	
 
 }

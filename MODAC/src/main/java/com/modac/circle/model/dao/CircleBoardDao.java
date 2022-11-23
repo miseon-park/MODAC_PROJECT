@@ -13,6 +13,7 @@ import com.modac.circle.model.vo.Circle;
 import com.modac.common.JDBCTemplate;
 import com.modac.common.model.vo.Attachment;
 import com.modac.common.model.vo.PageInfo;
+import com.modac.common.model.vo.Reply;
 
 public class CircleBoardDao {
 private Properties prop = new Properties();
@@ -38,7 +39,7 @@ private Properties prop = new Properties();
 			
 			psmt.setString(1, c.getPostTitle());
 			psmt.setString(2, c.getPostContent());
-			psmt.setString(3, c.getMemberNo());
+			psmt.setString(3, c.getMemberNic());
 			
 			result = psmt.executeUpdate();
 		} catch (SQLException e) {
@@ -73,7 +74,7 @@ public int insertAttachment(Attachment at, Connection conn) {
 		}finally {
 			JDBCTemplate.close(psmt);
 		}
-		System.out.println("result:" + result);
+		
 		
 		return result;
 	}
@@ -175,7 +176,7 @@ public Circle selectBoard(Connection conn, int postNo) {
 							rset.getString("POST_TITLE"),
 							rset.getString("POST_CONTENT"),
 							rset.getDate("CREATE_DATE"),
-							rset.getString("MEMBER_NO"));
+							rset.getString("MEMBER_NIC"));
 			}
 					
 					
@@ -190,7 +191,7 @@ public Circle selectBoard(Connection conn, int postNo) {
 		return c;
 	}
 
-public ArrayList<Circle> selectList(Connection conn, PageInfo pi){
+public ArrayList<Circle> selectList(Connection conn, PageInfo pi, String field, String query){
 	
 	//select문 => ResultSet
 	
@@ -200,8 +201,9 @@ public ArrayList<Circle> selectList(Connection conn, PageInfo pi){
 	
 	ResultSet rset = null;
 	
-	String sql = prop.getProperty("selectList");
 	
+	String sql =  prop.getProperty("selectList");
+	sql = sql.replace("$", field);
 	try {
 		psmt = conn.prepareStatement(sql);
 		
@@ -223,19 +225,21 @@ public ArrayList<Circle> selectList(Connection conn, PageInfo pi){
 		int startRow = (pi.getCurrentPage()-1)* pi.getBoardLimit() +1;
 		int endRow = startRow + pi.getBoardLimit()-1;
 		
-		psmt.setInt(1, startRow);
-		psmt.setInt(2, endRow);
+		psmt.setString(1, "%"+query+"%");
+		psmt.setInt(2, startRow);
+		psmt.setInt(3, endRow);
 		
 		rset = psmt.executeQuery();
-		
+		System.out.println(rset);
 		while(rset.next()) {
 			list.add(new Circle(rset.getString("POST_NO"),
 					  
 					  rset.getString("POST_TITLE"),
-					  rset.getString("MEMBER_NO"),
+					  rset.getString("MEMBER_NIC"),
 					  rset.getDate("CREATE_DATE"),
 					  rset.getInt("READ_COUNT")));
 		}
+		System.out.println(list);
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -247,6 +251,43 @@ public ArrayList<Circle> selectList(Connection conn, PageInfo pi){
 	return list;
 	
 }
+
+public int selectListCount(Connection conn ,String field, String query) {
+	// select문 -> Result객체
+	int listCount = 0;
+	
+	PreparedStatement psmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("selectListCount");
+	sql=sql.replace("$", field);
+	try {
+		psmt = conn.prepareStatement(sql);
+	
+		psmt.setString(1, "%"+query+"%");
+		
+		rset = psmt.executeQuery();
+		
+		if(rset.next()) {
+			listCount = rset.getInt("READ_COUNT");
+		}
+		
+	} catch (SQLException e) {
+		
+		e.printStackTrace();
+	}finally {
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(psmt);
+	}
+	
+	return listCount;
+	
+	
+	
+}
+
+
 public int updateBoard(Connection conn, Circle c) {
 	int result = 0;
 	PreparedStatement psmt = null;
@@ -287,38 +328,7 @@ public int deleteBoard(int postNo, Connection conn) {
 	return result;
 }
 
-public int selectListCount(Connection conn) {
-	// select문 -> Result객체
-	int listCount = 0;
-	
-	PreparedStatement psmt = null;
-	
-	ResultSet rset = null;
-	
-	String sql = prop.getProperty("selectListCount");
-	
-	try {
-		psmt = conn.prepareStatement(sql);
-		
-		rset = psmt.executeQuery();
-		
-		if(rset.next()) {
-			listCount = rset.getInt("READ_COUNT");
-		}
-		
-	} catch (SQLException e) {
-		
-		e.printStackTrace();
-	}finally {
-		JDBCTemplate.close(rset);
-		JDBCTemplate.close(psmt);
-	}
-	
-	return listCount;
-	
-	
-	
-}
+
 
 public Attachment selectAttachment(Connection conn, int postNo) {
 	
@@ -352,6 +362,72 @@ public Attachment selectAttachment(Connection conn, int postNo) {
 	return at;
 	
 }
+public int insertReply(Connection conn, Reply r) {
+	
+	int result = 0;
+	PreparedStatement psmt = null;
+	
+	String sql = prop.getProperty("insertReply");
+	
+	try {
+		psmt = conn.prepareStatement(sql);
+		psmt.setString(1, r.getReplyContent());
+		psmt.setString(2, r.getPostNo());
+		psmt.setInt(3,Integer.parseInt(r.getWriter()));
+		
+		result = psmt.executeUpdate();
+		
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}finally {
+		
+		JDBCTemplate.close(psmt);
+	}
+	System.out.println("result : "+result);
+	return result;
+	
+	
+}
+
+public ArrayList<Reply> selectReplyList(Connection conn, int postNo ){
+	ArrayList<Reply> list =  new ArrayList<>();
+	
+	PreparedStatement psmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("selectReplyList");
+	
+	try {
+		psmt = conn.prepareStatement(sql);
+		psmt.setInt(1,  postNo);
+		rset = psmt.executeQuery();
+		
+		while(rset.next()) {
+			list.add(new Reply(
+					
+					rset.getString(1),
+					rset.getString(2),
+					rset.getString(3),
+					rset.getDate(4)
+					
+					
+					));
+		}
+	} catch (SQLException e) {
+		
+		e.printStackTrace();
+	}finally {
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(psmt);
+	}
+	
+	return list;
+	
+}
+
+
 
 
 }

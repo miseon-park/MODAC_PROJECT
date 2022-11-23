@@ -12,13 +12,14 @@ public class Circle {
 	private String boardNo;
 	private String memberNo;
 	private int readCount;
+	private String memberNic;
 	
 	public Circle() {
 		super();
 	}
 	
 	public Circle(String postNo, String postTitle, String postContent, Date createDate, String status, String boardNo,
-			String memberNo, int readCount) {
+			String memberNo, int readCount, String memberNic) {
 		super();
 		this.postNo = postNo;
 		this.postTitle = postTitle;
@@ -28,25 +29,26 @@ public class Circle {
 		this.boardNo = boardNo;
 		this.memberNo = memberNo;
 		this.readCount = readCount;
+		this.memberNic=memberNic;
 	}
 
-	public Circle(String postNo, String postTitle,  String memberNo,Date createDate,
+	public Circle(String postNo, String postTitle,  String memberNic,Date createDate,
 			int readCount) {
 		super();
 		this.postNo = postNo;
 		this.postTitle = postTitle;
 		this.createDate = createDate;
-		this.memberNo = memberNo;
+		this.memberNic = memberNic;
 		this.readCount = readCount;
 	}
 
-	public Circle(String postNo, String postTitle, String postContent, Date createDate, String memberNo) {
+	public Circle(String postNo, String postTitle, String postContent, Date createDate, String memberNic) {
 		super();
 		this.postNo = postNo;
 		this.postTitle = postTitle;
 		this.postContent = postContent;
 		this.createDate = createDate;
-		this.memberNo = memberNo;
+		this.memberNic = memberNic;
 	}
 
 	public String getPostNo() {
@@ -113,12 +115,23 @@ public class Circle {
 		this.readCount = readCount;
 	}
 
+	public String getMemberNic() {
+		return memberNic;
+	}
+
+	public void setMemberNic(String memberNic) {
+		this.memberNic = memberNic;
+	}
+
 	@Override
 	public String toString() {
 		return "Circle [postNo=" + postNo + ", postTitle=" + postTitle + ", postContent=" + postContent
 				+ ", createDate=" + createDate + ", status=" + status + ", boardNo=" + boardNo + ", memberNo="
-				+ memberNo + ", readCount=" + readCount + "]";
+				+ memberNo + ", readCount=" + readCount + ", memberNic=" + memberNic + "]";
 	}
+	
+
+	
 
 
 }

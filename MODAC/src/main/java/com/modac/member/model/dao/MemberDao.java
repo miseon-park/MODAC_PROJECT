@@ -7,10 +7,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
+import com.modac.campReview.model.vo.CampReview;
+import com.modac.circle.model.vo.Circle;
 import com.modac.common.JDBCTemplate;
+import com.modac.common.model.vo.PageInfo;
 import com.modac.member.model.vo.Member;
 
 public class MemberDao {
@@ -272,14 +276,14 @@ public int deleteMember(String memberId, String memberPwd, Connection conn) {
  * @param conn
  * @return
  */
-public Member findId(String memberName,String email,Connection conn) {
+public Member fineId(String memberName,String email,Connection conn) {
 	Member m = null;
 	
 	PreparedStatement psmt = null;
 	
 	ResultSet rset = null;
 	
-	String sql = prop.getProperty("findId");
+	String sql = prop.getProperty("fineId");
 	
 	
 	try {
@@ -328,10 +332,12 @@ public Member findPwd(String memberId, String memberName, String email, Connecti
 		psmt.setString(3, email);
 		
 		rset = psmt.executeQuery();
+		
 		if(rset.next()) {
 			m = new Member(rset.getString("MEMBER_PWD"));
 		}
-		System.out.println(m);
+		System.out.println("dao : " + m);
+		
 		
 	} catch (SQLException e) {
 		e.printStackTrace();
@@ -343,12 +349,12 @@ public Member findPwd(String memberId, String memberName, String email, Connecti
  * 비밀번호찾고 업데이트
  * @return
  */
-public int findUpdatePwd(String memberId, String memberName, String email, String updatePwd, Connection conn) {
+public int fineUpdatePwd(String memberId, String memberName, String email, String updatePwd, Connection conn) {
 	int result = 0;
 	
 	PreparedStatement psmt =null;
 	
-	String sql = prop.getProperty("updateFindPwd");
+	String sql = prop.getProperty("updateFinePwd");
 	try {
 		psmt = conn.prepareStatement(sql);
 		
@@ -367,6 +373,156 @@ public int findUpdatePwd(String memberId, String memberName, String email, Strin
 		JDBCTemplate.close(psmt);
 	}
 	return result;
+}
+/**
+ * 맴버커밋
+ * @param memberId
+ * @param conn
+ * @return
+ */
+
+public ArrayList<Circle> selectList(String memberId){
+	
+	//select문 => ResultSet
+	
+	ArrayList<Circle> list = new ArrayList<>();
+	Connection conn = JDBCTemplate.getConnection();
+	
+	PreparedStatement psmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("selectList");
+	
+	try {
+		psmt = conn.prepareStatement(sql);
+		
+		
+		psmt.setString(1, memberId);
+		
+		
+		rset = psmt.executeQuery();
+		
+		while(rset.next()) {
+			list.add(new Circle(rset.getString("POST_NO"),
+					  
+					  rset.getString("POST_TITLE"),
+					  rset.getString("MEMBER_NIC"),
+					  rset.getDate("CREATE_DATE"),
+					  rset.getInt("READ_COUNT")));
+		}
+	} catch (SQLException e) {
+		
+		e.printStackTrace();
+	} finally {
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(psmt);
+		JDBCTemplate.close();
+	}
+	return list;
+	
+}
+
+public int selectListCount() {
+	// select문 -> Result객체
+	int listCount = 0;
+	
+	PreparedStatement psmt = null;
+	Connection conn = JDBCTemplate.getConnection();
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("selectListCount");
+	
+	try {
+		psmt = conn.prepareStatement(sql);
+	
+	
+		
+		rset = psmt.executeQuery();
+		
+		if(rset.next()) {
+			listCount = rset.getInt("READ_COUNT");
+		}
+		
+	} catch (SQLException e) {
+		
+		e.printStackTrace();
+	}finally {
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(psmt);
+		JDBCTemplate.close();
+	}
+	
+	return listCount;
+	
+	
+	
+}
+public ArrayList<CampReview> crselectList(String memberId){
+	
+	//select문 => ResultSet
+	
+	ArrayList<CampReview> list = new ArrayList<>();
+	Connection conn = JDBCTemplate.getConnection();
+	
+	PreparedStatement psmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("crselectList");
+	
+	try {
+		psmt = conn.prepareStatement(sql);
+		
+		
+		psmt.setString(1, memberId);
+		
+		
+		rset = psmt.executeQuery();
+		
+		while(rset.next()) {
+			list.add(new CampReview(rset.getString("POST_NO"),
+					  
+					  rset.getString("POST_TITLE"),
+					  rset.getString("MEMBER_NIC"),
+					  rset.getDate("CREATE_DATE"),
+					  rset.getInt("READ_COUNT")));
+		}
+	} catch (SQLException e) {
+		
+		e.printStackTrace();
+	} finally {
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(psmt);
+		JDBCTemplate.close();
+	}
+	return list;
+	
+}
+public int emailCheck(Connection conn, String checkemail) {
+    int count = 0;
+    PreparedStatement psmt = null;
+    ResultSet rset = null;
+    String sql = prop.getProperty("emailCheck");
+    try {
+		psmt = conn.prepareStatement(sql);
+		
+		psmt.setString(1, checkemail);
+		
+		rset = psmt.executeQuery();
+		
+		if(rset.next()) {
+			count = rset.getInt(1);
+		} 
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+        JDBCTemplate.close(rset);
+        JDBCTemplate.close(psmt);
+	}
+    return count;
 }
 
 }

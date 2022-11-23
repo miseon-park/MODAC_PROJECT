@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="selectRecipeList">
+		SELECT * 
+		FROM (
+			SELECT ROWNUM RNUM, A.*
+			FROM (
+			SELECT PATH || NEW_NAME AS "TITLEIMG",
+				   POST_NO,
+			       POST_TITLE,
+			       MEMBER_NIC,
+			       CREATE_DATE,
+			       TIME,
+			       DIFFICULTY,
+			       MAIN_INGRE
+			FROM RECIPE R
+			JOIN ATTACHMENT A USING(POST_NO)
+			JOIN MEMBER M USING(MEMBER_NO)
+			WHERE M.STATUS = 'N' 
+			  AND R.STATUS = 'N' 
+			ORDER BY CREATE_DATE DESC, POST_NO DESC) A
+		     )
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectListCount">
+		SELECT COUNT(*) COUNT
+		FROM RECIPE
+		WHERE STATUS = 'N'
+	</entry>
+	
+	<entry key="increaseCount">
+		UPDATE RECIPE
+		SET READ_COUNT = READ_COUNT + 1
+		WHERE POST_NO = ? 
+		  AND STATUS = 'N' 
+	</entry>
+	
+	<entry key="selectRecipe">
+			SELECT POST_NO,
+			       POST_TITLE,
+			       POST_CONTENT,
+			       MEMBER_NIC,
+			       CREATE_DATE,
+			       TIME,
+			       DIFFICULTY,
+			       MAIN_INGRE,
+			       SUB_INGRE,
+			       PATH || NEW_NAME AS "TITLEIMG"
+			FROM RECIPE R
+			JOIN MEMBER M USING(MEMBER_NO)
+	        JOIN ATTACHMENT USING(POST_NO)
+			WHERE POST_NO = ?
+			  AND M.STATUS = 'N' AND R.STATUS = 'N'
+	</entry>
+	
+	
+	<entry key="selectAttachment">
+		SELECT PHOTO_NO,
+		       ORIGIN_NAME,
+		       NEW_NAME,
+		       PATH
+		FROM ATTACHMENT
+		WHERE BOARD_NO = 7
+		  AND POST_NO = ?
+	</entry>
+	
+	<entry key="insertRecipe">
+		INSERT INTO RECIPE
+		(
+			BOARD_NO,
+			POST_NO,
+			POST_TITLE,
+			POST_CONTENT,
+			MEMBER_NO,
+			TIME,
+			DIFFICULTY,
+		    MAIN_INGRE,
+		    SUB_INGRE
+		)
+		VALUES
+		(
+			7,
+			SEQ_RECNO.NEXTVAL,
+			?,
+			?,
+			?,
+			?,
+			?,
+			?,
+			?
+		)
+	</entry>
+	
+	<entry key="insertAttachment">
+		INSERT INTO ATTACHMENT (PHOTO_NO, BOARD_NO, POST_NO, ORIGIN_NAME, NEW_NAME, PATH)
+		VALUES (SEQ_FNO.NEXTVAL, 7, SEQ_RECNO.CURRVAL, ?, ?, ?)
+	
+	</entry>
+	
+	<entry key="insertNewAttachment">
+		INSERT INTO ATTACHMENT (PHOTO_NO, BOARD_NO, POST_NO, ORIGIN_NAME, NEW_NAME, PATH)
+		VALUES (SEQ_FNO.NEXTVAL, 7, ?, ?, ?, ?)
+	
+	</entry>
+	
+	<entry key = "updateRecipe">
+		UPDATE RECIPE
+		SET POST_TITLE = ?,
+			POST_CONTENT = ?,
+			TIME = ?,
+			DIFFICULTY = ?,
+		    MAIN_INGRE = ?,
+		    SUB_INGRE = ?
+		WHERE POST_NO = ?
+		  AND STATUS = 'N' 
+	</entry>
+	
+	<entry key = "updateAttachment">
+		UPDATE ATTACHMENT
+		SET ORIGIN_NAME = ? ,
+		    NEW_NAME = ? ,
+		    PATH = ? ,
+		    UPLOAD_DATE = SYSDATE
+		WHERE BOARD_NO = 7
+		  AND POST_NO = ? 
+	</entry>
+	
+	<entry key="deleteRecipe">
+		UPDATE RECIPE
+		SET STATUS = 'Y'
+		WHERE POST_NO = ?
+	</entry>
+	
+	<entry key="deleteAttachment">
+		UPDATE ATTACHMENT
+		SET STATUS = 'Y'
+		WHERE BOARD_NO = 7
+		  AND POST_NO = ?
+	</entry>
+	
+	
+	
+	
+	
+
+</properties>

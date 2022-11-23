@@ -65,7 +65,7 @@
 			WHERE MEMBER_ID = ?
 			  AND MEMBER_PWD = ?
 	</entry>
-	<entry key="findId">
+	<entry key="fineId">
 		SELECT 
 			MEMBER_ID,
 			MEMBER_NAME
@@ -81,7 +81,7 @@
 			AND EMAIL = ?
 	</entry>
 	
-	<entry key="updateFindPwd">
+	<entry key="updateFinePwd">
 				UPDATE MEMBER
 		SET MEMBER_PWD = ?
 		WHERE MEMBER_NO = 
@@ -90,6 +90,52 @@
 		FROM MEMBER
 		WHERE MEMBER_ID = ? AND MEMBER_NAME = ? AND EMAIL = ?
 		)
+	</entry>
+	
+	<entry key = "selectList">
+	
+		SELECT POST_NO,
+			   
+			   POST_TITLE,
+			   MEMBER_NIC,
+			   READ_COUNT,
+			   CREATE_DATE
+			
+	FROM CIRCLE C
+	
+	JOIN MEMBER  M USING (MEMBER_NO)
+	WHERE C.STATUS='N' AND M.STATUS='N' AND MEMBER_ID=?
+	
+	
+		
+</entry>
+
+<entry key = "selectListCount">
+	SELECT COUNT(*) READ_COUNT
+	FROM CIRCLE
+	WHERE STATUS = 'N'	
+</entry>
+
+<entry key = "crselectList">
+	
+		SELECT POST_NO,
+			   
+			   POST_TITLE,
+			   MEMBER_NIC,
+			   READ_COUNT,
+			   CREATE_DATE
+			
+	FROM CAMP_REVIEW R
+	
+	JOIN MEMBER  M USING (MEMBER_NO)
+	WHERE R.STATUS='N' AND M.STATUS='N' AND MEMBER_ID=?
+		
+</entry>
+
+<entry key="emailCheck">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE EMAIL = ?
 	</entry>
 	
 </properties>

@@ -1,29 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%
-    String contextPath = request.getContextPath();
+/*     String contextPath = request.getContextPath();
     
-    String alertMsg = (String) session.getAttribute("alertMsg"); 
+    String alertMsg = (String) session.getAttribute("alertMsg");  */
     
 %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<meta charset="UTF-8">
+<title>회원가입</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 	
     <style>
         #wrapper{
             border: 10px solid #F0A500;
             width: 550px;
-            height: 800px;
+            height: 1000px;
             margin: auto;
             padding-top: 50px;
         }
@@ -42,6 +38,14 @@
         div>#id{
             margin-left: 90px;
             height: 30px;
+        }
+        div>#checkId{
+            width: 110px;
+            height: 30px;
+            background-color: #F0A500;
+            color: white;
+            border: none;
+            margin-bottom: 5px;
         }
         div>#email, div>#nickname{
             margin-left: 90px;
@@ -68,26 +72,20 @@
             height: 30px;
             width: 260px;
         }
-        div>#checkId{
-            width: 100px;
-            height: 30px;
-            background-color: #F0A500;
-            color: white;
-            border: none;
-        }
-        input[type=submit]{
-            margin-top: 40px;
-            margin-left: 130px;
+
+        #inserCheck{
+            margin-top: 20px;
+            margin-left: 100px;
             width: 300px;
             height: 50px;
-            
-            color: white;
             border: none;
-            
+            <!-- background-color: #F0A500; -->
         }
+
     </style>
 </head>
 <body>
+<%@ include file="../common/menubar.jsp" %>
     <div id="wrapper">
         <h1>회원가입</h1>
         <hr>
@@ -96,8 +94,9 @@
         <div id="insertId">
             <span>아이디</span>
             <input id="id" type="text" placeholder="아이디입력" name="memberId" required >
-
-            <button type="button" id="checkId" onclick="idCheck();">아이디 확인</button>
+			
+			<button type="button" class="btn btn-warning" id="checkId" onclick="idCheck();">아이디 확인</button>
+            <!-- <button type="button" id="checkId" onclick="idCheck();">아이디 확인</button> -->
 
             <p>영문자로 시작하는 5~15자 이내의 영문,숫자로 구성 가능</p>
         </div>
@@ -110,6 +109,11 @@
             <span>비밀번호 확인</span>
             <input id="checkpassword" type="password" placeholder="비밀번호 확인" required>
         </div>
+        
+			<div class="alert alert-success" id="alert-success">비밀번호가 일치합니다.</div>
+			<div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div>
+			
+		
         <div>
             <span>이름</span>
             <input id="name"type="text" placeholder="이름" name="memberName" required >
@@ -117,28 +121,34 @@
         <div>
             <span>이메일</span>
             <input id="email" type="email" placeholder="이메일" name="email" required >
+            <div id="checkemail"></div>
+            
+                
         </div>
         <div>
             <span>닉네임</span>
             <input id="nickname" type="text" placeholder="닉네임" name="memberNic" required>
             
         </div>
-            <input type="submit" value="회원가입" id="insertCheck" name="insertCheck" disabled>
+            <input onclick="return validate();" type="submit" id="inserCheck" value="회원가입" name="insertCheck" disabled>
 		</form>
     </div>
     <script>
+      
+
         function idCheck(){
             let $memberId = $("#enroll-form input[name=memberId]");
+
             $.ajax({
                 url : "<%=request.getContextPath() %>/idCheck.me",
                 data : {checkId : $memberId.val()},
                 success : function(result){
                     if(result=="NNNNN"){
-                        alert("이미존재하는 아이디 이거나 회원탈퇴한 아이디입니다")
+                        alert("이미존재하는 아이디 입니다")
                         $memberId.focus();
                     }else{
                         if(confirm("사용가능한 아이디 입니다. 사용하시겠습니까?")){
-                            $("#insertCheck").removeAttr("disabled")
+                            /* $("#inserCheck").removeAttr("disabled") */
                             $memberId.attr("readonly",true);
                         } else {
                         	
@@ -150,6 +160,76 @@
                 }
             })
         }
+        $('#email').focusout(function(){
+            $.ajax({
+                url : "emailCheck.me",
+                type : "post",
+                data : {
+                    checkemail : $('#email').val(),
+                },
+                success : function(result){
+                    if(result == 1){
+                        $("#checkemail").html('사용할 수 없는 이메일입니다.').css('color','red')
+                    }else{
+                        $("#checkemail").html('사용할 수 있는 이메일입니다.').css('color','green');
+                        $("#email").attr("readonly");
+                        $("#inserCheck").removeAttr("disabled").css("background-color","#F0A500");
+                    } 
+                },
+                error : function(){
+                    alert("서버요청실패")
+                }
+                
+            });
+        });
+        
+        $(function(){
+        $("#alert-success").hide();
+        $("#alert-danger").hide();
+        $("input").keyup(function(){
+            var pwd1=$("#password").val();
+            var pwd2=$("#checkpassword").val();	
+
+            
+            if(pwd1 != "" || pwd2 != ""){
+                if(pwd1 == pwd2){
+                    $("#alert-success").show();
+                    $("#alert-danger").hide();
+                    $("#submit").removeAttr("disabled");
+                }else{
+                    $("#alert-success").hide();
+                    $("#alert-danger").show();
+                    $("#submit").attr("disabled", "disabled");
+                }    
+            }
+        });
+    });
+/*        function validate() {
+        //변수에 담아주기
+        let id = document.getElementById("id");
+        let idCheck2 = /^[a-zA-Z0-9]{5,15}$/;
+        if(!idCheck2.test(id.value)){
+            alert("아이디는 영문자로 시작하는 5~15자 이내의 영문, 숫자로 구성 가능합니다.");
+            return false;
+        }
+	     let pwd1=$("#password").val();
+        let pwdCheck2 = /^[a-z\d!@#$%^&*]{5,15}$/;
+        if (!pwdCheck2.test(pwd1)) {
+          alert("비밀번호는 영문자+숫자+특수문자 조합으로 5~15자리 사용해야 합니다.");
+          return false;
+        };
+
+        let regexp = /^[관리자]|[운영자]$/
+        let nicName = $("#nickname").val()
+        if(regexp.test(nicName)){
+        	alert("'관리자' 또는 '운영자' 라는 닉네임은 사용할수없습니다.");
+        	return false;
+        }
+        
+	}  */
+      
+        
+        
     </script>
 </body>
 </html>

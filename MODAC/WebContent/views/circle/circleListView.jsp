@@ -3,6 +3,7 @@
 	import="java.util.ArrayList , com.modac.circle.model.vo.Circle , com.modac.common.model.vo.PageInfo" %>
 <%
 	ArrayList<Circle> list = (ArrayList<Circle>)request.getAttribute("list");
+	
 PageInfo pi = (PageInfo) request.getAttribute("pi");
 int currentPage = pi.getCurrentPage();
 int startPage = pi.getStartPage();
@@ -70,20 +71,18 @@ int maxPage = pi.getMaxPage();
 			<div>
 				<nav class="navbar">
 					<form class="container-fluid">
-						<div class="input-group">
-							<button class="btn btn-outline-secondary dropdown-toggle"
-								type="button" data-bs-toggle="dropdown" aria-expanded="false">검색옵션</button>
-							<ul class="dropdown-menu">
-								<li><a class="dropdown-item" href="#">제목</a></li>
-								<li><a class="dropdown-item" href="#">작성자</a></li>
-								
-							</ul>
-							<input type="text" class="form-control" placeholder="검색어를 입력하세요"
-								aria-label="Username" aria-describedby="basic-addon1">
-							<button class="input-group-text" id="basic-addon1">검색</button>
-
-						</div>
-					</form>
+					
+                        <div class="input-group">
+                            <select class="form-select" name ="f" aria-label="Default select example" style="width:25%;">
+                               
+                               
+                                <option  ${(param.f == "POST_TITLE")? "selected":""} value="POST_TITLE">제목</option>
+                                <option  ${(param.f == "MEMBER_NIC")? "selected":""} value="MEMBER_NIC">작성자</option>
+                               </select>
+                            <input type="text" name ="q" class="form-control" placeholder="검색어를 입력하세요" aria-label="Username" aria-describedby="basic-addon1" style="width: 60%;" value="${param.q}">
+                            <input type="submit" class="input-group-text" id="basic-addon1" value="검색">
+                        </div>
+                        </form>
 
 
 					<br>
@@ -117,7 +116,7 @@ int maxPage = pi.getMaxPage();
 								<tr>
 									<th scope="row" style="text-align: center;"><%= c.getPostNo() %></th>
 									<td><%= c.getPostTitle() %></td>
-									<td><%= c.getMemberNo() %></td>
+									<td><%= c.getMemberNic() %></td>
 									<td><%= c.getCreateDate() %></td>
 									<td style="text-align: center;"><%= c.getReadCount() %></td>
 								</tr>
@@ -137,6 +136,8 @@ int maxPage = pi.getMaxPage();
 			</script>
 			
 			<br><br>
+			
+			
  	
  	<div align="center" class = "paging-area">
  		<%if(currentPage !=1){ %>

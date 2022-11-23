@@ -69,7 +69,7 @@ public class CircleInsertController extends HttpServlet {
 		
 		if(result>0){// 성공=>list.bo?currentPage=1
 			request.getSession().setAttribute("alertMsg", "게시글 작성 성공!");
-			response.sendRedirect(request.getContextPath()+"/clist.bo");
+			response.sendRedirect(request.getContextPath()+"/clist.bo"); 
 		}else {//실패시 => 첨부파일 있었을경우 이미 업로드된 첨부파일을 서버에 보관할 이유가 없다(용량만 차지)
 			
 			

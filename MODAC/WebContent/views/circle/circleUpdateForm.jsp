@@ -44,7 +44,8 @@
              <br>
 
              <form id="enroll-form" action="<%=contextPath %>/cupdate.bo" method="post" enctype="multipart/form-data">
-              
+              <input type="hidden" name="postNo" value="<%=c.getPostNo() %>">
+             
               	<input type="hidden" name="memberNo" value="<%=loginMember.getMemberNo()%>">
 	              
 	              <div class="form-control">

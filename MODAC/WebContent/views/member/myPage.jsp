@@ -78,6 +78,7 @@
                     <br><br>
                     <a class="nav-link" href="#" style="text-align: center;">북마크 모음</a>
                     <br><br>
+                    
                     <a class="nav-link" href="<%=contextPath%>/myPageSelf.me"style="text-align: center;">자기글 모음</a>
 
 

@@ -2,7 +2,7 @@
     pageEncoding="UTF-8" import="com.modac.member.model.vo.Member"%>
     <%
     	String contextPath =request.getContextPath();
-    	Member findId = (Member) session.getAttribute("findId");
+    	Member fineId = (Member) session.getAttribute("fineId");
     	
     %>
 <!DOCTYPE html>
@@ -71,7 +71,7 @@
     </style>
   <form name="idsearch" method="post">
     <%
-     if (findId != null) {
+     if (fineId != null) {
     %>
     
     <div class = "container">
@@ -79,14 +79,14 @@
             <h1> 아이디 찾기 </h1>
             <hr>
             <div class ="found-id">
-                <span style="font-size: 25px; color : #F0A500;"><%= findId.getMemberName()%></span> <span style="font-size: 20px;"> 님의 아이디는</span>
-                <span style="font-size: 25px; color : #F0A500;"> <%=findId.getMemberId() %></span> <span> 입니다 </span>
+                <span style="font-size: 25px; color : #F0A500;"><%= fineId.getMemberName()%></span> <span style="font-size: 20px;"> 님의 아이디는</span>
+                <span style="font-size: 25px; color : #F0A500;"> <%=fineId.getMemberId() %></span> <span> 입니다 </span>
             </div>            
             <hr>
 
             <div class = "found-login">
-                <input type="button" class="btn" id="btnLogin" value="로그인" onClick = "location.href = '<%=contextPath %>/views/member/login.jsp'"/>
-                <input type="button" class="btn" id="main" value="비밀번호찾기" onClick = "location.href = '<%=contextPath %>/views/member/finePwd.jsp'"/>
+                <input type="button" class="btn" id="btnLogin" value="로그인" onClick = "location.href = '<%=contextPath %>/MemberloginForm.me'"/>
+                <input type="button" class="btn" id="main" value="비밀번호찾기" onClick = "location.href = '<%=contextPath %>/MemberFineIdPwd.me'"/>
             </div>
 
         </div>

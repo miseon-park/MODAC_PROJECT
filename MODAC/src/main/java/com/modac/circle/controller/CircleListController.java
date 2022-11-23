@@ -34,6 +34,21 @@ public class CircleListController extends HttpServlet implements Servlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		String field_ = request.getParameter("f");
+		String query_ = request.getParameter("q");
+	
+		String field = "POST_TITLE";
+		if(field_ != null)
+			field = field_;
+		
+		String query = "";
+		if(query_!=null)
+			query = query_;
+		
+		
+		
+		
+		
 		int listCount;// 현재 총 게시글 개수
 		int currentPage;// 현재 페이지(즉, 사용자가 요청한 페이지)
 		int pageLimit;// 페이지 하단에 보여질 페이징바의 페이지 최대 개수
@@ -44,7 +59,7 @@ public class CircleListController extends HttpServlet implements Servlet {
 		int endPage;// 페이지 하단에 보여질 페이징바의 끝 수
 		
 		//* listCount : 총 게시글 개수
-		listCount = new CircleBoardService().selectListCount();//107
+		listCount = new CircleBoardService().selectListCount(field, query);//107
 		
 		//* currentPage : 현재페이지
 		currentPage = Integer.parseInt(request.getParameter("currentPage")==null ? "1" : request.getParameter("currentPage"));
@@ -154,7 +169,7 @@ public class CircleListController extends HttpServlet implements Servlet {
 	
 		
 		
-		ArrayList<Circle> list =new CircleBoardService().selectList(pi);
+		ArrayList<Circle> list =new CircleBoardService().selectList(pi, field, query);
 	
 		
 		request.setAttribute("list", list);
