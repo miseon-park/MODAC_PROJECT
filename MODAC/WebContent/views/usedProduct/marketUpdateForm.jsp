@@ -131,29 +131,22 @@
 					   	  
 						  for(Attachment at : list) {
 							 int index = at.getFileLevel();
-							 filePath[index] = contextPath+"/"+at.getPath()+at.getNewName();
-							  %>
+							 filePath[index] = contextPath+"/"+at.getPath()+at.getNewName(); %>
 		
-							
 							<!-- 원본파일의 파일번호, 수정명을 hidden으로 넘길것 -->
 							<input type="hidden" name="originPhotoNo<%=i %>" value="<%=at.getPhotoNo()%>">
 							<input type="hidden" name="newPhotoName<%=i %>" value="<%=at.getNewName() %>">
 						 <% i++; } 
-					   } %>
-<%-- 					<img id="titleImg" src="<%=filePath[1] %>" width="180" height="130" value="1"> --%>
-<%-- 					<img id="contentImg1" <%if(!filePath[2].equals("")){ %>src="<%=filePath[2] %>" <%} %> width="180" height="130" value="2"> --%>
-<%-- 					<img id="contentImg2" <%if(!filePath[3].equals("")){ %>src="<%=filePath[3] %>" <%} %> width="180" height="130" value="3"> --%>
-<%-- 					<img id="contentImg3" <%if(!filePath[4].equals("")){ %>src="<%=filePath[4] %>" <%} %> width="180" height="130" value="4"> --%>
+					   } %>		
 					
 					<table>
 						<% if(!list.isEmpty()) {%>
                           <% int i = 1;%>
                   		  <% for(Attachment at : list){ %>
-                    	<th>
-							<input type="button" class="btn-close" id="deleteBtn<%=i%>" aria-label="Close" onclick="deleteAttachment();">
-	                    </th>
-	                   <% i++;
-                    	} %>
+		                    	<th>
+									<input type="button" class="btn-close" id="deleteBtn<%=i%>" aria-label="Close">
+			                    </th>
+	                   		<% i++; } %>
                     	<%} %>
 	                    <tr>
 	                       <td>
@@ -189,28 +182,41 @@
 			<br>
 			
 			<script>
-				$(function(0{
-					for(int i = 1; i <= 4; i++){
-						deleteBtn+
-					}
-				}))
+				$(function(){
+					$("#deleteBtn1").click(function(photoNo){
+						
+						$.ajax({
+				            url : "<%= request.getContextPath() %>/delete.at",
+				            data : { photoNo : $("#titleImg").},
+				            success : function(result){
+				               //삭제성공시
+				               if(result == 1){
+				                  alert("삭제에 성공했습니다");
+				                  location.reload();
+				               }else{
+				                  alert("삭제에 실패했습니다.");
+				               }
+				            }
+				         })
+					})
+				})
 			
 				<!-- 이미지 삭제버튼 -->
-				function deleteAttachment(photoNo){
-			         $.ajax({
-			            url : "<%= request.getContextPath() %>/delete.at",
-			            data : { photoNo : photoNo},
-			            success : function(result){
-			               //삭제성공시
-			               if(result == 1){
-			                  alert("삭제에 성공했습니다");
-			                  location.reload();
-			               }else{
-			                  alert("삭제에 실패했습니다.");
-			               }
-			            }
-			         })
-			      }
+// 				function deleteAttachment(photoNo){
+// 			         $.ajax({
+<%-- 			            url : "<%= request.getContextPath() %>/delete.at", --%>
+// 			            data : { photoNo : photoNo},
+// 			            success : function(result){
+// 			               //삭제성공시
+// 			               if(result == 1){
+// 			                  alert("삭제에 성공했습니다");
+// 			                  location.reload();
+// 			               }else{
+// 			                  alert("삭제에 실패했습니다.");
+// 			               }
+// 			            }
+// 			         })
+// 			      }
 			</script>
 
 			<script>

@@ -60,15 +60,17 @@ public class MarketUpdateController extends HttpServlet {
 			m.setPostTitle(postTitle);
 			m.setPostContent(postContent);
 			
-			//새롭게 전달된 첨부파일이 있는 경우에만 at변수에 필요한 값을 추가할 것
+			
 			ArrayList<Attachment> list = new ArrayList<>();
 			
 			for(int i = 1; i <= 4; i++) {
 				String key = "file" + i;
 			
 				if(multiRequest.getOriginalFileName(key) != null) {
-					//3가지 공통적으로 필요한 변수 셋팅
+					//새롭게 전달된 첨부파일이 있는 경우에만 at변수에 필요한 값을 추가
 					Attachment at = new Attachment();
+					
+					//4가지 공통적으로 필요한 변수 셋팅
 					at.setOriginName(multiRequest.getOriginalFileName(key));
 					at.setNewName(multiRequest.getFilesystemName(key));
 					at.setPath("resources/market_upfiles/");
