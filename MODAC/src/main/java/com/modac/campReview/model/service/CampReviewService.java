@@ -29,7 +29,11 @@ public class CampReviewService {
 		
 		close();
 		
+		System.out.println("list(ser) : "+list);
+		
 		return list;
+		
+		
 		
 	}
 	
