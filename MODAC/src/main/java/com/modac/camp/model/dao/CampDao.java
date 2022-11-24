@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.modac.camp.model.vo.Camp;
+import com.modac.common.model.vo.PageInfo;
+
 import static com.modac.common.JDBCTemplate.*;
 
 public class CampDao {
@@ -27,7 +29,81 @@ public class CampDao {
 	}
 	
 	
+	// 페이징 처리
+	public int selectListCount(Connection conn) {
+		
+		int listCount = 0;
+		PreparedStatement psmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectListCount");
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			
+			rset = psmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("COUNT");
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(psmt);
+		}
+		
+		return listCount;
+		
+	}
+	
+	
+	
+	
 	// 전체 검색
+	public ArrayList<Camp> selectCampList(PageInfo pi, Connection conn) {
+		
+		// select 여러 행 조회
+		ArrayList<Camp> list = new ArrayList<>();
+		PreparedStatement psmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectCampList");
+		
+		try {
+			
+			psmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+			int endRow = startRow + pi.getBoardLimit()-1;
+			
+			psmt.setInt(1, startRow);
+			psmt.setInt(2, endRow);
+			
+			rset = psmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Camp(rset.getString("CAMP_NAME"),
+									rset.getString("LOCATION_1"),
+									rset.getString("ADDRESS"),
+									rset.getString("NATURAL_ATTRI")
+						));
+			       
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(psmt);
+		}
+		
+		return list;
+	}
+	
+	
+	
+	
 	public ArrayList<Camp> selectCampList(Connection conn) {
 		
 		// select 여러 행 조회
@@ -44,6 +120,7 @@ public class CampDao {
 			
 			while(rset.next()) {
 				list.add(new Camp(rset.getString("CAMP_NAME"),
+									rset.getString("LOCATION_1"),
 									rset.getString("ADDRESS"),
 									rset.getString("NATURAL_ATTRI")
 						));
@@ -59,6 +136,7 @@ public class CampDao {
 		
 		return list;
 	}
+	
 	
 	
 	// 검색 박스 모두 사용
@@ -84,6 +162,7 @@ public class CampDao {
 				
 				while(rset.next()) {
 					clist.add(new Camp(rset.getString("CAMP_NAME"),
+							rset.getString("LOCATION_1"),
 							rset.getString("ADDRESS"),
 							rset.getString("NATURAL_ATTRI")
 							));
@@ -121,6 +200,7 @@ public class CampDao {
 					
 					while(rset.next()) {
 						clist.add(new Camp(rset.getString("CAMP_NAME"),
+								rset.getString("LOCATION_1"),
 								rset.getString("ADDRESS"),
 								rset.getString("NATURAL_ATTRI")
 								));
@@ -160,6 +240,7 @@ public class CampDao {
 				
 				while(rset.next()) {
 					clist.add(new Camp(rset.getString("CAMP_NAME"),
+							rset.getString("LOCATION_1"),
 							rset.getString("ADDRESS"),
 							rset.getString("NATURAL_ATTRI")
 							));
@@ -200,6 +281,7 @@ public class CampDao {
 				
 				while(rset.next()) {
 					clist.add(new Camp(rset.getString("CAMP_NAME"),
+							rset.getString("LOCATION_1"),
 							rset.getString("ADDRESS"),
 							rset.getString("NATURAL_ATTRI")
 							));
@@ -234,6 +316,7 @@ public class CampDao {
 						
 						while(rset.next()) {
 							clist.add(new Camp(rset.getString("CAMP_NAME"),
+									rset.getString("LOCATION_1"),
 									rset.getString("ADDRESS"),
 									rset.getString("NATURAL_ATTRI")
 									));
@@ -267,6 +350,7 @@ public class CampDao {
 						
 						while(rset.next()) {
 							clist.add(new Camp(rset.getString("CAMP_NAME"),
+									rset.getString("LOCATION_1"),
 									rset.getString("ADDRESS"),
 									rset.getString("NATURAL_ATTRI")
 									));

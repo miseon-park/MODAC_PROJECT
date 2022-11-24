@@ -58,18 +58,17 @@
 
     
 
-    table {
-        border-spacing: 10px;
-    }
     .them {
         font-size: 16px;
         font-weight: bold;
         color: rgb(74,57,51);
         padding-right: 25px;
         border-right: 1px solid darkgray;
+        border-spacing: 15px;
     }
-    td {
+    #check td {
         padding-bottom: 15px;
+        padding-left: 25px;
     }
 
   
@@ -88,17 +87,47 @@
 
 
     #result {
-        border: 1px solid black;
+        border: 1px solid lightgray;
         width: 1200px;
         margin: auto;
+        margin-bottom: 50px;
     }
 
 
 	.list-area{
-		border: 1px solid black;
+		border: 3px solid lightgray;
 		text-align: center;
-	}
+        width: 1150px;
+    }
 
+    .list-area td {
+        border-bottom: 1px solid lightgray;
+    }
+
+    .list-area>tbody:hover {
+        cursor: pointer;
+        background-color: rgba(211, 211, 211, 0.344);
+    }
+
+    .list-area div {
+        background-color: rgb(240, 165, 0, 70%);
+        color: rgb(74,57,51);
+        height: 30px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .info {
+        font-weight: bold;
+        font-size: medium;
+        color: rgb(74,57,51);
+        border-right: 1px solid lightgray;
+        border-bottom: 1px solid lightgray;
+    }
+
+    .areaImage {
+        border-right: 1px solid lightgray;
+    }
 
 
 </style>
@@ -144,35 +173,35 @@
 	        <br>
             <div id="facility-s">
                 <span>테마 및 편의 시설</span>
-                <table>
+                <table id="check">
                     <tr>
                     <td class="them">자연경관</td>
-                    <td><input type="checkbox" name="item1" id="valley" value="계곡"><label for="valley">계곡</label></td>
-                    <td><input type="checkbox" name="item1" id="ocean" value="바다"><label for="ocean">바다</label></td>
-                    <td><input type="checkbox" name="item1" id="mountain" value="산"><label for="mountain">산</label></td>
-                    <td><input type="checkbox" name="item1" id="river" value="강"><label for="river">강</label></td>
+                    <td><input type="checkbox" name="item1" id="valley" value="계곡"><label for="valley"> 계곡</label></td>
+                    <td><input type="checkbox" name="item1" id="ocean" value="바다"><label for="ocean"> 바다</label></td>
+                    <td><input type="checkbox" name="item1" id="mountain" value="산"><label for="mountain"> 산</label></td>
+                    <td><input type="checkbox" name="item1" id="river" value="강"><label for="river"> 강</label></td>
                     </tr>
                     <tr>
                         <td class="them">지형</td>
-                        <td><input type="checkbox" name="item1" id="grass" value="잔디"><label for="grass">잔디</label></td>
-                        <td><input type="checkbox" name="item1" id="deck" value="데크"><label for="deck">데크</label></td>
-                        <td><input type="checkbox" name="item1" id="rock" value="파쇄석"><label for="rock">파쇄석</label></td>
-                        <td><input type="checkbox" name="item1" id="soil" value="맨흙"><label for="soil">맨흙</label></td>
-                        <td><input type="checkbox" name="item1" id="etc" value="기타"><label for="etc">기타</label></td>
+                        <td><input type="checkbox" name="item1" id="grass" value="잔디"><label for="grass"> 잔디</label></td>
+                        <td><input type="checkbox" name="item1" id="deck" value="데크"><label for="deck"> 데크</label></td>
+                        <td><input type="checkbox" name="item1" id="rock" value="파쇄석"><label for="rock"> 파쇄석</label></td>
+                        <td><input type="checkbox" name="item1" id="soil" value="맨흙"><label for="soil"> 맨흙</label></td>
+                        <td><input type="checkbox" name="item1" id="etc" value="기타"><label for="etc"> 기타</label></td>
                     </tr>
                     <tr>
                         <td class="them">편의시설</td>
-                        <td><input type="checkbox" nam e="item1" id="toilet" value="공용화장실"><label for="toilet">공용화장실</label></td>
-                        <td><input type="checkbox" name="item1" id="shower" value="공용샤워실"><label for="shower">공용샤워실</label></td>
-                        <td><input type="checkbox" name="item1" id="wifi" value="와이파이"><label for="wifi">와이파이</label></td>
-                        <td><input type="checkbox" name="item1" id="cook" value="개수대(취사장)"><label for="cook">개수대(취사장)</label></td>
-                        <td><input type="checkbox" name="item1" id="elec" value="전기"><label for="elec">전기</label></td>
-                        <td><input type="checkbox" name="item1" id="store" value="매점"><label for="store">매점</label></td>
+                        <td><input type="checkbox" nam e="item1" id="toilet" value="공용화장실"><label for="toilet"> 공용화장실</label></td>
+                        <td><input type="checkbox" name="item1" id="shower" value="공용샤워실"><label for="shower"> 공용샤워실</label></td>
+                        <td><input type="checkbox" name="item1" id="wifi" value="와이파이"><label for="wifi"> 와이파이</label></td>
+                        <td><input type="checkbox" name="item1" id="cook" value="개수대(취사장)"><label for="cook"> 개수대(취사장)</label></td>
+                        <td><input type="checkbox" name="item1" id="elec" value="전기"><label for="elec"> 전기</label></td>
+                        <td><input type="checkbox" name="item1" id="store" value="매점"><label for="store"> 매점</label></td>
                     </tr>
                     <tr>
                         <td class="them">반려동물 동반</td>
-                        <td><input type="checkbox" name="pet" id="pet-yes" value="가능" onclick="petCheck(this);"><label for="pet-yes">가능</label></td>
-                        <td><input type="checkbox" name="pet" id="pet-no" value="불가능" onclick="petCheck(this);"><label for="pet-no">불가능</label></td>
+                        <td><input type="checkbox" name="pet" id="pet-yes" value="가능" onclick="petCheck(this);"><label for="pet-yes"> 가능</label></td>
+                        <td><input type="checkbox" name="pet" id="pet-no" value="불가능" onclick="petCheck(this);"><label for="pet-no"> 불가능</label></td>
                     </tr>
                 </table>
 
@@ -191,36 +220,39 @@
 
     <div id="result">
 
-		<table class="list-area" align="center" style="width: 1200px;">
-			<thead>
-				<tr>
-					<th>캠핑장 이름</th>
-					<th width>캠핑장 주소</th>
-					<th width>캠핑장 경관</th>
-				</tr>
-			</thead>
-			<tbody>
-				
-				<% if(list.isEmpty()) { %>
-					<!-- 리스트가 비어있는 경우 -->
+		<table class="list-area" align="center">
+
+            <% if(list.isEmpty()) {%>
+                <!-- 리스트가 비어있는 경우 -->
 					<tr>
-						<td colspan="5">존재하는 공지사항이 없습니다.</td>
+						<td colspan="7">해당하는 캠핑장이 없습니다.</td>
 					</tr>
-				<% } else { %>
-					<% for(Camp c : list) { %>
-						<tr>
-							<td><%=c.getCampName() %></td>
-							<td><%=c.getAddress() %></td>
-							<td><%=c.getNaturalAttri() %></td>
-						</tr>
-					<% } %>
-				<% } %>
-				
-				
-			</tbody>
+            <% } else {%>
+                <% for(Camp c : list) { %>
+                    <tbody>
+                        <tr>
+                            <td class="areaImage" rowspan="3" style="width: 300px; height: 200px;   border-bottom: 3px solid lightgray;">이미지</td>
+                            <td colspan="2" style="width: 200px; font-weight: bolder;"><%= c.getCampName() %></td>
+                            <td style="width: 60px;"><div>지역</div></td>
+                            <td style="width: 250px;"><%= c.getLocation1() %></td>
+                            <td style="width: 50px"></td>
+                            <td width="60px">별모양</td>
+                        </tr>
+                        <tr>
+                            <td class="info">위치</td>
+                            <td colspan="5"><%= c.getAddress() %></td>
+                        </tr>
+                        <tr>
+                            <td class="info" style="width: 150px; border-bottom: 3px solid lightgray;">테마 및 편의 시설</td>
+                            <td colspan="5" style="border-bottom: 3px solid lightgray;"><%= c.getNaturalAttri() %></td>
+                        </tr>
+                    </tbody>
+                <% } %>
+            <% } %>
 		</table>
 		
     </div>
+
 
 
     <script>
@@ -291,7 +323,17 @@
 
 
 
+        // 세부페이지 이동
+        $(function() {
+            $(".list-area>tbody").click(function() {
 
+                // 현재 내가 클릭한 tr의 자손들 중 0번 째에 위치한 자식의 textnode 내용을 가져온다.
+                let cName = $(this).children().find('td').eq(1).text();
+
+                location.href = '<%=contextPath %>/campInfo.ca?cName='+cName;
+
+            });
+        })
 
 
     </script>

@@ -14,11 +14,11 @@ public class Camp {
 	private String naturalAttri;
 	private String naturalAttri2;
 	
+	private String campImg;
 	
-	
-	
+
 	public Camp(String campNo, String campName, String location1, String location2, String address, String campCall,
-			String campWeb, String campContent, String naturalAttri, String naturalAttri2) {
+			String campWeb, String campContent, String naturalAttri, String naturalAttri2, String campImg) {
 		super();
 		this.campNo = campNo;
 		this.campName = campName;
@@ -30,6 +30,7 @@ public class Camp {
 		this.campContent = campContent;
 		this.naturalAttri = naturalAttri;
 		this.naturalAttri2 = naturalAttri2;
+		this.campImg = campImg;
 	}
 
 
@@ -172,8 +173,15 @@ public class Camp {
 		this.naturalAttri2 = naturalAttri2;
 	}
 	
-	
-	
+	public String getCampImg() {
+		return campImg;
+	}
+
+
+
+	public void setCampImg(String campImg) {
+		this.campImg = campImg;
+	}
 
 
 
@@ -182,38 +190,30 @@ public class Camp {
 		return "Camp [campNo=" + campNo + ", campName=" + campName + ", location1=" + location1 + ", location2="
 				+ location2 + ", address=" + address + ", campCall=" + campCall + ", campWeb=" + campWeb
 				+ ", campContent=" + campContent + ", naturalAttri=" + naturalAttri + ", naturalAttri2=" + naturalAttri2
-				+ "]";
+				+ ", campImg=" + campImg + "]";
 	}
 
 
 
 	// 캠핑장 조회 리스트
-	public Camp(String campName, String address, String naturalAttri) {
+	public Camp(String campName, String location1, String address, String naturalAttri) {
 		super();
 		this.campName = campName;
+		this.location1 = location1;
 		this.address = address;
 		this.naturalAttri = naturalAttri;
-	}
-	
-	
-	// 캠핑장 체크 2개 조건
-	public Camp(String campName, String address, String naturalAttri, String naturalAttri2) {
-		super();
-		this.campName = campName;
-		this.address = address;
-		this.naturalAttri = naturalAttri;
-		this.naturalAttri2 = naturalAttri2;
 	}
 	
 	
 	// 캠핑장 세부 조회
-	public Camp(String campName, String address, String campCall, String campWeb, String campContent) {
+	public Camp(String campName, String address, String campCall, String campWeb, String campContent, String campImg) {
 		super();
 		this.campName = campName;
 		this.address = address;
 		this.campCall = campCall;
 		this.campWeb = campWeb;
 		this.campContent = campContent;
+		this.campImg = campImg;
 	}
 	
 	

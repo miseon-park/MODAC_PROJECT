@@ -95,11 +95,6 @@ public class CheckFindController extends HttpServlet {
 			
 		}
 		
-		
-		
-		
-		
-		
 	}
 
 	/**

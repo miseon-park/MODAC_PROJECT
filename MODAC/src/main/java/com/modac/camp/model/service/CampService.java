@@ -5,13 +5,42 @@ import java.util.ArrayList;
 
 import com.modac.camp.model.dao.CampDao;
 import com.modac.camp.model.vo.Camp;
+import com.modac.common.model.vo.PageInfo;
 
 import static com.modac.common.JDBCTemplate.*;
 
 public class CampService {
 	
 	
+	
+	
+	// 페이징 처리
+	public int selectListCount() {
+		Connection conn = getConnection();
+		
+		int listCount = new CampDao().selectListCount(conn);
+		
+		close();
+		
+		return listCount;
+	}
+	
+	
+	
+	
 	// 전체 조회
+	public ArrayList<Camp> selectCampList(PageInfo pi) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Camp> list = new CampDao().selectCampList(pi, conn);
+		
+		close();
+		
+		return list;	
+	}
+	
+	
 	public ArrayList<Camp> selectCampList() {
 		
 		Connection conn = getConnection();
@@ -22,6 +51,7 @@ public class CampService {
 		
 		return list;	
 	}
+	
 	
 	
 	// 지역 검색
