@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.modac.recipe.model.vo.Recipe, com.modac.common.model.vo.*"%>
 <%
-Recipe r = (Recipe)request.getAttribute("r");
-
-Attachment at = (Attachment)request.getAttribute("at");
+	Recipe r = (Recipe)request.getAttribute("r");
+	Attachment at = (Attachment)request.getAttribute("at");
 %>
 <!DOCTYPE html>
 <html>
@@ -77,7 +76,7 @@ Attachment at = (Attachment)request.getAttribute("at");
 	                 <% } %> 
 	               </div>
 				   <br>
-	            
+				   
 	               <div class="foorm-control">
 	                  <br><br>
 	                  <h3>&nbsp;<%=r.getPostTitle()%></h3>
@@ -111,11 +110,22 @@ Attachment at = (Attachment)request.getAttribute("at");
 	                      </svg></label>부재료 :  <%=r.getSubIngre() %>
 	                  </div>
 	                  <br>
-		                <div class="foorm-control" style="height:100%;">
+		                <div class="form-control" style="height:100%;">
 		                	<div style="text-align:center">
 		                     <% if(r.getTitleImg() != null ) { %>
 			               		 <img src="<%=contextPath%>/<%=r.getTitleImg()%>" width="600px" height="100%">
 			                 <% } %>
+			                 <br>
+				             <% if(at==null) { %>
+						 		<!--  첨부파일이 없는경우 -->
+						  	 <% } else {%>
+								<!-- 첨부파일이 있는경우 -->
+								<!-- 브라우저에서 http://localhost:8001/jsp/resources/board_upfiles/xxx.jpg -->
+								<a href ="<%=contextPath%>/<%= at.getPath() + at.getNewName() %>"
+								download="<%=at.getOriginName() %>">
+									<%=at.getOriginName() %>
+								</a>
+							 <% } %>
 			                 </div>
 			                  	 <br><br>
 			               		 <%=r.getPostContent() %>

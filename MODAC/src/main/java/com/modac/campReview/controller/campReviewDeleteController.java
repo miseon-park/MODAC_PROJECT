@@ -34,8 +34,7 @@ public class campReviewDeleteController extends HttpServlet {
 		int result = new CampReviewService().deleteCampReview(postNo);
 		
 		if(result > 0) {
-			request.getSession().setAttribute("alertMsg", "성공적으로 삭제되었습니다.");
-			
+			request.getSession().setAttribute("alertMsg", "삭제되었습니다.");
 			response.sendRedirect(request.getContextPath()+"/list.cr");
 		} else {
 			request.setAttribute("errorPage", "삭제에 실패하였습니다.");

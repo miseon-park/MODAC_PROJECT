@@ -59,7 +59,7 @@ public class recipeUpdateController extends HttpServlet {
 			Recipe r = new Recipe();
 			r.setPostTitle(postTitle);
 			r.setPostContent(postContent);
-			r.setMemberNo(postNo);
+			r.setPostNo(postNo);
 			r.setTime(time);
 			r.setDifficulty(difficulty);
 			r.setMainIngre(mainIngre);
@@ -73,20 +73,21 @@ public class recipeUpdateController extends HttpServlet {
 				at.setOriginName(multiRequest.getOriginalFileName("upfile"));// 원본명
 				at.setNewName(multiRequest.getFilesystemName("upfile"));//수정명(실제 서버에 업로드되어있는 파일명)
 				at.setPath("resources/recipe_upfiles/");
+				
+				if(multiRequest.getParameter("originFileNo") != null) {
+					// 기존 파일이 있는 경우
+	                at.setPhotoNo(multiRequest.getParameter("originFileNo"));
+	                new File(savePath+multiRequest.getParameter("originFileName")).delete();
+	                at.setPostNo(postNo);
+	          
+	            }else {
+	                // 기존에 파일이 없는 경우
+	                // => insert Attachment
+	                // ref_bno + 현재 게시물 번호 
+	                at.setPostNo(postNo);
+	                at.setBoardNo("7");
+	            }
 			}
-			
-            if(multiRequest.getParameter("originFileNo") != null) {
-
-                at.setPhotoNo(multiRequest.getParameter("originFileNo"));
-                
-                new File(savePath+multiRequest.getParameter("originFileName")).delete();
-            }else {
-                // 기존에 파일이 없는 경우
-                // => insert Attachment
-                // ref_bno + 현재 게시물 번호 
-                at.setPostNo(postNo);
-            }
-			
 			
 			int result = new RecipeService().updateRecipe(r, at);
 			
@@ -95,16 +96,15 @@ public class recipeUpdateController extends HttpServlet {
             //            => Board Update, Attachment update
             // case3 : 새로운 첨부파일 있는 경우(o), 기존 첨부파일도 없는 경우(x) => b, at에 refNo 
             //            => Board Update, Attachment insert
-			
-			System.out.println("result"+result);
             
+			System.out.println("update controller : "+result);
+			
             if(result > 0) { //수정성공 => 상세조회페이지
                 request.getSession().setAttribute("alertMsg","성공적으로 수정되었습니다.");
                 response.sendRedirect(request.getContextPath()+"/detail.r?rno=" + postNo);
             }else { // 수정실패 => errorPage
                 request.setAttribute("errorMsg", "게시글 수정에 실패했습니다.");
                 request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-                
             }
 		}
 	}

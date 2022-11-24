@@ -67,6 +67,7 @@ public class recipeListController extends HttpServlet {
 		}
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
+		
 		//----- 페이징 ------
 		
 		ArrayList<Recipe> list = new RecipeService().selectRecipeList(pi, field, query);

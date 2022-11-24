@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.modac.common.model.vo.PageInfo;
+import com.modac.campReview.model.vo.CampReview;
 import com.modac.common.model.vo.Attachment;
 import com.modac.recipe.model.vo.Recipe;
 
@@ -39,7 +40,6 @@ public class RecipeDao {
 		 
 		 try {
 			psmt = conn.prepareStatement(sql);
-			
 			rset = psmt. executeQuery();
 			
 			if(rset.next()) {
@@ -138,6 +138,7 @@ public class RecipeDao {
 		 try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, recipeNo);
+			psmt.setInt(2, recipeNo);
 			rset = psmt.executeQuery();
 			
 			if(rset.next()) {
@@ -268,7 +269,29 @@ public class RecipeDao {
 			psmt.setString(4, at.getPath());
 
 			result = psmt.executeUpdate();
+			System.out.println("dao result2-2 : "+result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(psmt);
+		}
+		 return result;
+	 }
+	 
+	 public int updateDeleteAttachment(Recipe r, Connection conn) {
 			
+		 int result = 0;
+		 
+		 PreparedStatement psmt = null;
+		 
+		 String sql = prop.getProperty("updateDeleteAttachment");
+
+		 try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, r.getPostNo());
+
+			result = psmt.executeUpdate();
+			System.out.println("dao result2-3 : "+result);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -322,7 +345,7 @@ public class RecipeDao {
 			psmt.setString(4, at.getPostNo());
 
 			result = psmt.executeUpdate();
-			
+			System.out.println("dao result2-1 : "+result);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {

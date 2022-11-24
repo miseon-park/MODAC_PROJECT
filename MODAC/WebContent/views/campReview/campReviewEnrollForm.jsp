@@ -20,28 +20,42 @@
             float: left; 
         }
         .form-control {
-          margin: 5px;
+          	margin: 5px;
         }
         .last {
-          margin: auto;
+          	margin: auto;
 		}
 		#enroll-form{
-		width: 80%;
-		margin: auto;
+			width: 80%;
+			margin: auto;
 		}
 		.foorm-control {
-	    display: block;
-	    width: 100%;
-	    padding: 0.375rem 0.75rem;
-	    font-size: 1rem;
-	    font-weight: 400;
-	    line-height: 1.5;
-	    color: #495057;
-	    background-color: #fff;
-	    background-clip: padding-box;
-	    border: 1px solid #ced4da;
-	    border-radius: 0.25rem;
-	    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+		    display: block;
+		    width: 100%;
+		    padding: 0.375rem 0.75rem;
+		    font-size: 1rem;
+		    font-weight: 400;
+		    line-height: 1.5;
+		    color: #495057;
+		    background-color: #fff;
+		    background-clip: padding-box;
+		    border: 1px solid #ced4da;
+		    border-radius: 0.25rem;
+		    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+		}
+		.fooorm-control {
+		    display: block;
+		    width: 100%;
+		    padding: 0.375rem 0.75rem;
+		    font-size: 1rem;
+		    font-weight: 400;
+		    line-height: 1.5;
+		    color: #495057;
+		    background-color: #fff;
+		    background-clip: padding-box;
+		    border: 1px solid white;
+		    border-radius: 0.25rem;
+		    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 		}
 
 </style>
@@ -68,8 +82,16 @@
 	              
 	            <div class="foorm-control">
 	            	<input type="text" class="form-control" placeholder="제목을 입력해주세요." name="title" aria-label="title">
-	                <input type="file" class="form-control" name="upfile">
-	                <textarea class="form-control" style="height:500px;" name="content"></textarea>
+	                <input type="file" class="form-control" name="upfile" onchange="loadImg(this, 1);">
+	
+	               	<div class="form-control" style="height:100%;">
+	                	<div style="text-align:center;" >
+		               		<img id="titleImg" width="80%" height="100%">
+		               		<button type="button" class="btn-close" id="delete" aria-label="Close" style="vertical-align: bottom; display:none;"  onclick="deleteAttachment();"></button>
+		                </div>
+	                  	<br>
+	               		<textarea class="fooorm-control" name="content" style="height:500px;"></textarea>
+               		</div>
 	
 	                <div class=" btn-group-sm foorm-control" role="group" aria-label="Basic checkbox toggle button group">
 	                  <input type="checkbox" class="btn-check" name="tag" value="1" id="btncheck1" autocomplete="off">
@@ -91,12 +113,39 @@
 	                  <label class="btn btn-outline-primary" for="btncheck6">#주변 볼거리가 많아요</label>
 	                </div>
 	              </div>
+	              
 	              <br>
 	              <div align="center">
                     <button type="button" class="btn btn-secondary" class="last1" onclick="history.back();">목록으로</button>
                     <button type="submit" class="btn btn-secondary" class="last1">등록하기</button>
                   </div>
 	          </form>
+	          
+		      <script>
+			      function loadImg(inputFile, num){
+			          if(inputFile.files.length != 0){
+		
+			              let reader = new FileReader();
+			              reader.readAsDataURL(inputFile.files[0]);
+			              
+			              // 파일 읽기가 완료되었을때 실행할 함수 정의
+			              reader.onload = function(e){
+			             	  $("#titleImg").css("display","inline");
+				        	  $("#titleImg").attr("src",null);
+			                  $("#titleImg").attr("src",e.target.result);
+			              }
+			         	 $("#delete").css("display","inline");
+			          }
+			       }
+			      
+		      
+			      function deleteAttachment(fileNo){
+		        	 $("#titleImg").css("display","none");
+		        	 $("#delete").css("display","none");
+			      }
+		      </script>
+
+		      
 	          <br>
               <br>
            </div>

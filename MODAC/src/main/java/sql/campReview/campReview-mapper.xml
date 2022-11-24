@@ -38,7 +38,9 @@
 		       POST_CONTENT,
 		       MEMBER_NIC,
 		       CREATE_DATE,
-		       PATH || NEW_NAME AS "TITLE_IMG"
+		       (SELECT PATH || NEW_NAME
+                  FROM ATTACHMENT
+                 WHERE POST_NO = ? AND STATUS = 'N') AS "TITLE_IMG"
 		FROM CAMP_REVIEW C
 		JOIN MEMBER M USING(MEMBER_NO)
 	    LEFT JOIN ATTACHMENT A on C.POST_NO = A.POST_NO 
@@ -59,7 +61,7 @@
 		       NEW_NAME,
 		       PATH
 		FROM ATTACHMENT
-		WHERE BOARD_NO = 6
+		WHERE STATUS = 'N' AND BOARD_NO = 6
 		  AND POST_NO = ?
 	</entry>
 	
@@ -119,6 +121,18 @@
 		    UPLOAD_DATE = SYSDATE
 		WHERE BOARD_NO = 6
 		  AND POST_NO = ? 
+	</entry>
+	
+	<entry key="updateDeleteAttachment">
+		UPDATE ATTACHMENT
+		SET STATUS = 'Y'
+		WHERE BOARD_NO = 6
+		  AND POST_NO = ?
+	</entry>
+	
+	<entry key="deleteTag">
+		DELETE FROM REVIEW_TAG
+		WHERE POST_NO = ?
 	</entry>
 	
 	<entry key="deleteCampReview">

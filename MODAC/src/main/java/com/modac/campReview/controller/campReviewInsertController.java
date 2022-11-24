@@ -76,8 +76,11 @@ public class campReviewInsertController extends HttpServlet {
 				at.setNewName(multiRequest.getFilesystemName("upfile"));//수정명(실제 서버에 업로드되어있는 파일명)
 				at.setPath("resources/campReview_upfiles/");
 			}else {
-				//기본사진 
-			}
+				at = new Attachment();
+	            at.setOriginName("logo.png");
+	            at.setNewName("logo.png");
+	            at.setPath("/resources/modacLogo/");
+	         }
 			
 		int result = new CampReviewService().insertCampReview(cr, at);
 

@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.modac.campReview.model.service.CampReviewService;
+import com.modac.common.model.vo.Attachment;
 import com.modac.recipe.model.service.RecipeService;
 import com.modac.recipe.model.vo.Recipe;
 
@@ -33,10 +35,11 @@ public class recipeUpdateFormController extends HttpServlet {
 		int postNo = Integer.parseInt(request.getParameter("rno"));
 		
 		Recipe r = new RecipeService().selectRecipe(postNo);
+		Attachment at = new RecipeService().selectAttachment(postNo);
 		
 		request.setAttribute("r", r);
+		request.setAttribute("at", at);
 		request.getRequestDispatcher("views/recipe/recipeUpdateForm.jsp").forward(request,response);
-		
 		
 	}
 

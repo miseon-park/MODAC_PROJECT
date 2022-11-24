@@ -35,34 +35,33 @@
 			margin: auto;
 		}
 		.foorm-control {
-	    display: block;
-	    width: 100%;
-	    padding: 0.375rem 0.75rem;
-	    font-size: 1rem;
-	    font-weight: 400;
-	    line-height: 1.5;
-	    color: #495057;
-	    background-color: #fff;
-	    background-clip: padding-box;
-	    border: 1px solid #ced4da;
-	    border-radius: 0.25rem;
-	    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+		    display: block;
+		    width: 100%;
+		    padding: 0.375rem 0.75rem;
+		    font-size: 1rem;
+		    font-weight: 400;
+		    line-height: 1.5;
+		    color: #495057;
+		    background-color: #fff;
+		    background-clip: padding-box;
+		    border: 1px solid #ced4da;
+		    border-radius: 0.25rem;
+		    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 		}
 		.fooorm-control {
-	    display: block;
-	    width: 100%;
-	    padding: 0.375rem 0.75rem;
-	    font-size: 1rem;
-	    font-weight: 400;
-	    line-height: 1.5;
-	    color: #495057;
-	    background-color: #fff;
-	    background-clip: padding-box;
-	    border: 1px solid white;
-	    border-radius: 0.25rem;
-	    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+		    display: block;
+		    width: 100%;
+		    padding: 0.375rem 0.75rem;
+		    font-size: 1rem;
+		    font-weight: 400;
+		    line-height: 1.5;
+		    color: #495057;
+		    background-color: #fff;
+		    background-clip: padding-box;
+		    border: 1px solid white;
+		    border-radius: 0.25rem;
+		    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 		}
-
 </style>
 
 </head>
@@ -89,20 +88,23 @@
             
              <div class="foorm-control">
              	<input type="text" class="form-control" placeholder="제목을 입력해주세요." name="title" aria-label="title" value="<%=cr.getPostTitle()%>">
-                
+				<input type="file" name="upfile" onchange="loadImg(this, 1);"><br>
 					<% if(at != null){ %>
 						<%= at.getOriginName() %>
 						<!-- 원본파일의 파일번호, 수정명을 hidden으로 넘길것. -->
 						<input type="hidden" name="originFileNo" value="<%=at.getPhotoNo() %>">
 						<input type="hidden" name="originFileName" value="<%=at.getNewName() %>">
 					<% } %>
-						<input type="file" name="upfile">
                 
                	<div class="form-control" style="height:100%;">
                 	<div style="text-align:center">
                      <% if(cr.getTitleImg() != null ) { %>
-	               		 <img src="<%=contextPath%>/<%=cr.getTitleImg()%>" width="600px" height="100%">
-	               		 <button type="button" class="btn-close" aria-label="Close" style="vertical-align: bottom;" onclick="deleteAttachment();"></button>
+	               		 <img src="<%=contextPath%>/<%=cr.getTitleImg()%>" value="1" width="600px"style="display:inline;" height="100%" id="titleImg">
+	               		 <button type="button" id="delete" class="btn-close" aria-label="Close" style="vertical-align: bottom; display:inline;" onclick="deleteAttachment();"></button>
+	                 <% } else { %>
+	                	 <img value="1" width="600px"style="display:inline;" height="100%" id="titleImg">
+	               		 <button type="button" id="delete" class="btn-close" aria-label="Close" style="vertical-align: bottom; display:none;" onclick="deleteAttachment();"></button>
+	                 
 	                 <% } %>
 	                 </div>
 	                  	 <br>
@@ -146,7 +148,7 @@
 		                })
 		            })
 	           <% }%>
-		        </script>
+		     </script>
              <br> 
              <div align="center">
                 <button type="button" class="btn btn-secondary" class="last1" onclick="history.back();">목록으로</button>
@@ -157,22 +159,30 @@
        	   
           </div>
         </div>
+        
       </div>
       <script>
+	      function loadImg(inputFile, num){
+        	  $("#titleImg").attr("src",null);
+        	  
+	          if(inputFile.files.length != 0){
+
+	              let reader = new FileReader();
+	              reader.readAsDataURL(inputFile.files[0]);
+	              
+	              // 파일 읽기가 완료되었을때 실행할 함수 정의
+	              reader.onload = function(e){
+	                  $("#titleImg").attr("src",e.target.result);
+	            	  $("#titleImg").css("display","inline");
+	              }
+	         	 $("#delete").css("display","inline");
+	          }
+	       }
+	      
+      
 	      function deleteAttachment(fileNo){
-	         $.ajax({
-	            url : "<%= request.getContextPath() %>/delete.cr",
-	            data : {file_no : file_no},
-	            success : function(result){
-	               //삭제성공시
-	               if(result == 1){
-	                  alert("삭제에 성공했습니다");
-	                  location.reload();
-	               }else{
-	                  alert("삭제에 실패했습니다.");
-	               }  
-	            } 
-	         })
+        	 $("#titleImg").css("display","none");
+        	 $("#delete").css("display","none");
 	      }
       </script>
 

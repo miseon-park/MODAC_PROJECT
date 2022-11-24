@@ -52,7 +52,6 @@ public class campReviewUpdateController extends HttpServlet {
 			String postNo = multiRequest.getParameter("crno");
 			String postTitle =  multiRequest.getParameter("title");
 			String postContent =  multiRequest.getParameter("content");
-			String[] originTagNo =  multiRequest.getParameterValues("originTagNo");
 	 
 			
 			CampReview cr = new CampReview();
@@ -68,7 +67,6 @@ public class campReviewUpdateController extends HttpServlet {
 			}
 			cr.setTagList(tagList);
 
-			
 			Attachment at = null;
 			
 			if(multiRequest.getOriginalFileName("upfile") != null) {
@@ -77,10 +75,13 @@ public class campReviewUpdateController extends HttpServlet {
 				at.setOriginName(multiRequest.getOriginalFileName("upfile"));// 원본명
 				at.setNewName(multiRequest.getFilesystemName("upfile"));//수정명(실제 서버에 업로드되어있는 파일명)
 				at.setPath("resources/campReview_upfiles/");
-			
+				
 				if(multiRequest.getParameter("originFileNo") != null) {
+					// 기존 파일이 있는 경우
 	                at.setPhotoNo(multiRequest.getParameter("originFileNo"));
 	                new File(savePath+multiRequest.getParameter("originFileName")).delete();
+	                at.setPostNo(postNo);
+	          
 	            }else {
 	                // 기존에 파일이 없는 경우
 	                // => insert Attachment
@@ -88,11 +89,10 @@ public class campReviewUpdateController extends HttpServlet {
 	                at.setPostNo(postNo);
 	                at.setBoardNo("6");
 	            }
-			}
+			} 
 			
-
 			int result = new CampReviewService().updateCampReview(cr, at);
-			System.out.println(result);
+
 			if(result > 0) {
 				request.getSession().setAttribute("alertMsg","성공적으로 수정되었습니다.");
 				response.sendRedirect(request.getContextPath()+"/detail.cr?crno="+postNo);

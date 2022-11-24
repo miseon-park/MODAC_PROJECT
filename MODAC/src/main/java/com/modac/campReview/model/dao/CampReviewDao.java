@@ -136,6 +136,7 @@ public class CampReviewDao {
 		 try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, campReviewNo);
+			psmt.setInt(2, campReviewNo);
 			rset = psmt.executeQuery();
 			
 			if(rset.next()) {
@@ -259,9 +260,31 @@ public class CampReviewDao {
 		 
 		 try {
 			psmt = conn.prepareStatement(sql);
-			
 			psmt.setString(1, cr.getPostNo());
 			
+			for(Integer tagNo:tList) {
+				psmt.setInt(2, tagNo.intValue());
+			result += psmt.executeUpdate();}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(psmt);
+		}
+		 return result;
+	 }
+	 
+	 public int insertNewTag(CampReview cr, Connection conn) {
+			
+		 int result = 0;
+		 
+		 PreparedStatement psmt = null;
+		 List<Integer> tList=cr.getTagList();
+		 String sql = prop.getProperty("insertNewTag");
+		 
+		 try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, cr.getPostNo());
 			for(Integer tagNo:tList) {
 				psmt.setInt(2, tagNo.intValue());
 			result += psmt.executeUpdate();}
@@ -323,6 +346,29 @@ public class CampReviewDao {
 		}
 		 return result;
 	 }
+	 
+	 public int updateDeleteAttachment(CampReview cr, Connection conn) {
+			
+		 int result = 0;
+		 
+		 PreparedStatement psmt = null;
+		 
+		 String sql = prop.getProperty("updateDeleteAttachment");
+
+		 try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, cr.getPostNo());
+
+			result = psmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(psmt);
+		}
+		 return result;
+	 }
+	 
 	
 	 public int updateCampReview(CampReview cr, Connection conn) {
 		 
@@ -363,7 +409,7 @@ public class CampReviewDao {
 			psmt.setString(2, at.getNewName());
 			psmt.setString(3, at.getPath());
 			psmt.setString(4, at.getPostNo());
-
+			
 			result = psmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -372,6 +418,28 @@ public class CampReviewDao {
 			close(psmt);
 		}
 		 return result;
+	 }
+	 
+	 public int deleteTag(CampReview cr, Connection conn) {
+		 
+		 int result = 0;
+		 
+		 PreparedStatement psmt = null;
+		 
+		 String sql = prop.getProperty("deleteTag");
+		 
+		 try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, cr.getPostNo());
+			
+			result = psmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(psmt);
+		}
+		 return result;
+		 
 	 }
 	 
 	 public int deleteCampReview(int postNo, Connection conn) {

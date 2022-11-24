@@ -2,9 +2,7 @@
     pageEncoding="UTF-8" 	import="java.util.ArrayList , com.modac.recipe.model.vo.*, com.modac.common.model.vo.*"%>
 <%
 	ArrayList<Recipe> list = (ArrayList<Recipe>)request.getAttribute("list");
-
     Attachment at = (Attachment)request.getAttribute("at");
-
 	PageInfo pi = (PageInfo) request.getAttribute("pi");
 	
 	int currentPage = pi.getCurrentPage();
@@ -14,7 +12,8 @@
 %>
 <!DOCTYPE html>
 <html>
-<head><script type="text/javascript" src="/___vscode_livepreview_injected_script"></script>
+<head>
+<script type="text/javascript" src="/___vscode_livepreview_injected_script"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
@@ -65,25 +64,25 @@
 		    object-fit:cover;
 		}
 		.moveBtn{
-	       color: white;
-	       background-color: rgb(74,57,51);
-	       border : none;
-	       width: 80px;
-	       border-radius: 10px 10px 10px 10px / 10px 10px 10px 10px
+	        color: white;
+	        background-color: rgb(74,57,51);
+	        border : none;
+	        width: 80px;
+	        border-radius: 10px 10px 10px 10px / 10px 10px 10px 10px
 	    }
 	    .pageBtn{
-	       color: black;
-	       background-color: gainsboro;
-	       border-radius: 50%;
-	       border: gainsboro;
-	       width: 30px;
-	       height: 30px;
+	        color: black;
+	        background-color: gainsboro;
+	        border-radius: 50%;
+	        border: gainsboro;
+	        width: 30px;
+	        height: 30px;
 	    }
 	    .pageBtn:hover{
-	       width: 30px;
-	       height: 30px;
-	       color: white;
-	       background-color: orange;
+	        width: 30px;
+	        height: 30px;
+	        color: white;
+	        background-color: orange;
 	    }
 	   
 </style>
@@ -128,6 +127,7 @@
 		            <% } %>
 		            <br>
 
+					<div class="detail">
 					<% if(!list.isEmpty()) {%>
 						<% for(Recipe r : list) {%>
 	
@@ -158,49 +158,48 @@
 							<span class="card-text">주재료 : </span><span style ="display:block; width:100%; height:100%;"><%=r.getMainIngre()%></span><br>
 						</div>
 					</div>
-					<% } %>
-				<% } else { %>
-					등록된 게시글이 없습니다.
-				<% } %>
-
-	
-			<script>
-				$(function(){
-					$(".card").click(function(){
-						let rno = $("#rno").val();
-						location.href = '<%=contextPath%>/detail.r?rno='+rno;
-					})
-				})
-			</script>
-			</div>
-
-			<div class="btn-group moveBtn PageBtn" aria-label="Basic example" align="center">
-			
-				<% if(currentPage != 1) { %>
-					<button onclick="doPageClick(<%=currentPage-1 %>)" type="button" class="btn"><<</button>
-				<% } %>
-				
-				<% for(int i = startPage; i<= endPage; i++) { %>
-					<% if(i != currentPage) { %>
-						<button onclick="doPageClick(<%=i%>)" type="button" class="btn"><%=i %></button>
+						<% } %>
 					<% } else { %>
-						<button disabled><%=i %></button>
+						등록된 게시글이 없습니다.
 					<% } %>
-				<% } %>
-				
-				<% if(currentPage != 1) { %>
-					<button onclick="doPageClick(<%=currentPage+1 %>)" type="button" class="btn">>></button>
-				<% } %>
-			</div>
-			
-            </div>
-			
+					</div>
+
+					<script>
+						$(function(){
+							$(".card").click(function(){
+								let rno = $(this).children().eq(0).val();
+								location.href = '<%=contextPath%>/detail.r?rno='+rno;
+							})
+						})
+					</script>
+			    </div>
+			    <div align="center" class="paging-area">
+		           <% if(currentPage != 1) {%>
+		             <button class="moveBtn" onclick="doPageClick(<%=currentPage -1 %>)">&lt;이전</button>
+		           <% } %>
+		         
+		           <% for(int i = startPage; i <= endPage; i++) { %>
+		              <%if(i != currentPage) {%>
+		                 <button  class="pageBtn" onclick="doPageClick(<%=i%>)"><%=i %></button>
+		              <%} else {%>
+		                 <button class="pageBtn" disabled><%= i %></button>
+		              <%} %>
+		           <% } %>
+		         
+		           <% if(currentPage != maxPage) { %>
+		              <button class="moveBtn" onclick="doPageClick(<%=currentPage +1 %>)">다음&gt;</button>
+		           <% } %>
+		        </div>
+		        
+		        <script>
+				   function doPageClick(currentPage){
+					  location.href = "<%=contextPath%>/list.r?currentPage="+currentPage;
+				   }
+			    </script>
+			 </div>
         </div>
-			<script>
-				function doPageClick(currentPage){
-					location.href = "<%=contextPath%>/list.r?currentPage="+currentPage;
-				}
-			</script>
+        
+       
  
 
 

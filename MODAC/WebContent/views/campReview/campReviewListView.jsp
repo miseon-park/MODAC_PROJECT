@@ -3,21 +3,18 @@
 	import="java.util.ArrayList , com.modac.campReview.model.vo.CampReview, com.modac.common.model.vo.PageInfo"%>
 <%
 	ArrayList<CampReview> list = (ArrayList<CampReview>)request.getAttribute("list");
-
 	PageInfo pi = (PageInfo) request.getAttribute("pi");
 	
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
 	int maxPage = pi.getMaxPage();
-	
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<script type="text/javascript"
-	src="/___vscode_livepreview_injected_script"></script>
+<script type="text/javascript" src="/___vscode_livepreview_injected_script"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
@@ -60,6 +57,27 @@
 		width: 80%;
 		margin: auto;
 	}
+	.moveBtn{
+        color: white;
+        background-color: rgb(74,57,51);
+        border : none;
+        width: 80px;
+        border-radius: 10px 10px 10px 10px / 10px 10px 10px 10px
+    }
+    .pageBtn{
+        color: black;
+        background-color: gainsboro;
+        border-radius: 50%;
+        border: gainsboro;
+        width: 30px;
+        height: 30px;
+    }
+    .pageBtn:hover{
+        width: 30px;
+        height: 30px;
+        color: white;
+        background-color: orange;
+    }
 </style>
 
 </head>
@@ -68,9 +86,10 @@
 	<div class="content">
 		<div class="content1">
 			<nav class="flex-column">
-				<a class="nav-link active" aria-current="page" href="#">모닥불이야기</a><br>
-				<br> <a class="nav-link" href="#">캠핑장 리뷰</a> <a
-					class="nav-link" href="#">캠핑 레시피</a> <a class="nav-link">캠핑스타그램</a>
+				<a class="nav-link active" aria-current="page" href="#">모닥불이야기</a><br><br> 
+				<a class="nav-link" href="#">캠핑장 리뷰</a> 
+				<a class="nav-link" href="#">캠핑 레시피</a> 
+				<a class="nav-link">캠핑스타그램</a>
 			</nav>
 		</div>
 		<div class="content2">
@@ -93,11 +112,12 @@
 
 			<div class="list-area">
 				<% if(loginMember != null) { %>
-				<div align="right" class="insert-area">
-	               	<a href="<%=contextPath %>/enrollForm.cr" class="btn btn-secondary last1">글쓰기</a> 
-	            </div>
+					<div align="right" class="insert-area">
+	               		<a href="<%=contextPath %>/enrollForm.cr" class="btn btn-secondary last1">글쓰기</a> 
+	            	</div>
 	            <% } %>
 				<br>
+				
 				<table class="table table-hover list">
 					<thead>
 						<tr>
@@ -136,32 +156,30 @@
 				})
 			</script>
 			
-			<div class="btn-group" aria-label="Basic example" align="center" class="paging-area">
-				<% if(currentPage != 1) { %>
-				<button onclick ="doPageClick(<%=currentPage-1%>)">&lt;</button>
-				<% } %>
-				
-				<%for(int i = startPage; i<=endPage; i++) {%>
-					<% if(i != currentPage) {%>
-						<button onclick="doPageClick(<%=i%>)"><%=i%></button>
-					<%}else{ %>
-						<button disabled><%=i %></button>
-					<%} %>
-				<%} %>
-				<%if(currentPage != maxPage) {%>
-				<button onclick ="doPageClick(<%=currentPage+1%>)">&gt;</button>
-				<%} %>
-			</div>
+	       <div align="center" class="paging-area">
+	         <% if(currentPage != 1) {%>
+	            <button class="moveBtn" onclick="doPageClick(<%=currentPage -1 %>)">&lt;이전</button>
+	         <% } %>
+	         
+	         <% for(int i = startPage; i <= endPage; i++) { %>
+	            <%if(i != currentPage) {%>
+	               <button  class="pageBtn" onclick="doPageClick(<%=i%>)"><%=i %></button>
+	            <%} else {%>
+	               <button class="pageBtn" disabled><%= i %></button>
+	            <%} %>
+	         <% } %>
+	         
+	         <% if(currentPage != maxPage) { %>
+	            <button class="moveBtn" onclick="doPageClick(<%=currentPage +1 %>)">다음&gt;</button>
+	         <% } %>
+	      </div>
 			
 			<script>
 				function doPageClick(currentPage){
 					location.href = "<%=contextPath%>/list.cr?currentPage="+currentPage;
 				}
 			</script>
-			
 		</div>
-
-
 	</div>
 
 	<script

@@ -35,7 +35,6 @@ public class recipeDeleteController extends HttpServlet {
 		
 		if(result > 0) {
 			request.getSession().setAttribute("alertMsg", "삭제되었습니다.");
-			
 			response.sendRedirect(request.getContextPath()+"/list.r");
 		} else {
 			request.setAttribute("errorPage", "삭제에 실패하였습니다.");

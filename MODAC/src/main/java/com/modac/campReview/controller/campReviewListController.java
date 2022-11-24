@@ -45,7 +45,6 @@ public class campReviewListController extends HttpServlet {
 	      if(query_!=null)
 	         query = query_;
 	      
-		
 		//-- 페이징처리-----
 		int listCount;
 		int currentPage;
@@ -60,7 +59,7 @@ public class campReviewListController extends HttpServlet {
 		pageLimit = 5;
 		boardLimit = 10;
 		maxPage = (int) Math.ceil((double)listCount / boardLimit);
-		startPage = (currentPage-1) / pageLimit * pageLimit + 1 ;
+		startPage = (currentPage - 1) / pageLimit * pageLimit + 1 ;
 		endPage = startPage + pageLimit -1 ;
 		
 	
@@ -71,9 +70,6 @@ public class campReviewListController extends HttpServlet {
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
 		//---------------
-		
-		
-		
 		
 		ArrayList<CampReview> list = new CampReviewService().selectCampReviewList(pi, field, query);
 		

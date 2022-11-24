@@ -85,8 +85,11 @@ public class CampReviewService {
 	
 	
 	public int insertCampReview(CampReview cr, Attachment at) {
+		
 		Connection conn = getConnection();
+		
 		int postNo=new CampReviewDao().selectPostNo(conn);
+		
 		cr.setPostNo(String.valueOf(postNo));
 		
 		int result1 = new CampReviewDao().insertCampReview(cr,conn);
@@ -113,8 +116,6 @@ public class CampReviewService {
 	
 	public int updateCampReview(CampReview cr, Attachment at) {
 		Connection conn = getConnection();
-		int postNo=new CampReviewDao().selectPostNo(conn);
-		cr.setPostNo(String.valueOf(postNo));
 		
 		int result1 = new CampReviewDao().updateCampReview(cr, conn);
 		
@@ -122,19 +123,26 @@ public class CampReviewService {
 		
 		int result3 = 1;
 		
-		result2 = new CampReviewDao().insertTag(cr, conn);
+		if(cr.getTagList() != null) {
+			result2 = new CampReviewDao().deleteTag(cr, conn);
+		}
+		result2 = new CampReviewDao().insertNewTag(cr, conn);
 		
-        // 새롭게 첨부된 파일이 있는 경우 
-        if(at != null) {
+        if(at != null) { // 새롭게 첨부된 파일이 있는 경우 
             // 기존에 첨부파일이 있었을 경우 => update문 실행
+        	at.getPostNo();
             if(at.getPhotoNo() != null) {
                 result3 = new CampReviewDao().updateAttachment(at, conn);
             }else {//기존에 첨부파일이 없었을 경우 => insert문 실행
                 result3 = new CampReviewDao().insertNewAttachment(at, conn);
             }
+        }else { // 새로운 첨부파일이 없는 경우 
+        	if(cr.getTitleImg() == null) {
+        		cr.getPostNo();
+        		result3 = new CampReviewDao().updateDeleteAttachment(cr, conn);
+        	}
         }
         
-		
 		if(result1 > 0 && result2 > 0 && result3 > 0) {
 			commit(conn);
 		} else {
@@ -151,6 +159,8 @@ public class CampReviewService {
 		Connection conn = getConnection();
 		
 		int result = new CampReviewDao().deleteCampReview(postNo, conn);
+		
+		new CampReviewDao().deleteAttachment(postNo, conn);
 		
 		commitRollback(result, conn);
 		

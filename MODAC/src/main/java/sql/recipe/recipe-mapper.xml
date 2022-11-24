@@ -18,7 +18,7 @@
 			FROM RECIPE R
 			JOIN ATTACHMENT A USING(POST_NO)
 			JOIN MEMBER M USING(MEMBER_NO)
-			WHERE $ LIKE ? AND M.STATUS = 'N' AND R.STATUS = 'N' 
+			WHERE $ LIKE ? AND M.STATUS = 'N' AND R.STATUS = 'N' AND A.STATUS = 'N' 
 			ORDER BY CREATE_DATE DESC, POST_NO DESC) A
 		     )
 		WHERE RNUM BETWEEN ? AND ?
@@ -38,21 +38,23 @@
 	</entry>
 	
 	<entry key="selectRecipe">
-			SELECT POST_NO,
-			       POST_TITLE,
-			       POST_CONTENT,
-			       MEMBER_NIC,
-			       CREATE_DATE,
-			       TIME,
-			       DIFFICULTY,
-			       MAIN_INGRE,
-			       SUB_INGRE,
-			       PATH || NEW_NAME AS "TITLE_IMG"
-			FROM RECIPE R
-			JOIN MEMBER M USING(MEMBER_NO)
-	        JOIN ATTACHMENT USING(POST_NO)
-			WHERE POST_NO = ?
-			  AND M.STATUS = 'N' AND R.STATUS = 'N'
+		SELECT POST_NO,
+		       POST_TITLE,
+		       POST_CONTENT,
+		       MEMBER_NIC,
+		       CREATE_DATE,
+		       TIME,
+		       DIFFICULTY,
+		       MAIN_INGRE,
+		       SUB_INGRE,
+		       (SELECT PATH || NEW_NAME
+                	  FROM ATTACHMENT
+               	 WHERE POST_NO = ? AND STATUS = 'N') AS "TITLE_IMG"
+		FROM RECIPE R
+		JOIN MEMBER M USING(MEMBER_NO)
+        JOIN ATTACHMENT USING(POST_NO)
+		WHERE POST_NO = ?
+		  AND M.STATUS = 'N' AND R.STATUS = 'N'
 	</entry>
 	
 	
@@ -62,7 +64,7 @@
 		       NEW_NAME,
 		       PATH
 		FROM ATTACHMENT
-		WHERE BOARD_NO = 7
+		WHERE STATUS = 'N' AND BOARD_NO = 7
 		  AND POST_NO = ?
 	</entry>
 	
@@ -126,6 +128,13 @@
 		WHERE BOARD_NO = 7
 		  AND POST_NO = ? 
 	</entry>
+		
+	<entry key="updateDeleteAttachment">
+		UPDATE ATTACHMENT
+		SET STATUS = 'Y'
+		WHERE BOARD_NO = 7
+		  AND POST_NO = ?
+	</entry>
 	
 	<entry key="deleteRecipe">
 		UPDATE RECIPE
@@ -139,6 +148,8 @@
 		WHERE BOARD_NO = 7
 		  AND POST_NO = ?
 	</entry>
+	
+	
 	
 	
 	

@@ -55,7 +55,7 @@
 </style>
 </head>
 <body>
-<%@ include file="../common/menubar.jsp" %>
+   <%@ include file="../common/menubar.jsp" %>
 
            <div class="content1">
                <nav class="flex-column">
@@ -68,27 +68,28 @@
            
            <div class="content2">
 			 <br>
-               <h3>캠핑장 리뷰</h3>
+             <h3>캠핑장 리뷰</h3>
              <br>
 			 
              <div class="insert-area" style="height:100%">
-              	  <% if(loginMember != null && loginMember.getMemberNic().equals(cr.getMemberNic())) { %>
-              	  	<div class="date">
-		              	<a href="<%=contextPath %>/updateForm.cr?crno=<%=cr.getPostNo()%>" class="btn btn-secondary last1">수정하기</a>
-		              	<a href="<%=contextPath %>/delete.cr?crno=<%=cr.getPostNo()%>" class="btn btn-secondary last1">삭제하기</a>
-	              	</div>
-	              <% } %>
-				 <br><br>
-				 	<div class="foorm-control">
+            	<div align="right">
+                  <% if(loginMember != null && loginMember.getMemberNic().equals(cr.getMemberNic())) {%>
+                    	<a href="<%=contextPath %>/updateForm.cr?crno=<%=cr.getPostNo()%>" class="btn btn-secondary last1">수정하기</a>
+                    	<a href="<%=contextPath %>/delete.cr?crno=<%=cr.getPostNo()%>" class="btn btn-secondary last1">삭제하기</a>
+                  <% } %> 
+                </div>
+			    <br><br>
+				    
+				<div class="foorm-control">
 	                <br><br>
 	                <h3>&nbsp;<%=cr.getPostTitle()%></h3>
 	                 
 	                <br> 
 	                <span>&nbsp; 작성자 : <%=cr.getMemberNic()%></span>
+	                
 	                <span class="date">작성일 : <%=cr.getCreateDate() %>&nbsp;</span>
 	                 
-	                <br>
-	                <br>
+	                <br><br>
 	                <div class="form-control" style="height:100%;">
 	                	<div style="text-align:center">
 	                     <% if(cr.getTitleImg() != null ) { %>
@@ -132,8 +133,8 @@
 	               </div>
 	            </div>
 	            </div>
-			   <script>
-			   <% if(rt != null) {%>
+		  	    <script>
+			    <% if(rt != null) {%>
 		            $(function(){
 		                let tag = "<%= rt.getTagNo()%>"
 		                $("input[type=checkbox]").each(function(){
@@ -144,8 +145,8 @@
 		                        $(this).attr("checked", true);
 		                    }
 		                })
-		            })
-	           <% }%>
+		             })
+	            <% }%>
 		        </script>
 	            <br>
 	            
@@ -155,7 +156,7 @@
 	            <br>
 			    <br>
 		     </div>
-	      </div>
+
 
 
  
