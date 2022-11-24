@@ -138,7 +138,7 @@
         <h2 class="title">중고장터</h2>
         
         <div class="detailView">
-        	<% if(loginMember != null && loginMember.getMemberNic().equals(m.getMemberNo())){ %>
+        	<% if(loginMember != null && loginMember.getMemberNo().equals(m.getMemberNo())){ %>
 				<div class="status">
                 	<a href="<%=contextPath%>/updateDate.mk?mno=<%=m.getPostNo()%>" class="btn btn-secondary btn-sm" id="updateDate">끌어올리기</a>
                 	<a href="<%=contextPath%>/changeSale.mk?mno=<%=m.getPostNo()%>" class="btn btn-secondary btn-sm" id="end">판매완료</a>
@@ -163,12 +163,12 @@
 
             <table class="userInfo">
                 <tr>
-                    <td style="font-size:12px;"><b><%=m.getMemberNo()%></b></td>
+                    <td style="font-size:12px;"><b><%=m.getMemberNic()%></b></td>
                     <td style="font-size:4px; color: gainsboro;">&nbsp;&nbsp;<%=m.getCreateDate()%></td>
                 </tr>
             </table>
             
-            <% if(loginMember != null && loginMember.getMemberNic().equals(m.getMemberNo())){ %>
+            <% if(loginMember != null && loginMember.getMemberNo().equals(m.getMemberNo())){ %>
 	            <div class="update">
 	                <a href="<%=contextPath%>/updateForm.mk?mno=<%=m.getPostNo()%>">수정하기</a>
 	                <a href="<%=contextPath%>/delete.mk?mno=<%=m.getPostNo()%>">삭제하기</a>
@@ -197,6 +197,8 @@
             <a href="<%=contextPath%>/list.mk" class="btn btn-secondary btn-sm" id="enrollBtn">목록</a>
         </div>
     </div>
+    
+
     
     <br><br><br><br><br>
 </body>

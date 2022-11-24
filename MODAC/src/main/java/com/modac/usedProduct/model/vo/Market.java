@@ -54,8 +54,8 @@ public class Market {
 		this.titleImg = titleImg;
 	}
 	
-	//상세페이지 생성자(게스트/작성자)
-	public Market(String postTitle, String postContent, Date createDate, String sale, String memberNo, String postNo) {
+	//상세페이지(게스트/작성자)
+	public Market(String postTitle, String postContent, Date createDate, String sale, String memberNo, String postNo,String memberNic ) {
 		super();
 		this.postTitle = postTitle;
 		this.postContent = postContent;
@@ -63,6 +63,7 @@ public class Market {
 		this.sale = sale;
 		this.memberNo = memberNo;
 		this.postNo = postNo;
+		this.memberNic = memberNic;
 	}
 	
 	//게시글조회 목록버전

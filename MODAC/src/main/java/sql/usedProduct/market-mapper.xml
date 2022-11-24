@@ -46,8 +46,9 @@
 			   POST_CONTENT,
 			   CREATE_DATE,
 			   SALE,
-			   MEMBER_NIC,
-			   POST_NO
+			   MEMBER_NO,
+			   POST_NO,
+			   MEMBER_NIC
 		FROM USED_PRODUCT U
 		JOIN MEMBER M USING(MEMBER_NO)
 		WHERE POST_NO = ? 
@@ -112,6 +113,12 @@
 		UPDATE ATTACHMENT
 		SET STATUS = 'Y'
 		WHERE BOARD_NO = ?
+	</entry>
+	
+	<!-- 게시글 수정 이미지 삭ㅈ -->
+	<entry key="deleteAtt">
+		DELETE ATTACHMENT
+		WHERE PHOTO_NO = ?
 	</entry>
 
 	<!-- 판매완료-->

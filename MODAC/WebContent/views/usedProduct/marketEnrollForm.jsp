@@ -52,10 +52,11 @@
 		outline: none;
 	}
 	.imgAtt{
-		border: 1px solid;
+		border: 1px solid white;
 		width: 93%;
 		margin: auto;
 		margin-top: 10;
+		text-align: left;
 	}
 	#backBtn{
 		float: left;
@@ -98,7 +99,7 @@
 				<br>
 				
 				<!-- 첨부파일 미리보기 -->
-				<div class="imgAtt" style="text-align: left;">
+				<div class="imgAtt">
 					<img id="titleImg"  width="180" height="130">
 					<img id="contentImg1" width="180" height="130">
 					<img id="contentImg2" width="180" height="130">

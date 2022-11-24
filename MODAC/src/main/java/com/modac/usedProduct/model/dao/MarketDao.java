@@ -195,8 +195,9 @@ public class MarketDao {
 						rset.getString("POST_CONTENT"),
 						rset.getDate("CREATE_DATE"),
 						rset.getString("SALE"),
-						rset.getString("MEMBER_NIC"),
-						rset.getString("POST_NO")
+						rset.getString("MEMBER_NO"),
+						rset.getString("POST_NO"),
+						rset.getString("MEMBER_NIC")
 						);
 			}
 		} catch (SQLException e) {
@@ -444,6 +445,31 @@ public class MarketDao {
 			psmt = conn.prepareStatement(sql);
 			
 			psmt.setString(1, postNo);
+			
+			psmt.executeUpdate();
+			
+			result = psmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(psmt);
+		}
+		return result;
+	}
+	
+	//마켓 첨부파일 수정 삭제
+	public int deleteAtt(String photoNo, Connection conn) {
+		int result = 0;
+		
+		PreparedStatement psmt = null;
+		
+		String sql = prop.getProperty("deleteAtt");
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1, photoNo);
 			
 			psmt.executeUpdate();
 			

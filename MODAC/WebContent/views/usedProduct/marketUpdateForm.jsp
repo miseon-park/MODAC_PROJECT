@@ -184,10 +184,9 @@
 			<script>
 				$(function(){
 					$("#deleteBtn1").click(function(photoNo){
-						
 						$.ajax({
 				            url : "<%= request.getContextPath() %>/delete.at",
-				            data : { photoNo : $("#titleImg").},
+				            data : { photoNo : <%=list.get(0).getPhotoNo() %> },
 				            success : function(result){
 				               //삭제성공시
 				               if(result == 1){
@@ -200,6 +199,22 @@
 				         })
 					})
 				})
+				$("#deleteBtn2").click(function(photoNo){
+					$.ajax({
+			            url : "<%= request.getContextPath() %>/delete.at",
+			            data : { photoNo : <%=list.get(1).getPhotoNo() %> },
+			            success : function(result){
+			               //삭제성공시
+			               if(result == 1){
+			                  alert("삭제에 성공했습니다");
+			                  location.reload();
+			               }else{
+			                  alert("삭제에 실패했습니다.");
+			               }
+			            }
+			         })
+				})	
+				
 			
 				<!-- 이미지 삭제버튼 -->
 // 				function deleteAttachment(photoNo){

@@ -160,7 +160,7 @@ public class MarketService {
 		return result;
 	}
 	
-	//게시글 삭제
+	//첨부파일 삭제
 	public int deleteAttachment(String postNo) {
 		Connection conn = getConnection();
 		
@@ -169,6 +169,23 @@ public class MarketService {
 		new MarketDao().deleteAttachment(postNo, conn);
 		
 		if(result >0) {
+			commit(conn);
+		}else{
+			rollback(conn);
+		}
+		close();
+		return result;
+	}
+	
+	//첨부파일 수정 삭제
+	public int deleteAtt(String photoNo) {
+		Connection conn = getConnection();
+		
+		int result = new MarketDao().deleteAtt(photoNo, conn);
+		
+		new MarketDao().deleteAtt(photoNo, conn);
+		
+		if(result > 0) {
 			commit(conn);
 		}else{
 			rollback(conn);
