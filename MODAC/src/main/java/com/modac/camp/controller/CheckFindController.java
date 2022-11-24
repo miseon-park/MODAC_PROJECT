@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.modac.camp.model.service.CampService;
 import com.modac.camp.model.vo.Camp;
+import com.modac.common.model.vo.PageInfo;
 
 /**
  * Servlet implementation class CheckFindController
@@ -34,6 +35,7 @@ public class CheckFindController extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
+		currentPage = Integer.parseInt(request.getParameter("currentPage") == null ? "1" : request.getParameter("currentPage"));
 		// 지역 검색
 		String loc1 = request.getParameter("loc1");
 		String loc2 = request.getParameter("loc2");
@@ -42,6 +44,7 @@ public class CheckFindController extends HttpServlet {
 		String [] item1 = request.getParameterValues("item1");
 		String pet = request.getParameter("pet");
 		System.out.println(loc1 + loc2+ item1 + pet);
+		
 		ArrayList<Camp> clist = new ArrayList<>();
 		
 		switch(loc1) {
@@ -66,23 +69,24 @@ public class CheckFindController extends HttpServlet {
 		
 		if(loc1.equals("z") && item1 == null && pet == null) {
 			
-			ArrayList<Camp> list = new CampService().selectCampList();
+			ArrayList<Camp> list = new CampService().selectCampList(pi);
 			
 			System.out.print(list);
 			
 			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);
 			request.getRequestDispatcher("views/camp/campSearch.jsp").forward(request, response);
 			
 		} else {
 			
-			if(item1 == null && pet == null) {
-				clist = new CampService().cSelect(loc1, loc2);
+			if(item1 == null && pet == null) { // 지역 검색
+				clist = new CampService().cSelect(loc1, loc2, pi);
 				System.out.println(clist);
-			} else if(loc1.equals("z")) {
-				clist = new CampService().cSelect(item1, pet);
+			} else if(loc1.equals("z")) { // 체크박스 검색
+				clist = new CampService().cSelect(item1, pet, pi);
 				System.out.println(clist);
-			} else {
-				clist = new CampService().cSelect(loc1, loc2, item1, pet);
+			} else { // 모든 검색 이용
+				clist = new CampService().cSelect(loc1, loc2, item1, pet, pi);
 				System.out.println(item1);
 			}
 			
@@ -90,6 +94,7 @@ public class CheckFindController extends HttpServlet {
 			System.out.println(loc2);
 			
 			request.setAttribute("clist", clist);
+			request.setAttribute("pi", pi);
 			request.getRequestDispatcher("views/camp/campCheckSearch.jsp").forward(request, response);
 			
 			

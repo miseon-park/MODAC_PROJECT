@@ -140,11 +140,11 @@ public class CampDao {
 	
 	
 	// 검색 박스 모두 사용
-	public ArrayList<Camp> cSelect(String loc1, String loc2, String [] item1, String pet, Connection conn) {
+	public ArrayList<Camp> cSelect(String loc1, String loc2, String [] item1, String pet, PageInfo pi, Connection conn) {
 		
 		ArrayList<Camp> clist = new ArrayList<>();
 		
-		if(item1==null) {
+		if(item1==null) { // 지역 + 펫 검색
 			
 			PreparedStatement psmt = null;
 			ResultSet rset = null;
@@ -153,10 +153,15 @@ public class CampDao {
 			try {
 				
 				psmt = conn.prepareStatement(sql);
+				
+				int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+				int endRow = startRow + pi.getBoardLimit()-1;
 			
 				psmt.setString(1, loc1);
 				psmt.setString(2, loc2);
 				psmt.setString(3, pet);
+				psmt.setInt(4, startRow);
+				psmt.setInt(5, endRow);
 				
 				rset = psmt.executeQuery();
 				
@@ -176,7 +181,7 @@ public class CampDao {
 			}
 			return clist;
 			
-		} else {
+		} else { // 모든 검색 기능 사용
 			
 			int c = item1.length;
 			
@@ -189,10 +194,16 @@ public class CampDao {
 				try {
 					psmt = conn.prepareStatement(sql);
 					
+					int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+					int endRow = startRow + pi.getBoardLimit()-1;
+					
 					psmt.setString(1, loc1);
 					psmt.setString(2, loc2);				
 					psmt.setString(3, item1[i]);
 					psmt.setString(4, pet);
+					psmt.setInt(5, startRow);
+					psmt.setInt(6, endRow);
+					
 					
 					System.out.println(loc1+", "+loc2+", "+item1[i]+", "+pet);
 					
@@ -221,7 +232,7 @@ public class CampDao {
 	
 	
 	// 지역 검색
-	public ArrayList<Camp> cSelect(String loc1, String loc2, Connection conn) {
+	public ArrayList<Camp> cSelect(String loc1, String loc2, PageInfo pi, Connection conn) {
 		
 			ArrayList<Camp> clist = new ArrayList<>();
 			
@@ -233,8 +244,13 @@ public class CampDao {
 				
 				psmt = conn.prepareStatement(sql);
 				
+				int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+				int endRow = startRow + pi.getBoardLimit()-1;
+				
 				psmt.setString(1, loc1);
 				psmt.setString(2, loc2);
+				psmt.setInt(3, startRow);
+				psmt.setInt(4, endRow);
 				
 				rset = psmt.executeQuery();
 				
@@ -259,12 +275,12 @@ public class CampDao {
 	
 	
 	// 체크박스 검색
-	public ArrayList<Camp> cSelect(String [] item1, String pet, Connection conn) {
+	public ArrayList<Camp> cSelect(String [] item1, String pet, PageInfo pi, Connection conn) {
 		
 		ArrayList<Camp> clist = new ArrayList<>();
 		
 		
-		if(item1==null) {
+		if(item1==null) { // 테마 체크박스를 사용 x 경우
 			
 			PreparedStatement psmt = null;
 			ResultSet rset = null;
@@ -273,7 +289,13 @@ public class CampDao {
 			try {
 				psmt = conn.prepareStatement(sql);
 				
+				int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+				int endRow = startRow + pi.getBoardLimit()-1;
+				
+				
 				psmt.setString(1, pet);
+				psmt.setInt(2, startRow);
+				psmt.setInt(3, endRow);
 				
 				System.out.println(pet);
 				
@@ -294,7 +316,7 @@ public class CampDao {
 				close(psmt);
 			}
 			return clist;
-		} else {
+		} else { 
 			int c = item1.length;
 			
 			// 반려동물 선택안했을 경우
@@ -308,7 +330,12 @@ public class CampDao {
 					try {
 						psmt = conn.prepareStatement(sql);
 						
+						int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+						int endRow = startRow + pi.getBoardLimit()-1;
+						
 						psmt.setString(1, item1[i]);
+						psmt.setInt(2, startRow);
+						psmt.setInt(3, endRow);
 						
 						System.out.println(item1[i]+", "+pet);
 						
@@ -340,9 +367,14 @@ public class CampDao {
 					
 					try {
 						psmt = conn.prepareStatement(sql);
+						
+						int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+						int endRow = startRow + pi.getBoardLimit()-1;
 									
 						psmt.setString(1, item1[i]);
 						psmt.setString(2, pet);
+						psmt.setInt(3, startRow);
+						psmt.setInt(4, endRow);
 						
 						System.out.println(item1[i]+", "+pet);
 						

@@ -55,12 +55,12 @@ public class CampService {
 	
 	
 	// 지역 검색
-	public ArrayList<Camp> cSelect(String loc1, String loc2) {
+	public ArrayList<Camp> cSelect(String loc1, String loc2, PageInfo pi) {
 		
 		Connection conn = getConnection();
 		ArrayList<Camp> clist = new ArrayList<>();
 		
-		clist = new CampDao().cSelect(loc1, loc2, conn);
+		clist = new CampDao().cSelect(loc1, loc2, pi, conn);
 		
 		close();
 		
@@ -70,12 +70,12 @@ public class CampService {
 	
 	
 	// 체크박스 검색
-	public ArrayList<Camp> cSelect(String [] item1, String pet) {
+	public ArrayList<Camp> cSelect(String [] item1, String pet, PageInfo pi) {
 		
 		Connection conn = getConnection();
 		ArrayList<Camp> clist = new ArrayList<>();
 		
-		clist = new CampDao().cSelect(item1, pet, conn);
+		clist = new CampDao().cSelect(item1, pet, pi, conn);
 		
 		close();
 		
@@ -85,12 +85,12 @@ public class CampService {
 	
 	
 	// 검색 모두 사용
-	public ArrayList<Camp> cSelect(String loc1, String loc2, String [] item1, String pet) {
+	public ArrayList<Camp> cSelect(String loc1, String loc2, String [] item1, String pet, PageInfo pi) {
 		
 		Connection conn = getConnection();
 		ArrayList<Camp> clist = new ArrayList<>();
 		
-		clist = new CampDao().cSelect(loc1, loc2, item1, pet, conn);
+		clist = new CampDao().cSelect(loc1, loc2, item1, pet, pi, conn);
 		
 		close();
 		

@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, com.modac.camp.model.vo.Camp"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.modac.camp.model.vo.Camp, com.modac.common.model.vo.PageInfo"%>
 <%
 	ArrayList<Camp> clist = (ArrayList<Camp>) request.getAttribute("clist");
+    PageInfo pi = (PageInfo) request.getAttribute("pi");
+
+    int currentPage = pi.getCurrentPage();
+    int startPage = pi.getStartPage();
+    int endPage = pi.getEndPage();
+    int maxPage = pi.getMaxPage();
 %>
 <!DOCTYPE html>
 <html>
@@ -130,6 +136,34 @@
     }
 
 
+    .paging-area {
+    	margin: 50px;
+    }
+    
+    .moveBtn{
+    	color: white;
+    	background-color: rgb(74,57,51);
+    	border : none;
+    	width: 80px;
+    	border-radius: 10px 10px 10px 10px / 10px 10px 10px 10px
+    }
+    .pageBtn{
+    	color: black;
+    	background-color: gainsboro;
+    	border-radius: 50%;
+    	border: gainsboro;
+    	width: 30px;
+    	height: 30px;
+    }
+    .pageBtn:hover{
+    	width: 30px;
+    	height: 30px;
+    	color: white;
+    	background-color: orange;
+    }
+
+
+
 
 </style>
 
@@ -256,6 +290,29 @@
     </div>
 
 
+    <!-- 페이징 처리 -->
+
+	<div align="center" class="paging-area">
+		<% if(currentPage != 1) {%>
+			<button class="moveBtn" onclick="doPageClick(<%=currentPage -1 %>)">&lt;이전</button>
+		<% } %>
+			
+		<% for(int i = startPage; i <= endPage; i++) { %>
+			<%if(i != currentPage) {%>
+				<button  class="pageBtn" onclick="doPageClick(<%=i%>)"><%=i %></button>
+			<%} else {%>
+				<button class="pageBtn" disabled><%= i %></button>
+			<%} %>
+		<% } %>
+			
+		<% if(currentPage != maxPage) { %>
+			<button class="moveBtn" onclick="doPageClick(<%=currentPage +1 %>)">&gt;다음</button>
+		<% } %>
+	</div>
+
+
+
+
     <script>
         // 지역 검색
         function changeLocation(e) {
@@ -336,6 +393,12 @@
             });
         })
 
+
+
+        // 페이징
+        function doPageClick(currentPage){
+			location.href ="<%=contextPath%>/campSearch.ca?currentPage="+currentPage;
+		}
 
 
 
