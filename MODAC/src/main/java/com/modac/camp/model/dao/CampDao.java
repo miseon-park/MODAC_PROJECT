@@ -29,7 +29,7 @@ public class CampDao {
 	}
 	
 	
-	// 페이징 처리
+	// 검색 x 페이징 처리
 	public int selectListCount(Connection conn) {
 		
 		int listCount = 0;
@@ -55,9 +55,222 @@ public class CampDao {
 		}
 		
 		return listCount;
+	}
+	
+	
+	
+	// 지역 검색 페이징 처리
+	public int locationListCount(String loc1, String loc2, Connection conn) {
+		int listCount = 0;
+		PreparedStatement psmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("locationListCount");
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1, loc1);
+			psmt.setString(2, loc2);
+			
+			rset = psmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("COUNT");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(psmt);
+		}
+		return listCount;
+	}
+	
+	
+	// 체크박스 페이징 처리
+	public int checkBoxListCount(String [] item1, String pet, Connection conn) {
+		
+		if(item1==null) { // 테마 체크박스를 사용 x 경우
+			
+			int listCount = 0;
+			PreparedStatement psmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("noCheckBoxCount");
+			
+			try {
+				psmt = conn.prepareStatement(sql);
+
+				psmt.setString(1, pet);
+				
+				rset = psmt.executeQuery();
+				
+				if(rset.next()) {
+					listCount = rset.getInt("COUNT");
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(psmt);
+			}
+			return listCount;
+		} else { 
+			int c = item1.length;
+			int [] listCount = new int [item1.length];
+			int sum = 0;
+			
+			// 반려동물 선택안했을 경우
+			if(pet == null) {
+				
+				for(int i=0; i<c; i++) {
+					PreparedStatement psmt = null;
+					ResultSet rset = null;
+					String sql = prop.getProperty("noPetBoxCount");
+					
+					try {
+						psmt = conn.prepareStatement(sql);
+						
+						psmt.setString(1, item1[i]);
+						
+						rset = psmt.executeQuery();
+						
+						if(rset.next()) {						
+							listCount[i] = rset.getInt("COUNT");
+						}
+						
+						sum += listCount[i];
+						
+					} catch (SQLException e) {
+						e.printStackTrace();
+					} finally {
+						close(rset);
+						close(psmt);
+					}
+				}
+				return sum;
+				
+			} else { // 둘다 선택했을 경우
+				for(int i=0; i<c; i++) {
+					
+					PreparedStatement psmt = null;
+					ResultSet rset = null;
+					String sql = prop.getProperty("boxCount");
+					
+					try {
+						psmt = conn.prepareStatement(sql);
+									
+						psmt.setString(1, item1[i]);
+						psmt.setString(2, pet);
+						
+						System.out.println(item1[i]+", "+pet);
+						
+						rset = psmt.executeQuery();
+						
+						if(rset.next()) {
+							listCount[i] = rset.getInt("COUNT");
+						}
+						
+						sum += listCount[i];
+						
+						
+					} catch (SQLException e) {
+						e.printStackTrace();
+					} finally {
+						close(rset);
+						close(psmt);
+					}
+				}
+				return sum;
+			}
+			
+		}
+	
+	}
+	
+	
+	
+	// 모든 검색 이용시 페이징 처리
+	public int allCount(String loc1, String loc2, String [] item1, String pet, Connection conn) {		
+		
+		if(item1==null) { // 지역 + 펫 검색
+			
+			int listCount = 0;
+			PreparedStatement psmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("locationPetCount");
+			
+			try {
+				
+				psmt = conn.prepareStatement(sql);
+				
+			
+				psmt.setString(1, loc1);
+				psmt.setString(2, loc2);
+				psmt.setString(3, pet);
+				
+				
+				rset = psmt.executeQuery();
+				
+				if(rset.next()) {
+					listCount = rset.getInt("COUNT");
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(psmt);
+			}
+			return listCount;
+			
+		} else { // 모든 검색 기능 사용
+			
+			int c = item1.length;
+			int [] listCount = new int [c];
+			int sum = 0;
+			
+			for(int i=0; i<c; i++) {
+						
+				PreparedStatement psmt = null;
+				ResultSet rset = null;
+				String sql = prop.getProperty("cCount");
+				
+				try {
+					psmt = conn.prepareStatement(sql);
+					
+					
+					psmt.setString(1, loc1);
+					psmt.setString(2, loc2);				
+					psmt.setString(3, item1[i]);
+					psmt.setString(4, pet);
+					
+					System.out.println(loc1+", "+loc2+", "+item1[i]+", "+pet);
+					
+					rset = psmt.executeQuery();
+					
+					if(rset.next()) {
+						listCount[i] = rset.getInt("COUNT");
+					}
+					
+					sum += listCount[i];
+					
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					close(rset);
+					close(psmt);
+				}
+			}
+			return sum;
+			
+		}
+		
 		
 	}
 	
+
 	
 	
 	

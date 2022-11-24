@@ -397,7 +397,8 @@
 
         // 페이징
         function doPageClick(currentPage){
-			location.href ="<%=contextPath%>/campSearch.ca?currentPage="+currentPage;
+            const queryString = window.location.search;
+			location.href ="<%=contextPath%>/campSearch.ca"+queryString+"&currentPage="+currentPage;
 		}
 
 

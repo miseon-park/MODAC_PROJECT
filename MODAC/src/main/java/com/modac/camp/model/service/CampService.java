@@ -14,7 +14,7 @@ public class CampService {
 	
 	
 	
-	// 페이징 처리
+	// 검색 x 페이징 처리
 	public int selectListCount() {
 		Connection conn = getConnection();
 		
@@ -24,6 +24,53 @@ public class CampService {
 		
 		return listCount;
 	}
+	
+	
+	
+	// 지역 검색 페이징 처리
+	public int locationListCount(String loc1, String loc2) {
+		Connection conn = getConnection();
+		
+		int listCount = new CampDao().locationListCount(loc1, loc2, conn);
+		
+		close();
+		
+		return listCount;
+		
+		
+	}
+	
+	
+	// 체크박스 검색 페이징 처리
+	public int checkBoxListCount(String [] item1, String pet) {
+		
+		Connection conn = getConnection();
+		
+		int listCount = new CampDao().checkBoxListCount(item1, pet, conn);
+		
+		close();
+		
+		return listCount;
+		
+	}
+	
+	
+	
+	// 모든 검색 이용시 페이징 처리
+	public int allCount(String loc1, String loc2, String [] item1, String pet) {
+		
+		Connection conn = getConnection();
+		
+		int listCount = new CampDao().allCount(loc1, loc2, item1, pet, conn);
+		
+		close();
+		
+		return listCount;
+		
+	}
+	
+	
+	
 	
 	
 	
