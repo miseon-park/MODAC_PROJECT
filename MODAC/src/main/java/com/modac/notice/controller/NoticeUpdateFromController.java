@@ -9,7 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.modac.common.Attachment;
+import com.modac.common.model.vo.Attachment;
+import com.modac.member.model.vo.Member;
 import com.modac.notice.model.service.NoticeService;
 import com.modac.notice.model.vo.Notice;
 
@@ -32,6 +33,13 @@ public class NoticeUpdateFromController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		if(!(request.getSession().getAttribute("loginMember") != null &&
+				((Member)request.getSession().getAttribute("loginMember")).getMemberLevel() == 10)){
+			request.setAttribute("errorMsg", "공지사항 수정 권한이 없습니다.");
+			request.getRequestDispatcher("views/common/errorPage2.jsp").forward(request, response);
+			return;
+		}
 		
 		String noticeNo = request.getParameter("nno");
 		

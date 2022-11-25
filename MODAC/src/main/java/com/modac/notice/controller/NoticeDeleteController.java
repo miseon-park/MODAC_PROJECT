@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.modac.member.model.vo.Member;
 import com.modac.notice.model.service.NoticeService;
 
 /**
@@ -29,14 +30,25 @@ public class NoticeDeleteController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		if(!(request.getSession().getAttribute("loginMember") != null &&
+				((Member)request.getSession().getAttribute("loginMember")).getMemberLevel() == 10)){
+			request.setAttribute("errorMsg", "공지사항 삭제 권한이 없습니다.");
+			request.getRequestDispatcher("views/common/errorPage2.jsp").forward(request, response);
+			return;
+		}
+		
 		String noticeNo = request.getParameter("nno");
 	
-		int result = new NoticeService().deleteNotice(noticeNo);
+		int result1 = new NoticeService().deleteNotice(noticeNo);
 		
-		if(result > 0) {
+		if(result1 > 0) {
 			request.getSession().setAttribute("alertMsg", "성공적으로 공지사항이 삭제되었습니다.");
 			response.sendRedirect(request.getContextPath()+"/noticeList");
+		}else {
+			request.setAttribute("errorMsg", "공지사항 삭제 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
+		
 	}
 
 	/**

@@ -7,6 +7,7 @@
 			POST_TITLE,
 			POST_CONTENT
 		FROM FAQ
+		WHERE STATUS = 'N'
 	</entry>
 	
 	<entry key="selectFaq">
@@ -16,6 +17,28 @@
 			POST_CONTENT
 		FROM FAQ
 		WHERE POST_NO = ?
+			AND STATUS = 'N'
+	</entry>
+	
+	<entry key="insertFaq">
+		INSERT INTO FAQ
+			(BOARD_NO, POST_NO, POST_TITLE, POST_CONTENT)
+		VALUES
+			(5, SEQ_FAQNO.NEXTVAL, ?, ?)
 	</entry>
 
+	<entry key="updateFaq">
+		UPDATE FAQ
+		SET POST_TITLE = ?,
+			POST_CONTENT = ?
+		WHERE POST_NO = ?
+			AND STATUS = 'N'
+		
+	</entry>
+
+	<entry key="deleteFaq">
+		UPDATE FAQ
+		SET STATUS = 'Y'
+		WHERE POST_NO = ?
+	</entry>
 </properties>

@@ -33,7 +33,25 @@
           width: 250px;
         }
 
-
+		 .foorm-control {
+	    display: block;
+	    width: 100%;
+	    padding: 0.375rem 0.75rem;
+	    font-size: 1rem;
+	    font-weight: 400;
+	    line-height: 1.5;
+	    color: #495057;
+	    background-color: #fff;
+	    background-clip: padding-box;
+	    border: 1px solid #ced4da;
+	    border-radius: 0.25rem;
+	    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+		}
+		
+		.list-area { 
+ 			width: 80%; 
+ 			margin: auto;
+ 			}
 </style>
 
 </head>
@@ -45,7 +63,7 @@
             <nav class="flex-column">
                 <a class="nav-link active" aria-current="page" href="<%=contextPath %>/noticeList"><h3>공지사항</h3></a><br><br>
                 <a class="nav-link" href="<%=contextPath %>/noticeList">모닥불 소식</a> <br>
-                <a class="nav-link" href="#">캠핑 팁</a> <br>
+                <a class="nav-link" href="<%=contextPath%>/campTipList">캠핑 팁</a> <br>
                 <a class="nav-link" href="<%=contextPath %>/qaList">Q&A</a> <br>
                 <a class="nav-link" href="<%=contextPath %>/faqList">FAQ</a> <br>
               </nav>
@@ -54,20 +72,24 @@
         <div class="content2">
           <br>
           <h3>Q&A</h3>
+          <div class="list-area">
           <br>
 			
-		  <form id="enroll-form" action="<%=contextPath %>/insert.qa" method="post">
-	          <div class="form-control" id="form-control">
-	          	<%-- <input type="hidden" name="userNo" value="<%=loginUser.getUserNo() %>"> --%>
+		  <form id="enroll-form" action="<%=contextPath %>/qaInsert" method="post" enctype="multipart/form-data">
+	          <div class="foorm-control" id="form-control">
+	          	 <input type="hidden" name="qaWriter" value="<%=loginMember.getMemberNo() %>">
 	
 	              <input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요." aria-label="title">
-	              <input type="file" class="form-control">
+	              <input type="file" class="form-control" name="upfile1" value="1">
+	              <input type="file" class="form-control" name="upfile2" value="2">
+	              <input type="file" class="form-control" name="upfile3" value="3">
+	              <input type="file" class="form-control" name="upfile4" value="4">
 	              <textarea class="form-control" style="height:500px;" name="content"></textarea>
                 <label>
-                  <input type='checkbox' id='my_checkbox' onclick='toggleTextbox(this)'/> 비밀글
+                  <input type='checkbox' value="Y" name="hiddenPost" id='my_checkbox' onclick='toggleTextbox(this)'/> 비밀글
                 </label>
                 
-                <input type='text' id='my_text' onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" disabled />
+                <input type='text' id='my_text' name="postPwd" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" disabled />
                
 	          </div>
 	          
@@ -85,6 +107,7 @@
         
 
         
+   	 </div>
     </div>
 
 

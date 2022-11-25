@@ -1,0 +1,35 @@
+0907 시험
+
+문제해결**
+rownum에 대해 정확히 이해하기
+
+서술형**
+1. 데이터베이스의 특징에 대해 설명하시오
+실시간 접근성, 계속적인 변화, 동시 공유, 내용에따른 참조
+
+2. ddl중 alter, create, drop에 대해 서술하시오
+
+3. join inner, outer, cross
+
+4. substr?
+
+5. 날짜관련 변환문제 -> 많음
+
+6. DBMS에서 사용하는 용어중 데이터를 일종의 표 형태로 표현한 것을 무엇이라고 하는지 서술하시오.
+: table
+select 조회결과를 표형태로 표현한 것? resultset
+
+7. 함수 많음
+
+8. SET OPERATOR UNION ? UNION ALL? INTERSECT, MINUS -> 3문제 이상
+
+9.  쿼리문 작성
+조건 봉급인상 기준을 제시해서 SELECT문으로 인상된 봉급을 조회하시오
+
+10. DECODE -> CASE문으로 변경
+
+11. ROLLUP과 CUBE함수에 대해 설명하시오
+ROLLUP : 그룹별로 중간집계 처리하는 함수
+CUBE : 그룹별로 산출한 결과를 집계하는 함수
+
+

@@ -13,8 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import com.modac.common.Attachment;
-import com.modac.common.MyFileRenamePolicy;
+import com.modac.common.model.vo.Attachment;
+import com.modac.common.model.vo.MyFileRenamePolicy;
+import com.modac.member.model.vo.Member;
 import com.modac.notice.model.service.NoticeService;
 import com.modac.notice.model.vo.Notice;
 import com.oreilly.servlet.MultipartRequest;
@@ -39,6 +40,13 @@ public class NoticeInsertController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		if(!(request.getSession().getAttribute("loginMember") != null &&
+				((Member)request.getSession().getAttribute("loginMember")).getMemberLevel() == 10)){
+			request.setAttribute("errorMsg", "공지사항 등록 권한이 없습니다.");
+			request.getRequestDispatcher("views/common/errorPage2.jsp").forward(request, response);
+			return;
+		}
+		
 		request.setCharacterEncoding("UTF-8");
 		
 		// enctype
@@ -62,55 +70,14 @@ public class NoticeInsertController extends HttpServlet {
 			
 			Notice n = new Notice();
 			
-			
 			n.setNoticeCategory(categoryNo);
 			n.setNoticeTitle(noticeTitle);
 			n.setNoticeContent(noticeContent);
 			n.setNoticeWriter(writer);
 			
-//			Attachment at = null;
-//			
-//			// multiRequest.getOriginalFileName("키")
-//			if(multiRequest.getOriginalFileName("upfile") != null) {
-//				at = new Attachment();
-//				at.setOriginName(multiRequest.getOriginalFileName("upfile")); // 원본명
-//				at.setNewName(multiRequest.getFilesystemName("upfile")); // 수정명
-//				at.setPath("resources/notice_upfiles/");
-//			}
-//			
-//			// 4. 서비스 요청
-//			int result = new NoticeService().insertNotice(n, at);
-//			
-//			if(result > 0) { // 성공
-//				request.getSession().setAttribute("alertMsg", "게시글 작성 성공");
-//				response.sendRedirect(request.getContextPath() + "/noticeList");
-//			}else { // 실패시
-//				if(at != null) {
-//					new File(savePath + at.getNewName()).delete();
-//				}
-//				request.setAttribute("errorMsg", "게시글 작성 실패");
-//				
-//			}
-			
 			 
 			ArrayList<Attachment> list = new ArrayList<>();
-//			Enumeration e = multiRequest.getFileNames();
-//			int i =1;
-//			while(e.hasMoreElements()) {
-//				// 첨부파일이 있는 경우
-//				// Attachment 객체 생성 + 원본명, 수정명, 파일경로 + 파일레벨 담기
-//				// list에 추가하기
-//				Attachment at = new Attachment();
-//				String key = (String)e.nextElement();
-//				System.out.println(key);
-//				
-//				at.setOriginName(multiRequest.getOriginalFileName(key));
-//				at.setNewName(multiRequest.getFilesystemName(key));
-//				at.setPath("/resources/notice_upfiles/");
-//				at.setFileLevel(i++);
-//
-//				list.add(at);
-//			}
+
 			for (int i = 1; i <= 4; i++) { // 파일의 갯수는 최대 4개. file1, file2, file3, file4
 
 				String key = "upfile" + i;
@@ -137,7 +104,7 @@ public class NoticeInsertController extends HttpServlet {
 				request.getSession().setAttribute("alertMsg", "성공적으로 업로드 되었습니다.");
 				response.sendRedirect(request.getContextPath() + "/noticeList");
 			} else { // 실패 => 에러페이지
-				request.setAttribute("errorMsg", "사진게시판 업로드 실패");
+				request.setAttribute("errorMsg", "공지사항 업로드 실패");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			}
 			

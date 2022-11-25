@@ -43,6 +43,11 @@
 			    border-radius: 0.25rem;
 			    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 		}
+		
+		.list-area { 
+ 			width: 80%; 
+ 			margin: auto;
+ 			}
 </style>
 
 </head>
@@ -54,7 +59,7 @@
             <nav class="flex-column">
                 <a class="nav-link active" aria-current="page" href="<%=contextPath %>/noticeList"><h3>공지사항</h3></a><br><br>
                 <a class="nav-link" href="<%=contextPath %>/noticeList">모닥불 소식</a> <br>
-                <a class="nav-link" href="#">캠핑 팁</a> <br>
+                <a class="nav-link" href="<%=contextPath%>/campTipList">캠핑 팁</a> <br>
                 <a class="nav-link" href="<%=contextPath %>/qaList">Q&A</a> <br>
                 <a class="nav-link" href="<%=contextPath %>/faqList">FAQ</a> <br>
               </nav>
@@ -62,6 +67,7 @@
 
         <div class="content2">
           <br>
+          <div class="list-area">
           <h3>모닥불 소식</h3>
           <br>
 			
@@ -103,7 +109,7 @@
 
         </div>
         
-
+		</div>
         
     </div>
 

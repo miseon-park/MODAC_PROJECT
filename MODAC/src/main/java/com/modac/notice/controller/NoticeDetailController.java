@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.modac.common.Attachment;
+import com.modac.common.model.vo.Attachment;
 import com.modac.notice.model.service.NoticeService;
 import com.modac.notice.model.vo.Notice;
 

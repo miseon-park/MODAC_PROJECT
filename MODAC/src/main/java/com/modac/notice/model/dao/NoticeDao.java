@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
-import com.modac.common.Attachment;
+import com.modac.common.model.vo.Attachment;
+import com.modac.common.model.vo.PageInfo;
 import com.modac.notice.model.vo.Notice;
 
 import static com.modac.common.JDBCTemplate.*;
@@ -34,8 +35,34 @@ public class NoticeDao {
 		}
 	}
 	
+	public int selectListCount(Connection conn) {
+
+		int listCount = 0;
+		PreparedStatement psmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectListCount");
+
+		try {
+			psmt = conn.prepareStatement(sql);
+
+			rset = psmt.executeQuery();
+
+			if (rset.next()) {
+				listCount = rset.getInt("COUNT");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(psmt);
+		}
+		return listCount;
+
+	}
+
 	
-	public ArrayList<Notice> selectNoticeList(Connection conn){
+	public ArrayList<Notice> selectNoticeList(Connection conn,  PageInfo pi, String field, String query){
 	
 		// select문 = > ResultSet객체(여러행)
 		ArrayList<Notice> list = new ArrayList<>();
@@ -45,11 +72,17 @@ public class NoticeDao {
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("selectNoticeList");
+		sql = sql.replace("$", field);
 		
 		try {
 			psmt = conn.prepareStatement(sql);
 			
-			psmt.executeQuery();
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			
+			psmt.setString(1, "%"+query+"%");
+			psmt.setInt(2, startRow);
+			psmt.setInt(3, endRow);
 			
 			rset = psmt.executeQuery();
 			
@@ -68,6 +101,7 @@ public class NoticeDao {
 			close(rset);
 			close(psmt);
 		}
+		System.out.println("list : " + list);
 		return list;
 	}
 	
@@ -287,7 +321,7 @@ public class NoticeDao {
 		} finally {
 			close(psmt);
 		}
-		System.out.println("result : " + result);
+		System.out.println("result1 : " + result);
 
 		return result;
 	}
@@ -319,7 +353,7 @@ public class NoticeDao {
 		} finally {
 			close(psmt);
 		}
-		System.out.println("result: " + result);
+		System.out.println("result2: " + result);
 
 		return result;
 	}
@@ -348,7 +382,7 @@ public class NoticeDao {
 		} finally {
 			close(psmt);
 		}
-		System.out.println("result: " + result);
+		System.out.println("result3 : " + result);
 
 		return result;
 	}
@@ -376,7 +410,29 @@ public class NoticeDao {
 		return result;
 	}
 	
-	
+	   public int deleteAttachment(String photoNo, Connection conn) {
+		      
+		      int result = 0;
+		   	
+		      PreparedStatement psmt = null;
+		      
+		      String sql = prop.getProperty("deleteAttachment");
+		      
+		      try {
+		         psmt = conn.prepareStatement(sql);
+		         
+		         psmt.setString(1, photoNo);
+		         
+		         psmt.executeUpdate();
+		         
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }finally {
+		         close(psmt);
+		      }
+		      
+		      return result;
+		   }
 	
 	public ArrayList<Attachment> selectAttachmentList(Connection conn, String noticeNo) {
 		
@@ -398,6 +454,7 @@ public class NoticeDao {
 				at.setOriginName(rset.getString("ORIGIN_NAME"));
 				at.setNewName(rset.getString("NEW_NAME"));
 				at.setPath(rset.getString("PATH"));
+				at.setFileLevel(rset.getInt("FILE_LEVEL"));
 				
 				list.add(at);
 			}

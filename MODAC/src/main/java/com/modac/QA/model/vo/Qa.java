@@ -48,8 +48,7 @@ public class Qa {
 	}
 
 	// 디테일
-	public Qa(String qaNo, String qaTitle, String qaContent, String memberNic, Date createDate, String hiddenPost,
-			String postPwd) {
+	public Qa(String qaNo, String qaTitle, String qaContent, String memberNic, Date createDate, String hiddenPost) {
 		super();
 		this.qaNo = qaNo;
 		this.qaTitle = qaTitle;
@@ -57,7 +56,6 @@ public class Qa {
 		this.memberNic = memberNic;
 		this.createDate = createDate;
 		this.hiddenPost = hiddenPost;
-		this.postPwd = postPwd;
 	}
 
 	public String getBoardNo() {

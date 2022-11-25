@@ -27,6 +27,21 @@
 		padding: 50px 200px 20px;
 		float: left;
 	}
+	
+	.foorm-control {
+	    display: block;
+	    width: 100%;
+	    padding: 0.375rem 0.75rem;
+	    font-size: 1rem;
+	    font-weight: 400;
+	    line-height: 1.5;
+	    color: #495057;
+	    background-color: #fff;
+	    background-clip: padding-box;
+	    border: 1px solid #ced4da;
+	    border-radius: 0.25rem;
+	    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+		}
 </style>
 </head>
 <body>
@@ -38,17 +53,17 @@
                 <nav class="flex-column">
                     <a class="nav-link active" aria-current="page" href="<%=contextPath %>/noticeList"><h3>공지사항</h3></a> <br><br>
                     <a class="nav-link" href="<%=contextPath %>/noticeList">모닥불 소식</a> <br>
-                    <a class="nav-link" href="#">캠핑팁</a> <br>
+                    <a class="nav-link" href="<%=contextPath%>/campTipList">캠핑 팁</a> <br>
                     <a class="nav-link" href="<%=contextPath%>/qaList">Q&A</a> <br>
                     <a class="nav-link" href="<%=contextPath %>/faqList">FAQ</a>
                 </nav>
             </div>
         <div class="content2">
-            <h3 style="text-align: center;">FAQ</h3>
+            <h3>FAQ</h3>
             <br>
            
-           <form id="enroll-form" action="<%=contextPath %>/noticeInsert" method="post">
-	          <div class="form-control" id="form-control">
+           <form id="enroll-form" action="<%=contextPath %>/faqInsert" method="post">
+	          <div class="foorm-control" id="form-control">
 	              <input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요." aria-label="title">
 	              <br>
 	              <textarea class="form-control" style="height:500px;" name="content"></textarea>

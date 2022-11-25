@@ -12,8 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import com.modac.common.Attachment;
-import com.modac.common.MyFileRenamePolicy;
+import com.modac.common.model.vo.Attachment;
+import com.modac.common.model.vo.MyFileRenamePolicy;
+import com.modac.member.model.vo.Member;
 import com.modac.notice.model.service.NoticeService;
 import com.modac.notice.model.vo.Notice;
 import com.oreilly.servlet.MultipartRequest;
@@ -38,6 +39,13 @@ public class NoticeUpdateController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		if(!(request.getSession().getAttribute("loginMember") != null &&
+				((Member)request.getSession().getAttribute("loginMember")).getMemberLevel() == 10)){
+			request.setAttribute("errorMsg", "공지사항 수정 권한이 없습니다.");
+			request.getRequestDispatcher("views/common/errorPage2.jsp").forward(request, response);
+			return;
+		}
+		
 		request.setCharacterEncoding("UTF-8");
 
 		if (ServletFileUpload.isMultipartContent(request)) {
@@ -67,6 +75,7 @@ public class NoticeUpdateController extends HttpServlet {
 			ArrayList<Attachment> list = new ArrayList<>();
 			for(int i = 1 ; i<=4; i++) {
 				String key = "upfile" + i;
+				//현재 글번호로 등록된 첨부파일 전체 삭제 				
 				if (multiRequest.getOriginalFileName(key) != null) {
 					
 					// 3가지 공통적으로 필요한 변수 셋팅
@@ -74,6 +83,7 @@ public class NoticeUpdateController extends HttpServlet {
 					at.setOriginName(multiRequest.getOriginalFileName(key));
 					at.setNewName(multiRequest.getFilesystemName(key));
 					at.setPath("resources/notice_upfiles/");
+					at.setFileLevel(i);
 					
 					// 첨부파일이 있을경우 원본파일의 파일번호, 수정명을 hidden으로 넘겨받았음.
 					if (multiRequest.getParameter("originFileNo"+i) != null) {
@@ -99,10 +109,8 @@ public class NoticeUpdateController extends HttpServlet {
 			// 모두 하나의 트랜잭션으로 처리하기.
 			int result = new NoticeService().updateNotice(n, list);
 			// case1 : 새로운 첨부파일이 없는경우(x) => c, null =>Board Update만 실행
-			// case2 : 새로운 첨부파일이 있는경우(o), 기존 첨부파일도 있는경우(o) => b, at에 fileNo => Board Update,
-			// Attachment update 두번실행
-			// case3 : 새로운 첨부파일 있는경우(o), 기존 첨부파일은 없는경우(x) => b, at에 refNo = >Board update,
-			// Attachment Insert
+			// case2 : 새로운 첨부파일이 있는경우(o), 기존 첨부파일도 있는경우(o) => b, at에 fileNo => Board Update, Attachment update 두번실행
+			// case3 : 새로운 첨부파일 있는경우(o), 기존 첨부파일은 없는경우(x) => b, at에 refNo = >Board update, Attachment Insert
 
 			if (result > 0) { // 수정성공=>상세조회 페이지
 				request.getSession().setAttribute("alertMsg", "성공적으로 수정되었습니다.");

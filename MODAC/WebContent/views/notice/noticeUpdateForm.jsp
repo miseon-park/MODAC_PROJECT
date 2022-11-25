@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.modac.notice.model.vo.Notice, com.modac.common.Attachment, java.util.ArrayList"%>
+    pageEncoding="UTF-8" import="com.modac.notice.model.vo.Notice, com.modac.common.model.vo.Attachment, java.util.ArrayList"%>
     
 <%
 	Notice n = (Notice)request.getAttribute("n");
 	//Attachment at = (Attachment)request.getAttribute("at");
 	ArrayList<Attachment> list = (ArrayList<Attachment>)request.getAttribute("list");
+	String[] filePath = {"", "", "", "", ""};
 %>
 <!DOCTYPE html>
 <html>
@@ -22,9 +23,9 @@
         }
 
         .content2{
-          width: 80%;
-		      padding: 50px 50px 20px;
-		      float: left;
+          	width: 80%;
+		    padding: 50px 50px 20px;
+			float: right;
         }
         .form-control {
           margin: 5px;
@@ -49,6 +50,15 @@
 					    border-radius: 0.25rem;
 					    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 		}
+
+		.btn-close{
+			float : right;
+		}
+
+		.list-area { 
+ 			width: 80%; 
+ 			margin: auto;
+ 			}
 </style>
 
 </head>
@@ -60,7 +70,7 @@
             <nav class="flex-column">
                 <a class="nav-link active" aria-current="page" href="<%=contextPath %>/noticeList"><h3>공지사항</h3></a><br><br>
                 <a class="nav-link" href="<%=contextPath %>/noticeList">모닥불 소식</a> <br>
-                <a class="nav-link" href="#">캠핑 팁</a> <br>
+                <a class="nav-link" href="<%=contextPath%>/campTipList">캠핑 팁</a> <br>
                 <a class="nav-link" href="<%=contextPath%>/qaList">Q&A</a> <br>
                 <a class="nav-link" href="<%=contextPath%>/faqList">FAQ</a> <br>
               </nav>
@@ -68,12 +78,13 @@
 
         <div class="content2">
           <br>
+          <div class="list-area">
           <h3>모닥불 소식</h3>
           <br>
 			
 		  <form id="enroll-form" action="<%=contextPath %>/updateNotice" method="post" enctype="multipart/form-data">
 	          <div class="foorm-control" id="form-control">
-	          	 <input type="hidden" name="userNo" value="<%=loginMember.getMemberNic() %>">
+<%-- 	          	 <input type="hidden" name="userNo" value="<%=loginMember.getMemberNic() %>"> --%>
 	          	 
 	              <select class="form-select" name="categoryNo" aria-label="noticeSelect">
 	                <option <% if(n.getNoticeCategory() == 1 ) { %>
@@ -88,27 +99,66 @@
 	              
 	              <textarea class="form-control" style="height:500px;" name='content'><%=n.getNoticeContent() %></textarea>
 	              
-	              <img id="titleImg" width="250" height="180" style="border:1px solid white;">
-	              <img id="contentImg1" width="250" height="180" style="border:1px solid white;">
-	              <img id="contentImg2" width="250" height="180" style="border:1px solid white;">
-	              <img id="contentImg3" width="250" height="180" style="border:1px solid white;"> <br>
-	             
 	              <%if(!list.isEmpty()){ %>
 	              <% int i = 1; 
+	              
 	              	 for(Attachment at : list){ 
+	              		 
+	              		 int index = at.getFileLevel();
+	              		 filePath[index] = contextPath + "/" + at.getPath() + at.getNewName();
 	              %>
-                  <%= at.getOriginName() %>
+                 
                   <!-- 원본파일의 파일번호, 수정명을 hidden으로 넘길것. -->
                   <input type="hidden" name="originFileNo<%=i %>" value="<%=at.getPhotoNo()%>">
                   <input type="hidden" name="originFileName<%=i %>" value="<%=at.getNewName()%>">
                <% i++;
                	  }	 
 	              }%>
-                 <input type="file" class="form-control" name="upfile1" value="1" onchange="loadImg(this, 1);">
-                 <input type="file" class="form-control" name="upfile2" value="2" onchange="loadImg(this, 2);">
-                 <input type="file" class="form-control" name="upfile3" value="3" onchange="loadImg(this, 3);">
-                 <input type="file" class="form-control" name="upfile4" value="4" onchange="loadImg(this, 4);">
 	              
+	              <table>
+	              	<tr>
+	              	
+		              	<% if(list.isEmpty()) {%>
+	              		<th>
+								첨부파일 없음
+	              		</th>
+						<%}else{
+					  			int i = 1;%>
+						<% for(Attachment at : list){ %>
+	              		<th>
+							<input type="text" value="<%= at.getOriginName() %>" style="border: none; background: transparent; pointer-events: none;" readonly>
+							<input type="button" class="btn-close" id="deleteBtn<%=i %>" aria-label="Close" onclick="deleteAttachment();">
+	              		</th>
+						<%	i++;
+				  		} %>
+						<%} %>
+	              	</tr>
+	              	<tr>
+	              		<td>
+							 <img id="titleImg" src="<%=filePath[1] %>" value="1" width="210" height="180" style="border:1px solid white;">	              		
+	              		</td>
+	              		<td>
+	              			<img id="contentImg1" <%if(!filePath[2].equals("")){ %>src="<%=filePath[2] %>" <%} %> value="2" width="210" height="180" style="border:1px solid white;">
+	              		</td>
+	              		<td>
+	              			<img id="contentImg2" <%if(!filePath[3].equals("")){ %>src="<%=filePath[3] %>" <%} %>  value="3" width="210" height="180" style="border:1px solid white;">
+	              		</td>
+	              		<td>
+	              			<img id="contentImg3" <%if(!filePath[4].equals("")){ %>src="<%=filePath[4] %>" <%} %>  value="4" width="210" height="180" style="border:1px solid white;"> <br>
+	              		</td>
+	              	</tr>
+	              </table>
+	             
+	      
+	             
+				<div class="file-area">
+					<div class="inputFile" style="width: 550px;">
+		                 <input type="file" class="form-control" name="upfile1" value="1" id="file1" onchange="loadImg(this, 1);">
+		                 <input type="file" class="form-control" name="upfile2" value="2" id="file2" onchange="loadImg(this, 2);">
+		                 <input type="file" class="form-control" name="upfile3" value="3" id="file3" onchange="loadImg(this, 3);">
+		                 <input type="file" class="form-control" name="upfile4" value="4" id="file4" onchange="loadImg(this, 4);">
+					</div>
+				</div>
 	              <input type='hidden' name='nno' value='<%= n.getNoticeNo() %>'>
 	          </div>
 	          
@@ -123,8 +173,8 @@
 		  </form>
 
         </div>
-        
-
+		<br clear="both">
+    </div>
     </div>
 
 	<script>
@@ -209,6 +259,28 @@
 			}
 
 		}
+		
+		
+		function deleteAttachment(fileNo){
+			$.ajax({
+				url : "<%= request.getContextPath() %>/delete.at",
+				data : {file_no : file_no},
+				success : function(result){
+					//삭제성공시
+					if(result == 1){
+						alert("삭제에성공했습니다");
+						location.reload();
+					}else{
+						alert("삭제에 실패했습니다.");
+					}
+					
+				}
+				
+				
+			})
+			
+		}
+		
 	</script>
 
  

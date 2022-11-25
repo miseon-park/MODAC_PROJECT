@@ -20,20 +20,22 @@
 
 			UNION ALL
 	
-			SELECT *
-			FROM 
-				(SELECT 
-	            ROWNUM,
-	            POST_NO,
-	            CATEGORY_NO,
-	            NOTICE_TITLE,
-	            WRITER,
-	            CREATE_DATE,
-	            READ_COUNT
-			FROM NOTICE N 
-			JOIN MEMBER M ON (MEMBER_NIC = WRITER)
-			WHERE M.STATUS = 'N' AND N.STATUS = 'N' AND CATEGORY_NO = '1' AND MEMBER_LEVEL = 10
-			ORDER BY CREATE_DATE DESC, POST_NO DESC) X
+			SELECT * 
+			FROM (
+					SELECT ROWNUM RNUM, A.*
+					FROM (SELECT 
+	            			POST_NO,
+	            			CATEGORY_NO,
+	            			NOTICE_TITLE,
+	            			WRITER,
+	            			CREATE_DATE,
+	            			READ_COUNT
+                			FROM NOTICE N 
+					JOIN MEMBER M ON (MEMBER_NIC = WRITER)
+					WHERE M.STATUS = 'N' AND N.STATUS = 'N' AND CATEGORY_NO = '1' AND MEMBER_LEVEL = 10 AND  $ LIKE ?
+            		ORDER BY CREATE_DATE DESC, POST_NO DESC) A
+		     )
+			WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
 	<entry key="increaseCount">
@@ -107,7 +109,6 @@
 			CATEGORY_NO = ?
 		WHERE POST_NO = ?
 			AND STATUS = 'N'
-	
 	</entry>
 	
 	<entry key="deleteNotice">
@@ -116,14 +117,22 @@
 		WHERE POST_NO = ?
 	</entry>
 	
+	<entry key="deleteAttachment">
+		UPDATE ATTACHMENT
+		SET STATUS = 'Y'
+		WHERE POST_NO = ?
+	</entry>
+	
 	<entry key="selectAttachment">
 		SELECT PHOTO_NO,
 		       ORIGIN_NAME,
 		       NEW_NAME,
-		       PATH
+		       PATH,
+		       FILE_LEVEL
 		FROM ATTACHMENT
 		WHERE BOARD_NO = 2
 		  AND POST_NO = ?
+		  AND STATUS = 'N'
 	</entry>
 	
 	<entry key="updateAttachment">
@@ -135,6 +144,14 @@
          FILE_LEVEL = ?
       WHERE PHOTO_NO = ? 
 	</entry>
+	
+	<entry key="selectListCount">
+		SELECT COUNT(*) COUNT
+		FROM NOTICE N 
+		JOIN MEMBER M ON (MEMBER_NIC = WRITER)
+		WHERE M.STATUS = 'N' AND N.STATUS = 'N' AND CATEGORY_NO = '1' AND MEMBER_LEVEL = 10
+	</entry>
+	
 	
 </properties>
 

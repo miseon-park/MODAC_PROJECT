@@ -1,0 +1,104 @@
+* 트리거 : 
+내가 저장한 테이블에 INSERT, UPDATE, DELETET등의 DML문에 의해 변경사항이 생길 때
+자동으로 매번 실행할 내용을 미리 정의해 둘 수 있는 객체
+
+* 시퀀스 :
+    자동으로 번호를 발생시켜주는 역할을 하는 객체 (자동번호 부여기)
+    정수값을 자동으로 순차적으로 발생시켜줌(연속된 숫자로)
+
+* 뷰: 
+    SELECT 문을 저장해 둘 수 있는 객체
+    (자주 쓰일 긴 SELECT문을 VIEW에 저장해두면 매번 긴 SELECT문을 다시 기술할 필요가 없음)
+    -> 조회용 임시 테이블 같은 존재 (실제 데이터가 담겨있지는 않음)
+
+** ON DELETE CASCADE
+옵션을 적용하면 부모 테이블에서 row 를 삭제할 경우 연결된 자식 테이블의 row 가 함께 삭제됩니다. 
+연결된 데이터를 한 번에 지울 수 있어 데이터의 관리가 편리해지고 일관성을 유지할 수 있습니다.
+ON DELETE CASCADE 는 테이블의 생성 시, 다시 말해 CREATE TABLE 명령어를 사용해 테이블을 생성할 때 적용
+
+** ON DELETE SET NULL
+참조되는 부모 테이블의 행에 대한 DELETE를 허용한다.
+부모 테이블 값이 삭제되면 해당 참조하는 자식 테이블의 값들은
+NULL값으로 설정된다.
+
+DDL (DATA DEFINITION LANGUAGE) : 데이터 정의 언어
+    오라클에서 제공하는 객체 (OBJECT)를
+    새로이 만들고 (CREATE), 구조를 변경하고 (ALTER), 구조 자체를 삭제 (DROP)하는 명령문
+    즉, 구조 자체를 정의하는 언어로 DB관리자, 설계자가 사용함
+
+ DML (DATA MANIPULATION LANGUAGE) : 데이터 조작 언어
+    테이블에 새로운 데이터를 삽입(INSERT)하거나
+    기존의 데이터를 수정(UPDATE)하거나
+    삭제(DELETE) 하는 구문
+
+DCL(DATA CONTROL LANGUAGE) : 데이터 제어 언어
+    계정에서 시스템권한 또는 객체접근권한을 부여(GRANT)하거나 회수 하는 언어
+
+-- INDEXTEST 아이디 계정 생성
+CREATE USER INDEXTEST IDENTIFIED BY INDEXTEST; -- 관리자 계정
+-- RESOURCE, CONNECT 권한부여
+GRANT RESOURCE, CONNECT TO INDEXTEST;
+
+
+** 제약조건
+ 1. NOT NULL 제약 조건
+    해당 칼럼에 반드시 값이 존재해야만 할 때 사용
+
+ 2. UNIQUE 제약조건
+        컬럼에 중복값을 제한하는 제약조건.
+        삽입 / 수정 시 기존에 해당 칼럼값 중에 중복된 값이 있는 경우
+        추가 또는 수정이 되지 않게끔 제약 시킴 
+
+3. CHECK 제약 조건
+        컬럼에 기록될 수 있는 값에 대한 조건을 설정할 수 있다.
+        EX) 성멸 '남' 또는 '여' 만 들어오게끔 하고 싶다.
+
+4. PRIMARY KEY (기본키) 제약조건
+        테이블에서 각 행들의 정보를 유일하게 식별 할 수 있는 칼럼에 부여하는 제약조건
+  => 식별자의 조건 : 중복되어서는 안됨, 값이 없으면 안됨 => (NOT NULL + UNIQUE)
+
+5. FOREIGN KEY (외래키)
+        해당 칼럼에 다른 테이블에 존재하는 값만 들어와야 하는 컬럼에 부여하는 제약 조건
+        => "다른 테이블(부모테이블)을 참조한다" 라고 표현
+            즉, 참조된 다른 테이블 (부모테이블)이 제공하는 있는 값만 들어올 수 있다.
+
+6. DEFAULT 설정
+        특정 칼럼에 들어온 값에 대한 기본값 설정 가능
+        제약조건은 아님. 제약조건 앞에 기술
+
+** 제약조건 추가
+        - PRIMARY KEY : ADD PRIMARY KEY(컬럼명);
+        - FOREIGN KRY : ADD FOREIGN KEY(컬럼명) REFERENCES 참조할 테이블명[(참조할 컬럼명)]
+        - UNIQUE : ADD UNIQUE (컬럼명)
+        - CHECK : ADD CHECK(컬럼에 대한 조건);
+        - NOT NULL : MODIFY 컬럼명 NOT NULL;
+		ALTER TABLE DEPT_COPY
+		ADD PRIMARY KEY(DEPT_ID)
+		ADD CONSTRAINT DCOPY_UQ UNIQUE(DEPT_TITLE)
+		MODIFY LNAME NOT NULL;
+
+** 제약조건 삭제 
+    PRIMARY KEY , FOREIGN KEY, UNIQUE, CHECK : DROP CONSTRAINT 제약조건명;
+    NOT NULL : MODIFY 컬럼명 NULL;
+	ALTER TABLE DEPT_COPY DROP CONSTRAINT DCOPY_UQ;
+
+
+** rollback; 
+ROLLBACK은 해당 내가 수행한 내용을 COMMIT 전의 내용으로 모두 돌리는 것
+DDL 문장의 경우는 롤백을 적용하는 의미가 없다. 
+DDL 문장은 종료되는 순간에 이미 자동적으로 커밋이 발생하기 때문에 다시 롤백한다는 개념을 적용할 수 없다.
+
+** union / union all
+UNON은 합집합을 의미한다. 2개 이상의 SELECT문 결과 집합을 결합하는 데 사용되며 SELECT 문 사이의 중복 행을 제거한다
+2 개 이상의 SELECT문 결과 집합을 결합하는 데 사용된다. 쿼리에서 모든 행을 반환하며 다양한 SELECT 문 사이의 중복 행을 제거하지 않는다.
+ ! 주의 !
+집합 연산자로 연결되는 각 SELECT문의 SELECT 리스트의 개수와 데이터 타입은 일치해야 한다
+
+
+** 서브 쿼리
+    서브쿼리를 수행한 결과값이 몇열이냐에 따라서 분류됨
+    - 단일행(단일 열) 서브쿼리 : 서브쿼리를 수행한 결과값이 오로지 1개일때(한칸의 컬럼값으로 나올때)
+    - 다중행(단일 열) 서브쿼리 : 서브쿼리를 수행한 결과값이 여러 행 일때
+    - (단일행) 다중열 서브쿼리 : 서브쿼리를 수행한 결과값이 여러 열 일때
+    - 다중행 다중열 서브쿼리 : 서브쿼리를 수행한 결과값이 여러 행 여러 열 일 때
+

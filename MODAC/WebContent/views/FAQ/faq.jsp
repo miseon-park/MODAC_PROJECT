@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList , com.modac.FAQ.model.vo.Faq"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList , com.modac.FAQ.model.vo.Faq, com.modac.member.model.vo.Member"%>
     
 <%ArrayList<Faq> list = (ArrayList<Faq>)request.getAttribute("list"); %>
 <!DOCTYPE html>
@@ -57,38 +57,44 @@
                 <nav class="flex-column">
                     <a class="nav-link active" aria-current="page" href="<%=contextPath %>/noticeList"><h3>공지사항</h3></a> <br><br>
                     <a class="nav-link" href="<%=contextPath %>/noticeList">모닥불 소식</a> <br>
-                    <a class="nav-link" href="#">캠핑팁</a> <br>
+                    <a class="nav-link" href="<%=contextPath%>/campTipList">캠핑 팁</a> <br>
                     <a class="nav-link" href="<%=contextPath%>/qaList">Q&A</a> <br>
                     <a class="nav-link" href="<%=contextPath %>/faqList">FAQ</a>
                 </nav>
             </div>
         <div class="content2">
-            <h3 style="text-align: center;">FAQ</h3>
+            <h3>FAQ</h3>
             <br>
-           <%-- <% if(loginUser != null && loginUser.getMemberLevel.equals(10)){ %>
+            <% if(loginMember != null && loginMember.getMemberLevel() == 10){ %>
               <div>
-              </div>
-            <% } %> --%>
                   <a class="btn btn-warning" id="writeEdit" href="<%=contextPath%>/faqEnrollForm">글 작성</a>
+              </div>
+            <% } %> 
             <br><br><br>
-            
+            <% int count =1; %>
             <% for(Faq f : list){ %>
             <div class="accordion" id="accordionExample">
                 <div class="accordion-item">
                   <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%=count %>" aria-expanded="false" aria-controls="collapse<%=count %>">
                       <%= f.getFaqTitle() %>
                     </button>
                   </h2>
-                  <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                  <div id="collapse<%=count %>" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
                       <%= f.getFaqContent() %>
+                      
+                      <% if(loginMember != null && loginMember.getMemberLevel() == 10){ %>
+                      <a href="<%=contextPath%>/updateForm.fno?fno=<%=f.getFaqNo() %>" class="btn btn-warning btn-sm last1">수정하기</a>
+                      <a href="<%=contextPath %>/faqDelete?fno=<%=f.getFaqNo()%>" class="btn btn-secondary btn-sm last1">삭제하기</a>
+                      <%} %>
                     </div>
                   </div>
                 </div>
     
-              </div> 
-              <%} %>
+              </div> <br>
+              <%
+              	count++;} %>
 
         </div>
     </div>

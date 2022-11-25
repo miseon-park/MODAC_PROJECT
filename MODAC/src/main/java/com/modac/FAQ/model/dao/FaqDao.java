@@ -68,7 +68,7 @@ public class FaqDao {
 	}
 	
 	
-	public Faq selectFaq(int faqNo, Connection conn) {
+	public Faq selectFaq(String faqNo, Connection conn) {
 		
 		ResultSet rset = null;
 		
@@ -81,7 +81,7 @@ public class FaqDao {
 		try {
 			psmt = conn.prepareStatement(sql);
 			
-			psmt.setInt(1, faqNo);
+			psmt.setString(1, faqNo);
 			
 			rset = psmt.executeQuery();
 			
@@ -102,4 +102,82 @@ public class FaqDao {
 		
 	}
 	
+	
+	public int insertFaq(Faq f, Connection conn) {
+		
+		int result = 0;
+
+		PreparedStatement psmt = null;
+
+		String sql = prop.getProperty("insertFaq");
+
+		try {
+			psmt = conn.prepareStatement(sql);
+
+			psmt.setString(1, f.getFaqTitle());
+			psmt.setString(2, f.getFaqContent());
+
+			result = psmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(psmt);
+		}
+
+		return result;
+	}
+	
+	
+	public int updateFaq(Faq f, Connection conn) {
+
+		int result = 0;
+
+		PreparedStatement psmt = null;
+
+		String sql = prop.getProperty("updateFaq");
+
+		try {
+			psmt = conn.prepareStatement(sql);
+
+			psmt.setString(1, f.getFaqTitle());
+			psmt.setString(2, f.getFaqContent());
+			psmt.setString(3, f.getFaqNo());
+
+			result = psmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(psmt);
+		}
+
+		return result;
+
+	}
+	
+	
+	
+	public int deleteFaq(String faqNo, Connection conn) {
+
+		int result = 0;
+
+		PreparedStatement psmt = null;
+
+		String sql = prop.getProperty("deleteFaq");
+
+		try {
+			psmt = conn.prepareStatement(sql);
+
+			psmt.setString(1, faqNo);
+
+			result = psmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(psmt);
+		}
+
+		return result;
+	}
 }

@@ -1,7 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList , com.modac.notice.model.vo.Notice, com.modac.member.model.vo.Member"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList , com.modac.notice.model.vo.Notice, 
+    com.modac.member.model.vo.Member, com.modac.common.model.vo.PageInfo"%>
     
-<%ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list"); %>
+<%ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list");
+%>
+<%
+	PageInfo pi = (PageInfo) request.getAttribute("pi");
+	
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,6 +58,36 @@
 	.input-group-text{
 		text-decoration: none;
 	}
+	
+	   .moveBtn{
+       color: white;
+       background-color: rgb(74,57,51);
+       border : none;
+       width: 80px;
+       border-radius: 10px 10px 10px 10px / 10px 10px 10px 10px
+    }
+    .pageBtn{
+       color: black;
+       background-color: gainsboro;
+       border-radius: 50%;
+       border: gainsboro;
+       width: 30px;
+       height: 30px;
+    }
+    .pageBtn:hover{
+       width: 30px;
+       height: 30px;
+       color: white;
+       background-color: orange;
+    }
+    
+    .navbar{
+    	width: 600px;
+    }
+    
+    .insertBtn{
+    	margin-right : 110px;
+    }
 </style>
 
 </head>
@@ -59,7 +100,7 @@
                 <nav class="flex-column">
                     <a class="nav-link active" aria-current="page" href="<%=contextPath %>/noticeList"><h3>공지사항</h3></a> <br><br>
                     <a class="nav-link" href="<%=contextPath %>/noticeList">모닥불 소식</a> <br>
-                    <a class="nav-link" href="#">캠핑팁</a> <br>
+                    <a class="nav-link" href="<%=contextPath%>/campTipList">캠핑 팁</a> <br>
                     <a class="nav-link" href="<%=contextPath %>/qaList">Q&A</a> <br>
                     <a class="nav-link" href="<%=contextPath %>/faqList">FAQ</a>
                 </nav>
@@ -69,17 +110,22 @@
                 <br>
                 <div class="searchbar">
                     <nav class="navbar">
-                        <form class="container-fluid">
-                          <div class="input-group">
-                            <input type="text" class="form-control" placeholder="검색어를 입력하세요" aria-label="Username" aria-describedby="basic-addon1" style="width: 450px;">
-                            <a class="input-group-text" id="basic-addon1" href="">검색</a>
-                          </div>
-                        </form>
-                      </nav>
+							<form class="container-fluid">
+                         		<div class="input-group">
+                            		<select class="form-select" name ="f" aria-label="Default select example" style="width:25%;">
+                                	<option  ${(param.f == "NOTICE_TITLE")? "selected":""} value="NOTICE_TITLE">제목</option>
+                                	<option  ${(param.f == "NOTICE_NIC")? "selected":""} value="NOTICE_CONTENT">내용</option>
+                               		</select>
+                            	<input type="text" name ="q" class="form-control" placeholder="검색어를 입력하세요" aria-label="Username" aria-describedby="basic-addon1" style="width: 60%;" value="${param.q}">
+                            	<input type="submit" class="input-group-text" id="basic-addon1" value="검색">
+                        		</div>
+                        	</form>
+							<br>
+					</nav>
                 </div>
 
                  <% if(loginMember != null && loginMember.getMemberLevel() == 10){ %>
-                    <div>
+                    <div class="insertBtn">
                         <a id="writeEdit" class="btn btn-secondary" href="<%=contextPath %>/noticeEnrollForm">글 작성</a>
                     </div>
                 <% } %> 
@@ -93,7 +139,7 @@
                         <th scope="col" width="90px;" >글번호</th>
                         <th scope="col" width="450px;">제목</th>
                         <th scope="col" width="150px;">작성자</th>
-                        <th scope="col" width="100px;">등록일자</th>
+                        <th scope="col" width="130px;">등록일자</th>
                         <th scope="col" width="80px;">조회수</th>
                       </tr>
                     </thead>
@@ -145,26 +191,52 @@
 
 					</tbody>
                   </table>
-                  </div> 
-            </div>
+                  </div>
+		
+			<script>
+				$(function(){
+						$(".list-area>table>tbody>tr").click(function(){
+							// 클릭시 해당 공지사항의 번호를 넘겨야함
+							// 해당 tr요소의 자손중에서 첫번째 td의 영역의 내용이 필요하다.
+							
+							let nno = $(this).children().eq(0).text(); 
+							// 현재 내가 클릭한 tr의 자손들중 0번째에 위치한 자식의 textnode내용을 가져온다
+							
+							// 요청할 url?키=밸류&키=밸류&키=밸류
+							// 물음표 뒤의 내용을 쿼리스트링이라고 부른다. => 직접 만들어서 넘겨야함.
+							location.href = '<%=contextPath%>/noticeDetail?nno='+ nno;
+						});
+					})
+	
+	        </script>
+        
+        	<br>
+       		<div align="center" class="paging-area">
+	         <% if(currentPage != 1) {%>
+	            <button class="moveBtn" onclick="doPageClick(<%=currentPage -1 %>)">&lt;이전</button>
+	         <% } %>
+         
+         	 <% for(int i = startPage; i <= endPage; i++) { %>
+             <%if(i != currentPage) {%>
+               <button  class="pageBtn" onclick="doPageClick(<%=i%>)"><%=i %></button>
+             <%} else {%>
+               <button class="pageBtn" disabled><%= i %></button>
+             <%} %>
+         	 <% } %>
+         
+	         <% if(currentPage != maxPage) { %>
+	            <button class="moveBtn" onclick="doPageClick(<%=currentPage +1 %>)">&gt;다음</button>
+	         <% } %>
+      		</div>
+			
+			<script>
+				function doPageClick(currentPage){
+					location.href = "<%=contextPath%>/noticeList?currentPage="+currentPage;
+				}
+			</script>
+		</div>
         </div>
 
-	<script>
-		$(function(){
-				$(".list-area>table>tbody>tr").click(function(){
-					// 클릭시 해당 공지사항의 번호를 넘겨야함
-					// 해당 tr요소의 자손중에서 첫번째 td의 영역의 내용이 필요하다.
-					
-					let nno = $(this).children().eq(0).text(); 
-					// 현재 내가 클릭한 tr의 자손들중 0번째에 위치한 자식의 textnode내용을 가져온다
-					
-					// 요청할 url?키=밸류&키=밸류&키=밸류
-					// 물음표 뒤의 내용을 쿼리스트링이라고 부른다. => 직접 만들어서 넘겨야함.
-					location.href = '<%=contextPath%>/noticeDetail?nno='+ nno;
-				});
-			})
-
-        </script>
 
 
 

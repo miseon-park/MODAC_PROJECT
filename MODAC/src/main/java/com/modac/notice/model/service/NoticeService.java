@@ -3,18 +3,28 @@ package com.modac.notice.model.service;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import com.modac.common.Attachment;
+import com.modac.common.model.vo.Attachment;
+import com.modac.common.model.vo.PageInfo;
 import com.modac.notice.model.dao.NoticeDao;
 import com.modac.notice.model.vo.Notice;
 import static com.modac.common.JDBCTemplate.*;
 
 public class NoticeService {
 
-	public ArrayList<Notice> selectNoticeList(){
+	public int selectListCount() {
+
+		Connection conn = getConnection();
+		int listCount = new NoticeDao().selectListCount(conn);
+		close();
+		return listCount;
+	}
+
+	
+	public ArrayList<Notice> selectNoticeList(PageInfo pi, String field, String query){
 		
 		Connection conn = getConnection();
 		
-		ArrayList<Notice> list = new NoticeDao().selectNoticeList(conn);
+		ArrayList<Notice> list = new NoticeDao().selectNoticeList(conn, pi, field, query);
 		
 		close();
 		
@@ -68,7 +78,7 @@ public class NoticeService {
 		int result2 = new NoticeDao().insertAttachmentList(list, conn);
 		
 		// 트랜잭션 처리
-		if(result1 > 0 && result2 > 0) { // 첨부파일이 없는 경우 insert가 성공했을 때도 result2는 여전히 0이라 rollback처리가 될 수 있으므로 result2 = 1로 초기화
+		if(result1 > 0 && result2 > 0) {
 			commit(conn);
 		}else {
 			rollback(conn);
@@ -86,8 +96,8 @@ public class NoticeService {
 		Connection conn = getConnection();
 		
 		int result1 = new NoticeDao().updateNotice(n, conn);
-		
-		int result2 = new NoticeDao().updateAttachment(list, conn);
+		int result2 = 1;
+		//int result2 = new NoticeDao().updateAttachment(list, conn);
 		
 		// 새롭게 첨부된 파일이 있는 경우
 		if(!list.isEmpty()) {
@@ -100,6 +110,8 @@ public class NoticeService {
 					result2 = new NoticeDao().updateAttachment(at, conn);
 				}
 			}
+		}else {
+			result2 = 1;
 		}
 		
 		if(result1 > 0 && result2 > 0) {
@@ -117,6 +129,20 @@ public class NoticeService {
 		Connection conn = getConnection();
 		
 		int result = new NoticeDao().deleteNotice(noticeNo, conn);
+		
+		new NoticeDao().deleteNotice(noticeNo, conn);
+		
+		commitOrRollback(result, conn);
+		
+		return result;
+	}
+	
+	public int deleteAttahcment(String photoNo) {
+		Connection conn = getConnection();
+		
+		int result = new NoticeDao().deleteAttachment(photoNo, conn);
+		
+		new NoticeDao().deleteAttachment(photoNo, conn);
 		
 		commitOrRollback(result, conn);
 		

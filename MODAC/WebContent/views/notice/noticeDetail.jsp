@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.modac.notice.model.vo.Notice, com.modac.common.Attachment, java.util.ArrayList"%>
+    pageEncoding="UTF-8" import="com.modac.notice.model.vo.Notice, com.modac.common.model.vo.Attachment, java.util.ArrayList"%>
 <%
 	Notice n = (Notice)request.getAttribute("n");
 	//Attachment at = (Attachment)request.getAttribute("at");
@@ -58,6 +58,11 @@
 	    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 		}
 
+
+		.list-area { 
+		 			width: 80%; 
+		 			margin: auto;
+		 }
 </style>
 
 </head>
@@ -71,15 +76,16 @@
 				<a class="nav-link active" aria-current="page"
 					href="<%=contextPath %>/noticeList"><h3>공지사항</h3></a><br>
 				<br> <a class="nav-link" href="<%=contextPath %>/noticeList">모닥불
-					소식</a> <br> <a class="nav-link" href="#">캠핑 팁</a> <br> <a
+					소식</a> <br> <a class="nav-link" href="<%=contextPath%>/campTipList">캠핑 팁</a> <br> <a
 					class="nav-link" href="<%=contextPath %>/qaList">Q&A</a> <br>
-				<a class="nav-link">FAQ</a>
+				<a class="nav-link" href="<%=contextPath %>/faqList">FAQ</a>
 			</nav>
 		</div>
 
 
 		<div class="content2">
 			<br>
+			<div class="list-area">
 			<h3>모닥불 소식</h3>
 			<br>
 			<div align="right" class="insert-area">
@@ -113,9 +119,7 @@
 				<%} %>
 				
 					
-				<textarea class="foorm-control" style="height: 500px;" id="contentBox" disabled>
-              		<%=n.getNoticeContent()%>
-              	</textarea>
+				<textarea class="foorm-control" style="height: 500px; text-align:left;" id="contentBox" disabled><%=n.getNoticeContent()%></textarea>
 				<% if(list.isEmpty()) {%>
 					첨부파일 없음
 				<%}else{
@@ -135,6 +139,7 @@
 
 			</div>
 			<br> <br>
+			</div>
 		</div>
 
 
