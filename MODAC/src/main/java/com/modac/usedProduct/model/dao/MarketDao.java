@@ -360,7 +360,7 @@ public class MarketDao {
 		return result;
 	}
 	
-	//마켓 첨부파일 수정
+	//게시글 첨부파일 수정
 	public int updateAttachment(ArrayList<Attachment> list , Connection conn) {
 		int result = 0;
 		PreparedStatement psmt = null;
@@ -410,7 +410,7 @@ public class MarketDao {
 	}
 	
 	
-	//마켓 게시글 삭제
+	//게시글 삭제
 	public int deleteMarket(String postNo, Connection conn) {
 		int result = 0;
 		
@@ -433,7 +433,7 @@ public class MarketDao {
 		return result;		
 	}
 
-	//마켓 첨부파일 삭제
+	//게시글 첨부파일 삭제
 	public int deleteAttachment(String postNo, Connection conn) {
 		int result = 0;
 		
@@ -458,7 +458,7 @@ public class MarketDao {
 		return result;
 	}
 	
-	//마켓 첨부파일 수정 삭제
+	//게시글 첨부파일 수정 삭제
 	public int deleteAtt(String photoNo, Connection conn) {
 		int result = 0;
 		

@@ -177,9 +177,9 @@
             
            <hr>
            	<div class="imgView">
-				<img src="<%=contextPath %>/<%=list.get(0).getPath()+list.get(0).getNewName() %>" width="190" height="150">
+<%-- 				<img src="<%=contextPath %>/<%=list.get(0).getPath()+list.get(0).getNewName() %>" width="190" height="150"> --%>
 				
-				<%for(int i = 1; i< list.size(); i++) { %>
+				<%for(int i = 0; i< list.size(); i++) { %>
 					<img src="<%=contextPath %>/<%=list.get(i).getPath()+list.get(i).getNewName()%>" width="190" height="150">
 				<% } %>
 			</div>

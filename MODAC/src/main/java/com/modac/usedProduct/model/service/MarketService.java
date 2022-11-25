@@ -183,8 +183,6 @@ public class MarketService {
 		
 		int result = new MarketDao().deleteAtt(photoNo, conn);
 		
-		new MarketDao().deleteAtt(photoNo, conn);
-		
 		if(result > 0) {
 			commit(conn);
 		}else{

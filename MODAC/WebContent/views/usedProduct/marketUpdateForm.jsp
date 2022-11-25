@@ -106,6 +106,7 @@
     border: 0;
     border-radius: 0.375rem;
     opacity: .5;
+    float: right;
 	}
 </style>
 </head>
@@ -141,12 +142,14 @@
 					
 					<table>
 						<% if(!list.isEmpty()) {%>
-                          <% int i = 1;%>
+                          <% int i = 0;%>
                   		  <% for(Attachment at : list){ %>
+                          	<% if(!at.getOriginName().equals("logo.png")) {%>
 		                    	<th>
 									<input type="button" class="btn-close" id="deleteBtn<%=i%>" aria-label="Close">
 			                    </th>
 	                   		<% i++; } %>
+	                   		<%} %>
                     	<%} %>
 	                    <tr>
 	                       <td>
@@ -183,37 +186,112 @@
 			
 			<script>
 				$(function(){
-					$("#deleteBtn1").click(function(photoNo){
+					$("#deleteBtn0").click(function(photoNo){
 						$.ajax({
 				            url : "<%= request.getContextPath() %>/delete.at",
-				            data : { photoNo : <%=list.get(0).getPhotoNo() %> },
+				            data : {newName : "<%=list.get(0).getNewName()%>",
+				            		photoNo : <%=list.get(0).getPhotoNo() %>},
 				            success : function(result){
 				               //삭제성공시
-				               if(result == 1){
+				               if(result == "NNNNY"){
 				                  alert("삭제에 성공했습니다");
-				                  location.reload();
+				                  $("#titleImg").attr("src","resources/modacLogo/logo.png")
+				                  //location.reload();
 				               }else{
 				                  alert("삭제에 실패했습니다.");
 				               }
 				            }
-				         })
+				         });
 					})
+					
 				})
-				$("#deleteBtn2").click(function(photoNo){
-					$.ajax({
-			            url : "<%= request.getContextPath() %>/delete.at",
-			            data : { photoNo : <%=list.get(1).getPhotoNo() %> },
-			            success : function(result){
-			               //삭제성공시
-			               if(result == 1){
-			                  alert("삭제에 성공했습니다");
-			                  location.reload();
-			               }else{
-			                  alert("삭제에 실패했습니다.");
-			               }
-			            }
-			         })
-				})	
+				$(function(){
+					for(let i = 1; i < 4; i++) {
+						$("#deleteBtn"+i).click(function(){
+							let	newName = $("[name=newPhotoName"+(i+1)+"]").val();
+							let photoNo = $("[name=originPhotoNo"+(i+1)+"]").val();
+							$.ajax({
+					            url : "<%= request.getContextPath() %>/delete.at",
+					            data : {newName,
+				            			photoNo},
+					            success : function(result){
+					               //삭제성공시
+					               if(result == "NNNNY"){
+					                  alert("삭제에 성공했습니다");
+					                  //기본로고 재등록
+					                  $("#contentImg"+i).attr("src","resources/modacLogo/logo.png")
+					               }else{
+					                  alert("삭제에 실패했습니다.");
+								   }
+					            }
+					         })
+							})	
+					} 
+				})
+				
+				
+// 				$(function () {
+// 						$("ccccccc").click(function () {
+<%-- 							url : "<%=contextPath%>/delete.at", --%>
+// 							data : {
+// 								for(int i = 0; i<=cccccccc i++){
+// 									String newName = list.get(i).getNewName();
+// 			            			int photoNo = list.get(i).getPhotoNo();
+// 			            			}
+// 								newName : newName,
+// 								photoNo : photoNo
+// 							},
+// 				            success : function(result){
+// 					               //삭제성공시
+// 					               if(result == "NNNNY"){
+// 					                  alert("삭제에 성공했습니다");
+// 					                  location.reload();
+// 					               }else{
+// 					                  alert("삭제에 실패했습니다.");
+// 					               }
+// 					            }
+					       
+// 						}) 
+// 				})
+				
+// 				$(function(){
+// 					$("#deleteBtn2").click(function(photoNo){
+// 						$.ajax({
+<%-- 				            url : "<%= request.getContextPath() %>/delete.at", --%>
+<%-- 				            data : {newName : "<%=list.get(2).getNewName()%>", --%>
+<%-- 			            		photoNo : <%=list.get(2).getPhotoNo() %>}, --%>
+// 				            success : function(result){
+// 				               //삭제성공시
+// 				               if(result == "NNNNY"){
+// 				                  alert("삭제에 성공했습니다");
+// 				                  location.reload();
+// 				               }else{
+// 				                  alert("삭제에 실패했습니다.");
+// 				               }
+// 				            }
+// 				         })
+// 					})
+// 				})
+// 				$(function(){
+// 					$("#deleteBtn3").click(function(photoNo){
+// 						$.ajax({
+<%-- 				            url : "<%= request.getContextPath() %>/delete.at", --%>
+<%-- 				            data : {newName : "<%=list.get(3).getNewName()%>", --%>
+<%-- 			            		photoNo : <%=list.get(3).getPhotoNo() %>}, --%>
+// 				            success : function(result){
+// 				               //삭제성공시
+// 				               if(result == "NNNNY"){
+// 				                  alert("삭제에 성공했습니다");
+// 				                  location.reload();
+// 				               }else{
+// 				                  alert("삭제에 실패했습니다.");
+// 				               }
+// 				            }
+// 				         })
+// 					})
+// 				})
+				
+	
 				
 			
 				<!-- 이미지 삭제버튼 -->

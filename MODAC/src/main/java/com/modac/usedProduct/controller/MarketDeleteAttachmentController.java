@@ -35,16 +35,35 @@ public class MarketDeleteAttachmentController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//int fileLevel = Integer.parseInt(request.getParameter("fileLevel"));
+		//String postNo = request.getParameter("postNo");
+		//String filePath = request.getParameter("filePath");
 		
 		String photoNo = request.getParameter("photoNo");
+		String savePath = request.getSession().getServletContext().getRealPath("/resources/market_upfiles/");
+		String newName = request.getParameter("newName");
 		
-		int result = new MarketService().deleteAtt(photoNo);
+		//미리보기 사진 파일경로
+		File file = new File(savePath+newName);
 		
-		if(result > 0) {
-			response.getWriter().print(result);
+		
+		if(file.exists()) {
+			//사진이 존재하면 사진 삭제
+			boolean result = file.delete();
+			//삭제됐다면 결과 반환
+			if(result == true) {
+				response.getWriter().print("NNNNY");
+				//DB에서 미리보기 사진상태 삭제됨으로 변경
+			}
 		}
+		int result1 = new MarketService().deleteAtt(photoNo);
 		
-		System.out.println(result);
+		
+		
+		//System.out.println(result);		
+		//System.out.println(fileLevel);
+		//System.out.println(postNo);
+		//System.out.println(photoNo);
 		
 	}
 

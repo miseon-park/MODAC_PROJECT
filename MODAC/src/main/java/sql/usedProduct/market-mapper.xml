@@ -115,10 +115,11 @@
 		WHERE BOARD_NO = ?
 	</entry>
 	
-	<!-- 게시글 수정 이미지 삭ㅈ -->
+	<!-- 게시글 수정 이미지 삭제 -->
 	<entry key="deleteAtt">
-		DELETE ATTACHMENT
-		WHERE PHOTO_NO = ?
+		UPDATE ATTACHMENT
+		SET STATUS = 'Y'
+		WHERE PHOTO_NO = ? 
 	</entry>
 
 	<!-- 판매완료-->
