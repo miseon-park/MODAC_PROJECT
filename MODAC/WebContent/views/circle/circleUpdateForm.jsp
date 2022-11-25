@@ -32,6 +32,34 @@
 		width: 80%;
 		margin: auto;
 	}
+	.foorm-control {
+		    display: block;
+		    width: 100%;
+		    padding: 0.375rem 0.75rem;
+		    font-size: 1rem;
+		    font-weight: 400;
+		    line-height: 1.5;
+		    color: #495057;
+		    background-color: #fff;
+		    background-clip: padding-box;
+		    border: 1px solid #ced4da;
+		    border-radius: 0.25rem;
+		    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+		}
+		.fooorm-control {
+		    display: block;
+		    width: 100%;
+		    padding: 0.375rem 0.75rem;
+		    font-size: 1rem;
+		    font-weight: 400;
+		    line-height: 1.5;
+		    color: #495057;
+		    background-color: #fff;
+		    background-clip: padding-box;
+		    border: 1px solid white;
+		    border-radius: 0.25rem;
+		    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+		}
 </style>
 </head>
 <%@ include file="../common/menubar.jsp" %>
@@ -48,7 +76,7 @@
              
               	<input type="hidden" name="memberNo" value="<%=loginMember.getMemberNo()%>">
 	              
-	              <div class="form-control">
+	              <div class="foorm-control">
 	                 <input type="text" class="form-control" value="<%=c.getPostTitle()%>" aria-label="title" name="title">
 	                  <div>
 	                  <%if(at!=null){ %>
@@ -60,7 +88,7 @@
 					  <input type="file" class="form-control" name="upfile">
 					</div>
 	                
-	                  <textarea class="form-control" style="height:500px;" name="content" ><%=c.getPostContent()%></textarea>
+	                  <textarea class="fooorm-control" style="height:500px;" name="content" ><%=c.getPostContent()%></textarea>
 	
 	                  <div align="center">
                     <button type="submit" class="btn btn-secondary" class="last1" >수정하기</button>

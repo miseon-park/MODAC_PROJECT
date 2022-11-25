@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList , com.modac.circle.model.vo.Circle , com.modac.common.model.vo.PageInfo, com.modac.member.model.dao.MemberDao" %>
+    pageEncoding="UTF-8" import="java.util.ArrayList , com.modac.recipe.model.vo.Recipe , com.modac.common.model.vo.PageInfo, com.modac.member.model.dao.MemberDao" %>
 
-<% ArrayList<Circle> clist = (ArrayList<Circle>)request.getAttribute("list");
-
+<% ArrayList<Recipe> cplist = (ArrayList<Recipe>)request.getAttribute("list");
 PageInfo pi = (PageInfo) request.getAttribute("pi");
 int currentPage = pi.getCurrentPage();
 int startPage = pi.getStartPage();
 int endPage = pi.getEndPage();
 int maxPage = pi.getMaxPage();
+
+
 
 
 
@@ -90,10 +91,19 @@ int maxPage = pi.getMaxPage();
                     <a class="nav-link" aria-current="page" href="<%=contextPath%>/myPage.me" style="text-align: center;">개인정보 변경</a>
                     <br><br>
                     <a class="nav-link" href="#" style="text-align: center;">북마크 모음</a>
+                   <a class="nav-link" href="" style="text-align: center;">자기글 모음</a>
+                    <a class="nav-link" href="<%=contextPath%>/myPagecSelf.me"style="text-align: center;">동아리 모음</a>
                     <br><br>
-                    <a class="nav-link" href="<%=contextPath%>/myPageSelf.me"style="text-align: center;color: orange;">자기글 모음</a>
-                    <a class="nav-link" href="<%=contextPath%>/myPagecrSelf.me"style="text-align: center;color: orange;">캠핑장 리뷰</a>
-
+                    
+                    <a class="nav-link" href="<%=contextPath%>/myPagecrSelf.me"style="text-align: center;">캠핑리뷰 모음</a>
+                    
+                    <br><br>
+                    
+                    <a class="nav-link" href="<%=contextPath%>/myPagecpSelf.me"style="text-align: center;">캠핑레시피 모음</a>
+                    <br><br>
+                    
+                    <a class="nav-link" href="<%=contextPath%>/myPageupSelf.me"style="text-align: center;">중고 모음</a>
+                    
 
 
 
@@ -109,28 +119,30 @@ int maxPage = pi.getMaxPage();
 							<th scope="col" width="420px">제목</th>
 							<th scope="col">작성자</th>
 							<th scope="col">등록일자</th>
-							<th scope="col" style="text-align: center;">조회수</th>
+							<th scope="col">조회수</th>
+							
+							
 						</tr>
 					</thead>
 					<tbody>
-						<%MemberDao memberDao = new MemberDao();
-						System.out.println(memberDao +" "+loginMember);
-							ArrayList<Circle> list = memberDao.selectList(loginMember.getMemberId());
-							for(int i=0; i<list.size(); i++){
+						<% if(cplist.isEmpty()) {%>
+						<tr>
+							<th colspan="5">존재하는 게시글이 없습니다.</th>
+						</tr>
+						<% } else { %>
+							<% for(Recipe cp : cplist) {%>
+								<tr>
+									<th scope="row" style="text-align: center;"><%= cp.getPostNo() %></th>
+									<td><%= cp.getPostTitle() %></td>
+									<td><%= cp.getMemberNic() %></td>
+									<td><%= cp.getCreateDate() %></td>
+									<td><%= cp.getReadCount() %></td>
 									
-							
-							%>
-							<tr>
-								<td><%=list.get(i).getPostNo() %></td>
-								<td><%=list.get(i).getPostTitle() %></td>
-								<td><%=list.get(i).getMemberNic() %></td>
-								<td><%=list.get(i).getCreateDate()%></td>
-								<td><%=list.get(i).getReadCount() %></td>
-							
-							</tr>
-							
-							<%} %>
+								</tr>
+							<% } %>
+						<% } %>
 					</tbody>
+					
 				</table>
 			</div>
 			<script>
@@ -139,7 +151,7 @@ int maxPage = pi.getMaxPage();
 						let bno = $(this).children().eq(0).text();
 						
 								
-						location.href= '<%=contextPath%>/cdetail.bo?bno='+ bno;
+						location.href = '<%=contextPath%>/detail.r?rno='+rno;
 					});
 				})
 			</script>
@@ -169,7 +181,7 @@ int maxPage = pi.getMaxPage();
  	</div>
  			<script>
  				function doPageClick(currentPage){
- 					location.href = "<%=contextPath%>/myPageSelf.me?currentPage="+currentPage;
+ 					location.href = "<%=contextPath%>/myPagecpSelf.me?currentPage="+currentPage;
  				}
  			</script>
  	

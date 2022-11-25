@@ -164,4 +164,18 @@ public int insertReply(Reply r) {
 		return result;
 	}
 
+public int replyDel(int replyNo) {
+	Connection conn = JDBCTemplate.getConnection();
+	int result = new CircleBoardDao().replyDel(conn, replyNo);
+	if(result>0) {
+		JDBCTemplate.commit(conn);
+		
+	}else {
+		JDBCTemplate.rollback(conn);
+	}
+	
+	return result;
+	
+}
+
 }

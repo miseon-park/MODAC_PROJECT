@@ -73,6 +73,17 @@ public class Recipe {
 		this.titleImg = titleImg;
 	}
 	
+	
+	
+
+	public Recipe(String postNo, String postTitle,String memberNic ,Date createDate, int readCount) {
+		super();
+		this.postNo = postNo;
+		this.postTitle = postTitle;
+		this.createDate = createDate;
+		this.memberNic = memberNic;
+		this.readCount=readCount;
+	}
 
 	public String getBoardNo() {
 		return boardNo;

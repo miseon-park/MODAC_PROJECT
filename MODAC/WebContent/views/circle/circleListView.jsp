@@ -57,6 +57,27 @@ int maxPage = pi.getMaxPage();
 		width: 80%;
 		margin: auto;
 	}
+	.moveBtn{
+        color: white;
+        background-color: rgb(74,57,51);
+        border : none;
+        width: 80px;
+        border-radius: 10px 10px 10px 10px / 10px 10px 10px 10px
+    }
+    .pageBtn{
+        color: black;
+        background-color: gainsboro;
+        border-radius: 50%;
+        border: gainsboro;
+        width: 30px;
+        height: 30px;
+    }
+    .pageBtn:hover{
+        width: 30px;
+        height: 30px;
+        color: white;
+        background-color: orange;
+    }
 </style>
 
 </head>
@@ -141,21 +162,21 @@ int maxPage = pi.getMaxPage();
  	
  	<div align="center" class = "paging-area">
  		<%if(currentPage !=1){ %>
- 		<button onclick="doPageClick(<%=currentPage-1 %>)">&lt;</button>
+ 		<button class="moveBtn"  onclick="doPageClick(<%=currentPage-1 %>)">&lt;이전</button>
  		
  		<%} %>
  		
  		<% for(int i = startPage; i<=endPage; i++){ %>
  			<%if(i != currentPage){ %>
- 			<button onclick="doPageClick(<%=i %>)"><%=i %></button>
+ 			<button class="pageBtn" onclick="doPageClick(<%=i %>)"><%=i %></button>
  			
  			<%} else{ %>
- 				<button disabled><%=i %></button>
+ 				<button class="pageBtn" disabled><%=i %></button>
  			<%} %>
  		<%} %>
  		
  		<%if(currentPage != maxPage){ %>
- 		<button onclick="doPageClick(<%=currentPage+1 %>)">&gt;</button>
+ 		<button class="moveBtn" onclick="doPageClick(<%=currentPage+1 %>)">&gt;다음</button>
  		
  		<%}  %>
  		

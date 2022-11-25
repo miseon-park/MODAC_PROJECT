@@ -1,10 +1,17 @@
 package com.modac.member.model.service;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
+import com.modac.campReview.model.vo.CampReview;
+import com.modac.circle.model.dao.CircleBoardDao;
+import com.modac.circle.model.vo.Circle;
 import com.modac.common.JDBCTemplate;
+import com.modac.common.model.vo.PageInfo;
 import com.modac.member.model.dao.MemberDao;
 import com.modac.member.model.vo.Member;
+import com.modac.recipe.model.vo.Recipe;
+import com.modac.usedProduct.model.vo.Market;
 
 public class MemberService {
 	
@@ -209,6 +216,82 @@ public Member loginMember(String memberId , String memberPwd) {
 	    System.out.println(result);
 	    JDBCTemplate.close();
 	    return result;
+	}
+	
+	public ArrayList<Circle> selectList(PageInfo pi,String memberId) {
+		Connection conn = JDBCTemplate.getConnection();
+
+		ArrayList<Circle> list = new MemberDao().selectList(conn, pi,memberId);
+
+		JDBCTemplate.close();
+
+		return list;
+	}
+	
+	public int selectListCount() {
+		Connection conn = JDBCTemplate.getConnection();
+		int listCount = new MemberDao().selectListCount(conn);
+
+		JDBCTemplate.close();
+
+		return listCount;
+	}
+	
+	public ArrayList<CampReview> crselectList(PageInfo pi,String memberId) {
+		Connection conn = JDBCTemplate.getConnection();
+
+		ArrayList<CampReview> list = new MemberDao().crselectList(conn, pi,memberId);
+
+		JDBCTemplate.close();
+
+		return list;
+	}
+	
+	public int crselectListCount() {
+		Connection conn = JDBCTemplate.getConnection();
+		int listCount = new MemberDao().crselectListCount(conn);
+
+		JDBCTemplate.close();
+
+		return listCount;
+	}
+	
+	public ArrayList<Market> upselectList(PageInfo pi,String memberId) {
+		Connection conn = JDBCTemplate.getConnection();
+
+		ArrayList<Market> list = new MemberDao().upselectList(conn, pi,memberId);
+
+		JDBCTemplate.close();
+
+		return list;
+	}
+	
+	public int upselectListCount() {
+		Connection conn = JDBCTemplate.getConnection();
+		int listCount = new MemberDao().upselectListCount(conn);
+
+		JDBCTemplate.close();
+
+		return listCount;
+	}
+	
+	public ArrayList<Recipe> cpselectList(PageInfo pi,String memberId) {
+		Connection conn = JDBCTemplate.getConnection();
+
+		ArrayList<Recipe> list = new MemberDao().cpselectList(conn, pi,memberId);
+
+		JDBCTemplate.close();
+
+		return list;
+	}
+	
+	public int cpselectListCount() {
+		Connection conn = JDBCTemplate.getConnection();
+		int listCount = new MemberDao().cpselectListCount(conn);
+
+		JDBCTemplate.close();
+
+		return listCount;
 	}
 	
 

@@ -66,14 +66,20 @@ public class Market {
 	}
 	
 	//게시글조회 목록버전
-	public Market(String postNo, String postTitle, Date createDate, int readCount, String memberNo) {
+	public Market(String postNo, String postTitle, String memberNic ,Date createDate, int readCount) {
 		super();
 		this.postNo = postNo;
 		this.postTitle = postTitle;
+		this.memberNic = memberNic;
 		this.createDate = createDate;
 		this.readCount = readCount;
-		this.memberNo = memberNo;
+		
 	}
+	
+	
+
+	
+
 	
 
 	public String getPostNo() {

@@ -9,10 +9,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.modac.circle.model.service.CircleBoardService;
 import com.modac.circle.model.vo.Circle;
 import com.modac.common.model.vo.PageInfo;
+import com.modac.member.model.vo.Member;
 
 /**
  * Servlet implementation class CircleListController
@@ -162,8 +164,10 @@ public class CircleListController extends HttpServlet implements Servlet {
 		
 		//2. 현재 사용자가 요청한 페이지에 보여줄 페이징바객체 전달
 		//request.setAttribute("pi", pi);
-		
-		
+		/*
+		 * HttpSession session = request.getSession(); String memberId =
+		 * ((Member)session.getAttribute("loginMember")).getMemberId();
+		 */
 		
 		//------------------------페이징 처리 끝-------------------------------------
 	

@@ -16,6 +16,8 @@ import com.modac.circle.model.vo.Circle;
 import com.modac.common.JDBCTemplate;
 import com.modac.common.model.vo.PageInfo;
 import com.modac.member.model.vo.Member;
+import com.modac.recipe.model.vo.Recipe;
+import com.modac.usedProduct.model.vo.Market;
 
 public class MemberDao {
 	String fileName = MemberDao.class.getResource("/sql/member/member-mapper.xml").getPath();
@@ -381,28 +383,48 @@ public int fineUpdatePwd(String memberId, String memberName, String email, Strin
  * @return
  */
 
-public ArrayList<Circle> selectList(String memberId){
+public ArrayList<Circle> selectList(Connection conn, PageInfo pi,String memberId){
 	
 	//select문 => ResultSet
 	
 	ArrayList<Circle> list = new ArrayList<>();
-	Connection conn = JDBCTemplate.getConnection();
 	
 	PreparedStatement psmt = null;
 	
 	ResultSet rset = null;
 	
-	String sql = prop.getProperty("selectList");
+	
+	String sql =  prop.getProperty("selectList");
 	
 	try {
 		psmt = conn.prepareStatement(sql);
 		
+		/*
+		 * 
+		 * boardLimit 이 10이라고 가정.
+		 * 
+		 * currentPage = 1 => 시작값1,   끝값 10
+		 * currentPage = 2 => 시작값 11, 끝값 20
+		 * currentPage = 3 => 시작값 21, 끝값 30
+		 * 
+		 * 
+		 * 시작값 = (currentPage -1) * boardLimit +1;
+		 * 끝값 = 시작값 + boardLimit -1;
+		 * 
+		 * 
+		 */
+		
+		int startRow = (pi.getCurrentPage()-1)* pi.getBoardLimit() +1;
+		int endRow = startRow + pi.getBoardLimit()-1;
+		
 		
 		psmt.setString(1, memberId);
+		psmt.setInt(2, startRow);
+		psmt.setInt(3, endRow);
 		
 		
 		rset = psmt.executeQuery();
-		
+		System.out.println(rset);
 		while(rset.next()) {
 			list.add(new Circle(rset.getString("POST_NO"),
 					  
@@ -411,24 +433,24 @@ public ArrayList<Circle> selectList(String memberId){
 					  rset.getDate("CREATE_DATE"),
 					  rset.getInt("READ_COUNT")));
 		}
+		System.out.println(list);
 	} catch (SQLException e) {
-		
+		// TODO Auto-generated catch block
 		e.printStackTrace();
-	} finally {
+	}finally {
 		JDBCTemplate.close(rset);
 		JDBCTemplate.close(psmt);
-		JDBCTemplate.close();
+		
 	}
 	return list;
 	
 }
 
-public int selectListCount() {
+public int selectListCount(Connection conn ) {
 	// select문 -> Result객체
 	int listCount = 0;
 	
 	PreparedStatement psmt = null;
-	Connection conn = JDBCTemplate.getConnection();
 	
 	ResultSet rset = null;
 	
@@ -437,7 +459,7 @@ public int selectListCount() {
 	try {
 		psmt = conn.prepareStatement(sql);
 	
-	
+		
 		
 		rset = psmt.executeQuery();
 		
@@ -451,7 +473,6 @@ public int selectListCount() {
 	}finally {
 		JDBCTemplate.close(rset);
 		JDBCTemplate.close(psmt);
-		JDBCTemplate.close();
 	}
 	
 	return listCount;
@@ -459,28 +480,48 @@ public int selectListCount() {
 	
 	
 }
-public ArrayList<CampReview> crselectList(String memberId){
+public ArrayList<CampReview> crselectList(Connection conn, PageInfo pi,String memberId){
 	
 	//select문 => ResultSet
 	
 	ArrayList<CampReview> list = new ArrayList<>();
-	Connection conn = JDBCTemplate.getConnection();
 	
 	PreparedStatement psmt = null;
 	
 	ResultSet rset = null;
 	
-	String sql = prop.getProperty("crselectList");
+	
+	String sql =  prop.getProperty("crselectList");
 	
 	try {
 		psmt = conn.prepareStatement(sql);
 		
+		/*
+		 * 
+		 * boardLimit 이 10이라고 가정.
+		 * 
+		 * currentPage = 1 => 시작값1,   끝값 10
+		 * currentPage = 2 => 시작값 11, 끝값 20
+		 * currentPage = 3 => 시작값 21, 끝값 30
+		 * 
+		 * 
+		 * 시작값 = (currentPage -1) * boardLimit +1;
+		 * 끝값 = 시작값 + boardLimit -1;
+		 * 
+		 * 
+		 */
+		
+		int startRow = (pi.getCurrentPage()-1)* pi.getBoardLimit() +1;
+		int endRow = startRow + pi.getBoardLimit()-1;
+		
 		
 		psmt.setString(1, memberId);
+		psmt.setInt(2, startRow);
+		psmt.setInt(3, endRow);
 		
 		
 		rset = psmt.executeQuery();
-		
+		System.out.println(rset);
 		while(rset.next()) {
 			list.add(new CampReview(rset.getString("POST_NO"),
 					  
@@ -489,15 +530,247 @@ public ArrayList<CampReview> crselectList(String memberId){
 					  rset.getDate("CREATE_DATE"),
 					  rset.getInt("READ_COUNT")));
 		}
+		System.out.println(list);
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}finally {
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(psmt);
+		
+	}
+	return list;
+	
+}
+
+public int crselectListCount(Connection conn ) {
+	// select문 -> Result객체
+	int listCount = 0;
+	
+	PreparedStatement psmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("crselectListCount");
+	
+	try {
+		psmt = conn.prepareStatement(sql);
+	
+		
+		
+		rset = psmt.executeQuery();
+		
+		if(rset.next()) {
+			listCount = rset.getInt("READ_COUNT");
+		}
+		
 	} catch (SQLException e) {
 		
 		e.printStackTrace();
-	} finally {
+	}finally {
 		JDBCTemplate.close(rset);
 		JDBCTemplate.close(psmt);
-		JDBCTemplate.close();
+	}
+	
+	return listCount;
+	
+	
+	
+}
+
+public ArrayList<Market> upselectList(Connection conn, PageInfo pi,String memberId){
+	
+	//select문 => ResultSet
+	
+	ArrayList<Market> list = new ArrayList<>();
+	
+	PreparedStatement psmt = null;
+	
+	ResultSet rset = null;
+	
+	
+	String sql =  prop.getProperty("upselectList");
+	
+	try {
+		psmt = conn.prepareStatement(sql);
+		
+		/*
+		 * 
+		 * boardLimit 이 10이라고 가정.
+		 * 
+		 * currentPage = 1 => 시작값1,   끝값 10
+		 * currentPage = 2 => 시작값 11, 끝값 20
+		 * currentPage = 3 => 시작값 21, 끝값 30
+		 * 
+		 * 
+		 * 시작값 = (currentPage -1) * boardLimit +1;
+		 * 끝값 = 시작값 + boardLimit -1;
+		 * 
+		 * 
+		 */
+		
+		int startRow = (pi.getCurrentPage()-1)* pi.getBoardLimit() +1;
+		int endRow = startRow + pi.getBoardLimit()-1;
+		
+		
+		psmt.setString(1, memberId);
+		psmt.setInt(2, startRow);
+		psmt.setInt(3, endRow);
+		
+		
+		rset = psmt.executeQuery();
+		System.out.println(rset);
+		while(rset.next()) {
+			list.add(new Market(rset.getString("POST_NO"),
+					  
+					  rset.getString("POST_TITLE"),
+					  rset.getString("MEMBER_NIC"),
+					  rset.getDate("CREATE_DATE"),
+					  rset.getInt("READ_COUNT")));
+		}
+		System.out.println(list);
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}finally {
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(psmt);
+		
 	}
 	return list;
+	
+}
+
+public int upselectListCount(Connection conn ) {
+	// select문 -> Result객체
+	int listCount = 0;
+	
+	PreparedStatement psmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("upselectListCount");
+	
+	try {
+		psmt = conn.prepareStatement(sql);
+	
+		
+		
+		rset = psmt.executeQuery();
+		
+		if(rset.next()) {
+			listCount = rset.getInt("READ_COUNT");
+		}
+		
+	} catch (SQLException e) {
+		
+		e.printStackTrace();
+	}finally {
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(psmt);
+	}
+	
+	return listCount;
+	
+	
+	
+}
+public ArrayList<Recipe> cpselectList(Connection conn, PageInfo pi,String memberId){
+	
+	//select문 => ResultSet
+	
+	ArrayList<Recipe> list = new ArrayList<>();
+	
+	PreparedStatement psmt = null;
+	
+	ResultSet rset = null;
+	
+	
+	String sql =  prop.getProperty("cpselectList");
+	
+	try {
+		psmt = conn.prepareStatement(sql);
+		
+		/*
+		 * 
+		 * boardLimit 이 10이라고 가정.
+		 * 
+		 * currentPage = 1 => 시작값1,   끝값 10
+		 * currentPage = 2 => 시작값 11, 끝값 20
+		 * currentPage = 3 => 시작값 21, 끝값 30
+		 * 
+		 * 
+		 * 시작값 = (currentPage -1) * boardLimit +1;
+		 * 끝값 = 시작값 + boardLimit -1;
+		 * 
+		 * 
+		 */
+		
+		int startRow = (pi.getCurrentPage()-1)* pi.getBoardLimit() +1;
+		int endRow = startRow + pi.getBoardLimit()-1;
+		
+		
+		psmt.setString(1, memberId);
+		psmt.setInt(2, startRow);
+		psmt.setInt(3, endRow);
+		
+		
+		rset = psmt.executeQuery();
+		System.out.println(rset);
+		while(rset.next()) {
+			list.add(new Recipe(rset.getString("POST_NO"),
+					  
+					  rset.getString("POST_TITLE"),
+					  rset.getString("MEMBER_NIC"),
+					  rset.getDate("CREATE_DATE"),
+					  rset.getInt("READ_COUNT")))
+					  ;
+		}
+		System.out.println(list);
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}finally {
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(psmt);
+		
+	}
+	return list;
+	
+}
+
+public int cpselectListCount(Connection conn ) {
+	// select문 -> Result객체
+	int listCount = 0;
+	
+	PreparedStatement psmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("cpselectListCount");
+	
+	try {
+		psmt = conn.prepareStatement(sql);
+	
+		
+		
+		rset = psmt.executeQuery();
+		
+		if(rset.next()) {
+			listCount = rset.getInt("READ_COUNT");
+		}
+		
+	} catch (SQLException e) {
+		
+		e.printStackTrace();
+	}finally {
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(psmt);
+	}
+	
+	return listCount;
+	
+	
 	
 }
 public int emailCheck(Connection conn, String checkemail) {

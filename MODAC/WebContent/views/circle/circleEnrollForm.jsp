@@ -20,6 +20,38 @@
         .last {
           margin: auto;
 		    }
+		    #enroll-form{
+			width: 80%;
+			margin: auto;
+		}
+		.foorm-control {
+		    display: block;
+		    width: 100%;
+		    padding: 0.375rem 0.75rem;
+		    font-size: 1rem;
+		    font-weight: 400;
+		    line-height: 1.5;
+		    color: #495057;
+		    background-color: #fff;
+		    background-clip: padding-box;
+		    border: 1px solid #ced4da;
+		    border-radius: 0.25rem;
+		    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+		}
+		.fooorm-control {
+		    display: block;
+		    width: 100%;
+		    padding: 0.375rem 0.75rem;
+		    font-size: 1rem;
+		    font-weight: 400;
+		    line-height: 1.5;
+		    color: #495057;
+		    background-color: #fff;
+		    background-clip: padding-box;
+		    border: 1px solid white;
+		    border-radius: 0.25rem;
+		    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+		}
 
 </style>
 
@@ -37,12 +69,12 @@
               
               	<input type="hidden" name="memberNo" value="<%=loginMember.getMemberNo()%>">
 	              
-	              <div class="form-control">
+	              <div class="foorm-control">
 	                  <input type="text" class="form-control" placeholder="제목을 입력해주세요." aria-label="title" name="title">
 	                  <input type="file" class="form-control" name="upfile">
 	                   
 	                
-	                  <textarea class="form-control" style="height:500px;" placeholder="내용을 입력해 주세요" name="content"></textarea>
+	                  <textarea class="fooorm-control" style="height:500px;" placeholder="내용을 입력해 주세요" name="content"></textarea>
 	
 	                  <div align="center">
                     <button type="submit" class="btn btn-secondary" class="last1" >작성하기</button>

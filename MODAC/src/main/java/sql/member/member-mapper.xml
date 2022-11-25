@@ -93,7 +93,10 @@
 	</entry>
 	
 	<entry key = "selectList">
-	
+	SELECT *
+	FROM(
+	SELECT ROWNUM RNUM, A.*
+		FROM (
 		SELECT POST_NO,
 			   
 			   POST_TITLE,
@@ -105,9 +108,10 @@
 	
 	JOIN MEMBER  M USING (MEMBER_NO)
 	WHERE C.STATUS='N' AND M.STATUS='N' AND MEMBER_ID=?
-	
-	
-		
+		ORDER BY CREATE_DATE ASC
+		)A
+		)
+		 WHERE RNUM BETWEEN ? AND ?
 </entry>
 
 <entry key = "selectListCount">
@@ -117,7 +121,10 @@
 </entry>
 
 <entry key = "crselectList">
-	
+	SELECT *
+	FROM(
+	SELECT ROWNUM RNUM, A.*
+		FROM (
 		SELECT POST_NO,
 			   
 			   POST_TITLE,
@@ -125,11 +132,75 @@
 			   READ_COUNT,
 			   CREATE_DATE
 			
-	FROM CAMP_REVIEW R
+	FROM CAMP_REVIEW C
+	
+	JOIN MEMBER  M USING (MEMBER_NO)
+	WHERE C.STATUS='N' AND M.STATUS='N' AND MEMBER_ID=?
+		ORDER BY CREATE_DATE ASC
+		)A
+		)
+		 WHERE RNUM BETWEEN ? AND ?
+</entry>
+
+<entry key = "crselectListCount">
+	SELECT COUNT(*) READ_COUNT
+	FROM CAMP_REVIEW
+	WHERE STATUS = 'N'	
+</entry>
+
+<entry key = "upselectList">
+	SELECT *
+	FROM(
+	SELECT ROWNUM RNUM, A.*
+		FROM (
+		SELECT POST_NO,
+			   
+			   POST_TITLE,
+			   MEMBER_NIC,
+			   READ_COUNT,
+			   CREATE_DATE
+			
+	FROM USED_PRODUCT U
+	
+	JOIN MEMBER  M USING (MEMBER_NO)
+	WHERE U.STATUS='N' AND M.STATUS='N' AND MEMBER_ID=?
+		ORDER BY CREATE_DATE ASC
+		)A
+		)
+		 WHERE RNUM BETWEEN ? AND ?
+</entry>
+
+<entry key = "upselectListCount">
+	SELECT COUNT(*) READ_COUNT
+	FROM USED_PRODUCT
+	WHERE STATUS = 'N'	
+</entry>
+<entry key = "cpselectList">
+	SELECT *
+	FROM(
+	SELECT ROWNUM RNUM, A.*
+		FROM (
+		SELECT POST_NO,
+			   
+			   POST_TITLE,
+			   MEMBER_NIC,
+			   
+			   CREATE_DATE
+			
+	FROM RECIPE R
 	
 	JOIN MEMBER  M USING (MEMBER_NO)
 	WHERE R.STATUS='N' AND M.STATUS='N' AND MEMBER_ID=?
-		
+		ORDER BY CREATE_DATE ASC
+		)A
+		)
+		 WHERE RNUM BETWEEN ? AND ?
+</entry>
+
+<entry key = "cpselectListCount">
+	SELECT COUNT(*) READ_COUNT
+	FROM RECIPE
+	WHERE STATUS = 'N'	
 </entry>
 
 <entry key="emailCheck">

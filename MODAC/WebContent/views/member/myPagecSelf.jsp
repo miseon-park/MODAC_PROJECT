@@ -1,14 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList , com.modac.usedProduct.model.vo.Market , com.modac.common.model.vo.PageInfo, com.modac.member.model.dao.MemberDao" %>
+    pageEncoding="UTF-8" import="java.util.ArrayList , com.modac.circle.model.vo.Circle , com.modac.common.model.vo.PageInfo, com.modac.member.model.dao.MemberDao" %>
 
-<% ;
-ArrayList<Market> mlist = (ArrayList<Market>)request.getAttribute("list"); 
-PageInfo pi = (PageInfo)request.getAttribute("pi");
-
+<% ArrayList<Circle> clist = (ArrayList<Circle>)request.getAttribute("list");
+PageInfo pi = (PageInfo) request.getAttribute("pi");
 int currentPage = pi.getCurrentPage();
 int startPage = pi.getStartPage();
 int endPage = pi.getEndPage();
 int maxPage = pi.getMaxPage();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//2. 현재 사용자가 요청한 페이지에 보여줄 페이징바객체 전달
+//request.setAttribute("pi", pi);
 %>
 
 <!DOCTYPE html>
@@ -77,7 +91,7 @@ int maxPage = pi.getMaxPage();
                     <a class="nav-link" aria-current="page" href="<%=contextPath%>/myPage.me" style="text-align: center;">개인정보 변경</a>
                     <br><br>
                     <a class="nav-link" href="#" style="text-align: center;">북마크 모음</a>
-                    <a class="nav-link" href=""style="text-align: center;">자기글 모음</a>
+                   <a class="nav-link" href="" style="text-align: center;">자기글 모음</a>
                     <a class="nav-link" href="<%=contextPath%>/myPagecSelf.me"style="text-align: center;">동아리 모음</a>
                     <br><br>
                     
@@ -90,7 +104,6 @@ int maxPage = pi.getMaxPage();
                     
                     <a class="nav-link" href="<%=contextPath%>/myPageupSelf.me"style="text-align: center;">중고 모음</a>
                     
-
 
 
 
@@ -110,36 +123,37 @@ int maxPage = pi.getMaxPage();
 						</tr>
 					</thead>
 					<tbody>
-						<% if(mlist.isEmpty()) {%>
+						<% if(clist.isEmpty()) {%>
 						<tr>
 							<th colspan="5">존재하는 게시글이 없습니다.</th>
 						</tr>
 						<% } else { %>
-							<% for(Market m : mlist) {%>
+							<% for(Circle c : clist) {%>
 								<tr>
-									<th scope="row" style="text-align: center;"><%= m.getPostNo() %></th>
-									<td><%= m.getPostTitle() %></td>
-									<td><%= m.getMemberNic() %></td>
-									<td><%= m.getCreateDate() %></td>
-									<td style="text-align: center;"><%= m.getReadCount() %></td>
+									<th scope="row" style="text-align: center;"><%= c.getPostNo() %></th>
+									<td><%= c.getPostTitle() %></td>
+									<td><%= c.getMemberNic() %></td>
+									<td><%= c.getCreateDate() %></td>
+									<td style="text-align: center;"><%= c.getReadCount() %></td>
 								</tr>
 							<% } %>
 						<% } %>
 					</tbody>
-					</tbody>
+					
 				</table>
 			</div>
 			<script>
 				$(function(){
 					$(".list>tbody>tr").click(function(){
-						let mno = $(this).children().eq(0).text();
-						location.href= '<%=contextPath%>/detail.mk?mno='+mno;
+						let bno = $(this).children().eq(0).text();
+						
+								
+						location.href= '<%=contextPath%>/cdetail.bo?bno='+ bno;
 					});
 				})
 			</script>
 			
 			<br><br>
-			
 			<div align="center" class = "paging-area">
  		<%if(currentPage !=1){ %>
  		<button onclick="doPageClick(<%=currentPage-1 %>)">&lt;</button>
@@ -164,10 +178,9 @@ int maxPage = pi.getMaxPage();
  	</div>
  			<script>
  				function doPageClick(currentPage){
- 					location.href = "<%=contextPath%>/myPageupSelf.me?currentPage="+currentPage;
+ 					location.href = "<%=contextPath%>/myPagecSelf.me?currentPage="+currentPage;
  				}
  			</script>
- 	
  	
  	
  		

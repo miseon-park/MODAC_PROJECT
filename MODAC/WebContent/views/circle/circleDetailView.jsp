@@ -5,6 +5,13 @@
  // 게시글번호, 카테고리명, 제목, 내용, 작성자아이디, 작성일
  
  	Attachment at = (Attachment)request.getAttribute("at");
+ 
+
+ 
+ ArrayList<Reply> list = (ArrayList<Reply>)request.getAttribute("list");
+ 
+ Reply cr = (Reply)request.getAttribute("r");
+ 	
  	
  //파일번호, 원본명, 수정명, 저장경로
  %>
@@ -40,6 +47,20 @@
 		width: 80%;
 		margin: auto;
 	}
+	.foorm-control {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+	}
 </style>
 </head>
 <body>
@@ -51,15 +72,23 @@
 			 <br>
                <h3>동아리 모집</h3>
              <br>
+             <div class="insert-area" style="height:100%">
+             <%if(loginMember != null && loginMember.getMemberNic().equals(c.getMemberNic())){ %>
+			<div align="right">
+			<!-- 현재 로그인한 사용자가 해당 글을 작성한 작성자일 경우에만 보여진다. -->
+			<a href = "<%=contextPath %>/cupdateForm.bo?bno=<%=c.getPostNo() %>" class = "btn btn-secondary last1">수정하기</a>
+			<a href = "<%=contextPath %>/cdelete.bo?bno=<%=c.getPostNo()%>" class = "btn btn-secondary last1">삭제하기</a>
+			<%} %>
+			</div>
 
              
 			<br>
-             <div class="form-control insert-area">
+             <div class="foorm-control">
                 <br>
                 <h3>&nbsp;<%=c.getPostTitle()%></h3>
                  
                 <br>
-                <span>&nbsp; <%=c.getMemberNic() %></span>
+                <span>&nbsp; 작성자 : <%=c.getMemberNic() %></span>
                  
                 <span class="date">작성일 : <%=c.getCreateDate() %></span>
                  
@@ -67,8 +96,8 @@
                 <br>
                 
                 
-                
-                <div class="form-control" style="height:500px;"><%=c.getPostContent() %>
+                  <div style="padding:5px;"><%=c.getPostContent() %></div>
+             
                 
                 
                 <div class="form-control">
@@ -86,16 +115,21 @@
 						
                 
                 </div>
+                
 
-                <div align="center">
-				<a href="<%=contextPath %>/clist.bo?currentPage=1" class="btn btn-secondary btn-sm">목록가기</a>
-			<%if(loginMember != null && loginMember.getMemberNic().equals(c.getMemberNic())){ %>
+               
 			
-			<!-- 현재 로그인한 사용자가 해당 글을 작성한 작성자일 경우에만 보여진다. -->
-			<a href = "<%=contextPath %>/cupdateForm.bo?bno=<%=c.getPostNo() %>" class = "btn btn-warning btn-sm">수정하기</a>
-			<a href = "<%=contextPath %>/cdelete.bo?bno=<%=c.getPostNo()%>" class = "btn btn-danger btn-sm">삭제하기</a>
-			<%} %>
-			<div id="reply-area">
+			
+			
+            </div>
+            <br>
+             <div align="center">
+				<a href="<%=contextPath %>/clist.bo?currentPage=1" class="btn btn-secondary last1">목록으로</a>
+			</div>
+           
+		    <br>
+          </div>
+          <div id="reply-area">
 			
 				<table border="1" align="center">
 					<thead>
@@ -120,35 +154,51 @@
 						<%} %>
 					</thead>
 					<tbody>
-						
+						<% if(list.isEmpty()) {%>
+						<tr>
+							<th colspan="5">존재하는 게시글이 없습니다.</th>
+						</tr>
+						<% } else { %>
+							<% for(Reply r : list) {%>
+								<tr>
+									
+									<td><%= r.getWriter() %></td>
+									<td><%= r.getReplyContent() %></td>
+									<td><%= r.getCreateDate() %></td>
+								
+								</tr>
+								<td align="right">
+												<%
+												if(loginMember != null && loginMember.getMemberNic().equals(c.getMemberNic())){ %> 
+											
+													
+												<td><button onclick="replyDel();">삭제</button></td>																
+												<%
+												}
+												%>	
+											</td>
+							<% } %>
+							
+						<% } %>
 					</tbody>
 					
 				</table>
 				
 			
 			</div>
-			
-			</div>
-            </div>
-            <br>
-            
-            
-            <br>
-		    <br>
-          </div>
+      </div>
       </div>
       
       
 			
-		</div>
-		
+	
 		<script>
 		
-		$(function(){
+		/* $(function(){
 			selectReplyList();
 			
 			setInterval(selectReplyList, 1000);// 괄호 붙이면 메소드가 되어서 한번실행되고 안됨
-		});
+		}); */
 		
 			
 			function insertReply(){
@@ -172,9 +222,9 @@
 						console.log("댓글 작성용 ajax 통신실패")
 					}
 				})
-			}
+			};
 			
-			function selectReplyList(){
+			/*  function selectReplyList(){
 				$.ajax({
 					
 					url:"crlist.bo",
@@ -186,10 +236,12 @@
 							
 							
 							result+="<tr>"
-										+"<td>"+i.memberNo+"</td>"
+										+"<td>"+i.writer+"</td>"
 										+"<td>"+i.replyContent+"</td>"
 										+"<td>"+i.createDate+"</td>"
-								  +"</tr>";	
+										
+								  +"</tr>"
+								  
 							
 						}
 						$("#reply-area tbody").html(result); 
@@ -200,7 +252,25 @@
 					}
 				})
 				
-			}
+			}  */
+			
+			function replyDel() {
+		       
+		        
+		        $.ajax({
+		            url  : "replyDel.bo",
+		            type : "post",
+		            data : {replyNo : ${r.replyNo}},
+		            success : function(data) {
+		                   console.log("댓글이 삭제 되었습니다.");
+		                  location.reload();
+		            },
+		            error : function() {
+		                console.log("댓글이 삭제되지 않았습니다.");
+		            }
+		        })
+		    } 
+ 
 		
 		
 		

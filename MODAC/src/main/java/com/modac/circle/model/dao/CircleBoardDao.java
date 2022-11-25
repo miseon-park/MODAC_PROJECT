@@ -39,7 +39,7 @@ private Properties prop = new Properties();
 			
 			psmt.setString(1, c.getPostTitle());
 			psmt.setString(2, c.getPostContent());
-			psmt.setString(3, c.getMemberNic());
+			psmt.setString(3, c.getMemberNo());
 			
 			result = psmt.executeUpdate();
 		} catch (SQLException e) {
@@ -226,8 +226,10 @@ public ArrayList<Circle> selectList(Connection conn, PageInfo pi, String field, 
 		int endRow = startRow + pi.getBoardLimit()-1;
 		
 		psmt.setString(1, "%"+query+"%");
+		
 		psmt.setInt(2, startRow);
 		psmt.setInt(3, endRow);
+		
 		
 		rset = psmt.executeQuery();
 		System.out.println(rset);
@@ -423,6 +425,25 @@ public ArrayList<Reply> selectReplyList(Connection conn, int postNo ){
 	}
 	
 	return list;
+	
+}
+
+public int replyDel(Connection conn, int replyNo) {
+	int result = 0;
+	PreparedStatement psmt = null;
+	String sql = prop.getProperty("deletereply");
+	
+	try {
+		psmt = conn.prepareStatement(sql);
+		psmt.setInt(1, replyNo);
+		result=psmt.executeUpdate();
+	} catch (SQLException e) {
+		
+		e.printStackTrace();
+	}finally {
+		JDBCTemplate.close(psmt);
+	}
+	return result;
 	
 }
 

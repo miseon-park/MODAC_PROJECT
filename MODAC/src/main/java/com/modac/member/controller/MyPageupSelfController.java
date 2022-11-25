@@ -10,23 +10,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.modac.campReview.model.vo.CampReview;
-import com.modac.circle.model.vo.Circle;
+
 import com.modac.common.model.vo.PageInfo;
 import com.modac.member.model.service.MemberService;
 import com.modac.member.model.vo.Member;
+import com.modac.usedProduct.model.vo.Market;
 
 /**
- * Servlet implementation class MyPagecrSelfController
+ * Servlet implementation class MyPageupSelfController
  */
-@WebServlet("/myPagecrSelf.me")
-public class MyPagecrSelfController extends HttpServlet {
+@WebServlet("/myPageupSelf.me")
+public class MyPageupSelfController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyPagecrSelfController() {
+    public MyPageupSelfController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -45,7 +45,7 @@ public class MyPagecrSelfController extends HttpServlet {
 		int endPage;// 페이지 하단에 보여질 페이징바의 끝 수
 		
 		//* listCount : 총 게시글 개수
-		listCount = new MemberService().crselectListCount();//107
+		listCount = new MemberService().upselectListCount();//107
 		
 		//* currentPage : 현재페이지
 		currentPage = Integer.parseInt(request.getParameter("currentPage")==null ? "1" : request.getParameter("currentPage"));
@@ -80,13 +80,13 @@ public class MyPagecrSelfController extends HttpServlet {
 	
 		
 		
-		ArrayList<CampReview> list =new MemberService().crselectList(pi,memberId);
+		ArrayList<Market> list =new MemberService().upselectList(pi,memberId);
 	
 		
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
 		
-		request.getRequestDispatcher("views/member/myPagecrSelf.jsp").forward(request, response);
+		request.getRequestDispatcher("views/member/myPageupSelf.jsp").forward(request, response);
 	
 	}
 

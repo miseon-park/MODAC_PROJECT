@@ -27,9 +27,7 @@ public class MyPageController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// url로 직접 요청도 가능하기 때문에
-				// 로그인 전 요청시 => 메인페이지로
-				//로그인 후 요청시 => 마이페이지로 포워딩.
+		
 				
 				HttpSession session = request.getSession();
 				

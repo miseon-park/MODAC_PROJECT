@@ -1,6 +1,8 @@
 package com.modac.circle.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.modac.circle.model.service.CircleBoardService;
 import com.modac.circle.model.vo.Circle;
 import com.modac.common.model.vo.Attachment;
+import com.modac.common.model.vo.Reply;
 
 /**
  * Servlet implementation class CircleDetailController
@@ -42,10 +45,11 @@ public class CircleDetailController extends HttpServlet {
 			
 			Circle c = cService.selectBoard(postNo);
 			Attachment at = cService.selectAttachment(postNo);
-			
+			ArrayList<Reply> list = new CircleBoardService().selectReplyList(postNo);
 			
 			request.setAttribute("c", c);
 			request.setAttribute("at", at);
+			request.setAttribute("list",list);
 			
 			
 			request.getRequestDispatcher("views/circle/circleDetailView.jsp").forward(request, response);

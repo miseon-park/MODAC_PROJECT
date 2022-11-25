@@ -3,6 +3,11 @@
 
 <% ;
 ArrayList<CampReview> rlist = (ArrayList<CampReview>)request.getAttribute("list");
+PageInfo pi = (PageInfo) request.getAttribute("pi");
+int currentPage = pi.getCurrentPage();
+int startPage = pi.getStartPage();
+int endPage = pi.getEndPage();
+int maxPage = pi.getMaxPage();
 %>
 
 <!DOCTYPE html>
@@ -71,10 +76,19 @@ ArrayList<CampReview> rlist = (ArrayList<CampReview>)request.getAttribute("list"
                     <a class="nav-link" aria-current="page" href="<%=contextPath%>/myPage.me" style="text-align: center;">개인정보 변경</a>
                     <br><br>
                     <a class="nav-link" href="#" style="text-align: center;">북마크 모음</a>
+                    <a class="nav-link" href="" style="text-align: center;">자기글 모음</a>
+                    <a class="nav-link" href="<%=contextPath%>/myPagecSelf.me"style="text-align: center;">동아리 모음</a>
                     <br><br>
-                    <a class="nav-link" href="<%=contextPath%>/myPageSelf.me"style="text-align: center;">자기글 모음</a>
-                    <a class="nav-link" href="<%=contextPath%>/myPagecrSelf.me"style="text-align: center;color: orange;">캠핑장 리뷰</a>
-
+                    
+                    <a class="nav-link" href="<%=contextPath%>/myPagecrSelf.me"style="text-align: center;">캠핑리뷰 모음</a>
+                    
+                    <br><br>
+                    
+                    <a class="nav-link" href="<%=contextPath%>/myPagecpSelf.me"style="text-align: center;">캠핑레시피 모음</a>
+                    <br><br>
+                    
+                    <a class="nav-link" href="<%=contextPath%>/myPageupSelf.me"style="text-align: center;">중고 모음</a>
+                    
 
 
 
@@ -94,23 +108,21 @@ ArrayList<CampReview> rlist = (ArrayList<CampReview>)request.getAttribute("list"
 						</tr>
 					</thead>
 					<tbody>
-						<%MemberDao memberDao = new MemberDao();
-						System.out.println(memberDao +" "+loginMember);
-							ArrayList<CampReview> list = memberDao.crselectList(loginMember.getMemberId());
-							for(int i=0; i<list.size(); i++){
-									
-							
-							%>
-							<tr>
-								<td><%=list.get(i).getPostNo() %></td>
-								<td><%=list.get(i).getPostTitle() %></td>
-								<td><%=list.get(i).getMemberNic() %></td>
-								<td><%=list.get(i).getCreateDate()%></td>
-								<td><%=list.get(i).getReadCount() %></td>
-							
-							</tr>
-							
-							<%} %>
+						<% if(rlist.isEmpty()) {%>
+						<tr>
+							<th colspan="5">존재하는 게시글이 없습니다.</th>
+						</tr>
+						<% } else { %>
+							<% for(CampReview r : rlist) {%>
+								<tr>
+									<th scope="row" style="text-align: center;"><%= r.getPostNo() %></th>
+									<td><%= r.getPostTitle() %></td>
+									<td><%= r.getMemberNic() %></td>
+									<td><%= r.getCreateDate() %></td>
+									<td style="text-align: center;"><%= r.getReadCount() %></td>
+								</tr>
+							<% } %>
+						<% } %>
 					</tbody>
 				</table>
 			</div>
@@ -123,16 +135,33 @@ ArrayList<CampReview> rlist = (ArrayList<CampReview>)request.getAttribute("list"
 				})
 			</script>
 			
-			<br><br>
- 	
- 	
- 		
- 		
+			<div class="btn-group" aria-label="Basic example" align="center" class="paging-area">
+				<% if(currentPage != 1) { %>
+				<button onclick ="doPageClick(<%=currentPage-1%>)">&lt;</button>
+				<% } %>
 				
+				<%for(int i = startPage; i<=endPage; i++) {%>
+					<% if(i != currentPage) {%>
+						<button onclick="doPageClick(<%=i%>)"><%=i%></button>
+					<%}else{ %>
+						<button disabled><%=i %></button>
+					<%} %>
+				<%} %>
+				<%if(currentPage != maxPage) {%>
+				<button onclick ="doPageClick(<%=currentPage+1%>)">&gt;</button>
+				<%} %>
 			</div>
 			
- 	
- 			
+			<script>
+				function doPageClick(currentPage){
+					location.href = "<%=contextPath%>/myPagecrSelf.me?currentPage="+currentPage;
+				}
+			</script>
+			
+		</div>
+
+
+	</div>
 			
 
 			
