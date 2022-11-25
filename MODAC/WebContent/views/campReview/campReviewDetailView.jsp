@@ -93,7 +93,7 @@
 	                <div class="form-control" style="height:100%;">
 	                	<div style="text-align:center">
 	                     <% if(cr.getTitleImg() != null ) { %>
-		               		 <img src="<%=contextPath%>/<%=cr.getTitleImg()%>" width="600px" height="100%">
+		               		 <img src="<%=contextPath%>/<%=cr.getTitleImg()%>" width="80%" height="100%">
 		                 <% } %>
 		                 <br>
 				         <% if(at==null) { %>
@@ -109,7 +109,7 @@
 		                 
 		                 </div>
 		                  	 <br><br>
-		               		 <%=cr.getPostContent() %>
+		               		 <div style="padding:5px;"><%=cr.getPostContent() %></div>
 	                </div>
 	
 	                <div class=" btn-group-sm foorm-control" role="group" aria-label="Basic checkbox toggle button group">

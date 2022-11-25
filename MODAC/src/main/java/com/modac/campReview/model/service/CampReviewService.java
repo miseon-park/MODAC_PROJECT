@@ -102,7 +102,9 @@ public class CampReviewService {
 				
 	    int result3 = 1;
 	    
-		result2 = new CampReviewDao().insertTag(cr, conn);
+	    if(cr.getTagList() != null) {
+	    	result2 = new CampReviewDao().insertTag(cr, conn);
+	    }
 		
 		if(at != null) {
 			at.setPostNo(String.valueOf(postNo));

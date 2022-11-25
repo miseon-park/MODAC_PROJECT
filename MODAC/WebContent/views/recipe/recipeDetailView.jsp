@@ -113,7 +113,7 @@
 		                <div class="form-control" style="height:100%;">
 		                	<div style="text-align:center">
 		                     <% if(r.getTitleImg() != null ) { %>
-			               		 <img src="<%=contextPath%>/<%=r.getTitleImg()%>" width="600px" height="100%">
+			               		 <img src="<%=contextPath%>/<%=r.getTitleImg()%>" width="80%" height="100%">
 			                 <% } %>
 			                 <br>
 				             <% if(at==null) { %>
@@ -128,7 +128,7 @@
 							 <% } %>
 			                 </div>
 			                  	 <br><br>
-			               		 <%=r.getPostContent() %>
+			                 <div style="padding:5px;"><%=r.getPostContent() %></div>
 		                </div>
 	                  <br>
 	           

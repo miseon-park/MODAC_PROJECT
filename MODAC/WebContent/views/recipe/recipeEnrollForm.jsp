@@ -82,7 +82,7 @@
               	<div class="foorm-control">
                 	<input type="text" class="form-control" placeholder="제목을 입력해주세요." aria-label="title" name="title">
                   
-                    <input type="file" class="form-control" name="upfile" id="upfile" onchange="loadImg(this, 1);" required>      
+                    <input type="file" class="form-control" name="upfile" id="upfile" onchange="loadImg(this, 1);">      
 
                     <div class="mb-10 row">
                       <label class="col-sm-2 col-form-label"> &nbsp;&nbsp; <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-alarm" viewBox="0 0 16 16"> <path d="M8.5 5.5a.5.5 0 0 0-1 0v3.362l-1.429 2.38a.5.5 0 1 0 .858.515l1.5-2.5A.5.5 0 0 0 8.5 9V5.5z"/>
