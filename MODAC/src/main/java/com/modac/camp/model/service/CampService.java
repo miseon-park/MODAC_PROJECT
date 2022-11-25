@@ -145,5 +145,89 @@ public class CampService {
 		
 	}
 	
+	
+	
+	// --------------------------------------------------------------------
+	
+	
+	// 조회수
+	public int increaseCount(int cNo) {
+		
+		Connection conn = getConnection();
+		
+		int result = new CampDao().increaseCount(cNo, conn);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close();
+		
+		return result;
+		
+	}
+	
+	
+	// 상세보기 화면
+	public Camp selectCampDetail(int cNo) {
+		
+		Connection conn = getConnection();
+		
+		Camp c = new CampDao().selectCampDetail(cNo, conn);
+		
+		close();
+		
+		return c;
+		
+	}
+	
+	
+	
+	// 자연경관
+	public ArrayList<Camp> n1Detail(int cNo) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Camp> n1 = new CampDao().n1Detail(cNo, conn);
+		
+		close();
+		
+		return n1;
+		
+	}
+	
+	
+	// 지형
+	public ArrayList<Camp> n2Detail(int cNo) {
+		Connection conn = getConnection();
+		
+		ArrayList<Camp> n2 = new CampDao().n2Detail(cNo, conn);
+		
+		close();
+		
+		return n2;
+	}
+	
+	// 편의시설
+	public ArrayList<Camp> n3Detail(int cNo) {
+		Connection conn = getConnection();
+		
+		ArrayList<Camp> n3 = new CampDao().n3Detail(cNo, conn);
+		
+		close();
+		
+		return n3;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

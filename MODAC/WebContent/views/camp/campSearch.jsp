@@ -266,7 +266,7 @@
                     <tbody>
                         <tr>
                             <td class="areaImage" rowspan="3" style="width: 300px; height: 200px;   border-bottom: 3px solid lightgray;">이미지</td>
-                            <td colspan="2" style="width: 200px; font-weight: bolder;"><%= c.getCampName() %></td>
+                            <td colspan="2" style="width: 200px; font-weight: bolder;" class="campname"><%= c.getCampName() %></td>
                             <td style="width: 60px;"><div>지역</div></td>
                             <td style="width: 250px;"><%= c.getLocation1() %></td>
                             <td style="width: 50px"></td>
@@ -386,11 +386,12 @@
 
         // 세부페이지 이동
         $(function() {
-            $(".list-area>tbody").click(function() {
-
+            $(".list-area tbody").click(function() {
+				
                 // 현재 내가 클릭한 tr의 자손들 중 0번 째에 위치한 자식의 textnode 내용을 가져온다.
-                let cName = $(this).children().find('td').eq(1).text();
-
+                
+                //let cName = $(this).children().find('.campname').eq(1).text();
+				let cName = this.querySelector(".campname").innerText;
                 location.href = '<%=contextPath %>/campInfo.ca?cName='+cName;
 
             });

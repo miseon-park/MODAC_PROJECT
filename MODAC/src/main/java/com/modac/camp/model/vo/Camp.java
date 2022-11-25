@@ -14,6 +14,8 @@ public class Camp {
 	private String naturalAttri;
 	private String naturalAttri2;
 	
+	private int count;
+	
 	private String campImg;
 	
 
@@ -205,16 +207,24 @@ public class Camp {
 	}
 	
 	
-	// 캠핑장 세부 조회
-	public Camp(String campName, String address, String campCall, String campWeb, String campContent, String campImg) {
+	// 캠핑장 세부 조회(기본 화면)
+	public Camp(String campNo, String campName, String address, String campCall, String campWeb, String campContent) {
 		super();
+		this.campNo = campNo;
 		this.campName = campName;
 		this.address = address;
 		this.campCall = campCall;
 		this.campWeb = campWeb;
 		this.campContent = campContent;
-		this.campImg = campImg;
 	}
+	
+	
+	// 자연경관 및 기타 테마
+	public Camp(String naturalAttri) {
+		super();
+		this.naturalAttri = naturalAttri;
+	}
+	
 	
 	
 }

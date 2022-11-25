@@ -616,6 +616,167 @@ public class CampDao {
 	}
 	
 	
+	//----------------------------------------------------------------------------------
+	
+	
+	// 조회수
+	public int increaseCount(int cNo, Connection conn) {
+		
+		int result = 0;
+		PreparedStatement psmt = null;
+		String sql = prop.getProperty("increaseCount");
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setInt(1, cNo);
+			
+			result = psmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(psmt);
+		}
+		
+		return result;
+	}
+	
+	
+	
+	// 상세보기 화면(캠핑장 기본 정보)
+	public Camp selectCampDetail(int cNo, Connection conn) {
+		
+		Camp c = null;
+		PreparedStatement psmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectCampDetail");
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setInt(1, cNo);
+			
+			rset = psmt.executeQuery();
+			
+			if(rset.next()) {
+				c = new Camp(rset.getString("CAMP_NO"),
+							rset.getString("CAMP_NAME"),
+							rset.getString("ADDRESS"),
+							rset.getString("CAMP_CALL"),
+							rset.getString("CAMP_WEB"),
+							rset.getString("CAMP_CONTENT")
+						);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(psmt);
+		}
+		
+		return c;
+		
+	}
+	
+	
+	
+	// 자연경관
+	public ArrayList<Camp> n1Detail(int cNo, Connection conn) {
+		
+		ArrayList<Camp> n1 = new ArrayList<>();
+		PreparedStatement psmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("n1Detail");
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setInt(1, cNo);
+			
+			rset = psmt.executeQuery();
+			
+			while(rset.next()) {
+				n1.add(new Camp(rset.getString("NATURAL_ATTRI")));
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(psmt);
+		}
+		
+		return n1;
+	}
+	
+	
+	
+	// 지형
+	public ArrayList<Camp> n2Detail(int cNo, Connection conn) {
+		
+		ArrayList<Camp> n2 = new ArrayList<>();
+		PreparedStatement psmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("n2Detail");
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setInt(1, cNo);
+			
+			rset = psmt.executeQuery();
+			
+			while(rset.next()) {
+				n2.add(new Camp(rset.getString("NATURAL_ATTRI")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(psmt);
+		}
+		
+		return n2;	
+	}
+	
+	
+	
+	// 편의시설
+	public ArrayList<Camp> n3Detail(int cNo, Connection conn) {
+		
+		ArrayList<Camp> n3 = new ArrayList<>();
+		PreparedStatement psmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("n3Detail");
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setInt(1, cNo);
+			
+			rset = psmt.executeQuery();
+			
+			while(rset.next()) {
+				n3.add(new Camp(rset.getString("NATURAL_ATTRI")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(psmt);
+		}
+		
+		return n3;
+		
+	}
+	
+	
 	
 
 }

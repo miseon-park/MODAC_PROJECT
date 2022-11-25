@@ -84,9 +84,6 @@ public class CampListController extends HttpServlet {
 		
 		
 		
-		
-		
-		
 		ArrayList<Camp> list = new CampService().selectCampList(pi);
 		
 		System.out.print(list);

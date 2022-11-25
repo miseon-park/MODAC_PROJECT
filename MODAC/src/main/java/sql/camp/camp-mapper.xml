@@ -335,4 +335,66 @@
 		WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
+	
+	
+	<!-- 중간선 -->
+	
+	
+	<!-- 조회수 -->
+	<entry key="increaseCount">
+		UPDATE CAMP_INFO
+		SET COUNT = COUNT+1
+		WHERE CAMP_NO = ?
+	</entry>
+	
+	
+	<!-- 상세보기 화면(기본정보) -->
+	<entry key="selectCampDetail">
+		SELECT CAMP_NO,
+				CAMP_NAME,
+				ADDRESS,
+				CAMP_CALL,
+				CAMP_WEB,
+				CAMP_CONTENT
+		FROM CAMP_INFO CI
+		WHERE CAMP_NO = ?
+	</entry>
+	
+	
+	
+	<!-- 상세보기 자연경관 -->
+	<entry key="n1Detail">
+		SELECT NATURAL_ATTRI
+		FROM "NATURAL"
+		JOIN CAMP_NATURAL USING (NATURAL_NO)
+		WHERE CAMP_NO = ?
+		    AND NATURAL_NO IN (1, 2, 3, 4)
+	</entry>
+	
+	
+	<!-- 지형 -->
+	<entry key="n2Detail">
+		SELECT NATURAL_ATTRI
+		FROM "NATURAL"
+		JOIN CAMP_NATURAL USING (NATURAL_NO)
+		WHERE CAMP_NO = ?
+		    AND NATURAL_NO IN (5, 6, 7, 8, 9)
+	</entry>
+	
+	
+	
+	<!-- 편의시설 -->
+	<entry key="n3Detail">
+		SELECT NATURAL_ATTRI
+		FROM "NATURAL"
+		JOIN CAMP_NATURAL USING (NATURAL_NO)
+		WHERE CAMP_NO = ?
+		    AND NATURAL_NO IN (10, 11, 12, 13, 14, 15, 16, 17)
+	
+	</entry>
+	
+	
+	
+	
+	
 </properties>

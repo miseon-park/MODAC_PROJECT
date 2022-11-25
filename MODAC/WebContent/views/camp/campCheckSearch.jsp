@@ -382,12 +382,13 @@
 
 
         // 세부페이지 이동
-        $(function() {
-            $(".list-area>tbody").click(function() {
-
+         $(function() {
+            $(".list-area tbody").click(function() {
+		
                 // 현재 내가 클릭한 tr의 자손들 중 0번 째에 위치한 자식의 textnode 내용을 가져온다.
-                let cName = $(this).children().find('td').eq(1).text();
-
+                //							.find('td')
+                //let cName = $(this).children().eq(1).text();
+                let cName = this.querySelector(".campname").innerText;
                 location.href = '<%=contextPath %>/campInfo.ca?cName='+cName;
 
             });
