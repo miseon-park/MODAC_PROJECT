@@ -69,6 +69,10 @@
 
 
 
+	#themImg {
+		text-align: center;
+	}
+
 
 
 	#btnback {
@@ -78,6 +82,12 @@
         border: none;
 		width: 100px;
 		height: 30px;
+	}
+
+	
+	img {
+		width: 130px;
+		text-align: center;
 	}
 
 
@@ -118,7 +128,7 @@
 					</tr>
 					<tr>
 						<% for(Camp c1 : n1) { %>
-							<td><%=c1.getNaturalAttri() %></td>
+							<td id="themImg"><img src="<%=contextPath%>/resources/<%=c1.getCampImg() %>.png" alt=""></td>
 						<% } %>
 					</tr>
 					<tr>
@@ -126,7 +136,7 @@
 					</tr>
 					<tr class="them-con">
 						<% for(Camp c2 : n2) { %>
-							<td><%=c2.getNaturalAttri() %></td>
+							<td id="themImg"><img src="<%=contextPath%>/resources/<%=c2.getCampImg() %>.png" alt=""></td>
 						<% } %>
 					</tr>
 					<tr>
@@ -134,7 +144,7 @@
 					</tr>
 					<tr class="them-con">
 						<% for(Camp c3 : n3) { %>
-							<td><%=c3.getNaturalAttri() %></td>
+							<td id="themImg"><img src="<%=contextPath%>/resources/<%=c3.getCampImg() %>.png" alt=""></td>
 						<% } %>
 					</tr>
 					<tr>
@@ -154,7 +164,51 @@
 
 
 	<script>
-				
+		
+		
+
+		// function n1_Img() {
+
+
+		// 	document.getElementById("testing").innerHTML = 1;
+		// 	let idd = document.getElementById("testing")
+		// 	$(function(){
+		// 		$(idd).html("1111");
+		// 	})
+
+		// 	var n1_img;
+
+			
+
+		// 	for(let i = 0; i<n1.length; i++) {
+		// 		var n1 = n1[i].getNaturalAttri();
+
+		// 		switch(n1) {
+		// 			case '계곡' :
+		// 				n1_img = '<%=contextPath %>/resources/countryside.png';
+		// 				break;
+		// 			case '바다':
+		// 				n1_img = '<%=contextPath %>/resources/wave.png';
+		// 				break;
+		// 			case '산' :
+		// 				n1_img = '<%=contextPath %>/resources/mountain.png';
+		// 				break;
+		// 			case '강' :
+		// 				n1_img = '<%=contextPath %>/resources/river.png';
+		// 				break;
+		// 		}
+
+		// 		return n1_img;
+		// 	}
+
+		// 	// <% for(Camp c1 : n1) { %>
+		// 	// 				<td><%=c1.getNaturalAttri() %></td>
+		// 	// 			<% } %>
+		// }
+
+
+
+
 	</script>
 
 

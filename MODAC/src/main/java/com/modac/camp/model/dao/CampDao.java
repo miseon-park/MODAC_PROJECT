@@ -699,7 +699,9 @@ public class CampDao {
 			rset = psmt.executeQuery();
 			
 			while(rset.next()) {
-				n1.add(new Camp(rset.getString("NATURAL_ATTRI")));
+				n1.add(new Camp(rset.getString("NATURAL_ATTRI"),
+								rset.getString("NATURAL_PIC")
+						));
 			}
 			
 			
@@ -731,7 +733,9 @@ public class CampDao {
 			rset = psmt.executeQuery();
 			
 			while(rset.next()) {
-				n2.add(new Camp(rset.getString("NATURAL_ATTRI")));
+				n2.add(new Camp(rset.getString("NATURAL_ATTRI"),
+								rset.getString("NATURAL_PIC")
+						));
 			}
 			
 		} catch (SQLException e) {
@@ -762,7 +766,9 @@ public class CampDao {
 			rset = psmt.executeQuery();
 			
 			while(rset.next()) {
-				n3.add(new Camp(rset.getString("NATURAL_ATTRI")));
+				n3.add(new Camp(rset.getString("NATURAL_ATTRI"),
+								rset.getString("NATURAL_PIC")
+						));
 			}
 			
 		} catch (SQLException e) {

@@ -272,7 +272,7 @@
                             <td style="width: 60px;"><div>지역</div></td>
                             <td style="width: 250px;"><%= c.getLocation1() %></td>
                             <td style="width: 50px"></td>
-                            <td width="60px">별모양</td>
+                            <td width="60px"></td>
                         </tr>
                         <tr>
                             <td class="info">위치</td>

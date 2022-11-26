@@ -220,9 +220,10 @@ public class Camp {
 	
 	
 	// 자연경관 및 기타 테마
-	public Camp(String naturalAttri) {
+	public Camp(String naturalAttri, String campImg) {
 		super();
 		this.naturalAttri = naturalAttri;
+		this.campImg = campImg;
 	}
 	
 	
