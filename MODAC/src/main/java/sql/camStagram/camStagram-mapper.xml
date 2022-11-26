@@ -8,12 +8,19 @@
 			SELECT ROWNUM RNUM, A.*
 			FROM (
 			SELECT PATH || NEW_NAME AS "TITLE_IMG",
-				   POST_NO,
+				   C.POST_NO,
 			       POST_CONTENT,
+			       MEMBER_NO,
 			       MEMBER_NIC,
-			       CREATE_DATE
+			       CREATE_DATE,
+			       (SELECT COUNT(*)
+			          FROM BOARD_LIKE
+			         WHERE POST_NO = C.POST_NO) AS "LIKE_COUNT",
+			       (SELECT COUNT(*)
+                      FROM REPLY
+                     WHERE BOARD_NO=8 AND POST_NO = C.POST_NO) AS "REPLY_COUNT"
 			FROM CAMP_GRAM C
-			JOIN ATTACHMENT A USING(POST_NO)
+			JOIN ATTACHMENT A ON A.POST_NO = C.POST_NO
 			JOIN MEMBER M USING(MEMBER_NO)
 			WHERE $ LIKE ? AND M.STATUS = 'N' AND C.STATUS = 'N' AND A.STATUS = 'N' 
 			ORDER BY CREATE_DATE DESC, POST_NO DESC) A
@@ -36,12 +43,19 @@
 	
 	<entry key="selectCamStagram">
 		SELECT (SELECT PATH || NEW_NAME
-                	  FROM ATTACHMENT
+                  FROM ATTACHMENT
                	 WHERE POST_NO = ? AND BOARD_NO = 8 AND STATUS = 'N') AS "TITLE_IMG" ,
                POST_NO,
 		       POST_CONTENT,
+			   MEMBER_NO,
 		       MEMBER_NIC,
-		       CREATE_DATE
+		       CREATE_DATE,
+			   (SELECT COUNT(*)
+			      FROM BOARD_LIKE
+			     WHERE POST_NO = ?) AS "LIKE_COUNT",
+			   (SELECT COUNT(*)
+                  FROM REPLY
+                 WHERE BOARD_NO=8 AND POST_NO = ?) AS "REPLY_COUNT"
 		FROM CAMP_GRAM C
 		JOIN MEMBER M USING(MEMBER_NO)
         JOIN ATTACHMENT USING(POST_NO)
@@ -58,6 +72,13 @@
 		FROM ATTACHMENT
 		WHERE STATUS = 'N' AND BOARD_NO = 8
 		  AND POST_NO = ?
+	</entry>
+	
+	<entry key="selectBoardLike">
+		SELECT POST_NO,
+			   MEMBER_NO
+		FROM BOARD_LIKE
+		WHERE POST_NO = ? AND MEMBER_NO = ?
 	</entry>
 	
 	<entry key="insertCamStagram">
@@ -127,10 +148,14 @@
 	</entry>
 	
 	
+	<entry key="insertBoardLike">
+		INSERT INTO BOARD_LIKE (POST_NO, MEMBER_NO)
+		VALUES (?, ?)
+	</entry>
 	
-	
-	
-	
-	
+	<entry key="deleteBoardLike">
+		DELETE BOARD_LIKE
+		WHERE POST_NO = ? AND MEMBER_NO = ?
+	</entry>
 
 </properties>

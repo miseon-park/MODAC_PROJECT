@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.modac.camStagram.model.service.CamStagramService;
+import com.modac.camStagram.model.vo.BoardLike;
 import com.modac.camStagram.model.vo.CamStagram;
+import com.modac.campReview.model.vo.CampReview;
 import com.modac.common.model.vo.Attachment;
 
 /**
@@ -31,6 +33,8 @@ public class camStagramDetailController extends HttpServlet {
 	 */
 protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
+	request.setCharacterEncoding("UTF-8");
+	
 	int postNo = Integer.parseInt(request.getParameter("csno"));
 	
 	int result = new CamStagramService().increaseCount(postNo);
@@ -39,8 +43,17 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 		CamStagram cs = new CamStagramService().selectCamStagram(postNo);
 		Attachment at = new CamStagramService().selectAttachment(postNo);
 		
+		String memberNo = cs.getMemberNo();
+		BoardLike bl = new CamStagramService().selectBoardLike(postNo, memberNo);
+		
+		
 		request.setAttribute("cs", cs);
 		request.setAttribute("at", at);
+		request.setAttribute("bl", bl);
+
+		System.out.println("detail con - bl : "+bl);
+
+		
 		
 		request.getRequestDispatcher("views/camStagram/camStagramDetailView.jsp").forward(request, response);
 		

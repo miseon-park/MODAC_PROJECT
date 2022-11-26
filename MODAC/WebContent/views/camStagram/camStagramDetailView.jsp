@@ -1,14 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.modac.camStagram.model.vo.CamStagram, com.modac.common.model.vo.*"%>
+    pageEncoding="UTF-8" import="com.modac.camStagram.model.vo.*, com.modac.common.model.vo.*"%>
 <%
 	CamStagram cs = (CamStagram)request.getAttribute("cs");
 	Attachment at = (Attachment)request.getAttribute("at");
+	BoardLike bl = (BoardLike)request.getAttribute("bl"); 
 %>
 <!DOCTYPE html>
 <html>
 <head><script type="text/javascript" src="/___vscode_livepreview_injected_script"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+<link rel=”stylesheet” href=”http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css“>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <style>
 	.content1 {
@@ -49,7 +52,7 @@
 	    border: 1px solid #ced4da;
 	    border-radius: 0.25rem;
 	    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-		}
+	}
 </style>
 </head>
 <body>
@@ -93,7 +96,31 @@
 								
 							 <% } %>
 			                 </div>
-			                  	 <br>
+			                 	
+								<%if(loginMember == null) { %>
+									<i class="bi bi-suit-heart"></i>  <span><%=cs.getLikeCount() %></span>  	
+								<%} else { %>
+									<%if(bl != null) {%>
+										<button type="button" class="bi bi-suit-heart" style="display:none;" onclick="like();" id="like"></button> 
+										<button type="button"class="bi bi-suit-heart-fill" style="display:inline;" id="unlike"></button> <span><%=cs.getLikeCount() %></span>
+									<%} else { %>
+										<button type="button"class="bi bi-suit-heart" style="display:inline;" onclick="like();" id="like"></button>
+										<button type="button"class="bi bi-suit-heart-fill" style="display:none;" id="unlike"></button> <span><%=cs.getLikeCount() %></span>
+									<% } %>
+								
+<%-- 									<%if(bl != null) {%> --%>
+<!-- 										<i class="bi bi-suit-heart" style="display:none;" onclick="likeClick();" id="like"></i>  -->
+<%-- 										<i class="bi bi-suit-heart-fill" style="display:inline;" onclick="unLikeClick();" id="unlike"></i> <span><%=cs.getLikeCount() %></span> --%>
+<%-- 									<%} else { %> --%>
+<!-- 										<i class="bi bi-suit-heart" style="display:inline;" onclick="LikeClick();" id="like"></i> -->
+<%-- 										<i class="bi bi-suit-heart-fill" style="display:none;" onclick="unlikeClick();" id="unlike"></i> <span><%=cs.getLikeCount() %></span> --%>
+<%-- 									<% } %> --%>
+								<% } %>
+				
+			                    &nbsp;
+								<i class="bi bi-chat-dots"></i>  <span><%=cs.getReplyCount()%></span>
+			                  	
+			                  	<br><br>
 								<span><b>&nbsp;<%=cs.getMemberNic() %></b></span>
 
 								<span class="date"><%=cs.getCreateDate() %>&nbsp;</span>
@@ -139,6 +166,59 @@
             <br>
 		    <br>
           </div>
+          
+          <script>
+//           function likeClick(){
+// 			  $("#like").css("display","inline");
+//         	  $("#unlike").css("display","none");
+//           }
+          
+// 		   $(function(){
+// 			 $("#like").click(function(){
+				 
+				 function like(){
+					 $.ajax({
+	                        url : "like.cs",
+	                        data : {memberNo : "<%=cs.getMemberNo()%>",
+	                              postNo : "<%=cs.getPostNo() %>"},
+	                        success : function(result){
+	                           //좋아요 등
+	                           if(result == 1){
+	                              alert("좋아요를 등록했습니다.");
+	                           }else{
+	                              alert("좋아요 등록에 실패했습니다. ");
+	                           }
+	                        }
+	                     });
+				 }
+                  
+//                   }
+//             })
+            
+//             function unLikeClick(){
+// 			  $("#like").css("display","none");
+//         	  $("#unlike").css("display","inline");
+//          	}
+            $(function(){
+            $("#unlike").click(function(){
+                  $.ajax({
+                        url : "unlike.cs",
+                        data : {MemberNo : "<%=cs.getMemberNo()%>",
+                              postNo : <%=cs.getPostNo() %>},
+                        success : function(result){
+                           //좋아요 등
+                           if(result == 1){
+                              alert("좋아요를 취소했습니다.");
+                              location.reload();
+                           }else{
+                              alert("좋아요 취소에 실패했습니다. ");
+                           }
+                        }
+                     });
+                  }
+            })
+	      
+      	 </script>
 
 
 

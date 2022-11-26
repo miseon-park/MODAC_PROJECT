@@ -48,8 +48,24 @@ public class CamStagram {
 		this.replyCount = replyCount;
 	}
 	
-	// 목록 , 디테일 
-	public CamStagram(String titleImg, String postNo, String postContent, String memberNic, Date createDate) {
+	// 목록
+	public CamStagram(String titleImg, String postNo, String postContent, String memberNo, String memberNic, 
+			Date createDate, String likeCount, String replyCount) {
+		super();
+
+		this.titleImg = titleImg;
+		this.postNo = postNo;
+		this.postContent = postContent;
+		this.memberNo = memberNo;
+		this.memberNic = memberNic;
+		this.createDate = createDate;
+		this.likeCount = likeCount;
+		this.replyCount = replyCount;
+	}
+	
+	// 디테일 
+	public CamStagram(String titleImg, String postNo, String postContent, String memberNic, Date createDate, 
+			String likeCount, String replyCount) {
 		super();
 
 		this.titleImg = titleImg;
@@ -57,6 +73,8 @@ public class CamStagram {
 		this.postContent = postContent;
 		this.memberNic = memberNic;
 		this.createDate = createDate;
+		this.likeCount = likeCount;
+		this.replyCount = replyCount;
 	}
 	
 	public String getBoardNo() {

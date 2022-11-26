@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.modac.common.model.vo.Attachment;
 import com.modac.common.model.vo.PageInfo;
 import com.modac.camStagram.model.dao.CamStagramDao;
+import com.modac.camStagram.model.vo.BoardLike;
 import com.modac.camStagram.model.vo.CamStagram;
 
 import static com.modac.common.JDBCTemplate.*;
@@ -59,7 +60,6 @@ public class CamStagramService {
 		CamStagram cs = new CamStagramDao().selectCamStagram(postNo, conn);
 		
 		close();
-		System.out.println("list(ser) : "+cs);
 		  
 		return cs;
 	}
@@ -74,6 +74,18 @@ public class CamStagramService {
 		close();
 		
 		return at;
+		
+	}
+	
+	public BoardLike selectBoardLike(int postNo, String memberNo) {
+
+		Connection conn = getConnection();
+		
+		BoardLike bl= new CamStagramDao().selectBoardLike(postNo, memberNo, conn);
+		
+		close();
+
+		return bl;
 		
 	}
 	
@@ -143,6 +155,45 @@ public class CamStagramService {
 		return result;
 		
 	}
+	
+	public int insertBoardLike(String postNo, String memberNo) {
+		
+		System.out.println("postNo,memberNo (ser) : " +postNo+memberNo);
+		
+		Connection conn = getConnection();
+		
+		int result = new CamStagramDao().insertBoardLike(postNo, memberNo, conn);
+
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close();
+		System.out.println("result(ser) : " +result);
+		
+		return result;
+	}
+	
+	public int deleteBoardLike(String postNo, String memberNo) {
+
+		System.out.println("postNo,memberNo (ser) : " +postNo+memberNo);
+		
+		Connection conn = getConnection();
+		
+		int result = new CamStagramDao().deleteBoardLike(postNo, memberNo, conn);
+
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close();
+		System.out.println("result(ser) : " +result);
+		
+		return result;
+	}
+	
 	
 	public void commitRollback(int result, Connection conn) {
 		

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.modac.common.model.vo.PageInfo;
+import com.modac.camStagram.model.vo.BoardLike;
 import com.modac.camStagram.model.vo.CamStagram;
 import com.modac.common.model.vo.Attachment;
 
@@ -84,8 +85,11 @@ public class CamStagramDao {
 				list.add(new CamStagram(rset.getString("TITLE_IMG"),
 		                				rset.getString("POST_NO"),
 						                rset.getString("POST_CONTENT"),
+										rset.getString("MEMBER_NO"),
 										rset.getString("MEMBER_NIC"),
-										rset.getDate("CREATE_DATE")
+										rset.getDate("CREATE_DATE"),
+										rset.getString("LIKE_COUNT"),
+										rset.getString("REPLY_COUNT")
 										));
 			}
 		} catch (SQLException e) {
@@ -135,14 +139,19 @@ public class CamStagramDao {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, postNo);
 			psmt.setInt(2, postNo);
+			psmt.setInt(3, postNo);
+			psmt.setInt(4, postNo);
 			rset = psmt.executeQuery();
 			
 			if(rset.next()) {
 				cs = new CamStagram( rset.getString("TITLE_IMG"),
 			                         rset.getString("POST_NO"),
 						             rset.getString("POST_CONTENT"),
+									 rset.getString("MEMBER_NO"),
 						             rset.getString("MEMBER_NIC"),
-						             rset.getDate("CREATE_DATE")
+						             rset.getDate("CREATE_DATE"),
+									 rset.getString("LIKE_COUNT"),
+									 rset.getString("REPLY_COUNT")
 						            );
 			}
 			
@@ -189,6 +198,41 @@ public class CamStagramDao {
 		}
 		 
 		return at;
+		 
+	 }
+	 
+public BoardLike selectBoardLike(int postNo, String memberNo, Connection conn) {
+		 
+		 BoardLike bl = null;
+		
+		 PreparedStatement psmt = null;
+		 
+		 ResultSet rset = null;
+
+		 String sql = prop.getProperty("selectBoardLike");
+		 
+		 try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, postNo);
+			psmt.setString(2, memberNo);
+			
+			rset = psmt.executeQuery();
+			
+			if(rset.next()) {
+				bl = new BoardLike();
+				bl.setPostNo(rset.getString("POST_NO"));
+				bl.setMemberNo(rset.getString("MEMBER_NO"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(psmt);
+		}
+		
+		System.out.println("bl(dao) : " +bl);
+		return bl;
 		 
 	 }
 	
@@ -361,6 +405,54 @@ public class CamStagramDao {
 			close(psmt);
 		}
 		 
+	 }
+	 
+	 public int insertBoardLike(String postNo, String memberNo, Connection conn) {
+		 
+		 int result = 0;
+		 
+		 PreparedStatement psmt = null;
+		 
+		 String sql = prop.getProperty("insertBoardLike");
+		 
+		 try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, postNo);
+			psmt.setString(2, memberNo);
+
+			result = psmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(psmt);
+		}
+			System.out.println("result-isertBoardLike(dao) : "+result);
+		 return result;
+	 }
+	 
+	 public int deleteBoardLike(String postNo, String memberNo, Connection conn) {
+		 
+		 int result = 0;
+		 
+		 PreparedStatement psmt = null;
+		 
+		 String sql = prop.getProperty("deleteBoardLike");
+		 
+		 try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, postNo);
+			psmt.setString(2, memberNo);
+
+			result = psmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(psmt);
+		}
+			System.out.println("result-deleteBoardLike(dao) : "+result);
+		 return result;
 	 }
 	
 	

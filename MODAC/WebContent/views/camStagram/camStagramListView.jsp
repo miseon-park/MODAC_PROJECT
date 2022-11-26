@@ -150,6 +150,8 @@
 						<% for(CamStagram cs : list) {%>
 						<div class="card" style="width: 45%; margin:10px; display:inline-block!important;">
 							<input type="hidden" name="csno" id="csno" value="<%=cs.getPostNo()%>"> 
+							<input type="hidden" name="memberNo" id="memberNo" value="<%=cs.getMemberNo()%>"> 
+							<%=cs.getPostNo()%> / <%=cs.getMemberNo()%> / 
 							<div class="image-box" style="width: 100%;">
 							<img src="<%=contextPath%>/<%=cs.getTitleImg()%>" class="image-thumbnail" width="200px" height="150px">
 							</div>
@@ -161,7 +163,10 @@
 								<p>
 								<%=cs.getPostContent()%>
 								</p>
+								
+								<i class="bi bi-suit-heart"></i>  <span><%=cs.getLikeCount() %></span> &nbsp; 
 	
+								<i class="bi bi-chat-dots"></i>  <span><%=cs.getReplyCount()%></span>
 	
 							</div>
 						</div>
@@ -202,7 +207,6 @@
 				   function doPageClick(currentPage){
 					  location.href = "<%=contextPath%>/list.cs?currentPage="+currentPage;
 				   }
-				   
 			    </script>
 			 </div>
         </div>

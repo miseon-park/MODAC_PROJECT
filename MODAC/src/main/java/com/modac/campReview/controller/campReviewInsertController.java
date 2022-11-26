@@ -61,13 +61,12 @@ public class campReviewInsertController extends HttpServlet {
 			cr.setPostContent(postContent);
 			cr.setMemberNo(memberNo);
 			
-			if(tagNo != null) {
-				ArrayList<Integer> tagList = new ArrayList<>();
-				for(int i=0; i<tagNo.length; i++){
-				    tagList.add(Integer.parseInt(tagNo[i]));
-				}
-				cr.setTagList(tagList);
+
+			ArrayList<Integer> tagList = new ArrayList<>();
+			for(int i=0; i<tagNo.length; i++){
+			    tagList.add(Integer.parseInt(tagNo[i]));
 			}
+			cr.setTagList(tagList);
 			
 			Attachment at = null;
 			
