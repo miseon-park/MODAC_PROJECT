@@ -12,6 +12,7 @@ import com.modac.camStagram.model.vo.BoardLike;
 import com.modac.camStagram.model.vo.CamStagram;
 import com.modac.campReview.model.vo.CampReview;
 import com.modac.common.model.vo.Attachment;
+import com.modac.member.model.vo.Member;
 
 /**
  * Servlet implementation class campReviewDetailController
@@ -36,14 +37,21 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 	request.setCharacterEncoding("UTF-8");
 	
 	int postNo = Integer.parseInt(request.getParameter("csno"));
+//	String memberNo = request.getParameter("memberNo");
+	Member member = (Member)request.getSession().getAttribute("loginMember");
 	
+	String memberNo = member.getMemberNo();
+	
+	System.out.println("member" + member);
+	
+	
+	System.out.println("memberNo" + memberNo);
+
 	int result = new CamStagramService().increaseCount(postNo);
 	
 	if(result > 0 ) { // 성공, 상세조회 페이지 
 		CamStagram cs = new CamStagramService().selectCamStagram(postNo);
-		Attachment at = new CamStagramService().selectAttachment(postNo);
-		
-		String memberNo = cs.getMemberNo();
+		Attachment at = new CamStagramService().selectAttachment(postNo) ;
 		BoardLike bl = new CamStagramService().selectBoardLike(postNo, memberNo);
 		
 		

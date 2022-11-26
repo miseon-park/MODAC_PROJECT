@@ -5,6 +5,7 @@
     Attachment at = (Attachment)request.getAttribute("at");
 	PageInfo pi = (PageInfo) request.getAttribute("pi");
 	
+	
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
@@ -150,8 +151,7 @@
 						<% for(CamStagram cs : list) {%>
 						<div class="card" style="width: 45%; margin:10px; display:inline-block!important;">
 							<input type="hidden" name="csno" id="csno" value="<%=cs.getPostNo()%>"> 
-							<input type="hidden" name="memberNo" id="memberNo" value="<%=cs.getMemberNo()%>"> 
-							<%=cs.getPostNo()%> / <%=cs.getMemberNo()%> / 
+						 
 							<div class="image-box" style="width: 100%;">
 							<img src="<%=contextPath%>/<%=cs.getTitleImg()%>" class="image-thumbnail" width="200px" height="150px">
 							</div>

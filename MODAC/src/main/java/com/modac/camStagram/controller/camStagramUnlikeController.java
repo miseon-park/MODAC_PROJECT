@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.modac.camStagram.model.service.CamStagramService;
 import com.modac.camStagram.model.vo.BoardLike;
+import com.modac.member.model.vo.Member;
 
 /**
  * Servlet implementation class camStagramLikeController
@@ -32,8 +33,10 @@ public class camStagramUnlikeController extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		String memberNo = request.getParameter("memberNo");
 		String postNo = request.getParameter("postNo");
+		
+		Member member = (Member)request.getSession().getAttribute("loginMember");
+		String memberNo = member.getMemberNo();
 		
 		System.out.println("con memberNo + postNo: " + memberNo + postNo);
 

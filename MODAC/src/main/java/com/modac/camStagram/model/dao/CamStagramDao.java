@@ -408,6 +408,10 @@ public BoardLike selectBoardLike(int postNo, String memberNo, Connection conn) {
 	 }
 	 
 	 public int insertBoardLike(String postNo, String memberNo, Connection conn) {
+
+		 System.out.println("postNo,memberNo (dao) : " +postNo+ " "+memberNo);
+		 int postNo1 = Integer.parseInt(postNo);
+		 int memberNo1 = Integer.parseInt(memberNo);
 		 
 		 int result = 0;
 		 
@@ -417,8 +421,9 @@ public BoardLike selectBoardLike(int postNo, String memberNo, Connection conn) {
 		 
 		 try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, postNo);
-			psmt.setString(2, memberNo);
+			
+			psmt.setInt(1, postNo1);
+			psmt.setInt(2, memberNo1);
 
 			result = psmt.executeUpdate();
 			
@@ -427,7 +432,7 @@ public BoardLike selectBoardLike(int postNo, String memberNo, Connection conn) {
 		} finally {
 			close(psmt);
 		}
-			System.out.println("result-isertBoardLike(dao) : "+result);
+			System.out.println("result-insertBoardLike(dao) : "+result);
 		 return result;
 	 }
 	 

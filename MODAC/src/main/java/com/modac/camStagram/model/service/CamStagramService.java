@@ -163,7 +163,8 @@ public class CamStagramService {
 		Connection conn = getConnection();
 		
 		int result = new CamStagramDao().insertBoardLike(postNo, memberNo, conn);
-
+		
+		System.out.println("result(ser) : " +result);
 		if(result > 0) {
 			commit(conn);
 		} else {

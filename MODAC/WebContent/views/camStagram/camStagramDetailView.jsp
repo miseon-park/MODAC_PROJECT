@@ -4,6 +4,7 @@
 	CamStagram cs = (CamStagram)request.getAttribute("cs");
 	Attachment at = (Attachment)request.getAttribute("at");
 	BoardLike bl = (BoardLike)request.getAttribute("bl"); 
+	Member m = (Member)session.getAttribute("loginMember");
 %>
 <!DOCTYPE html>
 <html>
@@ -74,6 +75,8 @@
 			   <div class="insert-area">
 	               <div align="right">
 	                 <% if(loginMember != null && loginMember.getMemberNic().equals(cs.getMemberNic())) {%>
+	                 
+	                 
 	                  	<a href="<%=contextPath %>/updateForm.cs?csno=<%=cs.getPostNo()%>" class="btn btn-secondary last1">수정하기</a>
 	                  	<a href="<%=contextPath %>/delete.cs?csno=<%=cs.getPostNo()%>" class="btn btn-secondary last1">삭제하기</a>
 	                 <% } %> 
@@ -100,21 +103,14 @@
 								<%if(loginMember == null) { %>
 									<i class="bi bi-suit-heart"></i>  <span><%=cs.getLikeCount() %></span>  	
 								<%} else { %>
+									
 									<%if(bl != null) {%>
-										<button type="button" class="bi bi-suit-heart" style="display:none;" onclick="like();" id="like"></button> 
-										<button type="button"class="bi bi-suit-heart-fill" style="display:inline;" id="unlike"></button> <span><%=cs.getLikeCount() %></span>
+										<i class="bi bi-suit-heart" style="display:none;" onclick="like();" id="like"></i> 
+										<i class="bi bi-suit-heart-fill" style="display:inline;" id="unlike"></i> <span><%=cs.getLikeCount() %></span>
 									<%} else { %>
-										<button type="button"class="bi bi-suit-heart" style="display:inline;" onclick="like();" id="like"></button>
-										<button type="button"class="bi bi-suit-heart-fill" style="display:none;" id="unlike"></button> <span><%=cs.getLikeCount() %></span>
+										<i class="bi bi-suit-heart" style="display:inline;" onclick="like();" id="like"></i>
+										<i class="bi bi-suit-heart-fill" style="display:none;" id="unlike"></i> <span><%=cs.getLikeCount() %></span>
 									<% } %>
-								
-<%-- 									<%if(bl != null) {%> --%>
-<!-- 										<i class="bi bi-suit-heart" style="display:none;" onclick="likeClick();" id="like"></i>  -->
-<%-- 										<i class="bi bi-suit-heart-fill" style="display:inline;" onclick="unLikeClick();" id="unlike"></i> <span><%=cs.getLikeCount() %></span> --%>
-<%-- 									<%} else { %> --%>
-<!-- 										<i class="bi bi-suit-heart" style="display:inline;" onclick="LikeClick();" id="like"></i> -->
-<%-- 										<i class="bi bi-suit-heart-fill" style="display:none;" onclick="unlikeClick();" id="unlike"></i> <span><%=cs.getLikeCount() %></span> --%>
-<%-- 									<% } %> --%>
 								<% } %>
 				
 			                    &nbsp;
@@ -179,12 +175,13 @@
 				 function like(){
 					 $.ajax({
 	                        url : "like.cs",
-	                        data : {memberNo : "<%=cs.getMemberNo()%>",
+	                        data : {memberNo : "<%=m.getMemberNo()%>",
 	                              postNo : "<%=cs.getPostNo() %>"},
 	                        success : function(result){
 	                           //좋아요 등
 	                           if(result == 1){
 	                              alert("좋아요를 등록했습니다.");
+	                           	  location.reload();
 	                           }else{
 	                              alert("좋아요 등록에 실패했습니다. ");
 	                           }
@@ -215,7 +212,7 @@
                            }
                         }
                      });
-                  }
+                  })
             })
 	      
       	 </script>
