@@ -47,6 +47,7 @@ public class CircleDetailController extends HttpServlet {
 			Attachment at = cService.selectAttachment(postNo);
 			ArrayList<Reply> list = new CircleBoardService().selectReplyList(postNo);
 			
+			
 			request.setAttribute("c", c);
 			request.setAttribute("at", at);
 			request.setAttribute("list",list);

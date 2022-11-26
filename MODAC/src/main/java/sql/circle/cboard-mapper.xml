@@ -147,7 +147,7 @@
 	</entry>
 	
 	<entry key ="deletereply">
-	 DELETE FROM REPLY WHERE REPLY_NO=?;
+	 DELETE FROM REPLY WHERE REPLY_NO=?
 	
 	</entry>
 	

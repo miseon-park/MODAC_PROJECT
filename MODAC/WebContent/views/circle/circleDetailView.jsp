@@ -10,7 +10,7 @@
  
  ArrayList<Reply> list = (ArrayList<Reply>)request.getAttribute("list");
  
- Reply cr = (Reply)request.getAttribute("r");
+ Reply cr = (Reply)request.getAttribute("cr");
  	
  	
  //파일번호, 원본명, 수정명, 저장경로
@@ -61,6 +61,7 @@
     border-radius: 0.25rem;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 	}
+	
 </style>
 </head>
 <body>
@@ -96,7 +97,7 @@
                 <br>
                 
                 
-                  <div style="padding:5px;"><%=c.getPostContent() %></div>
+                  <div id="pc" style="padding:5px;"><%=c.getPostContent() %></div>
              
                 
                 
@@ -154,32 +155,7 @@
 						<%} %>
 					</thead>
 					<tbody>
-						<% if(list.isEmpty()) {%>
-						<tr>
-							<th colspan="5">존재하는 게시글이 없습니다.</th>
-						</tr>
-						<% } else { %>
-							<% for(Reply r : list) {%>
-								<tr>
-									
-									<td><%= r.getWriter() %></td>
-									<td><%= r.getReplyContent() %></td>
-									<td><%= r.getCreateDate() %></td>
-								
-								</tr>
-								<td align="right">
-												<%
-												if(loginMember != null && loginMember.getMemberNic().equals(c.getMemberNic())){ %> 
-											
-													
-												<td><button onclick="replyDel();">삭제</button></td>																
-												<%
-												}
-												%>	
-											</td>
-							<% } %>
-							
-						<% } %>
+						
 					</tbody>
 					
 				</table>
@@ -224,7 +200,7 @@
 				})
 			};
 			
-			/*  function selectReplyList(){
+			 function selectReplyList(){
 				$.ajax({
 					
 					url:"crlist.bo",
@@ -252,15 +228,15 @@
 					}
 				})
 				
-			}  */
+			}  
 			
-			function replyDel() {
+			/* function replyDel() {
 		       
 		        
 		        $.ajax({
 		            url  : "replyDel.bo",
 		            type : "post",
-		            data : {replyNo : ${r.replyNo}},
+		            data : {replyNo : ${cr.replyNo}},
 		            success : function(data) {
 		                   console.log("댓글이 삭제 되었습니다.");
 		                  location.reload();
@@ -270,7 +246,7 @@
 		            }
 		        })
 		    } 
- 
+  */
 		
 		
 		

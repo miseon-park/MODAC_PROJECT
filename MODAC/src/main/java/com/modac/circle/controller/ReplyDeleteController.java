@@ -30,8 +30,11 @@ public class ReplyDeleteController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int replyNo = Integer.parseInt(request.getParameter("replyNo")); 
 		int result = new CircleBoardService().replyDel(replyNo);// 넘겨주고
+		 response.getWriter().write(replyNo);
 		
-		response.getWriter().print(result);
+	
+		System.out.println(result);
+		
        
 	}
 

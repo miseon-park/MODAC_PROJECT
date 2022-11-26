@@ -55,7 +55,47 @@
             text-decoration: none;
             color: black;
         }
+         #navi{
+           /* border : 1px solid blue;*/
+            list-style-type: none;
+            margin: 0;
+            
+                padding :0;
+                height: 100%;
+        }
+        #navi >li{
+            /*border: 1px solid blue;*/
+            float: left;
+           
+            text-align: center;
+        }
+        
+          #navi a:hover{
+            font-size: 16px;
+            color:  rgb(240,165,0);
+        }
+        #navi>li>ul{
+            list-style-type: none;
+            padding: 0;
+            display: none;
+        }
+        #navi>li>ul>a{
+            font-size: 11px;
 
+        }
+        #navi>li>ul>a:hover{
+            font-size: 13px;
+
+        }
+        
+        #navi>li>a:hover+ul{/*동위레벨 선택자
+            평소에는 안보여지다가 마우스가 올라갈때만 효과를 부여*/
+            display: block;
+        }
+        #navi>li>ul:hover{
+            display: block;
+        }
+      
 </style>
 </head>
 <body>
@@ -73,26 +113,23 @@
     <br><br>
  <div class="content">
             <div class="content1">
-
-                    <a class="nav-link" aria-current="page" href="<%=contextPath%>/myPage.me" style="text-align: center;color: orange;">개인정보 변경</a>
-                    <br><br>
-                    <a class="nav-link" href="#" style="text-align: center;">북마크 모음</a>
-                    <br><br>
+				 <ul id="navi">
+                    <li><a class="nav-link" aria-current="page" href="<%=contextPath%>/myPage.me" style="text-align: center;color: orange;">개인정보 변경</a></li>
+                   <li>
+             		<a href="" class="nav-link" style="text-align: center;">자기글 모음</a>
+             		<ul>
+                    <li><a class="nav-link" href="<%=contextPath%>/myPagecSelf.me"style="text-align: center;">동아리 모음</a></li>
+                  	<li><a class="nav-link" href="<%=contextPath%>/myPagecrSelf.me"style="text-align: center;">캠핑리뷰 모음</a></li>
+                    <li><a class="nav-link" href="<%=contextPath%>/myPagecpSelf.me"style="text-align: center;">캠핑레시피 모음</a></li>
+                    <li><a class="nav-link" href="<%=contextPath%>/myPageupSelf.me"style="text-align: center;">중고 모음</a></li>
+                    </ul>
                     
-                    <a href="" class="nav-link" style="text-align: center;">자기글 모음</a>
-                    <a class="nav-link" href="<%=contextPath%>/myPagecSelf.me"style="text-align: center;">동아리 모음</a>
-                    <br><br>
+                 </li>
                     
-                    <a class="nav-link" href="<%=contextPath%>/myPagecrSelf.me"style="text-align: center;">캠핑리뷰 모음</a>
+                   
                     
-                    <br><br>
                     
-                    <a class="nav-link" href="<%=contextPath%>/myPagecpSelf.me"style="text-align: center;">캠핑레시피 모음</a>
-                    <br><br>
-                    
-                    <a class="nav-link" href="<%=contextPath%>/myPageupSelf.me"style="text-align: center;">중고 모음</a>
-                    
-
+ 				</ul>
 
 
 

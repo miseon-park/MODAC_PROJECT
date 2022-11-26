@@ -65,6 +65,71 @@ int maxPage = pi.getMaxPage();
             text-decoration: none;
             color: black;
         }
+        .nav-link {
+            text-decoration: none;
+            color: black;
+        }
+         #navi{
+           /* border : 1px solid blue;*/
+            list-style-type: none;
+            margin: 0;
+            
+                padding :0;
+                height: 100%;
+        }
+        #navi >li{
+            /*border: 1px solid blue;*/
+            float: left;
+           
+            text-align: center;
+        }
+        
+          #navi a:hover{
+            font-size: 16px;
+            color:  rgb(240,165,0);
+        }
+        #navi>li>ul{
+            list-style-type: none;
+            padding: 0;
+            display: none;
+        }
+        #navi>li>ul>a{
+            font-size: 11px;
+
+        }
+        #navi>li>ul>a:hover{
+            font-size: 13px;
+
+        }
+        
+        #navi>li>a:hover+ul{/*동위레벨 선택자
+            평소에는 안보여지다가 마우스가 올라갈때만 효과를 부여*/
+            display: block;
+        }
+        #navi>li>ul:hover{
+            display: block;
+        }
+          .moveBtn{
+        color: white;
+        background-color: rgb(74,57,51);
+        border : none;
+        width: 80px;
+        border-radius: 10px 10px 10px 10px / 10px 10px 10px 10px
+    }
+    .pageBtn{
+        color: black;
+        background-color: gainsboro;
+        border-radius: 50%;
+        border: gainsboro;
+        width: 30px;
+        height: 30px;
+    }
+    .pageBtn:hover{
+        width: 30px;
+        height: 30px;
+        color: white;
+        background-color: orange;
+    }
 
 </style>
 </head>
@@ -74,28 +139,30 @@ int maxPage = pi.getMaxPage();
  <div class="content">
             <div class="content1">
 
-                    <a class="nav-link" aria-current="page" href="<%=contextPath%>/myPage.me" style="text-align: center;">개인정보 변경</a>
-                    <br><br>
-                    <a class="nav-link" href="#" style="text-align: center;">북마크 모음</a>
-                    <a class="nav-link" href=""style="text-align: center;">자기글 모음</a>
-                    <a class="nav-link" href="<%=contextPath%>/myPagecSelf.me"style="text-align: center;">동아리 모음</a>
-                    <br><br>
+                   <ul id="navi">
+                    <li><a class="nav-link" aria-current="page" href="<%=contextPath%>/myPage.me" style="text-align: center;">개인정보 변경</a></li>
+                   <li>
+             		<a href="" class="nav-link" style="text-align: center; color: orange;">자기글 모음</a>
+             		<ul>
+                    <li><a class="nav-link" href="<%=contextPath%>/myPagecSelf.me"style="text-align: center;">동아리 모음</a></li>
+                  	<li><a class="nav-link" href="<%=contextPath%>/myPagecrSelf.me"style="text-align: center;">캠핑리뷰 모음</a></li>
+                    <li><a class="nav-link" href="<%=contextPath%>/myPagecpSelf.me"style="text-align: center;">캠핑레시피 모음</a></li>
+                    <li><a class="nav-link" href="<%=contextPath%>/myPageupSelf.me"style="text-align: center;color: orange;">중고 모음</a></li>
+                    </ul>
                     
-                    <a class="nav-link" href="<%=contextPath%>/myPagecrSelf.me"style="text-align: center;">캠핑리뷰 모음</a>
+                 </li>
                     
-                    <br><br>
+                   
                     
-                    <a class="nav-link" href="<%=contextPath%>/myPagecpSelf.me"style="text-align: center;">캠핑레시피 모음</a>
-                    <br><br>
                     
-                    <a class="nav-link" href="<%=contextPath%>/myPageupSelf.me"style="text-align: center;">중고 모음</a>
+ 				</ul>
                     
 
 
 
 
             </div>
-            <h3>자기글 모음</h3>
+            <h3>중고게시글 모음</h3>
 			<br>
 			<div>
 			<br>
@@ -128,6 +195,28 @@ int maxPage = pi.getMaxPage();
 					</tbody>
 					</tbody>
 				</table>
+				<div align="center" class = "paging-area">
+ 		<%if(currentPage !=1){ %>
+ 		<button class="moveBtn" onclick="doPageClick(<%=currentPage-1 %>)">&lt;이전</button>
+ 		
+ 		<%} %>
+ 		
+ 		<% for(int i = startPage; i<=endPage; i++){ %>
+ 			<%if(i != currentPage){ %>
+ 			<button class="moveBtn" onclick="doPageClick(<%=i %>)"><%=i %></button>
+ 			
+ 			<%} else{ %>
+ 				<button class="moveBtn" disabled><%=i %></button>
+ 			<%} %>
+ 		<%} %>
+ 		
+ 		<%if(currentPage != maxPage){ %>
+ 		<button class="moveBtn" onclick="doPageClick(<%=currentPage+1 %>)">&gt;다음</button>
+ 		
+ 		<%}  %>
+ 		
+ 		
+ 	</div>
 			</div>
 			<script>
 				$(function(){
@@ -140,28 +229,7 @@ int maxPage = pi.getMaxPage();
 			
 			<br><br>
 			
-			<div align="center" class = "paging-area">
- 		<%if(currentPage !=1){ %>
- 		<button onclick="doPageClick(<%=currentPage-1 %>)">&lt;</button>
- 		
- 		<%} %>
- 		
- 		<% for(int i = startPage; i<=endPage; i++){ %>
- 			<%if(i != currentPage){ %>
- 			<button onclick="doPageClick(<%=i %>)"><%=i %></button>
- 			
- 			<%} else{ %>
- 				<button disabled><%=i %></button>
- 			<%} %>
- 		<%} %>
- 		
- 		<%if(currentPage != maxPage){ %>
- 		<button onclick="doPageClick(<%=currentPage+1 %>)">&gt;</button>
- 		
- 		<%}  %>
- 		
- 		
- 	</div>
+			
  			<script>
  				function doPageClick(currentPage){
  					location.href = "<%=contextPath%>/myPageupSelf.me?currentPage="+currentPage;
