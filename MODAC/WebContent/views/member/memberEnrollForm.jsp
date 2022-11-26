@@ -146,6 +146,7 @@
             alert("아이디는 영문자로 시작하는 5~15자 이내의 영문, 숫자로 구성 가능합니다.");
             return false;
         }
+        
         let $memberId = $("#enroll-form input[name=memberId]");
         $.ajax({
             url : "<%=request.getContextPath()%>/idCheck.me",
