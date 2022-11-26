@@ -268,7 +268,7 @@
                     <tbody>
                         <tr>
                             <td class="areaImage" rowspan="3" style="width: 300px; height: 200px;   border-bottom: 3px solid lightgray;">이미지</td>
-                            <td colspan="2" style="width: 200px; font-weight: bolder;"><%= c.getCampName() %></td>
+                            <td colspan="2" style="width: 200px; font-weight: bolder;" class="campname"><%= c.getCampName() %></td>
                             <td style="width: 60px;"><div>지역</div></td>
                             <td style="width: 250px;"><%= c.getLocation1() %></td>
                             <td style="width: 50px"></td>

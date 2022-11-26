@@ -12,49 +12,66 @@
 <head>
 <meta charset="UTF-8">
 <title>세부 정보</title>
+
+
+<style>
+
+	.total-area {
+		margin: auto;
+		width: 1200px;
+	}
+	#info-area {
+		border: 1px solid lightgray;
+		padding-top: 30px;
+		padding-bottom: 30px;
+	}
+	#detail-area {
+		border: 1px solid lightgray;
+	}
+
+
+	table, tr, td {
+		border: 1px solid green;
+	}
+
+
+	#info-table {
+		margin: auto;
+		width: 1000px;
+	}
+
+
+</style>
+
 </head>
 <body>
 
 	<%@ include file = "../common/menubar.jsp" %>
 
-
-	<div>
-		<table>
-			<tr>
-				<td><%=c.getCampName() %></td>
-				<td><%=c.getAddress() %></td>
-				<td><%=c.getCampCall() %></td>
-				<td><%=c.getCampWeb() %></td>
-				<td><%=c.getCampContent() %></td>
-			</tr>
-			<tr>
-				<td>자연경관</td>
-			</tr>
-			<tr>
-				<% for(Camp c1 : n1) { %>
-					<td><%=c1.getNaturalAttri() %></td>
-				<% } %>
-			</tr>
-			<tr>
-				<td>지형</td>
-			</tr>
-			<tr>
-				<% for(Camp c2 : n2) { %>
-					<td><%=c2.getNaturalAttri() %></td>
-				<% } %>
-			</tr>
-			<tr>
-				<td>편의시설</td>
-			</tr>
-			<tr>
-				<% for(Camp c3 : n3) { %>
-					<td><%=c3.getNaturalAttri() %></td>
-				<% } %>
-			</tr>
-		</table>
-			
-	
-	
+	<div class="total-area">
+		<div id="info-area">
+			<table id="info-table">
+				<tr>
+					<td rowspan="4" style="">이미지</td>
+					<td><%=c.getCampName() %></td>
+				</tr>
+				<tr>
+					<td>위치</td>
+					<td><%=c.getAddress() %></td>
+				</tr>
+				<tr>
+					<td>웹페이지</td>
+					<td><%=c.getCampWeb() %></td>
+				</tr>
+				<tr>
+					<td>전화번호</td>
+					<td><%=c.getCampCall() %></td>
+				</tr>
+			</table>
+		</div>
+		<div id="detail-area">
+			dfdfdf
+		</div>
 	</div>
 
 
