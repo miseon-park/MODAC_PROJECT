@@ -138,12 +138,14 @@
         <h2 class="title">중고장터</h2>
         
         <div class="detailView">
+        	<!-- 글작성자일 경우 끌어올리기/판매완료 버튼 보임 -->
         	<% if(loginMember != null && loginMember.getMemberNo().equals(m.getMemberNo())){ %>
 				<div class="status">
                 	<a href="<%=contextPath%>/updateDate.mk?mno=<%=m.getPostNo()%>" class="btn btn-secondary btn-sm" id="updateDate">끌어올리기</a>
                 	<a href="<%=contextPath%>/changeSale.mk?mno=<%=m.getPostNo()%>" class="btn btn-secondary btn-sm" id="end">판매완료</a>
             	</div>
-			<% }else{ %>	
+			<% }else{ %>
+			<!-- 일반 이용자일 경우 신고하기 버튼이 보임 -->	
 				<button class="ring" style="float: right;">신고하기</button> 
             <% } %>
             
@@ -167,7 +169,7 @@
                     <td style="font-size:4px; color: gainsboro;">&nbsp;&nbsp;<%=m.getCreateDate()%></td>
                 </tr>
             </table>
-            
+            <!-- 글 작성자일 겨우 수정하기/삭제하기 버튼이 보인다. -->
             <% if(loginMember != null && loginMember.getMemberNo().equals(m.getMemberNo())){ %>
 	            <div class="update">
 	                <a href="<%=contextPath%>/updateForm.mk?mno=<%=m.getPostNo()%>">수정하기</a>

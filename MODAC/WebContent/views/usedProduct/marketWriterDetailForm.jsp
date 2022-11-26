@@ -131,7 +131,7 @@ ArrayList<Attachment> list = (ArrayList<Attachment>)request.getAttribute("list")
 
             <table class="userInfo">
                 <tr>
-                    <td style="font-size:11px;"><b><%=m.getMemberNo()%></b></td>
+                    <td style="font-size:11px;"><b><%=m.getMemberNic()%></b></td>
                 </tr>
                 <tr>
                     <td style="font-size:4px;"><%=m.getCreateDate()%></td>

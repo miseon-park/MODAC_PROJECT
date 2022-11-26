@@ -161,21 +161,21 @@ public class MarketService {
 	}
 	
 	//첨부파일 삭제
-	public int deleteAttachment(String postNo) {
-		Connection conn = getConnection();
-		
-		int result = new MarketDao().deleteAttachment(postNo, conn);
-		
-		new MarketDao().deleteAttachment(postNo, conn);
-		
-		if(result >0) {
-			commit(conn);
-		}else{
-			rollback(conn);
-		}
-		close();
-		return result;
-	}
+//	public int deleteAttachment(String postNo) {
+//		Connection conn = getConnection();
+//		
+//		int result = new MarketDao().deleteAttachment(postNo, conn);
+//		
+//		new MarketDao().deleteAttachment(postNo, conn);
+//		
+//		if(result >0) {
+//			commit(conn);
+//		}else{
+//			rollback(conn);
+//		}
+//		close();
+//		return result;
+//	}
 	
 	//첨부파일 수정 삭제
 	public int deleteAtt(String photoNo) {

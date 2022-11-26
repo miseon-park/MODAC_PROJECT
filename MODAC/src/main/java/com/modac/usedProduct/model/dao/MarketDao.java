@@ -434,8 +434,7 @@ public class MarketDao {
 	}
 
 	//게시글 첨부파일 삭제
-	public int deleteAttachment(String postNo, Connection conn) {
-		int result = 0;
+	public void deleteAttachment(String postNo, Connection conn) {
 		
 		PreparedStatement psmt = null;
 		
@@ -448,14 +447,11 @@ public class MarketDao {
 			
 			psmt.executeUpdate();
 			
-			result = psmt.executeUpdate();
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			close(psmt);
 		}
-		return result;
 	}
 	
 	//게시글 첨부파일 수정 삭제

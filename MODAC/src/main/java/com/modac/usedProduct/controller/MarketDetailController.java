@@ -16,7 +16,7 @@ import com.modac.usedProduct.model.vo.Market;
 /**
  * Servlet implementation class MarketDetailController
  */
-@WebServlet("/detail.mk")
+@WebServlet("/detail.mk") //게시글 상세 페이지
 public class MarketDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

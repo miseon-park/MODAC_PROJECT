@@ -12,7 +12,7 @@ import com.modac.usedProduct.model.service.MarketService;
 /**
  * Servlet implementation class MarketDeleteController
  */
-@WebServlet("/delete.mk")
+@WebServlet("/delete.mk") //게시글 삭제
 public class MarketDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -36,7 +36,7 @@ public class MarketDeleteController extends HttpServlet {
 			request.getSession().setAttribute("alertMsg", "성공적으로 삭제했습니다.");
 			response.sendRedirect(request.getContextPath()+"/list.mk");
 		}else { //실패시
-			request.setAttribute("errorMsg", "삭제 실패");
+			request.setAttribute("errorMsg", "삭제 실패했습니다.");
 			request.getRequestDispatcher("views/common/errorMsg.jsp").forward(request, response);
 		}
 		

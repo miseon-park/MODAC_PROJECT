@@ -157,6 +157,7 @@
         <h1 style="text-align:center;">중고장터</h1>
         <br>
 		
+		<!-- 판매완료글 제외: 새로운 페이지 불러오기 방식 -->
 		<form action="saleView.mk?">
 			<div class="postSelect">
 	           	<input type="checkbox" id="saleView" name="saleView" value="판매중" onclick="saleView()"><span>판매완료 제외</span>
@@ -164,14 +165,16 @@
 	       	</div>
 	    </form>
 			
-			
+		
         <div class="search">
+        	<!-- 검색기능 -->
             <div class="put" style="text-align:center;">
                 <div class="input-group input-group-sm mb-3" id="check">
                     <span class="input-group-text" id="inputGroup-sizing-sm">돋보기</span>
                     <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
                 </div>
                 
+                <!-- 게시글 정렬: 새로운 페이지 불러오기 방식 -->
 	    		<form action="list.mk">  
                		<select class="sort" name="sort" id="sort" onchange="this.form.submit()">
 	                    <option name="sort" value="sortOfDate" id="sortOfDate"  ${(param.sort == "sortOfDate")? "selected":""} >최신순</option>
@@ -180,18 +183,22 @@
 	            </form>    
             </div>
                 
+            <!--게시글 작성 버튼: 로그인 시 게시글 작성 버튼 표시 -->    
             <% if(loginMember != null) {%>
             	<a href="<%=contextPath%>/enroll.mk" class="btn btn-secondary btn-sm" id="enrollBtn">게시글 작성</a>
             <% } %>
         </div>
        
+       <!-- 게시글 목록조회 -->
         <div class="postList" style="display: inline-block;">
+        	<!-- 게시글이 있을 경우 게시글 표 뜸 -->
         	<% if(!list.isEmpty()) { %>
         		<% for(Market m : list) { %>
 		            <table class="postTable">
                         <thead>
                             <tr height="10px">
 		                        <td class="sale">
+		                        	<!-- 판매상태 별 표시 변환 -->
 		                        	<% if(m.getSale().equals("Y")) { %>
 				            			<b>판매중</b>
 				            		<% } else { %>
@@ -248,6 +255,7 @@
 		</div>
     </div>
     
+    <!-- 게시글 정렬시 페이징뷰 적용 페이지 -->
     <script>
 		function doPageClick(currentPage){
 			location.href ="<%=contextPath%>/list.mk?currentPage="+currentPage+"&sort=${sort}";
@@ -258,12 +266,12 @@
     	//게시글 번호
 	    $(function(){
             $(".postTable>tbody").click(function(){
-            	let mno = $(this).parent().find('tfoot').find('td').eq(2).text(); //게시글 번호
+            	let mno = $(this).parent().find('tfoot').find('td').eq(2).text();
                 location.href= '<%=contextPath%>/detail.mk?mno='+mno;
             });
         });
         
-   		
+   		//판매완료 제외 페이지
    		$(function(){
    			//input 태그 숨김
 			$(".checkboxSub").hide();

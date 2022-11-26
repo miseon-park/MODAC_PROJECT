@@ -24,7 +24,7 @@ import com.oreilly.servlet.MultipartRequest;
 /**
  * Servlet implementation class MarketInsertController
  */
-@WebServlet("/insert.mk")
+@WebServlet("/insert.mk") //게시글 작성
 public class MarketInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -77,14 +77,14 @@ public class MarketInsertController extends HttpServlet {
 				String key = "file" + i;
 				
 				if(multirequest.getOriginalFileName(key) != null) { //첨부파일이 있을 경우
-					
+					//DB에 저장
 					at.setOriginName(multirequest.getOriginalFileName(key));
 					at.setNewName(multirequest.getFilesystemName(key));
 					at.setPath("/resources/market_upfiles/");
 					at.setFileLevel(i);
 					
 					list.add(at);	
-				}else {
+				}else { //첨부파일이 없을 경우 폴더에서 로고 사진 가져와서 DB에 저장
 					at.setOriginName("logo.png");
 					at.setNewName("logo.png");
 					at.setPath("/resources/modacLogo/");
@@ -99,10 +99,10 @@ public class MarketInsertController extends HttpServlet {
 			System.out.println(list);
 			
 			if( result > 0) { //성공 : list.th 재요청
-				request.getSession().setAttribute("alertMsg", "성공적으로 업로드 되었습니다.");
+				request.getSession().setAttribute("alertMsg", "성공적으로 게시되었습니다.");
 				response.sendRedirect(request.getContextPath()+"/list.mk");
 			}else { //실패 => 에러페이지
-				request.setAttribute("errorMsg", "업로드 실패");
+				request.setAttribute("errorMsg", "게시글 작성에 실패했습니다.");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			}
 		}

@@ -16,7 +16,8 @@ import com.modac.usedProduct.model.vo.Market;
 /**
  * Servlet implementation class MarketWriterDetailController
  */
-@WebServlet("/detailWt.mk")
+@WebServlet("/detailWt.mk") 
+//안씀
 public class MarketWriterDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

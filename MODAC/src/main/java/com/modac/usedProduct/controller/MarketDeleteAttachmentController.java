@@ -20,6 +20,7 @@ import com.oreilly.servlet.MultipartRequest;
  * Servlet implementation class MarketDeleteAttachmentController
  */
 @WebServlet("/delete.at")
+//게시글 수정 페이지 미리보기 사진 삭제
 public class MarketDeleteAttachmentController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -46,16 +47,15 @@ public class MarketDeleteAttachmentController extends HttpServlet {
 		//미리보기 사진 파일경로
 		File file = new File(savePath+newName);
 		
-		
 		if(file.exists()) {
 			//사진이 존재하면 사진 삭제
 			boolean result = file.delete();
 			//삭제됐다면 결과 반환
 			if(result == true) {
 				response.getWriter().print("NNNNY");
-				//DB에서 미리보기 사진상태 삭제됨으로 변경
 			}
 		}
+		//DB에서 미리보기 사진 상태값을 Y로 변경
 		int result1 = new MarketService().deleteAtt(photoNo);
 		
 		

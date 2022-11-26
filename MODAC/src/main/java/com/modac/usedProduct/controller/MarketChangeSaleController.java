@@ -38,7 +38,7 @@ public class MarketChangeSaleController extends HttpServlet {
 			request.getSession().setAttribute("alertMsg", "판매완료로 변경하였습니다.");
 			response.sendRedirect(request.getContextPath()+"/detailWt.mk?mno="+postNo);
 		}else { //실패 => 에러페이지
-			request.setAttribute("errorMsg", "작동 실패");
+			request.setAttribute("errorMsg", "변경 실패햐엿습니다.");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 		

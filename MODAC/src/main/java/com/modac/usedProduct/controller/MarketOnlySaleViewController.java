@@ -16,7 +16,7 @@ import com.modac.usedProduct.model.vo.Market;
 /**
  * Servlet implementation class MarketOnlySaleViewController
  */
-@WebServlet("/saleView.mk")
+@WebServlet("/saleView.mk") //판매완료 제외 버튼
 public class MarketOnlySaleViewController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -142,24 +142,29 @@ public class MarketOnlySaleViewController extends HttpServlet {
 		//request.setAttribute("pi", pi);
 		
 	//-----------------------------------페이징 처리 끝----------------------------------------
-	
+	//게시글 정렬 버튼 값
 	String sort = request.getParameter("sort");	
 	request.setAttribute("sort", sort);
+	
+	//판매완료글 제외 버튼 값
 	String saleView = request.getParameter("saleView");
 	
 	
 	if (sort != null && sort.equals("sortOfDate")) {
+		//판매상태 Y값 제외하고 최신순으로 게시글 조회 리스트
 		ArrayList<Market> list2 = new MarketService().sortOfDateOnlySale(pi);
 		request.setAttribute("list", list2);
 		
 	} else if(sort != null && sort.equals("sortOfCount")){
+		//판매상태 Y값 제외하고 조회순으로 게시글 조회 리스트
 		ArrayList<Market> list3 = new MarketService().sortOfCountOnlySale(pi);
 		request.setAttribute("list", list3);
 		
 	} else {
+		//판매상태 Y값 제외한 게시글 조회 리스트
 		ArrayList<Market> list = new MarketService().onlySaleView(pi);
-
 		request.setAttribute("list", list);
+		
 		System.out.println(sort);
 		System.out.println(saleView);
 
