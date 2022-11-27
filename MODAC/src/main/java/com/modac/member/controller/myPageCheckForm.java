@@ -11,16 +11,16 @@ import javax.servlet.http.HttpSession;
 import com.modac.member.model.vo.Member;
 
 /**
- * Servlet implementation class MyPageController
+ * Servlet implementation class myPageCheckForm
  */
-@WebServlet("/myPage.me")
-public class MyPageController extends HttpServlet {
+@WebServlet("/myPagecheck.me")
+public class myPageCheckForm extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyPageController() {
+    public myPageCheckForm() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,10 +29,17 @@ public class MyPageController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String memberPwd = request.getParameter("memberPwd");
 		
-
+		HttpSession session = request.getSession();
+		String memberPwd_ = ((Member)session.getAttribute("loginMember")).getMemberPwd();
+		
+		if(!memberPwd.equals(memberPwd_)) {
+			session.setAttribute("alertMsg", "비밀번호가 일치하지 않습니다.");
+			response.sendRedirect(request.getContextPath()+"/myPagePwd.me");
+		}else {
 			request.getRequestDispatcher("views/member/myPage.jsp").forward(request, response);
-		
+		}
 	}
 
 	/**

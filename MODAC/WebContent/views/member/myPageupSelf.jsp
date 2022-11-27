@@ -147,10 +147,10 @@ int maxPage = pi.getMaxPage();
                    <li>
              		<a href="" class="nav-link" style="text-align: center; color: orange;">자기글 모음</a>
              		<ul>
-                    <li><a class="nav-link" href="<%=contextPath%>/myPagecSelf.me"style="text-align: center;">동아리 모음</a></li>
-                  	<li><a class="nav-link" href="<%=contextPath%>/myPagecrSelf.me"style="text-align: center;">캠핑리뷰 모음</a></li>
-                    <li><a class="nav-link" href="<%=contextPath%>/myPagecpSelf.me"style="text-align: center;">캠핑레시피 모음</a></li>
-                    <li><a class="nav-link" href="<%=contextPath%>/myPageupSelf.me"style="text-align: center;color: orange;">중고 모음</a></li>
+                    <li><a class="nav-link" href="<%=contextPath%>/myPagecSelf.me"style="text-align: center;">동아리</a></li>
+                  	<li><a class="nav-link" href="<%=contextPath%>/myPagecrSelf.me"style="text-align: center;">캠핑장 리뷰</a></li>
+                    <li><a class="nav-link" href="<%=contextPath%>/myPagecpSelf.me"style="text-align: center;">캠핑 레시피</a></li>
+                    <li><a class="nav-link" href="<%=contextPath%>/myPageupSelf.me"style="text-align: center;color: orange;">중고장터</a></li>
                     </ul>
                     
                  </li>
@@ -166,7 +166,7 @@ int maxPage = pi.getMaxPage();
 
             </div>
              <div class="content2">
-            <h3>중고게시글 모음</h3>
+            <h3>중고장터</h3>
 			<br>
 			<div>
 			<br>

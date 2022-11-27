@@ -46,7 +46,7 @@
 </head>
 <body>
 <%@ include file="../common/menubar.jsp" %>
-<form id="self" action="<%=contextPath%>/myPage.me" method=post>
+<form id="self" action="<%=contextPath%>/myPagecheck.me" method=post>
 
     <h2 id="se">본인확인</h2><br>
     <hr style="background: black;  border-width: 2px;">
