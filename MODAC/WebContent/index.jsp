@@ -13,6 +13,7 @@
 	text-align: center;
 	margin-left: 0px;
 	margin-bottom: 100px;
+	margin-top: 50px;
 }
 
 #where{

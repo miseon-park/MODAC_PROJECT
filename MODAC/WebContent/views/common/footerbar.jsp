@@ -13,10 +13,19 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
 
+<style>
+    .nContainer {
+        margin: auto;
+        width: 1500px;
+    }
+
+</style>
+
+
 </head>
 <body>
 
-    <div class="container">
+    <div class="nContainer">
         <footer class="d-flex flexwrap justify-content-between align-items-center py-3 my-4 border-top">
             <p class="col-md-4 mb-0 text-muted">© 2022. Miseon Impossible All Rights Reserved.</p>
             <ul class="nav col-md-4 justify-content-end">

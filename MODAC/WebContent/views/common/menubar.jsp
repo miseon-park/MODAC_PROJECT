@@ -263,14 +263,15 @@
     <script>
 
         $(document).ready(function() {
-            var dClick = $('#icon');
-
-            dClick.mouseenter(function() {
-                $('#subMenu1')
+            $("#icon").on("mouseover", function() {
+                $("#subMenu1").css("visibility", "visible");
             })
         });
+        
 
 
+
+        // visibility: visible;
     </script>
 
 
