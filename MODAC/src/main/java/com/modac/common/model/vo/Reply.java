@@ -7,7 +7,7 @@ public class Reply {
 	private String replyNo;
 	private String replyContent;
 	private String boardNo;
-	private Date createDate;
+	private String createDate;
 	private String hiddenReply;
 	private String status;
 	private String writer;
@@ -18,7 +18,7 @@ public class Reply {
 	}
 	
 
-	public Reply(String replyNo, String replyContent, String writer,Date createDate ) {
+	public Reply(String replyNo, String replyContent, String writer,String createDate ) {
 		super();
 		this.replyNo = replyNo;
 		this.replyContent = replyContent;
@@ -27,7 +27,7 @@ public class Reply {
 	}
 
 
-	public Reply(String replyNo, String replyContent, String boardNo, Date createDate, String hiddenReply,
+	public Reply(String replyNo, String replyContent, String boardNo, String createDate, String hiddenReply,
 			String status, String writer, String postNo) {
 		super();
 		this.replyNo = replyNo;
@@ -66,11 +66,11 @@ public class Reply {
 		this.boardNo = boardNo;
 	}
 
-	public Date getCreateDate() {
+	public String getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
 

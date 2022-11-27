@@ -10,7 +10,7 @@
  
  ArrayList<Reply> list = (ArrayList<Reply>)request.getAttribute("list");
  
- Reply cr = (Reply)request.getAttribute("cr");
+
  	
  	
  //파일번호, 원본명, 수정명, 저장경로
@@ -24,7 +24,7 @@
 <style>
 	.content1 {
 		width: 20%;
-		height: 1000px;
+		height: 1200px;
 		padding: 50px 20px 10px;
 		background-color: antiquewhite;
 		float: left;
@@ -66,7 +66,10 @@
 </head>
 <body>
 <%@ include file="../common/menubar.jsp" %>
-       <div class="content">
+     	 
+     		<div class="content1">
+               
+           </div>
        
                       
            <div class="content2">
@@ -83,9 +86,9 @@
 			</div>
 
              
-			<br>
+			<br><br>
              <div class="foorm-control">
-                <br>
+                <br><br>
                 <h3>&nbsp;<%=c.getPostTitle()%></h3>
                  
                 <br>
@@ -96,12 +99,24 @@
                 <br>
                 <br>
                 
+                 
                 
-                  <div id="pc" style="padding:5px;"><%=c.getPostContent() %></div>
+                
+                  
              
                 
                 
-                <div class="form-control">
+               
+                <div class="form-control" style="height:100%;">
+               
+               <div style="padding:5px ;height: 500px;"><%=c.getPostContent() %></div>
+                
+              
+                
+                
+			
+            </div>
+            <div style="text-align:left">
                 <%if(at==null){ %>
 						<!-- 첨부파일이 없는경우 -->
 						첨부파일이 없습니다.
@@ -113,24 +128,18 @@
 								<%=at.getOriginName() %>
 							</a>
 						<%} %>
-						
-                
-                </div>
-                
-
-               
-			
-			
-			
-            </div>
+					</div>	
             <br>
-             <div align="center">
+             
+           </div>
+           <br>
+            <div align="right">
 				<a href="<%=contextPath %>/clist.bo?currentPage=1" class="btn btn-secondary last1">목록으로</a>
 			</div>
-           
-		    <br>
-          </div>
-          <div id="reply-area">
+           </div>
+          
+		  
+		    <div id="reply-area">
 			
 				<table border="1" align="center">
 					<thead>
@@ -160,21 +169,30 @@
 					
 				</table>
 				
+				
 			
 			</div>
-      </div>
-      </div>
+                
+
+               
+			
+			
+          </div>
+        
+          
+  
+     
       
       
 			
 	
 		<script>
 		
-		/* $(function(){
+		 $(function(){
 			selectReplyList();
 			
-			setInterval(selectReplyList, 1000);// 괄호 붙이면 메소드가 되어서 한번실행되고 안됨
-		}); */
+			setInterval(selectReplyList, 10000);// 괄호 붙이면 메소드가 되어서 한번실행되고 안됨
+		}); 
 		
 			
 			function insertReply(){
@@ -236,7 +254,7 @@
 		        $.ajax({
 		            url  : "replyDel.bo",
 		            type : "post",
-		            data : {replyNo : ${cr.replyNo}},
+		            data : {replyNo : replyNo},
 		            success : function(data) {
 		                   console.log("댓글이 삭제 되었습니다.");
 		                  location.reload();

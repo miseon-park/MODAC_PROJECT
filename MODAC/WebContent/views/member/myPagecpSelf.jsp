@@ -36,20 +36,19 @@ int maxPage = pi.getMaxPage();
             float: left; 
         }
 
-        .content1{
-            margin-top: 50px;
+          .content1 {
+		width: 15%;
+		height: 1000px;
+		padding: 50px 20px 10px;
+		background-color: whitesmoke;
+		float: left;
+	}
 
-            height: 500px;
-           width: 15%;
-
-
-        }
-
-        .content2{
-            width: 85%;
-            padding-left: 30px;
-
-        }
+        .content2 {
+		width: 85%;
+		padding: 10px 200px 20px;
+		float: center;
+	}
         .h5{
             text-align: center;
             margin-top: 50px;
@@ -108,11 +107,14 @@ int maxPage = pi.getMaxPage();
             display: none;
         }
         #navi>li>ul>a{
-            font-size: 11px;
+           
+         font-size: medium;
+        font-weight: 600;
 
         }
         #navi>li>ul>a:hover{
-            font-size: 13px;
+             font-size: medium;
+        font-weight: 600;
 
         }
         
@@ -155,6 +157,7 @@ int maxPage = pi.getMaxPage();
 
                     <ul id="navi">
                     <li><a class="nav-link" aria-current="page" href="<%=contextPath%>/myPage.me" style="text-align: center;">개인정보 변경</a></li>
+                   	<br><br><br><br>
                    <li>
              		<a href="" class="nav-link" style="text-align: center; color: orange;">자기글 모음</a>
              		<ul>
@@ -173,6 +176,8 @@ int maxPage = pi.getMaxPage();
 
 
             </div>
+            
+             <div class="content2">
             <h3>레시피 모음</h3>
 			<br>
 			<div>

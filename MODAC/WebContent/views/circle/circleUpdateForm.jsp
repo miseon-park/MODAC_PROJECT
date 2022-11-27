@@ -13,6 +13,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+	.content1{
+           width: 20%;
+		   height : 1000px;
+		   padding: 50px 20px 10px;
+		   background-color: antiquewhite;
+            float: left; 
+        }
 	
 	.content2 {
 		width: 80%;
@@ -64,6 +71,9 @@
 </head>
 <%@ include file="../common/menubar.jsp" %>
        <div class="content">
+        <div class="content1">
+            
+         </div>
        
                       
            <div class="content2">
@@ -78,18 +88,18 @@
 	              
 	              <div class="foorm-control">
 	                 <input type="text" class="form-control" value="<%=c.getPostTitle()%>" aria-label="title" name="title">
-	                  <div>
+	                   <input type="file" class="form-control" name="upfile">
+	                
+	                  <textarea class="fooorm-control" style="height:500px;" name="content" ><%=c.getPostContent()%></textarea>
+					<div class="input-group">
 	                  <%if(at!=null){ %>
 						<%= at.getOriginName() %>
 						<!-- 원본파일의 파일번호, 수정명을 hidden으로 넘길것. -->
 						<input type="hidden" name="originFileNo" value="<%=at.getPhotoNo()%>">
 						<input type="hidden" name="originFileName" value="<%=at.getNewName()%>">
 					<%} %>
-					  <input type="file" class="form-control" name="upfile">
+					 
 					</div>
-	                
-	                  <textarea class="fooorm-control" style="height:500px;" name="content" ><%=c.getPostContent()%></textarea>
-	
 	                  <div align="center">
                     <button type="submit" class="btn btn-secondary" class="last1" >수정하기</button>
 

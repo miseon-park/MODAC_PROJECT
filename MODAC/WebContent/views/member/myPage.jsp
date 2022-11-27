@@ -12,20 +12,19 @@
             float: left; 
         }
 
-        .content1{
-            margin-top: 50px;
+       .content1 {
+		width: 15%;
+		height: 1000px;
+		padding: 50px 20px 10px;
+		background-color: whitesmoke;
+		float: left;
+	}
 
-            height: 500px;
-           width: 15%;
-
-
-        }
-
-        .content2{
-            width: 85%;
-            padding-left: 30px;
-
-        }
+        .content2 {
+		width: 85%;
+		padding: 10px 200px 20px;
+		float: center;
+	}
         .h5{
             text-align: center;
             margin-top: 50px;
@@ -80,11 +79,14 @@
             display: none;
         }
         #navi>li>ul>a{
-            font-size: 11px;
+           
+         font-size: medium;
+        font-weight: 600;
 
         }
         #navi>li>ul>a:hover{
-            font-size: 13px;
+             font-size: medium;
+        font-weight: 600;
 
         }
         
@@ -115,6 +117,7 @@
             <div class="content1">
 				 <ul id="navi">
                     <li><a class="nav-link" aria-current="page" href="<%=contextPath%>/myPage.me" style="text-align: center;color: orange;">개인정보 변경</a></li>
+                  	<br><br><br><br>
                    <li>
              		<a href="" class="nav-link" style="text-align: center;">자기글 모음</a>
              		<ul>
@@ -137,7 +140,7 @@
 
 
             <div class="content2">
-                <h3>마이페이지</h3> 
+               
 
 
             <form class="dt" id="mypage-form" action="<%=contextPath %>/update.me" method="post">

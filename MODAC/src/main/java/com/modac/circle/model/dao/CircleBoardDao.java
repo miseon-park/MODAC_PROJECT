@@ -411,7 +411,7 @@ public ArrayList<Reply> selectReplyList(Connection conn, int postNo ){
 					rset.getString(1),
 					rset.getString(2),
 					rset.getString(3),
-					rset.getDate(4)
+					rset.getString(4)
 					
 					
 					));

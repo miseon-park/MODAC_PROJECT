@@ -179,7 +179,7 @@
 				<b><%=loginMember.getMemberNic() %></b> 님 환영합니다! :)<br>
 				<div style="margin-top: 5px;">
                     <a href="<%=contextPath%>/logout.me">로그아웃</a>
-                    <a href="<%=contextPath%>/myPage.me">마이페이지</a>
+                    <a href="<%= contextPath%>/views/member/myPagePwdCheck.jsp">마이페이지</a>
 				</div>
                 <br clear="both">
 			</div>

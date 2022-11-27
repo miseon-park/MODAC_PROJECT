@@ -22,20 +22,19 @@ int maxPage = pi.getMaxPage();
             float: left; 
         }
 
-        .content1{
-            margin-top: 50px;
+         .content1 {
+		width: 15%;
+		height: 1000px;
+		padding: 50px 20px 10px;
+		background-color: whitesmoke;
+		float: left;
+	}
 
-            height: 500px;
-           width: 15%;
-
-
-        }
-
-        .content2{
-            width: 85%;
-            padding-left: 30px;
-
-        }
+        .content2 {
+		width: 85%;
+		padding: 10px 200px 20px;
+		float: center;
+	}
         .h5{
             text-align: center;
             margin-top: 50px;
@@ -93,12 +92,15 @@ int maxPage = pi.getMaxPage();
             padding: 0;
             display: none;
         }
-        #navi>li>ul>a{
-            font-size: 11px;
+       #navi>li>ul>a{
+           
+         font-size: medium;
+        font-weight: 600;
 
         }
         #navi>li>ul>a:hover{
-            font-size: 13px;
+             font-size: medium;
+        font-weight: 600;
 
         }
         
@@ -141,6 +143,7 @@ int maxPage = pi.getMaxPage();
 
                    <ul id="navi">
                     <li><a class="nav-link" aria-current="page" href="<%=contextPath%>/myPage.me" style="text-align: center;">개인정보 변경</a></li>
+                   	<br><br><br><br>
                    <li>
              		<a href="" class="nav-link" style="text-align: center; color: orange;">자기글 모음</a>
              		<ul>
@@ -162,6 +165,7 @@ int maxPage = pi.getMaxPage();
 
 
             </div>
+             <div class="content2">
             <h3>중고게시글 모음</h3>
 			<br>
 			<div>
@@ -173,7 +177,7 @@ int maxPage = pi.getMaxPage();
 							<th scope="col" width="420px">제목</th>
 							<th scope="col">작성자</th>
 							<th scope="col">등록일자</th>
-							<th scope="col" style="text-align: center;">조회수</th>
+							<th scope="col">조회수</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -188,7 +192,7 @@ int maxPage = pi.getMaxPage();
 									<td><%= m.getPostTitle() %></td>
 									<td><%= m.getMemberNic() %></td>
 									<td><%= m.getCreateDate() %></td>
-									<td style="text-align: center;"><%= m.getReadCount() %></td>
+									<td><%= m.getReadCount() %></td>
 								</tr>
 							<% } %>
 						<% } %>
@@ -203,10 +207,10 @@ int maxPage = pi.getMaxPage();
  		
  		<% for(int i = startPage; i<=endPage; i++){ %>
  			<%if(i != currentPage){ %>
- 			<button class="moveBtn" onclick="doPageClick(<%=i %>)"><%=i %></button>
+ 			<button class="pageBtn" onclick="doPageClick(<%=i %>)"><%=i %></button>
  			
  			<%} else{ %>
- 				<button class="moveBtn" disabled><%=i %></button>
+ 				<button class="pageBtn" disabled><%=i %></button>
  			<%} %>
  		<%} %>
  		

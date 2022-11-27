@@ -6,21 +6,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.modac.member.model.vo.Member;
 
 /**
- * Servlet implementation class MyPageController
+ * Servlet implementation class myPagePwdform
  */
-@WebServlet("/myPage.me")
-public class MyPageController extends HttpServlet {
+@WebServlet("/myPagePwd.me")
+public class myPagePwdform extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyPageController() {
+    public myPagePwdform() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,18 +26,8 @@ public class MyPageController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-				String memberPwd = request.getParameter("memberPwd");
-				
-				HttpSession session = request.getSession();
-				String memberPwd_ = ((Member)session.getAttribute("loginMember")).getMemberPwd();
-				
-				if(!memberPwd.equals(memberPwd_)) {
-					session.setAttribute("alertMsg", "비밀번호가 일치하지 않습니다.");
-					response.sendRedirect(request.getContextPath()+"/myPagePwd.me");
-				}else {
-					request.getRequestDispatcher("views/member/myPage.jsp").forward(request, response);
-				}
+		// TODO Auto-generated method stub
+		request.getRequestDispatcher("views/member/myPagePwdCheck.jsp").forward(request, response);
 	}
 
 	/**

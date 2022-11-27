@@ -22,16 +22,20 @@ int maxPage = pi.getMaxPage();
 <title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <style>
-	
-	
-	.content2 {
-	width : 1000px;
-	
-		margin-top: 20px;
-		display: table;
-		margin-left: auto;
-		margin-right: auto;
-	}
+	.content1{
+           width: 20%;
+		   height : 1000px;
+		   padding: 50px 20px 10px;
+		   background-color: antiquewhite;
+            float: left; 
+        }
+        
+
+        .content2{
+            width: 80%;
+		      	padding: 10px 50px 20px;
+            float: left; 
+        }
 	
 	.navbar {
 		width: 450px;
@@ -84,6 +88,10 @@ int maxPage = pi.getMaxPage();
 <body>
 <%@ include file="../common/menubar.jsp" %>
 	<div class="content">
+	  <div class="content1">
+               
+            </div>
+	
 		
 		<div class="content2">
 			<br>
@@ -194,6 +202,7 @@ int maxPage = pi.getMaxPage();
 
 
 	</div>
+	
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
