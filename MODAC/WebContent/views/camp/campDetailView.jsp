@@ -33,7 +33,7 @@
 
 
 	table, tr, td {
-		border: 1px solid green;
+		/* border: 1px solid green; */
 	}
 
 
@@ -176,7 +176,7 @@
 		<input type="button" class="btn" id="btnback" value="목록" onClick="history.back()"/>
 	</div>
 
-
+	<%@ include file="../common/footerbar.jsp" %>
 
 
 

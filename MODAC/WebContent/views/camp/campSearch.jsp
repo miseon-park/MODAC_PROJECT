@@ -179,6 +179,7 @@
 
     <%@ include file = "../common/menubar.jsp" %>
 
+    
     <h2 style="color: rgb(74,57,51);" align="center">캠핑장 검색</h2>
 
 	
@@ -320,13 +321,11 @@
 			<button class="moveBtn" onclick="doPageClick(<%=currentPage +1 %>)">&gt;다음</button>
 		<% } %>
 	</div>
-       
     
     
+    <%@ include file="../common/footerbar.jsp" %>
     
     
-
-
 
     <script>
         // 지역 검색

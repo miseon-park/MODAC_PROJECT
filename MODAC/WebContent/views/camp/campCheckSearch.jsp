@@ -322,6 +322,8 @@
 	</div>
 
 
+    <%@ include file="../common/footerbar.jsp" %>
+
 
 
     <script>
