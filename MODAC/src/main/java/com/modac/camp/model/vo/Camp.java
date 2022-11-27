@@ -226,12 +226,13 @@ public class Camp {
 
 
 	// 캠핑장 조회 리스트
-	public Camp(String campName, String location1, String address, String naturalAttri) {
+	public Camp(String campName, String location1, String address, String naturalAttri, String areaImg) {
 		super();
 		this.campName = campName;
 		this.location1 = location1;
 		this.address = address;
 		this.naturalAttri = naturalAttri;
+		this.areaImg = areaImg;
 	}
 	
 	

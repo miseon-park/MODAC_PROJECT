@@ -163,6 +163,13 @@
     }
 
 
+    #img-camp {
+        margin: auto;
+        padding: 0px;
+        width: 300px;
+        height: 200px;
+    }
+
 
 
 </style>
@@ -267,7 +274,11 @@
                 <% for(Camp c : clist) { %>
                     <tbody>
                         <tr>
-                            <td class="areaImage" rowspan="3" style="width: 300px; height: 200px;   border-bottom: 3px solid lightgray;">이미지</td>
+                            <% if(c.getAreaImg() != null) { %>
+                                <td class="areaImage" rowspan="3" style="width: 300px; height: 200px; border-bottom: 3px solid lightgray; padding: 3px;"><img id="img-camp" src="<%=contextPath%>/resources/campImg/<%=c.getAreaImg() %>.jpg" alt="로딩실패"></td>
+                            <% } else {%>
+                                <td class="areaImage" rowspan="3" style="width: 300px; height: 200px; border-bottom: 3px solid lightgray;"><img id="img-camp" src="<%=contextPath%>/resources/최종로고_1.png" alt="로딩실패"></td>
+                            <% } %>
                             <td colspan="2" style="width: 200px; font-weight: bolder;" class="campname"><%= c.getCampName() %></td>
                             <td style="width: 60px;"><div>지역</div></td>
                             <td style="width: 250px;"><%= c.getLocation1() %></td>

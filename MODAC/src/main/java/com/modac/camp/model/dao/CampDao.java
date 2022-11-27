@@ -299,7 +299,8 @@ public class CampDao {
 				list.add(new Camp(rset.getString("CAMP_NAME"),
 									rset.getString("LOCATION_1"),
 									rset.getString("ADDRESS"),
-									rset.getString("NATURAL_ATTRI")
+									rset.getString("NATURAL_ATTRI"),
+									rset.getString("CAMP_IMG")
 						));
 			       
 			}
@@ -335,7 +336,8 @@ public class CampDao {
 				list.add(new Camp(rset.getString("CAMP_NAME"),
 									rset.getString("LOCATION_1"),
 									rset.getString("ADDRESS"),
-									rset.getString("NATURAL_ATTRI")
+									rset.getString("NATURAL_ATTRI"),
+									rset.getString("CAMP_IMG")
 						));
 			       
 			}
@@ -382,7 +384,8 @@ public class CampDao {
 					clist.add(new Camp(rset.getString("CAMP_NAME"),
 							rset.getString("LOCATION_1"),
 							rset.getString("ADDRESS"),
-							rset.getString("NATURAL_ATTRI")
+							rset.getString("NATURAL_ATTRI"),
+							rset.getString("CAMP_IMG")
 							));
 				}
 				
@@ -426,7 +429,8 @@ public class CampDao {
 						clist.add(new Camp(rset.getString("CAMP_NAME"),
 								rset.getString("LOCATION_1"),
 								rset.getString("ADDRESS"),
-								rset.getString("NATURAL_ATTRI")
+								rset.getString("NATURAL_ATTRI"),
+								rset.getString("CAMP_IMG")
 								));
 					}
 					
@@ -471,7 +475,8 @@ public class CampDao {
 					clist.add(new Camp(rset.getString("CAMP_NAME"),
 							rset.getString("LOCATION_1"),
 							rset.getString("ADDRESS"),
-							rset.getString("NATURAL_ATTRI")
+							rset.getString("NATURAL_ATTRI"),
+							rset.getString("CAMP_IMG")
 							));
 				}
 				
@@ -518,7 +523,8 @@ public class CampDao {
 					clist.add(new Camp(rset.getString("CAMP_NAME"),
 							rset.getString("LOCATION_1"),
 							rset.getString("ADDRESS"),
-							rset.getString("NATURAL_ATTRI")
+							rset.getString("NATURAL_ATTRI"),
+							rset.getString("CAMP_IMG")
 							));
 				}
 				
@@ -558,7 +564,8 @@ public class CampDao {
 							clist.add(new Camp(rset.getString("CAMP_NAME"),
 									rset.getString("LOCATION_1"),
 									rset.getString("ADDRESS"),
-									rset.getString("NATURAL_ATTRI")
+									rset.getString("NATURAL_ATTRI"),
+									rset.getString("CAMP_IMG")
 									));
 						}
 						
@@ -597,7 +604,8 @@ public class CampDao {
 							clist.add(new Camp(rset.getString("CAMP_NAME"),
 									rset.getString("LOCATION_1"),
 									rset.getString("ADDRESS"),
-									rset.getString("NATURAL_ATTRI")
+									rset.getString("NATURAL_ATTRI"),
+									rset.getString("CAMP_IMG")
 									));
 						}
 						
