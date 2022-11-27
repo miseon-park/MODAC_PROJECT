@@ -355,7 +355,8 @@
 				ADDRESS,
 				CAMP_CALL,
 				CAMP_WEB,
-				CAMP_CONTENT
+				CAMP_CONTENT,
+				CAMP_IMG
 		FROM CAMP_INFO CI
 		WHERE CAMP_NO = ?
 	</entry>

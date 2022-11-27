@@ -16,11 +16,14 @@ public class Camp {
 	
 	private int count;
 	
-	private String campImg;
-	
+	private String campImg; // 캠핑장 옵션 이미지
+	private String areaImg; // 캠핑장 외관 이미지
+
+
 
 	public Camp(String campNo, String campName, String location1, String location2, String address, String campCall,
-			String campWeb, String campContent, String naturalAttri, String naturalAttri2, String campImg) {
+			String campWeb, String campContent, String naturalAttri, String naturalAttri2, int count, String campImg,
+			String areaImg) {
 		super();
 		this.campNo = campNo;
 		this.campName = campName;
@@ -32,7 +35,9 @@ public class Camp {
 		this.campContent = campContent;
 		this.naturalAttri = naturalAttri;
 		this.naturalAttri2 = naturalAttri2;
+		this.count = count;
 		this.campImg = campImg;
+		this.areaImg = areaImg;
 	}
 
 
@@ -186,13 +191,36 @@ public class Camp {
 	}
 
 
+	public int getCount() {
+		return count;
+	}
+
+
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+
+
+	public String getAreaImg() {
+		return areaImg;
+	}
+
+
+
+	public void setAreaImg(String areaImg) {
+		this.areaImg = areaImg;
+	}
+
+
 
 	@Override
 	public String toString() {
 		return "Camp [campNo=" + campNo + ", campName=" + campName + ", location1=" + location1 + ", location2="
 				+ location2 + ", address=" + address + ", campCall=" + campCall + ", campWeb=" + campWeb
 				+ ", campContent=" + campContent + ", naturalAttri=" + naturalAttri + ", naturalAttri2=" + naturalAttri2
-				+ ", campImg=" + campImg + "]";
+				+ ", count=" + count + ", campImg=" + campImg + ", areaImg=" + areaImg + "]";
 	}
 
 
@@ -208,7 +236,7 @@ public class Camp {
 	
 	
 	// 캠핑장 세부 조회(기본 화면)
-	public Camp(String campNo, String campName, String address, String campCall, String campWeb, String campContent) {
+	public Camp(String campNo, String campName, String address, String campCall, String campWeb, String campContent, String areaImg) {
 		super();
 		this.campNo = campNo;
 		this.campName = campName;
@@ -216,6 +244,7 @@ public class Camp {
 		this.campCall = campCall;
 		this.campWeb = campWeb;
 		this.campContent = campContent;
+		this.areaImg = areaImg;
 	}
 	
 	

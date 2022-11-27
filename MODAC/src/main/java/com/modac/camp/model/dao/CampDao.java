@@ -666,7 +666,8 @@ public class CampDao {
 							rset.getString("ADDRESS"),
 							rset.getString("CAMP_CALL"),
 							rset.getString("CAMP_WEB"),
-							rset.getString("CAMP_CONTENT")
+							rset.getString("CAMP_CONTENT"),
+							rset.getString("CAMP_IMG")
 						);
 			}
 			
