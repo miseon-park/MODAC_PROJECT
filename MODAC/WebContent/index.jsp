@@ -116,8 +116,8 @@
 	</div>
 
 
-	<%@ include file="/views/common/footerbar.jsp" %>
 </body>
+	<%@ include file="/views/common/footerbar.jsp" %>
 <script>
 	$.ajax({
 		url : "<%=request.getContextPath()%>/best.be",

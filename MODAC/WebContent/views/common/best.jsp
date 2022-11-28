@@ -15,19 +15,16 @@
 
 
 	.detail{
+		width: 100%;
 		border: 2px solid green;
 		float: left;
 	}
 	.card{
 		width: 200px; 
 		margin:30px; 
-		display: inline-block;
+		display: inline-block !important;
 		border: 3px solid black;
 	}
-
-
-			
-		
 		#hi{
 			padding-top: 40px;
 			
