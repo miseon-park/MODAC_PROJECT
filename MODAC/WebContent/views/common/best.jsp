@@ -2,7 +2,7 @@
     pageEncoding="UTF-8" import="java.util.ArrayList , com.modac.camStagram.model.vo.*, com.modac.common.model.vo.*"%>
     
     <%ArrayList<CamStagram> list = (ArrayList<CamStagram>)request.getAttribute("list"); 
-     /* String contextPath = request.getContextPath(); */ %>
+     String contextPath = request.getContextPath(); %>
 <!DOCTYPE html>
 <html>
 <head>

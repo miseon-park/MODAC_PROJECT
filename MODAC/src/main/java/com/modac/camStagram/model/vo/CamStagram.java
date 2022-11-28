@@ -54,13 +54,13 @@ public class CamStagram {
 		this.replyCount = replyCount;
 	}
 	
-	public CamStagram(String postNo, String postContent, Date createDate, String memberNic, String titleImg) {
+	public CamStagram(String postNo, String postContent, String memberNic, String titleImg, Date createDate) {
 		super();
 		this.postNo = postNo;
-		this.postContent = postContent;
-		this.createDate = createDate;
+		this.postContent = postContent;		
 		this.memberNic = memberNic;
 		this.titleImg = titleImg;
+		this.createDate = createDate;
 	}
 
 	// 목록

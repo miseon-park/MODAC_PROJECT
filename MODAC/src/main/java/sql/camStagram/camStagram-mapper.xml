@@ -157,5 +157,23 @@
 		DELETE BOARD_LIKE
 		WHERE POST_NO = ? AND MEMBER_NO = ?
 	</entry>
+	
+		<!-- 베스트 5고르기 -->
+	<entry key="selectBest">
+		<![CDATA[          
+SELECT 
+PATH || NEW_NAME AS "TITLE_IMG",
+POST_NO,
+POST_CONTENT,
+MEMBER_NIC,
+CREATE_DATE
+FROM CAMP_GRAM C
+JOIN ATTACHMENT A USING(POST_NO)
+JOIN MEMBER M USING(MEMBER_NO)
+WHERE ROWNUM <= 5
+ORDER BY READ_COUNT DESC
+          ]]>
+
+	</entry>
 
 </properties>
