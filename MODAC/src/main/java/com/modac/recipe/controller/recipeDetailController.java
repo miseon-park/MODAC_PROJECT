@@ -44,6 +44,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 		request.setAttribute("r", r);
 		request.setAttribute("at", at);
 		
+		System.out.println("r : "+r+" / at : "+at );
 		request.getRequestDispatcher("views/recipe/recipeDetailView.jsp").forward(request, response);
 		
 	}else { // 실패, 에러페이지 

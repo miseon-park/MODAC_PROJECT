@@ -108,23 +108,17 @@ public class RecipeService {
         if(at != null) {
             // 기존에 첨부파일이 있었을 경우 => update문 실행
         	at.getPostNo();
-        	System.out.println("at.getPostNo(); : "+at.getPostNo());
-        	System.out.println("r.getTitleImg() : "+r.getTitleImg());
             if(at.getPhotoNo() != null) {
                 result2 = new RecipeDao().updateAttachment(at, conn);
-                System.out.println("ser result2-1 : "+result2);
             }else {//기존에 첨부파일이 없었을 경우 => insert문 실행
                 result2 = new RecipeDao().insertNewAttachment(at, conn);
-                System.out.println("ser result2-2 : "+result2);
             }
         }else { // 새로운 첨부파일이 없는 경우 
         	if(r.getTitleImg() == null) {
         		r.getPostNo();
         		result2 = new RecipeDao().updateDeleteAttachment(r, conn);
-        		System.out.println("ser result2-3 : "+result2);
         	}
         }
-        System.out.println("ser result1 : "+result1);
 		if(result1 > 0 && result2 > 0) {
 			commit(conn);
 		} else {

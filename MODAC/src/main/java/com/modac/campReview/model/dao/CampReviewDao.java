@@ -264,7 +264,7 @@ public class CampReviewDao {
 			
 			for(Integer tagNo:tList) {
 				psmt.setInt(2, tagNo.intValue());
-			result += psmt.executeUpdate();}
+				result += psmt.executeUpdate();}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -21,6 +21,13 @@
 <link rel=”stylesheet” href=”http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css“>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Hahmlet&family=Poor+Story&family=Do+Hyeon&display=swap');
+        .title {
+		text-align:center;
+        font-family: 'Do Hyeon', sans-serif;
+        color: #4a3933;
+        font-size: 45px;
+    	}
         .content1{
            width: 20%;
 		   height : 1000px;
@@ -114,14 +121,14 @@
             <div class="content1">
                 <nav class="flex-column">
                     <a class="nav-link active" aria-current="page" href="#">모닥불이야기</a><br><br>
-                    <a class="nav-link" href="#">캠핑장 리뷰</a>
-                    <a class="nav-link" href="#">캠핑 레시피</a>
-                    <a class="nav-link">캠핑스타그램</a>
+                    <a class="nav-link" href="<%=contextPath%>/list.cr">캠핑장 리뷰</a>
+                    <a class="nav-link" href="<%=contextPath%>/list.r">캠핑 레시피</a>
+                    <a class="nav-link" href="<%=contextPath%>/list.cs">캠핑스타그램</a>
                   </nav>
             </div>
             <div class="content2">
 				<br>
-                <h3>캠핑 스타그램</h3>
+                <h3 class="title">캠핑 스타그램</h3>
                 
                 <nav class="navbar">
 					<form class="container-fluid">
@@ -141,7 +148,7 @@
 				<div class="list-area">
 					<% if(loginMember != null) { %>
 						<div align="right">
-			                <a href="<%=contextPath %>/enrollForm.cs" class="btn btn-secondary last1">글쓰기</a> 
+			                <a href="<%=contextPath %>/enrollForm.cs" class="btn btn-secondary last1">글 작성</a> 
 		            	</div>
 		            <% } %>
 		            <br>

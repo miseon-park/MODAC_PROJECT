@@ -20,61 +20,63 @@ import com.modac.member.model.vo.Member;
 @WebServlet("/detail.cs")
 public class camStagramDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public camStagramDetailController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-	request.setCharacterEncoding("UTF-8");
-	
-	int postNo = Integer.parseInt(request.getParameter("csno"));
+	public camStagramDetailController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		request.setCharacterEncoding("UTF-8");
+
+		int postNo = Integer.parseInt(request.getParameter("csno"));
 //	String memberNo = request.getParameter("memberNo");
-	Member member = (Member)request.getSession().getAttribute("loginMember");
-	
-	String memberNo = member.getMemberNo();
-	
-	System.out.println("member" + member);
-	
-	
-	System.out.println("memberNo" + memberNo);
 
-	int result = new CamStagramService().increaseCount(postNo);
-	
-	if(result > 0 ) { // 성공, 상세조회 페이지 
-		CamStagram cs = new CamStagramService().selectCamStagram(postNo);
-		Attachment at = new CamStagramService().selectAttachment(postNo) ;
-		BoardLike bl = new CamStagramService().selectBoardLike(postNo, memberNo);
-		
-		
-		request.setAttribute("cs", cs);
-		request.setAttribute("at", at);
-		request.setAttribute("bl", bl);
+		int result = new CamStagramService().increaseCount(postNo);
 
-		System.out.println("detail con - bl : "+bl);
 
+		if (result > 0) { // 성공, 상세조회 페이지
+			CamStagram cs = new CamStagramService().selectCamStagram(postNo);
+			Attachment at = new CamStagramService().selectAttachment(postNo);
+			if ((Member) request.getSession().getAttribute("loginMember") != null) {
+				Member member = (Member) request.getSession().getAttribute("loginMember");
+			
+				String memberNo = member.getMemberNo();
+				BoardLike bl = new CamStagramService().selectBoardLike(postNo, memberNo);
+
+				request.setAttribute("bl", bl);
+			}
+
+			request.setAttribute("cs", cs);
+			request.setAttribute("at", at);
 		
-		
-		request.getRequestDispatcher("views/camStagram/camStagramDetailView.jsp").forward(request, response);
-		
-	}else { // 실패, 에러페이지 
-		request.setAttribute("errorMsg", "게시글 조회 실패");
-		request.getRequestDispatcher("views/common/errorPage.jsp").forward(request,response);
-	}
+			
+			System.out.println("ㅊ"  +cs);
+
+			request.getRequestDispatcher("views/camStagram/camStagramDetailView.jsp").forward(request, response);
+
+		} else { // 실패, 에러페이지
+			request.setAttribute("errorMsg", "게시글 조회 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
+
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

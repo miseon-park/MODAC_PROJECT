@@ -60,7 +60,8 @@ public class CamStagramService {
 		CamStagram cs = new CamStagramDao().selectCamStagram(postNo, conn);
 		
 		close();
-		  
+		
+		System.out.println("ser cs : " + cs);
 		return cs;
 	}
 	
@@ -190,7 +191,6 @@ public class CamStagramService {
 			rollback(conn);
 		}
 		close();
-		System.out.println("result(ser) : " +result);
 		
 		return result;
 	}

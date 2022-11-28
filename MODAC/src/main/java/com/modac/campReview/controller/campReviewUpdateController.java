@@ -52,12 +52,13 @@ public class campReviewUpdateController extends HttpServlet {
 			String postNo = multiRequest.getParameter("crno");
 			String postTitle =  multiRequest.getParameter("title");
 			String postContent =  multiRequest.getParameter("content");
-	 
+			String titleImg = multiRequest.getParameter("titleImg");
 			
 			CampReview cr = new CampReview();
 			cr.setPostNo(postNo);
 			cr.setPostTitle(postTitle);
 			cr.setPostContent(postContent);
+			cr.setTitleImg(titleImg);
 			////
 		
 			String[] tagNo = multiRequest.getParameterValues("tag");

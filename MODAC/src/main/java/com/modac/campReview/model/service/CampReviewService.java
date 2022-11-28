@@ -29,8 +29,6 @@ public class CampReviewService {
 		
 		close();
 		
-		System.out.println("list(ser) : "+list);
-		
 		return list;
 		
 		
@@ -117,6 +115,7 @@ public class CampReviewService {
 			rollback(conn);
 		}
 		close();
+		
 		return result1 * result2 * result3;
 	}
 	

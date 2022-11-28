@@ -80,7 +80,7 @@ public class RecipeDao {
 			rset = psmt.executeQuery();
 			
 			while(rset.next()) {
-				list.add(new Recipe(rset.getString("TITLEIMG"),
+				list.add(new Recipe(rset.getString("TITLE_IMG"),
 		                				rset.getString("POST_NO"),
 						                rset.getString("POST_TITLE"),
 										rset.getString("MEMBER_NIC"),
@@ -161,6 +161,7 @@ public class RecipeDao {
 			close(rset);
 			close(psmt);
 		}
+		
 		return r;
 		 
 	 }
@@ -269,7 +270,7 @@ public class RecipeDao {
 			psmt.setString(4, at.getPath());
 
 			result = psmt.executeUpdate();
-			System.out.println("dao result2-2 : "+result);
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -291,7 +292,7 @@ public class RecipeDao {
 			psmt.setString(1, r.getPostNo());
 
 			result = psmt.executeUpdate();
-			System.out.println("dao result2-3 : "+result);
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -345,7 +346,7 @@ public class RecipeDao {
 			psmt.setString(4, at.getPostNo());
 
 			result = psmt.executeUpdate();
-			System.out.println("dao result2-1 : "+result);
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {

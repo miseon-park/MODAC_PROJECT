@@ -161,6 +161,7 @@ public class CamStagramDao {
 			close(rset);
 			close(psmt);
 		}
+		 System.out.println("dao cs : "+cs);
 		return cs;
 		 
 	 }
@@ -230,8 +231,6 @@ public BoardLike selectBoardLike(int postNo, String memberNo, Connection conn) {
 			close(rset);
 			close(psmt);
 		}
-		
-		System.out.println("bl(dao) : " +bl);
 		return bl;
 		 
 	 }
@@ -257,7 +256,6 @@ public BoardLike selectBoardLike(int postNo, String memberNo, Connection conn) {
 		} finally {
 			close(psmt);
 		}
-			System.out.println("list(dao) : "+result);
 		 return result;
 	 }
 	 
@@ -409,7 +407,6 @@ public BoardLike selectBoardLike(int postNo, String memberNo, Connection conn) {
 	 
 	 public int insertBoardLike(String postNo, String memberNo, Connection conn) {
 
-		 System.out.println("postNo,memberNo (dao) : " +postNo+ " "+memberNo);
 		 int postNo1 = Integer.parseInt(postNo);
 		 int memberNo1 = Integer.parseInt(memberNo);
 		 
@@ -432,7 +429,6 @@ public BoardLike selectBoardLike(int postNo, String memberNo, Connection conn) {
 		} finally {
 			close(psmt);
 		}
-			System.out.println("result-insertBoardLike(dao) : "+result);
 		 return result;
 	 }
 	 
@@ -456,7 +452,6 @@ public BoardLike selectBoardLike(int postNo, String memberNo, Connection conn) {
 		} finally {
 			close(psmt);
 		}
-			System.out.println("result-deleteBoardLike(dao) : "+result);
 		 return result;
 	 }
 	

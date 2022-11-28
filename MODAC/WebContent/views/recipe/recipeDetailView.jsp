@@ -11,6 +11,12 @@
 <title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <style>
+	.title {
+        margin-top: 40px;
+        color: rgb(74,57,51);
+        font-family: 'Hahmlet', serif;
+        font-size: 35px;
+	}
 	.content1 {
 		width: 20%;
 		height: 1000px;
@@ -58,15 +64,15 @@
            <div class="content1">
                <nav class="flex-column">
                    <a class="nav-link active" aria-current="page" href="#">모닥불이야기</a><br><br>
-                   <a class="nav-link" href="#">캠핑장 리뷰</a>
-                   <a class="nav-link" href="#">캠핑 레시피</a>
-                   <a class="nav-link">캠핑스타그램</a>
+                   <a class="nav-link" href="<%=contextPath%>/list.cr">캠핑장 리뷰</a>
+                   <a class="nav-link" href="<%=contextPath%>/list.r">캠핑 레시피</a>
+                   <a class="nav-link" href="<%=contextPath%>/list.cs">캠핑스타그램</a>
                  </nav>
            </div>
            
            <div class="content2">
 		   	   <br>
-               <h3>캠핑 레시피</h3>
+               <h3 class="title">캠핑 레시피</h3>
                <br>
 			   <div class="insert-area">
 	               <div align="right">
@@ -128,7 +134,7 @@
 							 <% } %>
 			                 </div>
 			                  	 <br><br>
-			                 <div style="padding:5px;"><%=r.getPostContent() %></div>
+			                 <div style="padding:5px; white-space:pre;" ><%=r.getPostContent() %></div>
 		                </div>
 	                  <br>
 	           
