@@ -263,16 +263,13 @@
 
     <script>
 
-        // $(document).ready(function() {
-        //     $("#icon").on("mouseover", function() {
-        //         $("#subMenu1").css("visibility", "visible");
-        //     })
-        // });
+        $(document).ready(function() {
+            $("#icon").on("mouseover", function() {
+                $("#subMenu1").css({"visibility":"visible", "opacity": "1"});
+                $("#subMenu2").css({"visibility":"visible", "opacity": "1"});
+            })
+        });
         
-
-
-
-        // visibility: visible;
     </script>
 
 
