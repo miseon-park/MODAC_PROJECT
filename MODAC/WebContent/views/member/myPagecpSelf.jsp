@@ -122,6 +122,13 @@ int maxPage = pi.getMaxPage();
         #navi>li>ul:hover{
             display: block;
         }
+               .moveBtn{
+        color: white;
+        background-color: rgb(74,57,51);
+        border : none;
+        width: 80px;
+        border-radius: 10px 10px 10px 10px / 10px 10px 10px 10px
+        }
     .pageBtn{
         color: black;
         background-color: gainsboro;
@@ -232,7 +239,7 @@ int maxPage = pi.getMaxPage();
  			<button class="pageBtn" onclick="doPageClick(<%=i %>)"><%=i %></button>
  			
  			<%} else{ %>
- 				<button disabled class="pageBtn"><%=i %></button>
+ 				<button disabled class="pageBtn"style="background-color: orange; color: white;"><%=i %></button>
  			<%} %>
  		<%} %>
  		

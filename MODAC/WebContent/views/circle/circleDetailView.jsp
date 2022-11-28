@@ -63,45 +63,45 @@
  		}
  		
  		.reply-area{
- 			width : 100%;
- 			height : 80px;
- 			margin : auto;
- 		}
- 		
- 		.replyText{
- 			width : 85%;
- 			height : 100%;
- 			border : 1px solid rgb(240, 165, 0);
- 			float : left;
- 		}
- 		
- 		.replyBtn{
- 			width : 15%;
- 			height : 100%;
- 			background-color : rgb(240, 165, 0);
- 			float : right;
- 		}
- 		
- 		.inputReply{
- 			width : 100%;
- 			height : 100%;
- 			resize : none;
- 			border: none;
- 			outline: none;
- 		}
- 		
- 		.replyList{
- 			width : 100%;
- 		}
- 		
- 		table{
- 			width : 100%;
- 		}
- 		
- 		table tr{
- 			width : 100%;
- 			border-bottom : 1px solid antiquewhite;
- 		}
+          width : 100%;
+          height : 80px;
+          margin : auto;
+       }
+       
+       .replyText{
+          width : 85%;
+          height : 100%;
+          border : 1px solid rgb(240, 165, 0);
+          float : left;
+       }
+       
+       .replyBtn{
+          width : 15%;
+          height : 100%;
+          background-color : rgb(240, 165, 0);
+          float : right;
+       }
+       
+       .inputReply{
+          width : 100%;
+          height : 100%;
+          resize : none;
+          border: none;
+          outline: none;
+       }
+       
+       .replyList{
+          width : 100%;
+       }
+       
+       table{
+          width : 100%;
+       }
+       
+       table tr{
+          width : 100%;
+          border-bottom : 1px solid antiquewhite;
+       }
  		.btn{
  		background-color: #BDBDBD;
        border: #BDBDBD;
@@ -189,34 +189,34 @@
 			</div>
            </div>
           
-		  <hr>
-				<h5>댓글</h5>
-				<%if(loginMember!=null){ %>
-					<div class="reply-area">
-						<div class="replyText">
-							<textarea class="inputReply" id="replyContent"></textarea>					
-						</div>
-						<button class="replyBtn" onclick="insertReply();">
-							<h5 style="color: white; text-align : center; margin-top : middle; line-height : 80px;">댓글 등록</h5>
-						</button>
-					</div>
-				<%} else { %>
-					<div class="reply-area">
-						<div class="replyText">
-							<textarea class="inputReply" id="replyContent" readonly>로그인 후 이용이 가능한 서비스 입니다.</textarea>					
-						</div>
-						<div class="replyBtn" onclick="insertReply();">
-							<h5 style="color: white; text-align : center; margin-top : middle; line-height : 80px;" disabled>댓글 등록</h5>
-						</div>
-					</div>
-				<% } %>
-				
-				<div class="replyList">
-					<table sytle="width : 100%;">
+		<hr>
+            <h5>댓글</h5>
+            <%if(loginMember!=null){ %>
+               <div class="reply-area">
+                  <div class="replyText">
+                     <textarea class="inputReply" id="replyContent"></textarea>               
+                  </div>
+                  <div class="replyBtn" onclick="insertReply();">
+                     <h5 style="color: white; text-align : center; margin-top : middle; line-height : 80px;">댓글 등록</h5>
+                  </div>
+               </div>
+            <%} else { %>
+               <div class="reply-area">
+                  <div class="replyText">
+                     <textarea class="inputReply" id="replyContent" readonly>로그인 후 이용이 가능한 서비스 입니다.</textarea>               
+                  </div>
+                  <div class="replyBtn" onclick="insertReply();">
+                     <h5 style="color: white; text-align : center; margin-top : middle; line-height : 80px;" disabled>댓글 등록</h5>
+                  </div>
+               </div>
+            <% } %>
+            
+            <div class="replyList">
+               <table sytle="width : 100%;">
 
 
-					</table>
-				</div>
+               </table>
+            </div>
 
 			</div>
                 
@@ -224,8 +224,7 @@
                
 			
 			
-          </div>
-        
+         
           
   
      

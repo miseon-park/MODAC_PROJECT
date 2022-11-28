@@ -220,7 +220,7 @@ int maxPage = pi.getMaxPage();
  			<button class="pageBtn" onclick="doPageClick(<%=i %>)"><%=i %></button>
  			
  			<%} else{ %>
- 				<button disabled class="pageBtn"><%=i %></button>
+ 				<button disabled class="pageBtn"style="background-color: orange; color: white;"><%=i %></button>
  			<%} %>
  		<%} %>
  		
