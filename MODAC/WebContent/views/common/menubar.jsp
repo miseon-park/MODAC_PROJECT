@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.modac.member.model.vo.Member"%>
+
 <%
     String contextPath = request.getContextPath();
 	Member loginMember = (Member) session.getAttribute("loginMember"); 
@@ -15,16 +16,19 @@
 <head>
 <meta charset="UTF-8">
 <title>메뉴바</title>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
 <style>
+
     .menu {
         margin-right: 20px;
         margin-top: 15px;
     }
+
     #mini a {
         text-decoration: none;
         color: gray;
@@ -43,12 +47,14 @@
         line-height: 30px;
     }
     #miniCon li:first-child {
-        border-left: none;s
+        border-left: none;
     }
     #mini {
         float: right;
         font-weight: 600;
     }
+
+
     #member-info {
         float: right;
     }
@@ -69,14 +75,20 @@
     #member-info {
         color: gray;
     }
+
+
+
     #image{
         text-align: center;
     }
+
+
     #mainMenu, #subMenu1, #subMenu2{
         margin: 0;
         padding: 0;
         list-style-type: none;
     }
+
     #mainMenu > li {
         display: inline-block;
         /* float: left; */
@@ -93,16 +105,17 @@
         font-weight: 600;
         color: rgb(74,57,51);
         text-align: center;
-        text-decoration: none;
+        /* text-decoration: none; */
         letter-spacing: 0.05em;
         display: block;
         padding: 12px 36px;
     }
     #subMenu1, #subMenu2 {
         position: absolute;
-        background-color: rgb(240,165,0);
+        background-color: white;
         opacity: 0;
         visibility: hidden;
+        border: 3px solid rgb(240,165,0);
         
     }
     #subMenu1>li{
@@ -110,19 +123,19 @@
         border-bottom: 1px solid lightgray;
         text-align: center;
     }
+    
     #subMenu2>li{
         padding: 11px 42px;
         border-bottom: 1px solid lightgray;
         text-align: center;
     }
     #subMenu1>li>a, #subMenu2>li>a {
-        color: white;
-        font-weight: 300;
+        color: rgb(74,57,51);
+        font-weight: medium;
         text-decoration: none;
     }
     #mainMenu>li>a:hover {
-        background-color: rgb(240,165,0);
-        color: white;
+        color: rgb(240,165,0);
         
     }
     #mainMenu>li:hover #subMenu1 {
@@ -141,11 +154,25 @@
         opacity: 1;
         visibility: visible;
     }
+
+    #subMenu1>li>a:hover {
+        color: rgb(240,165,0);
+        font-weight: bold;
+    }
+    #subMenu2>li>a:hover {
+        color: rgb(240,165,0);
+        font-weight: bold;
+    }
    
+   
+
   
 </style>
 </head>
+
+
 <body>
+
 	<script>
 		
 		let msg = "<%=alertMsg%>";
@@ -158,53 +185,56 @@
 		
 	
 	</script>
+	
 
-
-    
     <div id="top-menu" class="menu">
 		<% if(loginMember == null) { %>
 
             <nav id="mini" >
                 <ul id="miniCon">
-                    <li><a href="views/member/login.jsp">로그인</a></li>
-                    <li><a href="views/member/memberEnrollForm.jsp">회원가입</a></li>
-                    <li><a href="">아이디·비밀번호 찾기</a></li>
+                    <li><a href="<%=contextPath %>/MemberloginForm.me">로그인</a></li>
+                    <li><a href="<%=contextPath %>/enrollFrom.me">회원가입</a></li>
+                    <li><a href="<%=contextPath%>/MemberFineIdPwd.me">아이디·비밀번호 찾기</a></li>
                 </ul>
             </nav>
 		
-		<% } else { %>	
+		<% } else { %>
 			<!-- 로그인 성공 후 -->
-
 			
-
 			<div id="member-info" class="menu">
-				<b><%=loginMember.getMemberNic() %></b> 님 환영합니다!<br>
+				<b><%=loginMember.getMemberNic() %></b> 님 환영합니다! :)<br>
 				<div style="margin-top: 5px;">
                     <a href="<%=contextPath%>/logout.me">로그아웃</a>
-                    <a href="<%=contextPath%>/myPage.me">마이페이지</a>
+                    <a href="">마이페이지</a>
 				</div>
                 <br clear="both">
 			</div>
             <br clear="both">
 
-		<% } %>
 
+		<% } %>
+	
 	
     </div>  
+
+
     <br clear="both">
     <br> 
 
     <div id="image">
-        
-        <img src="/resources/최종로고_1.png" width="300px" alt="정상적 출력 실패">
+        <a href="<%=contextPath%>">
+            <img src="<%=contextPath %>/resources/최종로고_1.png" width="300px" alt="정상적 출력 실패" >
+        </a>
     </div>
-
-
+    
+    
     <br>
+
+
     
     <div id="nav-area" align="center">
         <ul id="mainMenu">
-            <li><a href="">캠핑장 검색</a></li>
+            <li><a href="<%=contextPath %>/list.ca">캠핑장 검색</a></li>
             <li><a href="">공지사항</a>
                 <ul id="subMenu1">
                     <li><a href="">모닥불 소식</a></li>
@@ -221,17 +251,28 @@
                 </ul>
             </li>
             <li><a href="">중고장터</a></li>
-            <li><a href="<%=contextPath%>/clist.bo">동아리 모집</a></li>
+            <li><a href="">동아리 모집</a></li>
             <li><a id="icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-circle" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
-              </svg></a></li>
+              </svg></a>
+            </li>
               <br clear="both"> 
         </ul>
     </div>
-    <br>
-    <div>
-    </div>
-    <br>
     
+
+    <script>
+
+        $(document).ready(function() {
+            $("#icon").on("mouseover", function() {
+                $("#subMenu1").css({"visibility":"visible", "opacity": "1"});
+                $("#subMenu2").css({"visibility":"visible", "opacity": "1"});
+            })
+        });
+        
+    </script>
+
+
+
 </body>
 </html>
