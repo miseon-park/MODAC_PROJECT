@@ -16,7 +16,7 @@
 
 	.detail{
 		width: 100%;
-		border: 2px solid green;
+		
 		float: left;
 	}
 	.card{

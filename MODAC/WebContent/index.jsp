@@ -68,7 +68,7 @@
 }
 
 #gall {
-	border: 1px solid rgb(240, 165, 0);
+	/* border: 1px solid rgb(240, 165, 0); */
 	margin-top: 10px;
 	margin-left: 10%;
 	margin-right: 10%;
