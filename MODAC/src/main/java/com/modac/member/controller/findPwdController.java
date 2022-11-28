@@ -2,6 +2,7 @@ package com.modac.member.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,16 +14,16 @@ import com.modac.member.model.service.MemberService;
 import com.modac.member.model.vo.Member;
 
 /**
- * Servlet implementation class LoginController
+ * Servlet implementation class findPwdController
  */
-@WebServlet("/login.me")
-public class LoginController extends HttpServlet {
+@WebServlet("/findPw.me")
+public class findPwdController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginController() {
+    public findPwdController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,21 +35,32 @@ public class LoginController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
+		
 		String memberId = request.getParameter("memberId");
-		String memberPwd = request.getParameter("memberPwd");
+		String memberName = request.getParameter("memberName");
+		String email = request.getParameter("email");
 		
-		Member loginMember = ms.loginMember(memberId, memberPwd);
+		Member findPwd = ms.findPwd(memberId, memberName, email);
 		
-		if(loginMember == null) {
-			HttpSession session = request.getSession();
-			session.setAttribute("alertMsg", "아이디 또는 비밀번호가 틀렸습니다.");
-			response.sendRedirect(request.getContextPath()+"/MemberloginForm.me");
+		if(findPwd == null) {
+			
+			request.setAttribute("errorMsg", "등록된 정보가 없습니다.");
+			
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+
+		
 		}else {
-			HttpSession session = request.getSession();
-			session.setAttribute("loginMember", loginMember);
-			session.setAttribute("alertMsg", "성공적으로 로그인이 되었습니다.");
-			response.sendRedirect(request.getContextPath());
+			RequestDispatcher rd = request.getRequestDispatcher("views/member/newPwd.jsp");
+			
+			request.setAttribute("memberId", memberId);
+			request.setAttribute("memberName", memberName);
+			request.setAttribute("email", email);
+			
+			rd.forward(request, response);
+			
 		}
+		
+		
 	}
 
 	/**

@@ -8,17 +8,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.modac.member.model.service.MemberService;
+import com.modac.member.model.vo.Member;
+
 /**
- * Servlet implementation class LogoutController
+ * Servlet implementation class MemberFineId
  */
-@WebServlet("/logout.me")
-public class LogoutController extends HttpServlet {
+@WebServlet("/fineId.me")
+public class MemberFineId extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LogoutController() {
+    public MemberFineId() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,10 +29,20 @@ public class LogoutController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    private MemberService ms = new MemberService();
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    HttpSession session = request.getSession();
-	    session.invalidate();
-	    response.sendRedirect(request.getContextPath());
+		request.setCharacterEncoding("UTF-8");
+		
+		String memberName = request.getParameter("memberName");
+		String email = request.getParameter("email");
+		
+		Member fineId = ms.fineId(memberName, email);
+		
+			HttpSession session = request.getSession();
+			session.setAttribute("fineId", fineId);
+			request.getRequestDispatcher("views/member/SuccessFineId.jsp").forward(request, response);
+
+		
 	}
 
 	/**

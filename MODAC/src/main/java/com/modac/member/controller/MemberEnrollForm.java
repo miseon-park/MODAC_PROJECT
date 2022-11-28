@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class MemberEnrollForm
  */
-@WebServlet("/enrollForm.me")
+@WebServlet("/enrollFrom.me")
 public class MemberEnrollForm extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -28,7 +28,7 @@ public class MemberEnrollForm extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher view = request.getRequestDispatcher("views/member/memberEnrollForm.jsp");
+	    RequestDispatcher view = request.getRequestDispatcher("views/member/memberEnrollForm.jsp");
 	    view.forward(request, response);
 	}
 

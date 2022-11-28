@@ -120,7 +120,10 @@
 </body>
 <script>
 	$.ajax({
-		url : "<%=request.getContextPath()%>/best.be"
+		url : "<%=request.getContextPath()%>/best.be",
+		success : function (data) {
+			$("#gall").html(data);
+		}
 	})
 </script>
 </html>

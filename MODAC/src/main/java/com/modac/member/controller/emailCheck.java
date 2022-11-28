@@ -6,19 +6,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import com.modac.member.model.service.MemberService;
 
 /**
- * Servlet implementation class LogoutController
+ * Servlet implementation class emailCheck
  */
-@WebServlet("/logout.me")
-public class LogoutController extends HttpServlet {
+@WebServlet("/emailCheck")
+public class emailCheck extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LogoutController() {
+    public emailCheck() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,9 +28,19 @@ public class LogoutController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    HttpSession session = request.getSession();
-	    session.invalidate();
-	    response.sendRedirect(request.getContextPath());
+		request.setCharacterEncoding("UTF-8");
+		String checkemail = request.getParameter("checkemail");
+		
+		int result = new MemberService().emailCheck(checkemail);
+		
+		if(result == 1){
+			
+			System.out.println("이미 존재하는 이메일입니다.");
+		} else {
+			
+			System.out.println("사용 가능한 이메일입니다.");
+		}
+		response.getWriter().print(result);
 	}
 
 	/**

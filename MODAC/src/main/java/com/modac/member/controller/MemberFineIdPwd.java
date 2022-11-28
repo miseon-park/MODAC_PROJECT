@@ -6,19 +6,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class LogoutController
+ * Servlet implementation class MemberFineIdPwd
  */
-@WebServlet("/logout.me")
-public class LogoutController extends HttpServlet {
+@WebServlet("/MemberFineIdPwd.me")
+public class MemberFineIdPwd extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LogoutController() {
+    public MemberFineIdPwd() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,9 +26,9 @@ public class LogoutController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    HttpSession session = request.getSession();
-	    session.invalidate();
-	    response.sendRedirect(request.getContextPath());
+		request.getRequestDispatcher("views/member/fineIdPwd.jsp").forward(request, response);
+
+
 	}
 
 	/**

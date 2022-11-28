@@ -16,6 +16,8 @@ public class CamStagram {
 	private String likeCount;
 	private String replyCount;
 	
+	
+	
 	public CamStagram() {
 		super();
 	}
@@ -35,6 +37,10 @@ public class CamStagram {
 		this.likeCount = likeCount;
 		this.replyCount = replyCount;
 	}
+	
+	
+	//베스트
+	
 
 	public CamStagram(String postNo, String postContent, Date createDate, String memberNic, 
 			String titleImg, String likeCount, String replyCount) {
@@ -48,6 +54,15 @@ public class CamStagram {
 		this.replyCount = replyCount;
 	}
 	
+	public CamStagram(String postNo, String postContent, Date createDate, String memberNic, String titleImg) {
+		super();
+		this.postNo = postNo;
+		this.postContent = postContent;
+		this.createDate = createDate;
+		this.memberNic = memberNic;
+		this.titleImg = titleImg;
+	}
+
 	// 목록
 	public CamStagram(String titleImg, String postNo, String postContent, String memberNo, String memberNic, 
 			Date createDate, String likeCount, String replyCount) {
