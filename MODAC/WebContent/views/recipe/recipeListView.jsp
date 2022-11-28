@@ -18,12 +18,33 @@
 <title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Hahmlet&family=Poor+Story&family=Do+Hyeon&display=swap');
-        .title {
-			text-align:center;
-	        font-family: 'Do Hyeon', sans-serif;
-	        color: #4a3933;
-	        font-size: 45px;
+		@import url('https://fonts.googleapis.com/css2?family=Hahmlet&family=Poor+Story&family=Do+Hyeon&display=swap');
+		.title {
+        	text-align:center;
+        	margin-top: 40px;
+        	color: rgb(74,57,51);
+        	font-family: 'Do Hyeon', sans-serif;
+        	font-size: 35px;
+		}
+		#button1 {
+    		background-color: #BDBDBD;
+        	border: #BDBDBD;
+        	color: white;
+    	}
+    	#button2 {
+    		background-color: orange;
+        	border: orange;
+        	color: white;
+    	}
+    	.sidemenu {
+    		font-family: 'Do Hyeon', sans-serif;
+        	color: #4a3933;
+        	font-size: 30px;
+    	}
+    	.sidemenu2 {
+        	font-family: 'Do Hyeon', sans-serif;
+        	color: #4a3933;
+        	font-size: 20px;
     	}
         .content1{
            width: 20%;
@@ -118,10 +139,10 @@
         <div class="content">
             <div class="content1">
                 <nav class="flex-column">
-                    <a class="nav-link active" aria-current="page" href="#">모닥불이야기</a><br><br>
-                    <a class="nav-link" href="<%=contextPath%>/list.cr">캠핑장 리뷰</a>
-                    <a class="nav-link" href="<%=contextPath%>/list.r">캠핑 레시피</a>
-                    <a class="nav-link" href="<%=contextPath%>/list.cs">캠핑스타그램</a>
+                    <a class="nav-link active sidemenu" aria-current="page" href="#">모닥불이야기</a><br><br>
+                    <a class="nav-link sidemenu2" href="<%=contextPath%>/list.cr">캠핑장 리뷰</a>
+                    <a class="nav-link sidemenu2" href="<%=contextPath%>/list.r">캠핑 레시피</a>
+                    <a class="nav-link sidemenu2" href="<%=contextPath%>/list.cs">캠핑스타그램</a>
                   </nav>
             </div>
             <div class="content2">

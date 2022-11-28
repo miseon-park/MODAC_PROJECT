@@ -22,12 +22,33 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Hahmlet&family=Poor+Story&family=Do+Hyeon&display=swap');
-	.title {
-		text-align:center;
-        font-family: 'Do Hyeon', sans-serif;
-        color: #4a3933;
-        font-size: 45px;
-    }
+		.title {
+        	text-align:center;
+        	margin-top: 40px;
+        	color: rgb(74,57,51);
+        	font-family: 'Do Hyeon', sans-serif;
+        	font-size: 35px;
+		}
+		#button1 {
+    		background-color: #BDBDBD;
+        	border: #BDBDBD;
+        	color: white;
+    	}
+    	#button2 {
+    		background-color: orange;
+        	border: orange;
+        	color: white;
+    	}
+    	.sidemenu {
+    		font-family: 'Do Hyeon', sans-serif;
+        	color: #4a3933;
+        	font-size: 30px;
+    	}
+    	.sidemenu2 {
+        	font-family: 'Do Hyeon', sans-serif;
+        	color: #4a3933;
+        	font-size: 20px;
+    	}
     .sidemenu {
     	font-family: 'Do Hyeon', sans-serif;
         color: #4a3933;
@@ -41,6 +62,11 @@
     #button1 {
     	background-color: #BDBDBD;
         border: #BDBDBD;
+        color: white;
+    }
+    #button2 {
+    	background-color: orange;
+        border: orange;
         color: white;
     }
     .content1 {
@@ -137,7 +163,7 @@
 			<div class="list-area">
 				<% if(loginMember != null) { %>
 					<div align="right" class="insert-area">
-	               		<a href="<%=contextPath %>/enrollForm.cr" class="btn" id="button1">글쓰기</a> 
+	               		<a href="<%=contextPath %>/enrollForm.cr" class="btn" id="button2">글쓰기</a> 
 	            	</div>
 	            <% } %>
 				<br>
