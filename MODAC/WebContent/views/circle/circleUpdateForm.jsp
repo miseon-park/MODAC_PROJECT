@@ -13,16 +13,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	.content1{
-           width: 20%;
-		   height : 1000px;
-		   padding: 50px 20px 10px;
-		   background-color: antiquewhite;
-            float: left; 
-        }
+	@import url('https://fonts.googleapis.com/css2?family=Hahmlet&family=Poor+Story&family=Do+Hyeon&display=swap');
+	
 	
 	.content2 {
-		width: 80%;
+		width: 100%;
 		padding: 10px 50px 20px;
 		float: left;
 	}
@@ -67,18 +62,25 @@
 		    border-radius: 0.25rem;
 		    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 		}
+		.btn{
+ 		background-color: #BDBDBD;
+       border: #BDBDBD;
+       color: white;
+ 		}
 </style>
 </head>
 <%@ include file="../common/menubar.jsp" %>
        <div class="content">
-        <div class="content1">
-            
-         </div>
+       
        
                       
            <div class="content2">
 			 <br>
-               <h3>동아리 모집</h3>
+               <h3 style=" 
+      
+      color: rgb(74,57,51);
+      font-family: 'Hahmlet', serif;
+      font-size: 35px;">동아리 모집</h3>
              <br>
 
              <form id="enroll-form" action="<%=contextPath %>/cupdate.bo" method="post" enctype="multipart/form-data">
@@ -101,9 +103,9 @@
 					 
 					</div>
 	                  <div align="center">
-                    <button type="submit" class="btn btn-secondary" class="last1" >수정하기</button>
+                    <button type="submit" class="btn btn-secondary" class="last1" style="background-color: orange;">수정하기</button>
 
-                     <button type="button" class="btn btn-secondary" class="last1"onclick="history.back();">목록으로</button>
+                     <button type="button" class="btn btn-secondary" class="last1"onclick="history.back();">이전으로</button>
 	                  
 	              </div>
                   

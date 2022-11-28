@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=Hahmlet&family=Poor+Story&family=Do+Hyeon&display=swap');
         #self{
             border:2px solid black;
             width: 500px;
@@ -48,9 +49,11 @@
 <%@ include file="../common/menubar.jsp" %>
 <form id="self" action="<%=contextPath%>/myPagecheck.me" method=post>
 
-    <h2 id="se">본인확인</h2><br>
+    <h2 id="se" style="color: rgb(74,57,51);
+      font-family: 'Hahmlet', serif;">본인확인</h2><br>
     <hr style="background: black;  border-width: 2px;">
-    <div id="pwdIn">비밀번호를 입력해주세요</div>
+    <div id="pwdIn"style="color: rgb(74,57,51);
+      font-family: 'Hahmlet', serif;">비밀번호를 입력해주세요</div>
 
     <input type = "password" name = "memberPwd" placeholder="비밀번호"  class="pwd" size="30">
     <input type="submit" class="btn btn-secondary" value="확인">

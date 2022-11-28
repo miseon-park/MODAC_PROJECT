@@ -22,15 +22,10 @@
 <title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <style>
-	.content1 {
-		width: 20%;
-		height: 1200px;
-		padding: 50px 20px 10px;
-		background-color: antiquewhite;
-		float: left;
-	}
+	@import url('https://fonts.googleapis.com/css2?family=Hahmlet&family=Poor+Story&family=Do+Hyeon&display=swap');
+	
 	.content2 {
-		width: 80%;
+		width: 100%;
 		padding: 10px 50px 20px;
 		float: left;
 	}
@@ -61,6 +56,58 @@
     border-radius: 0.25rem;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 	}
+	hr{
+ 			border: 0;
+    		height: 1px;
+    		background: #ccc;"
+ 		}
+ 		
+ 		.reply-area{
+ 			width : 100%;
+ 			height : 80px;
+ 			margin : auto;
+ 		}
+ 		
+ 		.replyText{
+ 			width : 85%;
+ 			height : 100%;
+ 			border : 1px solid rgb(240, 165, 0);
+ 			float : left;
+ 		}
+ 		
+ 		.replyBtn{
+ 			width : 15%;
+ 			height : 100%;
+ 			background-color : rgb(240, 165, 0);
+ 			float : right;
+ 		}
+ 		
+ 		.inputReply{
+ 			width : 100%;
+ 			height : 100%;
+ 			resize : none;
+ 			border: none;
+ 			outline: none;
+ 		}
+ 		
+ 		.replyList{
+ 			width : 100%;
+ 		}
+ 		
+ 		table{
+ 			width : 100%;
+ 		}
+ 		
+ 		table tr{
+ 			width : 100%;
+ 			border-bottom : 1px solid antiquewhite;
+ 		}
+ 		.btn{
+ 		background-color: #BDBDBD;
+       border: #BDBDBD;
+       color: white;
+ 		}
+ 		
 	
 </style>
 </head>
@@ -74,14 +121,18 @@
                       
            <div class="content2">
 			 <br>
-               <h3>동아리 모집</h3>
+               <h3 style=" 
+      
+      color: rgb(74,57,51);
+      font-family: 'Hahmlet', serif;
+      font-size: 35px;">동아리 모집</h3>
              <br>
              <div class="insert-area" style="height:100%">
              <%if(loginMember != null && loginMember.getMemberNic().equals(c.getMemberNic())){ %>
 			<div align="right">
 			<!-- 현재 로그인한 사용자가 해당 글을 작성한 작성자일 경우에만 보여진다. -->
-			<a href = "<%=contextPath %>/cupdateForm.bo?bno=<%=c.getPostNo() %>" class = "btn btn-secondary last1">수정하기</a>
-			<a href = "<%=contextPath %>/cdelete.bo?bno=<%=c.getPostNo()%>" class = "btn btn-secondary last1">삭제하기</a>
+			<a href = "<%=contextPath %>/cupdateForm.bo?bno=<%=c.getPostNo() %>" class = "btn btn-secondary"style="background-color: orange;border: #BDBDBD;">수정하기</a>
+			<a href = "<%=contextPath %>/cdelete.bo?bno=<%=c.getPostNo()%>" class = "btn btn-secondary" style="border: #BDBDBD;">삭제하기</a>
 			<%} %>
 			</div>
 
@@ -134,43 +185,39 @@
            </div>
            <br>
             <div align="right">
-				<a href="<%=contextPath %>/clist.bo?currentPage=1" class="btn btn-secondary last1">목록으로</a>
+				<a href="<%=contextPath %>/clist.bo?currentPage=1" class="btn btn-secondary last1"style="background-color: orange;border: #BDBDBD;">목록으로</a>
 			</div>
            </div>
           
-		  
-		    <div id="reply-area">
-			
-				<table border="1" align="center">
-					<thead>
-						<%if(loginMember!=null){ %>
-						<!-- 로그인이 되었을 경우. -->
-						<tr>
-							<th>댓글작성</th>
-							<td>
-							<textarea id="replyContent" cols="50" rows="3" style="resize:none;"></textarea>
-							</td>
-							<td><button onclick="insertReply();">댓글등록</button></td>
-						</tr>
-						<%} else { %>
-						<tr>
-							<th>댓글작성</th>
-							<td>
-								<textarea cols="50" rows="3" style="resize:none;" readonly>로그인 후 이용가능한 서비스입니다</textarea>
-							</td>
-							<td><button disabled>댓글등록</button>
-							</tr>
-							
-						<%} %>
-					</thead>
-					<tbody>
-						
-					</tbody>
-					
-				</table>
+		  <hr>
+				<h5>댓글</h5>
+				<%if(loginMember!=null){ %>
+					<div class="reply-area">
+						<div class="replyText">
+							<textarea class="inputReply" id="replyContent"></textarea>					
+						</div>
+						<button class="replyBtn" onclick="insertReply();">
+							<h5 style="color: white; text-align : center; margin-top : middle; line-height : 80px;">댓글 등록</h5>
+						</button>
+					</div>
+				<%} else { %>
+					<div class="reply-area">
+						<div class="replyText">
+							<textarea class="inputReply" id="replyContent" readonly>로그인 후 이용이 가능한 서비스 입니다.</textarea>					
+						</div>
+						<div class="replyBtn" onclick="insertReply();">
+							<h5 style="color: white; text-align : center; margin-top : middle; line-height : 80px;" disabled>댓글 등록</h5>
+						</div>
+					</div>
+				<% } %>
 				
-				
-			
+				<div class="replyList">
+					<table sytle="width : 100%;">
+
+
+					</table>
+				</div>
+
 			</div>
                 
 
@@ -238,7 +285,7 @@
 								  
 							
 						}
-						$("#reply-area tbody").html(result); 
+						$(".replyList>table").html(result); 
 						
 					},
 					error:function(){

@@ -22,19 +22,14 @@ int maxPage = pi.getMaxPage();
 <title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <style>
-	.content1{
-           width: 20%;
-		   height : 1000px;
-		   padding: 50px 20px 10px;
-		   background-color: antiquewhite;
-            float: left; 
-        }
+	@import url('https://fonts.googleapis.com/css2?family=Hahmlet&family=Poor+Story&family=Do+Hyeon&display=swap');
+	
         
 
         .content2{
-            width: 80%;
-		      	padding: 10px 50px 20px;
-            float: left; 
+            width: 95%;
+            padding-left: 30px;
+            
         }
 	
 	.navbar {
@@ -82,15 +77,24 @@ int maxPage = pi.getMaxPage();
         color: white;
         background-color: orange;
     }
+    	.btn{
+ 		background-color: #BDBDBD;
+       border: #BDBDBD;
+       color: white;
+ 		}
+ 		h3{
+ 		text-align:center;
+       font-family: 'Do Hyeon', sans-serif;
+        color: #4a3933;
+        font-size: 45px;
+ 		}
 </style>
 
 </head>
 <body>
 <%@ include file="../common/menubar.jsp" %>
 	<div class="content">
-	  <div class="content1">
-               
-            </div>
+	  
 	
 		
 		<div class="content2">
@@ -121,7 +125,7 @@ int maxPage = pi.getMaxPage();
 			<div class="list-area">
 				<div align="right" class="insert-area">
 				<%if(loginMember != null){ %>
-	               	<a href="<%=contextPath %>/cenrollForm.bo" class="btn btn-secondary last1">글쓰기</a> 
+	               	<a href="<%=contextPath %>/cenrollForm.bo" class="btn btn-secondary last1" style="background-color: orange;border: #BDBDBD;">글작성</a> 
 	            </div>
 	            <%} %>
 				<br>

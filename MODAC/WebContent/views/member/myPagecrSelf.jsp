@@ -16,6 +16,7 @@ int maxPage = pi.getMaxPage();
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Hahmlet&family=Poor+Story&family=Do+Hyeon&display=swap');
     .content>div{
 
             float: left; 
@@ -63,10 +64,6 @@ int maxPage = pi.getMaxPage();
             text-decoration: none;
             color: black;
         }
-        .nav-link {
-            text-decoration: none;
-            color: black;
-        }
          #navi{
            /* border : 1px solid blue;*/
             list-style-type: none;
@@ -91,7 +88,7 @@ int maxPage = pi.getMaxPage();
             padding: 0;
             display: none;
         }
-       #navi>li>ul>a{
+        #navi>li>ul>a{
            
          font-size: medium;
         font-weight: 600;
@@ -141,15 +138,27 @@ int maxPage = pi.getMaxPage();
             <div class="content1">
 
                    <ul id="navi">
-                    <li><a class="nav-link" aria-current="page" href="<%=contextPath%>/myPage.me" style="text-align: center;">개인정보 변경</a></li>
-                   	<br><br><br><br>
+                    <li><a class="nav-link" aria-current="page" href="<%=contextPath%>/myPage.me" style="text-align: center;font-family: 'Do Hyeon', sans-serif;
+       
+        font-size: 30px; ">개인정보 변경</a></li>
+                  	<br><br><br><br>
                    <li>
-             		<a href="" class="nav-link" style="text-align: center; color: orange;">자기글 모음</a>
+             		<a href="" class="nav-link" style="text-align: center;font-family: 'Do Hyeon', sans-serif;
+       
+        font-size: 30px; color:orange">자기글 모음</a>
              		<ul>
-                    <li><a class="nav-link" href="<%=contextPath%>/myPagecSelf.me"style="text-align: center;">동아리</a></li>
-                  	<li><a class="nav-link" href="<%=contextPath%>/myPagecrSelf.me"style="text-align: center;color: orange;">캠핑장 리뷰</a></li>
-                    <li><a class="nav-link" href="<%=contextPath%>/myPagecpSelf.me"style="text-align: center;">캠핑 레시피</a></li>
-                    <li><a class="nav-link" href="<%=contextPath%>/myPageupSelf.me"style="text-align: center;">중고장터</a></li>
+                    <li><a class="nav-link" href="<%=contextPath%>/myPagecSelf.me"style="text-align: center;font-family: 'Do Hyeon', sans-serif;
+       
+        font-size: 20px;">동아리</a></li>
+                  	<li><a class="nav-link" href="<%=contextPath%>/myPagecrSelf.me"style="text-align: center;font-family: 'Do Hyeon', sans-serif;
+       
+        font-size: 20px;color:orange">캠핑장 리뷰</a></li>
+                    <li><a class="nav-link" href="<%=contextPath%>/myPagecpSelf.me"style="text-align: center;font-family: 'Do Hyeon', sans-serif;
+        
+        font-size: 20px;">캠핑 레시피</a></li>
+                    <li><a class="nav-link" href="<%=contextPath%>/myPageupSelf.me"style="text-align: center;font-family: 'Do Hyeon', sans-serif;
+        
+        font-size: 20px;">중고장터</a></li>
                     </ul>
                     
                  </li>
@@ -163,7 +172,11 @@ int maxPage = pi.getMaxPage();
 
             </div>
              <div class="content2">
-            <h3>캠핑장 리뷰</h3>
+            <h3 style=" 
+      
+      color: rgb(74,57,51);
+      font-family: 'Hahmlet', serif;
+      font-size: 35px;">캠핑장 리뷰</h3>
 			<br>
 			<div>
 			<br>

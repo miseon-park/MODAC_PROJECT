@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+	@import url('https://fonts.googleapis.com/css2?family=Hahmlet&family=Poor+Story&family=Do+Hyeon&display=swap');
     .content>div{
 
             float: left; 
@@ -116,15 +117,27 @@
  <div class="content">
             <div class="content1">
 				 <ul id="navi">
-                    <li><a class="nav-link" aria-current="page" href="<%=contextPath%>/myPage.me" style="text-align: center;color: orange;">개인정보 변경</a></li>
+                    <li><a class="nav-link" aria-current="page" href="<%=contextPath%>/myPage.me" style="text-align: center;font-family: 'Do Hyeon', sans-serif;
+       
+        font-size: 30px; color:orange">개인정보 변경</a></li>
                   	<br><br><br><br>
                    <li>
-             		<a href="" class="nav-link" style="text-align: center;">자기글 모음</a>
+             		<a href="" class="nav-link" style="text-align: center;font-family: 'Do Hyeon', sans-serif;
+       
+        font-size: 30px;">자기글 모음</a>
              		<ul>
-                    <li><a class="nav-link" href="<%=contextPath%>/myPagecSelf.me"style="text-align: center;">동아리</a></li>
-                  	<li><a class="nav-link" href="<%=contextPath%>/myPagecrSelf.me"style="text-align: center;">캠핑장 리뷰</a></li>
-                    <li><a class="nav-link" href="<%=contextPath%>/myPagecpSelf.me"style="text-align: center;">캠핑 레시피</a></li>
-                    <li><a class="nav-link" href="<%=contextPath%>/myPageupSelf.me"style="text-align: center;">중고장터</a></li>
+                    <li><a class="nav-link" href="<%=contextPath%>/myPagecSelf.me"style="text-align: center;font-family: 'Do Hyeon', sans-serif;
+       
+        font-size: 20px;">동아리</a></li>
+                  	<li><a class="nav-link" href="<%=contextPath%>/myPagecrSelf.me"style="text-align: center;font-family: 'Do Hyeon', sans-serif;
+       
+        font-size: 20px;">캠핑장 리뷰</a></li>
+                    <li><a class="nav-link" href="<%=contextPath%>/myPagecpSelf.me"style="text-align: center;font-family: 'Do Hyeon', sans-serif;
+        
+        font-size: 20px;">캠핑 레시피</a></li>
+                    <li><a class="nav-link" href="<%=contextPath%>/myPageupSelf.me"style="text-align: center;font-family: 'Do Hyeon', sans-serif;
+        
+        font-size: 20px;">중고장터</a></li>
                     </ul>
                     
                  </li>
@@ -144,7 +157,11 @@
 
 
             <form class="dt" id="mypage-form" action="<%=contextPath %>/update.me" method="post">
-                <h5 class="h5">개인정보 변경</h5>
+                <h5 class="h5" style=" 
+      
+      color: rgb(74,57,51);
+      font-family: 'Hahmlet', serif;
+      font-size: 35px;">개인정보 변경</h5>
                 <hr>
                 <div class="form-floating mb-3">
                     <label for="floatingInput">ID</label>
