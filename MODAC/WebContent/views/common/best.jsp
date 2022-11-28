@@ -69,7 +69,6 @@
 <body>
 <div class="content2" >
 		<br>
-		<h3>캠핑 스타그램</h3>
 
 		<div class="list-area">
 			

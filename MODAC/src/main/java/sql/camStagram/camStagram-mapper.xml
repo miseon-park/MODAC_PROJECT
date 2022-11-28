@@ -41,27 +41,6 @@
 		  AND STATUS = 'N' 
 	</entry>
 	
-	<entry key="selectCamStagram">
-		SELECT (SELECT PATH || NEW_NAME
-                  FROM ATTACHMENT
-               	 WHERE POST_NO = ? AND BOARD_NO = 8 AND STATUS = 'N') AS "TITLE_IMG" ,
-               POST_NO,
-		       POST_CONTENT,
-			   MEMBER_NO,
-		       MEMBER_NIC,
-		       CREATE_DATE,
-			   (SELECT COUNT(*)
-			      FROM BOARD_LIKE
-			     WHERE POST_NO = ?) AS "LIKE_COUNT",
-			   (SELECT COUNT(*)
-                  FROM REPLY
-                 WHERE BOARD_NO=8 AND POST_NO = ?) AS "REPLY_COUNT"
-		FROM CAMP_GRAM C
-		JOIN MEMBER M USING(MEMBER_NO)
-        JOIN ATTACHMENT USING(POST_NO)
-		WHERE POST_NO = ?
-		  AND M.STATUS = 'N' AND C.STATUS = 'N'
-	</entry>
 	
 	
 	<entry key="selectAttachment">
@@ -174,6 +153,27 @@ WHERE ROWNUM <= 5
 ORDER BY READ_COUNT DESC
           ]]>
 
+	</entry>
+	<entry key="selectCamStagram">
+		SELECT (SELECT PATH || NEW_NAME
+                  FROM ATTACHMENT
+               	 WHERE POST_NO = ? AND BOARD_NO = 8 AND STATUS = 'N') AS "TITLE_IMG" ,
+               POST_NO,
+		       POST_CONTENT,
+			   MEMBER_NO,
+		       MEMBER_NIC,
+		       CREATE_DATE,
+			   (SELECT COUNT(*)
+			      FROM BOARD_LIKE
+			     WHERE POST_NO = ?) AS "LIKE_COUNT",
+			   (SELECT COUNT(*)
+                  FROM REPLY
+                 WHERE BOARD_NO=8 AND POST_NO = ?) AS "REPLY_COUNT"
+		FROM CAMP_GRAM C
+		JOIN MEMBER M USING(MEMBER_NO)
+        JOIN ATTACHMENT USING(POST_NO)
+		WHERE POST_NO = ?
+		  AND M.STATUS = 'N' AND C.STATUS = 'N'
 	</entry>
 
 </properties>
