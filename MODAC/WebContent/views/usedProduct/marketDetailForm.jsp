@@ -77,6 +77,29 @@
     	height: 26px;
 		font-family: 'Do Hyeon', sans-serif;
     }
+    #endDateBtn{
+    	background-color: #BDBDBD;
+    	border: #BDBDBD;
+    	color: white;
+    	font-size: 13px;
+    	border-radius: 10%;
+    	margin-right: 10px;
+    	border-radius: 10px 10px 10px 10px / 10px 10px 10px 10px;
+    	width: 100px;
+    	height: 26px;
+		font-family: 'Do Hyeon', sans-serif;
+    }
+    #endSaleBtn{
+    	background-color: #BDBDBD;
+    	border: #BDBDBD;
+    	color: white;
+    	font-size: 13px;
+    	border-radius: 10%;
+    	border-radius: 10px 10px 10px 10px / 10px 10px 10px 10px;
+    	width: 100px;
+    	height: 26px;
+		font-family: 'Do Hyeon', sans-serif;
+    }
     .userInfo{
         margin-left: 30px;
         margin-top: 20px;
@@ -148,6 +171,38 @@
 		float: left;
 		padding-bottom: -10px;
     }
+    .reply-area{
+          width : 100%;
+          height : 80px;
+          margin : auto;
+       }
+       
+       .replyText{
+          width : 85%;
+          height : 100%;
+          border : 1px solid rgb(240, 165, 0);
+          float : left;
+       }
+       
+       .replyBtn{
+          width : 15%;
+          height : 100%;
+          background-color : rgb(240, 165, 0);
+          float : right;
+       }
+       
+       .inputReply{
+          width : 100%;
+          height : 100%;
+          resize : none;
+          border: none;
+          outline: none;
+       }
+       
+       .replyList{
+          width : 100%;
+       }
+    
 </style>
 </head>
 <body>
@@ -163,6 +218,9 @@
 				<%if(m.getSale().equals("Y")) {%>
                 	<a href="<%=contextPath%>/updateDate.mk?mno=<%=m.getPostNo()%>" class="btn btn-secondary btn-sm" id="updateDate">끌어올리기</a>
                 	<a href="<%=contextPath%>/changeSale.mk?mno=<%=m.getPostNo()%>" class="btn btn-secondary btn-sm" id="end">판매완료</a>
+                <% } else {%>
+                	<button id="endDateBtn">끌어올리기</button>
+                	<button id="endSaleBtn">판매완료</button>
                 <% } %>
             	</div>
 			<% }else{ %>
@@ -232,33 +290,33 @@
 			  </svg></b></p><br>
             <hr>
             
-            <div id="reply-area">
-				<table border="1" align="center">
-					<thead>
-						<!-- 로그인이 되었을 경우. -->
-						<%if(loginMember!=null){ %>
-						<tr>
-							<th>댓글작성</th>
-							<td>
-							<textarea id="replyContent" cols="50" rows="3" style="resize:none;"></textarea>
-							</td>
-							<td><button onclick="insertReply();">댓글등록</button></td>
-						</tr>
-						<%} else { %>
-						<tr>
-							<th>댓글작성</th>
-							<td>
-								<textarea cols="50" rows="3" style="resize:none;" readonly>로그인 후 이용가능한 서비스입니다</textarea>
-							</td>
-							<td><button disabled>댓글등록</button>
-							</tr>
-						<%} %>
-					</thead>
-					<tbody>
-						
-					</tbody>
-				</table>
-			</div>
+                       
+            <%if(loginMember!=null){ %>
+               <div class="reply-area">
+                  <div class="replyText">
+                     <textarea class="inputReply" id="replyContent"></textarea>               
+                  </div>
+                  <div class="replyBtn" onclick="insertReply();">
+                     <h5 style="color: white; text-align : center; margin-top : middle; line-height : 80px;">댓글 등록</h5>
+                  </div>
+               </div>
+            <%} else { %>
+               <div class="reply-area">
+                  <div class="replyText">
+                     <textarea class="inputReply" id="replyContent" readonly>로그인 후 이용이 가능한 서비스 입니다.</textarea>               
+                  </div>
+                  <div class="replyBtn" onclick="insertReply();">
+                     <h5 style="color: white; text-align : center; margin-top : middle; line-height : 80px;" disabled>댓글 등록</h5>
+                  </div>
+               </div>
+            <% } %>
+            
+            <div class="replyList">
+               <table id="rep" style="width : 100%;">
+
+
+               </table>
+            </div>
 			<br>
             
             
@@ -283,13 +341,14 @@
 				success:(list)=>{
 					let result = "";
 					for(let i of list){
-						result+="<tr>"
+						result+="<tr style='width : 100%;
+					          border-bottom : 1px solid antiquewhite;'>"
 									+"<td>"+i.writer+"</td>"
 									+"<td>"+i.replyContent+"</td>"
-									+"<td>"+i.createDate+"</td>"
+									+"<td style='float: right;'>"+i.createDate+"</td>"
 							  +"</tr>"
 					}
-					$("#reply-area tbody").html(result); 
+					$("#rep").html(result); 
 				},
 				error:function(){
 					console.log("댓글리스트 조회용 ajax통신 실패")

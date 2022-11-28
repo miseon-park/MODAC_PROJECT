@@ -138,7 +138,7 @@
 				<!-- 사진 미리보기 -->
 				<div class="imgAtt" style="text-align: left;">
 					<% if(!list.isEmpty()){
-					   	  int i = 1; 
+					   	  int i = 0; 
 					   	  
 						  for(Attachment at : list) {
 							 int index = at.getFileLevel();
@@ -151,16 +151,35 @@
 					   } %>		
 					
 					<table>
-						<% for(int i =0 ; i<list.size(); i++) { %>
+<%-- 						<% for(int i =0 ; i < list.size(); i++) { %> --%>
+<%-- 						<% if(!list.get(i).getOriginName().equals("logo.png")){ %> --%>
+<!-- 	                   	<th> -->
+<%-- 							<input type="button" class="btn-close" id="deleteBtn<%=i %>" aria-label="Close"> --%>
+<!-- 	                    </th> -->
+<%-- 	                    <%} %> --%>
+<%-- 						<%} %> --%>
 	                   	<th>
-	                       	<% if(!list.get(i).getOriginName().equals("logo.png")) {%>
-							<input type="button" class="btn-close" id="deleteBtn<%=i %>" aria-label="Close">
-	                 		<% } %>
+							<input type="button" class="btn-close" id="deleteBtn0" aria-label="Close">
 	                    </th>
-						<%} %>
+	                    <th>
+							<input type="button" class="btn-close" id="deleteBtn1" aria-label="Close">
+	                    </th>
+	                    <th>
+							<input type="button" class="btn-close" id="deleteBtn2" aria-label="Close">
+	                    </th>
+	                    <th>
+							<input type="button" class="btn-close" id="deleteBtn3" aria-label="Close">
+	                    </th>
 	                    <tr>
+<%-- 	                    <% for(int i = 0 ; i <list.size(); i++) { %> --%>
+<!-- 	                       <td> -->
+<%-- 	                    	<% if(!list.get(i).getPath().isEmpty()) { %> --%>
+<%-- 	                      		<img id="contentImg<%=i %>" src="<%=filePath[i+1] %>" width="180" height="130" value="<%=i+1 %>" >                        --%>
+<%-- 	                       <% } %>  --%>
+<!-- 	                       </td> -->
+<%-- 	                     <% } %> --%>
 	                       <td>
-	                      		<img id="titleImg" src="<%=filePath[1] %>" width="180" height="130" value="1" >                        
+	                      		<img id="contentImg0" src="<%=filePath[1] %>" width="180" height="130" value="1">                        
 	                       </td>
 	                       <td>
 								<img id="contentImg1" <%if(!filePath[2].equals("")){ %>src="<%=filePath[2] %>" <%} %> width="180" height="130" value="2">
@@ -192,51 +211,53 @@
 			<br>
 			
 			<script>
+				//삭제 버튼 반복문 ver.
 				$(function(){
-					$("#deleteBtn0").click(function(photoNo){
-						$.ajax({
-				            url : "<%= request.getContextPath() %>/delete.at",
-				            data : {newName : "<%=list.get(0).getNewName()%>",
-				            		photoNo : <%=list.get(0).getPhotoNo() %>},
-				            success : function(result){
-				               //삭제성공시
-				               if(result == "NNNNY"){
-				                  alert("삭제에 성공했습니다");
-				                  $("#titleImg").attr("src","resources/modacLogo/logo.png");
-				                  //location.reload();
-				               }else{
-				                  alert("삭제에 실패했습니다.");
-				               }
-				            }
-				         });
-					})
-				})
+               for(let i = 0; i < 4; i++) {
+                  $("#deleteBtn"+i).click(function(){
+                     let   newName = $("[name=newPhotoName"+i+"]").val();
+                     let photoNo = $("[name=originPhotoNo"+i+"]").val();
+                     $.ajax({
+                           url : "<%= request.getContextPath() %>/delete.at",
+                           data : {newName,
+                                 photoNo},
+                           success : function(result){
+                              //삭제성공시
+                              if(result == "NNNNY"){
+                                 alert("삭제에 성공했습니다");
+                                 //기본로고 재등록
+                                 
+                                 $("#contentImg"+i).attr("src","resources/modacLogo/logo.png")
+                              }else{
+                                 alert("삭제에 실패했습니다.");
+                           }
+                           }
+                        })
+                     })   
+               } 
+            })
 				
-				$(function(){
-					for(let i = 1; i < 4; i++) {
-						$("#deleteBtn"+i).click(function(){
-							let	newName = $("[name=newPhotoName"+(i+1)+"]").val();
-							let photoNo = $("[name=originPhotoNo"+(i+1)+"]").val();
-							$.ajax({
-					            url : "<%= request.getContextPath() %>/delete.at",
-					            data : {newName,
-				            			photoNo},
-					            success : function(result){
-					               //삭제성공시
-					               if(result == "NNNNY"){
-					                  alert("삭제에 성공했습니다");
-					                  //기본로고 재등록
-					                  $("#contentImg"+i).attr("src","resources/modacLogo/logo.png");
-					               }else{
-					                  alert("삭제에 실패했습니다.");
-								   }
-					            }
-					         });
-						})	
-					} 
-				})
 				
-
+// 				$(function(){
+// 					$("#deleteBtn0").click(function(photoNo){
+// 						$.ajax({
+<%-- 				            url : "<%= request.getContextPath() %>/delete.at", --%>
+<%-- 				            data : {newName : "<%=list.get(0).getNewName()%>", --%>
+<%-- 				            		photoNo : <%=list.get(0).getPhotoNo() %>}, --%>
+// 				            success : function(result){
+// 				               //삭제성공시
+// 				               if(result == "NNNNY"){
+// 				                  alert("삭제에 성공했습니다");
+// 				                  $("#contentImg").attr("src","resources/modacLogo/logo.png");
+// 				                  //location.reload();
+// 				               }else{
+// 				                  alert("삭제에 실패했습니다.");
+// 				               }
+// 				            }
+// 				         });
+// 					})
+// 				})
+				
 // 				$(function(){
 // 					$("#deleteBtn1").click(function(photoNo){
 // 						$.ajax({
@@ -322,6 +343,7 @@
 			   
 			//	}) 
 			//})
+			
 			</script>
 			
 			
@@ -332,7 +354,7 @@
 					$("#file-area").hide();
 					
 					//titleImg클릭시 file1클릭 -> input태그 발동
-					$("#titleImg").click(function(){
+					$("#contentImg0").click(function(){
 						$("#file1").click();
 					});
 					
@@ -378,7 +400,7 @@
 						reader.onload = function(e){ // e.target.result에 reader의 고유 url이 담김
 							//각 영역에 맞춰서 이미지 미리보기
 							switch(num){
-							case 1 : $("#titleImg").attr("src", e.target.result); break;
+							case 1 : $("#contentImg0").attr("src", e.target.result); break;
 							case 2 : $("#contentImg1").attr("src", e.target.result); break;
 							case 3 : $("#contentImg2").attr("src", e.target.result); break;
 							case 4 : $("#contentImg3").attr("src", e.target.result); break;
@@ -387,7 +409,7 @@
 					}else{
 						//선택된 파일이 사라졌을 경우 미리보기도 사라지게 작업
 						switch(num){
-						case 1 : $("#titleImg").attr("src", null); break;
+						case 1 : $("#contentImg0").attr("src", null); break;
 						case 2 : $("#contentImg1").attr("src", null); break;
 						case 3 : $("#contentImg2").attr("src", null); break;
 						case 4 : $("#contentImg3").attr("src", null); break;

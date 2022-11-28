@@ -106,7 +106,7 @@
 				
 				<!-- 첨부파일 미리보기 -->
 				<div class="imgAtt">
-					<img id="titleImg"  width="180" height="130">
+					<img id="contentImg0"  width="180" height="130">
 					<img id="contentImg1" width="180" height="130">
 					<img id="contentImg2" width="180" height="130">
 					<img id="contentImg3" width="180" height="130">
@@ -132,7 +132,7 @@
 					$("#file-area").hide();
 					
 					//titleImg클릭시 file1클릭 -> input태그 발동
-					$("#titleImg").click(function(){
+					$("#contentImg0").click(function(){
 						$("#file1").click();
 					});
 					
@@ -162,7 +162,7 @@
 						reader.onload = function(e){ // e.target.result에 reader의 고유 url이 담김
 							//각 영역에 맞춰서 이미지 미리보기
 							switch(num){
-							case 1 : $("#titleImg").attr("src", e.target.result); break;
+							case 1 : $("#contentImg0").attr("src", e.target.result); break;
 							case 2 : $("#contentImg1").attr("src", e.target.result); break;
 							case 3 : $("#contentImg2").attr("src", e.target.result); break;
 							case 4 : $("#contentImg3").attr("src", e.target.result); break;
@@ -171,7 +171,7 @@
 					}else{
 						//선택된 파일이 사라졌을 경우 미리보기도 사라지게 작업
 						switch(num){
-						case 1 : $("#titleImg").attr("src", null); break;
+						case 1 : $("#contentImg0").attr("src", null); break;
 						case 2 : $("#contentImg1").attr("src", null); break;
 						case 3 : $("#contentImg2").attr("src", null); break;
 						case 4 : $("#contentImg3").attr("src", null); break;

@@ -35,7 +35,7 @@ public class MarketUpdateDateController extends HttpServlet {
 		int result = new MarketService().updateDate(postNo);
 		
 		if(result > 0) {
-			response.sendRedirect(request.getContextPath()+"/detailWt.mk?mno="+postNo);
+			response.sendRedirect(request.getContextPath()+"/detail.mk?mno="+postNo);
 		}else { //실패 => 에러페이지
 			request.setAttribute("errorMsg", "작동 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

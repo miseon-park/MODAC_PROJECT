@@ -72,23 +72,23 @@ public class MarketInsertController extends HttpServlet {
 			String titleImg = multirequest.getParameter("titleImg");
 			
 			
-			for(int i = 1; i <= 4; i++) {
+			for(int i = 0; i <= 3; i++) {
 				Attachment at = new Attachment();
-				String key = "file" + i;
+				String key = "file" + (i+1);
 				
 				if(multirequest.getOriginalFileName(key) != null) { //첨부파일이 있을 경우
 					//DB에 저장
 					at.setOriginName(multirequest.getOriginalFileName(key));
 					at.setNewName(multirequest.getFilesystemName(key));
 					at.setPath("/resources/market_upfiles/");
-					at.setFileLevel(i);
+					at.setFileLevel(i+1);
 					
 					list.add(at);	
 				}else { //첨부파일이 없을 경우 폴더에서 로고 사진 가져와서 DB에 저장
 					at.setOriginName("logo.png");
 					at.setNewName("logo.png");
 					at.setPath("/resources/modacLogo/");
-					at.setFileLevel(i);
+					at.setFileLevel(i+1);
 					
 					list.add(at);
 				}
