@@ -84,6 +84,8 @@ public class campReviewInsertController extends HttpServlet {
 	         }
 			
 		int result = new CampReviewService().insertCampReview(cr, at);
+		
+		System.out.println();
 
 		if(result > 0) {
 			request.getSession().setAttribute("alertMsg", "게시글 작성 성공!");

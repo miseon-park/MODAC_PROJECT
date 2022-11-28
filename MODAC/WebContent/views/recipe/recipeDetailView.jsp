@@ -11,12 +11,33 @@
 <title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <style>
-	.title {
-        margin-top: 40px;
-        color: rgb(74,57,51);
-        font-family: 'Hahmlet', serif;
-        font-size: 35px;
-	}
+		@import url('https://fonts.googleapis.com/css2?family=Hahmlet&family=Poor+Story&family=Do+Hyeon&display=swap');
+		.title {
+        	margin-top: 40px;
+        	color: rgb(74,57,51);
+        	font-family: 'Hahmlet', serif;
+        	font-size: 35px;
+		}
+		#button1 {
+    		background-color: #BDBDBD;
+        	border: #BDBDBD;
+        	color: white;
+    	}
+    	#button2 {
+    		background-color: orange;
+        	border: orange;
+        	color: white;
+    	}
+    	.sidemenu {
+    		font-family: 'Do Hyeon', sans-serif;
+        	color: #4a3933;
+        	font-size: 30px;
+    	}
+    	.sidemenu2 {
+        	font-family: 'Do Hyeon', sans-serif;
+        	color: #4a3933;
+        	font-size: 20px;
+    	}
 	.content1 {
 		width: 20%;
 		height: 1000px;
@@ -56,6 +77,9 @@
 	    border-radius: 0.25rem;
 	    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 		}
+		div{
+			word-break:break-all;
+		}
 </style>
 </head>
 <body>
@@ -63,18 +87,18 @@
        
            <div class="content1">
                <nav class="flex-column">
-                   <a class="nav-link active" aria-current="page" href="#">모닥불이야기</a><br><br>
-                   <a class="nav-link" href="<%=contextPath%>/list.cr">캠핑장 리뷰</a>
-                   <a class="nav-link" href="<%=contextPath%>/list.r">캠핑 레시피</a>
-                   <a class="nav-link" href="<%=contextPath%>/list.cs">캠핑스타그램</a>
+                   <a class="nav-link active sidemenu" aria-current="page" href="#">모닥불이야기</a><br><br>
+                   <a class="nav-link sidemenu2" href="<%=contextPath%>/list.cr">캠핑장 리뷰</a>
+                   <a class="nav-link sidemenu2" href="<%=contextPath%>/list.r">캠핑 레시피</a>
+                   <a class="nav-link sidemenu2" href="<%=contextPath%>/list.cs">캠핑스타그램</a>
                  </nav>
            </div>
            
            <div class="content2">
-		   	   <br>
+			   <div class="insert-area">
+			   <br>
                <h3 class="title">캠핑 레시피</h3>
                <br>
-			   <div class="insert-area">
 	               <div align="right">
 	                 <% if(loginMember != null && loginMember.getMemberNic().equals(r.getMemberNic())) {%>
 	                  	<a href="<%=contextPath %>/updateForm.r?rno=<%=r.getPostNo()%>" class="btn btn-secondary last1">수정하기</a>
@@ -134,7 +158,9 @@
 							 <% } %>
 			                 </div>
 			                  	 <br><br>
-			                 <div style="padding:5px; white-space:pre;" ><%=r.getPostContent() %></div>
+			                 
+			                 	<p><%=r.getPostContent() %></p>
+			                 
 		                </div>
 	                  <br>
 	           

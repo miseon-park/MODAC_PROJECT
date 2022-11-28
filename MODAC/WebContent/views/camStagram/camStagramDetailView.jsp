@@ -67,10 +67,10 @@
        
            <div class="content1">
                <nav class="flex-column">
-                   <a class="nav-link active" aria-current="page" href="#">모닥불이야기</a><br><br>
-                   <a class="nav-link" href="<%=contextPath%>/list.cr">캠핑장 리뷰</a>
-                   <a class="nav-link" href="<%=contextPath%>/list.r">캠핑 레시피</a>
-                   <a class="nav-link" href="<%=contextPath%>/list.cs">캠핑스타그램</a>
+                   <a class="nav-link active sidemenu" aria-current="page" href="#">모닥불이야기</a><br><br>
+                   <a class="nav-link sidemenu2" href="<%=contextPath%>/list.cr">캠핑장 리뷰</a>
+                   <a class="nav-link sidemenu2" href="<%=contextPath%>/list.r">캠핑 레시피</a>
+                   <a class="nav-link sidemenu2" href="<%=contextPath%>/list.cs">캠핑스타그램</a>
                  </nav>
            </div>
            

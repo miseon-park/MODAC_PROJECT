@@ -15,15 +15,13 @@
 
 
 	.detail{
+<<<<<<< HEAD
 		width: 100%;
 		
+=======
+		border: 2px solid green;
+>>>>>>> 4b1308f6ff4e349c83059e21d3890a586ec4c6fc
 		float: left;
-	}
-	.card{
-		width: 200px; 
-		margin:30px; 
-		display: inline-block !important;
-		border: 3px solid black;
 	}
 		#hi{
 			padding-top: 40px;
@@ -77,7 +75,7 @@
 					<input type="hidden" name="csno" id="csno" value="<%=cs.getPostNo()%>">
 					<div class="image-box" style="width: 100%;">
 						<img src="<%=contextPath%>/<%=cs.getTitleImg()%>"
-						class="image-thumbnail" width="200px" height="150px">
+						class="image-thumbnail" width="20%" height="150px">
 					</div>
 					<div class="card-bx`ody">
 						<span><%=cs.getMemberNic()%></span> 

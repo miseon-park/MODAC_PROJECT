@@ -43,7 +43,6 @@ public class camStagramDetailController extends HttpServlet {
 
 		int result = new CamStagramService().increaseCount(postNo);
 
-
 		if (result > 0) { // 성공, 상세조회 페이지
 			CamStagram cs = new CamStagramService().selectCamStagram(postNo);
 			Attachment at = new CamStagramService().selectAttachment(postNo);
@@ -58,9 +57,6 @@ public class camStagramDetailController extends HttpServlet {
 
 			request.setAttribute("cs", cs);
 			request.setAttribute("at", at);
-		
-			
-			System.out.println("ㅊ"  +cs);
 
 			request.getRequestDispatcher("views/camStagram/camStagramDetailView.jsp").forward(request, response);
 
