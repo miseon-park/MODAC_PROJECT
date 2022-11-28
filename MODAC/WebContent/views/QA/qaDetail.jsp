@@ -60,6 +60,53 @@
  			width: 80%; 
  			margin: auto;
  			}
+ 			
+ 		hr{
+ 			border: 0;
+    		height: 1px;
+    		background: #ccc;"
+ 		}
+ 		
+ 		.reply-area{
+ 			width : 100%;
+ 			height : 80px;
+ 			margin : auto;
+ 		}
+ 		
+ 		.replyText{
+ 			width : 85%;
+ 			height : 100%;
+ 			border : 1px solid rgb(240, 165, 0);
+ 			float : left;
+ 		}
+ 		
+ 		.replyBtn{
+ 			width : 15%;
+ 			height : 100%;
+ 			background-color : rgb(240, 165, 0);
+ 			float : right;
+ 		}
+ 		
+ 		.inputReply{
+ 			width : 100%;
+ 			height : 100%;
+ 			resize : none;
+ 			border: none;
+ 			outline: none;
+ 		}
+ 		
+ 		.replyList{
+ 			width : 100%;
+ 		}
+ 		
+ 		table{
+ 			width : 100%;
+ 		}
+ 		
+ 		table tr{
+ 			width : 100%;
+ 			border-bottom : 1px solid antiquewhite;
+ 		}
 </style>
 
 </head>
@@ -104,11 +151,11 @@
 				<input type='hidden' name="qno" value="<%= q.getQaNo() %>">
 				<input type='hidden' name="hiddenPost" value="<%=q.getHiddenPost() %>">
 				<br>
-				<h3>&nbsp; <%=q.getQaTitle() %>
-					<% if (q.getHiddenPost().equals("Y")){ %>
-						<span class="badge bg-secondary">비밀글</span>
-					<%} %>
-				</h3>
+					<h4>&nbsp; <%=q.getQaTitle() %>
+						<% if (q.getHiddenPost().equals("Y")){ %>
+							<span class="badge bg-secondary">비밀글</span>
+						<%} %>
+					</h4>
 				<br> 
 				
 				<span>&nbsp; <%=q.getMemberNic() %></span> 
@@ -130,6 +177,36 @@
 				<%	i++;
 			  		} %>
 				<%} %>
+				
+				<hr>
+				<h5>댓글</h5>
+				<%if(loginMember!=null){ %>
+					<div class="reply-area">
+						<div class="replyText">
+							<textarea class="inputReply" id="replyContent"></textarea>					
+						</div>
+						<div class="replyBtn" onclick="insertReply();">
+							<h5 style="color: white; text-align : center; margin-top : middle; line-height : 80px;">댓글 등록</h5>
+						</div>
+					</div>
+				<%} else { %>
+					<div class="reply-area">
+						<div class="replyText">
+							<textarea class="inputReply" id="replyContent" readonly>로그인 후 이용이 가능한 서비스 입니다.</textarea>					
+						</div>
+						<div class="replyBtn" onclick="insertReply();">
+							<h5 style="color: white; text-align : center; margin-top : middle; line-height : 80px;" disabled>댓글 등록</h5>
+						</div>
+					</div>
+				<% } %>
+				
+				<div class="replyList">
+					<table sytle="width : 100%;">
+
+
+					</table>
+				</div>
+
 			</div>
 			<br>
 			<div align="center">
@@ -143,7 +220,69 @@
 	</div>
 
 
-
+		
+		
+		<script>
+			$(function(){
+				selectReplyList();
+				
+				setInterval(selectReplyList, 1000);// 괄호 붙이면 메소드가 되어서 한번실행되고 안됨
+			});
+		
+		
+			function insertReply(){
+				$.ajax({
+					url:"insertReply.qa",
+					data : {
+						replycontent : $("#replyContent").val(), 
+						qno : ${q.qaNo}
+					},
+					
+					type : "post",
+					success : function(result){
+						if(result > 0){// 댓글등록 성공 => 갱신된 댓글리스트 조회
+							selectReplyList();
+						$("#replyContent").val("");
+							
+						}
+					},
+					error : function(){
+						console.log("댓글 작성용 ajax 통신실패")
+					}
+				})
+			};
+			
+			 function selectReplyList(){
+				$.ajax({
+					
+					url:"replyList.qa",
+					data:{qno : ${q.qaNo}},// 객체
+					success:(list)=>{
+						
+						let result = "";
+						for(let i of list){
+							
+							
+							result+="<tr>"
+										+"<td>"+i.writer+"</td>"
+										+"<td>"+i.replyContent+"</td>"
+										+"<td style='float : right;'>"+i.createDate+"</td>"
+										
+								  +"</tr>"
+								  
+							
+						}
+						$(".replyList>table").html(result); 
+						
+					},
+					error:function(){
+						console.log("댓글리스트 조회용 ajax통신 실패")
+					}
+				})
+				
+			}  
+		
+		</script>
 
 
 

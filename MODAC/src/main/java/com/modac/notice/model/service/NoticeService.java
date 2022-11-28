@@ -90,8 +90,6 @@ public class NoticeService {
 	}
 	
 	
-	
-	
 	public int updateNotice(Notice n, ArrayList<Attachment> list) {
 		Connection conn = getConnection();
 		
@@ -130,19 +128,18 @@ public class NoticeService {
 		
 		int result = new NoticeDao().deleteNotice(noticeNo, conn);
 		
-		new NoticeDao().deleteNotice(noticeNo, conn);
+		new NoticeDao().deleteAttachment(noticeNo, conn);
 		
 		commitOrRollback(result, conn);
 		
 		return result;
 	}
 	
-	public int deleteAttahcment(String photoNo) {
+	public int deleteUpfile(String photoNo) {
 		Connection conn = getConnection();
 		
-		int result = new NoticeDao().deleteAttachment(photoNo, conn);
 		
-		new NoticeDao().deleteAttachment(photoNo, conn);
+		int result = new NoticeDao().deleteUpfile(photoNo, conn);
 		
 		commitOrRollback(result, conn);
 		

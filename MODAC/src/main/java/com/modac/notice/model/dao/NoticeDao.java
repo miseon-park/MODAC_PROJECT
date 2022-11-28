@@ -410,13 +410,37 @@ public class NoticeDao {
 		return result;
 	}
 	
-	   public int deleteAttachment(String photoNo, Connection conn) {
+	   public int deleteAttachment(String noticeNo, Connection conn) {
 		      
 		      int result = 0;
 		   	
 		      PreparedStatement psmt = null;
 		      
 		      String sql = prop.getProperty("deleteAttachment");
+		      
+		      try {
+		         psmt = conn.prepareStatement(sql);
+		         
+		         psmt.setString(1, noticeNo);
+		         
+		         psmt.executeUpdate();
+		         
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }finally {
+		         close(psmt);
+		      }
+		      
+		      return result;
+		   }
+	
+	   public int deleteUpfile(String photoNo, Connection conn) {
+		      
+		      int result = 0;
+		   	
+		      PreparedStatement psmt = null;
+		      
+		      String sql = prop.getProperty("deleteUpfile");
 		      
 		      try {
 		         psmt = conn.prepareStatement(sql);
@@ -433,7 +457,8 @@ public class NoticeDao {
 		      
 		      return result;
 		   }
-	
+	   
+	   
 	public ArrayList<Attachment> selectAttachmentList(Connection conn, String noticeNo) {
 		
 		ArrayList<Attachment> list = new ArrayList<>();

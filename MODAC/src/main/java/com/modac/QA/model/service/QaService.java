@@ -7,8 +7,10 @@ import java.util.ArrayList;
 
 import com.modac.QA.model.dao.QaDao;
 import com.modac.QA.model.vo.Qa;
+import com.modac.common.JDBCTemplate;
 import com.modac.common.model.vo.Attachment;
 import com.modac.common.model.vo.PageInfo;
+import com.modac.common.model.vo.Reply;
 import com.modac.notice.model.dao.NoticeDao;
 import com.modac.notice.model.vo.Notice;
 
@@ -147,6 +149,33 @@ public class QaService {
 			commit(conn);
 		}else {
 			rollback(conn);
+		}
+		
+		return result;
+	}
+	
+	
+	public ArrayList<Reply> selectReplyList(int postNo){
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<Reply> list = new QaDao().selectReplyList(conn, postNo);
+		
+		JDBCTemplate.close();
+		
+		return list;
+		
+	}
+	
+	
+	public int insertReply(Reply r) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new QaDao().insertReply(conn, r);
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+			
+		}else {
+			JDBCTemplate.rollback(conn);
 		}
 		
 		return result;

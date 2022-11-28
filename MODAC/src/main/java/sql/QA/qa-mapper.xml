@@ -133,4 +133,22 @@
 		WHERE POST_NO = ?
 	</entry>
 	
+	
+	<entry key = "insertReply">
+      INSERT INTO REPLY(REPLY_NO, BOARD_NO ,REPLY_CONTENT, POST_NO, WRITER)
+      VALUES(SEQ_PLYNO.NEXTVAL, 4, ?, ?, ?)
+   </entry>
+
+	<entry key = "selectReplyList">
+		SELECT REPLY_NO, REPLY_CONTENT, MEMBER_NIC, TO_CHAR(CREATE_DATE, 'YY/MM/DD HH:MI:SS')CREATE_DATE
+		FROM REPLY R
+		JOIN MEMBER ON (WRITER= MEMBER_NO)
+		WHERE R.STATUS = 'N'
+			AND POST_NO = ?
+		ORDER BY CREATE_DATE DESC , REPLY_NO DESC
+		
+	
+	
+	</entry>
+	
 </properties>

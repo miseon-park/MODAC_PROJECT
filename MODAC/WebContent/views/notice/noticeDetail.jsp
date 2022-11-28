@@ -115,7 +115,7 @@
 				<hr>
 				<br>
 				<% for(int i = 0; i<list.size(); i++){ %>
-						<img src="<%= contextPath%>/<%= list.get(i).getPath()+list.get(i).getNewName() %>" width="250" height="170">
+						<img src="<%= contextPath%>/<%= list.get(i).getPath()+list.get(i).getNewName() %>" width="300" height="220">
 				<%} %>
 				
 					

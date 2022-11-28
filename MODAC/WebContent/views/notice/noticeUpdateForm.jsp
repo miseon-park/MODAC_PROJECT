@@ -123,14 +123,14 @@
 								첨부파일 없음
 	              		</th>
 						<%}else{
-					  			int i = 1;%>
+					  			int i = 0;%>
 						<% for(Attachment at : list){ %>
 	              		<th>
 							<input type="text" value="<%= at.getOriginName() %>" style="border: none; background: transparent; pointer-events: none;" readonly>
-							<input type="button" class="btn-close" id="deleteBtn<%=i %>" aria-label="Close" onclick="deleteAttachment();">
+							<input type="button" class="btn-close" id="deleteBtn<%=i %>" aria-label="Close">
 	              		</th>
 						<%	i++;
-				  		} %>
+				  			} %>
 						<%} %>
 	              	</tr>
 	              	<tr>
@@ -261,25 +261,95 @@
 		}
 		
 		
-		function deleteAttachment(fileNo){
-			$.ajax({
-				url : "<%= request.getContextPath() %>/delete.at",
-				data : {file_no : file_no},
-				success : function(result){
-					//삭제성공시
-					if(result == 1){
-						alert("삭제에성공했습니다");
-						location.reload();
-					}else{
-						alert("삭제에 실패했습니다.");
-					}
-					
-				}
-				
-				
-			})
-			
-		}
+// 		$(function(){
+//             $("#deleteBtn0").click(function(photoNo){
+//                $.ajax({
+<%--                      url : "<%= request.getContextPath() %>/delete.at", --%>
+<%--                      data : {newName : "<%=list.get(0).getNewName()%>", --%>
+<%--                            photoNo : <%=list.get(0).getPhotoNo() %>}, --%>
+//                      success : function(result){
+//                         //삭제성공시
+//                         if(result == "NNNNY"){
+//                            alert("삭제에 성공했습니다");
+//                            $("#titleImg").attr("src","")
+//                            //location.reload();
+//                         }else{
+//                            alert("삭제에 실패했습니다.");
+//                         }
+//                      }
+//                   });
+//             })
+            
+//          })
+         
+         
+//          $(function(){
+//             $("#deleteBtn1").click(function(photoNo){
+//                $.ajax({
+<%--                      url : "<%= request.getContextPath() %>/delete.at", --%>
+<%--                      data : {newName : "<%=list.get(1).getNewName()%>", --%>
+<%--                            photoNo : <%=list.get(1).getPhotoNo() %>}, --%>
+//                      success : function(result){
+//                         //삭제성공시
+//                         if(result == "NNNNY"){
+//                            alert("삭제에 성공했습니다");
+//                            $("#contentImg1").attr("src","")
+//                            //location.reload();
+//                         }else{
+//                            alert("삭제에 실패했습니다.");
+//                         }
+//                      }
+//                   });
+//             })
+            
+//          })
+         
+         
+//          $(function(){
+//             $("#deleteBtn2").click(function(photoNo){
+//                $.ajax({
+<%--                      url : "<%= request.getContextPath() %>/delete.at", --%>
+<%--                      data : {newName : "<%=list.get(2).getNewName()%>", --%>
+<%--                            photoNo : <%=list.get(2).getPhotoNo() %>}, --%>
+//                      success : function(result){
+//                         //삭제성공시
+//                         if(result == "NNNNY"){
+//                            alert("삭제에 성공했습니다");
+//                            $("#contentImg2").attr("src","")
+//                            //location.reload();
+//                         }else{
+//                            alert("삭제에 실패했습니다.");
+//                         }
+//                      }
+//                   });
+//             })
+            
+//          })
+         
+         
+//           $(function(){
+//             $("#deleteBtn3").click(function(photoNo){
+//                $.ajax({
+<%--                      url : "<%= request.getContextPath() %>/delete.at", --%>
+<%--                      data : {newName : "<%=list.get(3).getNewName()%>", --%>
+<%--                            photoNo : <%=list.get(3).getPhotoNo() %>}, --%>
+//                      success : function(result){
+//                         //삭제성공시
+//                         if(result == "NNNNY"){
+//                            alert("삭제에 성공했습니다");
+//                            $("#contentImg3").attr("src","")
+//                            //location.reload();
+//                         }else{
+//                            alert("삭제에 실패했습니다.");
+//                         }
+//                      }
+//                   });
+//             })
+            
+//          })
+         
+         
+      
 		
 	</script>
 

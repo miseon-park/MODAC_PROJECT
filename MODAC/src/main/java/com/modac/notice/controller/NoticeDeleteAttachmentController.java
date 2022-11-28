@@ -1,5 +1,6 @@
 package com.modac.notice.controller;
 
+import java.io.File;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,7 +31,26 @@ public class NoticeDeleteAttachmentController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
+		String photoNo = request.getParameter("photoNo");
+	      String savePath = request.getSession().getServletContext().getRealPath("/resources/notice_upfiles/");
+	      String newName = request.getParameter("newName");
+	      
+	      //미리보기 사진 파일경로
+	      File file = new File(savePath+newName);
+	      System.out.println("ff :" +file);
+	      
+	      if(file.exists()) {
+	         //사진이 존재하면 사진 삭제
+	         boolean result = file.delete();
+	         //삭제됐다면 결과 반환
+	         if(result == true) {
+	            response.getWriter().print("NNNNY");
+	         }
+	         System.out.println("dd :"+result);
+	      }
+	      
+	      //DB에서 미리보기 사진 상태값을 Y로 변경
+	     new NoticeService().deleteUpfile(photoNo);
 		
 	
 	}

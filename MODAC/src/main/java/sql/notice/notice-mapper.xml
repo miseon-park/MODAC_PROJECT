@@ -152,6 +152,12 @@
 		WHERE M.STATUS = 'N' AND N.STATUS = 'N' AND CATEGORY_NO = '1' AND MEMBER_LEVEL = 10
 	</entry>
 	
+	<entry key="deleteUpfile">
+		UPDATE ATTACHMENT
+		SET STATUS = 'Y'
+		WHERE PHOTO_NO = ?
+	</entry>
+	
 	
 </properties>
 

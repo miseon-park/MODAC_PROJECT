@@ -12,6 +12,7 @@ import java.util.Properties;
 import com.modac.QA.model.vo.Qa;
 import com.modac.common.model.vo.Attachment;
 import com.modac.common.model.vo.PageInfo;
+import com.modac.common.model.vo.Reply;
 import com.modac.notice.model.vo.Notice;
 
 import static com.modac.common.JDBCTemplate.*;
@@ -476,6 +477,72 @@ public class QaDao {
 		}
 		
 		return result;
+	}
+	
+	
+	public ArrayList<Reply> selectReplyList(Connection conn, int postNo ){
+		ArrayList<Reply> list =  new ArrayList<>();
+		
+		PreparedStatement psmt = null;
+		
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectReplyList");
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1,  postNo);
+			rset = psmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Reply(
+						
+						rset.getString(1),
+						rset.getString(2),
+						rset.getString(3),
+						rset.getString(4)
+						
+						
+						));
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(psmt);
+		}
+		
+		return list;
+		
+	}
+	
+	
+	public int insertReply(Connection conn, Reply r) {
+		
+		int result = 0;
+		PreparedStatement psmt = null;
+		
+		String sql = prop.getProperty("insertReply");
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, r.getReplyContent());
+			psmt.setString(2, r.getPostNo());
+			psmt.setString(3,r.getWriter());
+			result = psmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			
+			close(psmt);
+		}
+		System.out.println("result : "+result);
+		return result;
+		
+		
 	}
 	
 }

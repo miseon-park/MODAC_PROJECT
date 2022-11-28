@@ -114,7 +114,7 @@
                          		<div class="input-group">
                             		<select class="form-select" name ="f" aria-label="Default select example" style="width:25%;">
                                 	<option  ${(param.f == "NOTICE_TITLE")? "selected":""} value="NOTICE_TITLE">제목</option>
-                                	<option  ${(param.f == "NOTICE_NIC")? "selected":""} value="NOTICE_CONTENT">내용</option>
+                                	<option  ${(param.f == "NOTICE_CONTENT")? "selected":""} value="NOTICE_CONTENT">내용</option>
                                		</select>
                             	<input type="text" name ="q" class="form-control" placeholder="검색어를 입력하세요" aria-label="Username" aria-describedby="basic-addon1" style="width: 60%;" value="${param.q}">
                             	<input type="submit" class="input-group-text" id="basic-addon1" value="검색">
