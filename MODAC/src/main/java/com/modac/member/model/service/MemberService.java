@@ -125,4 +125,20 @@ public class MemberService {
 	
 	
 	
+	/**
+	* 이메일 중복 체크
+	* @param checkEamil
+	* @return
+	*/
+	public int emailCheck(String checkemail) {
+		Connection conn = getConnection();
+		System.out.println(checkemail);
+		int result = new MemberDao().emailCheck(conn, checkemail);
+		System.out.println(result);
+		close();
+		return result;
+	}
+	
+	
+	
 }

@@ -64,7 +64,7 @@
             margin-top: 50px;
         }
         #divname>input{
-            margin-left: 30px;
+            margin-left: 40px;
             width: 200px;
             height: 30px;
         }
@@ -153,12 +153,7 @@
             }
         });
 
-        // $("#memberId").focusout(function() {
-        //     if(!idJ.test($(this).val())) {
-        //         $("#checks").text('영문자로 시작하는 5~15자 이내의 영문,숫자로 입력해주세요.');
-        //         $("#checks").css('color', 'red');
-        //     }
-        // });
+        
 
         $("#memberName").focusout(function() {
             if($("#memberName").val=="") {

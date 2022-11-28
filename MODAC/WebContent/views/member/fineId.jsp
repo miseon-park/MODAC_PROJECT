@@ -107,7 +107,7 @@
 	            <span>이메일</span><input name="email" id="email" type="text" placeholder="이메일을 입력해주세요">
 	        </div>
 	        <div>
-	            <%-- <p class="check" id="check">${check}</p><br/> --%>
+	            <p class="check" id="check">${check}</p><br/>
 	            <button class="button" id="btn" type="submit" onclick="id_search();">아이디찾기</button>
 	        </div>
         </form>

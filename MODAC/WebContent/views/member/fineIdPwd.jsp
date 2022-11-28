@@ -196,7 +196,7 @@
     <div id="displayId">
         <div  class="wrapper">
             <div id="fine1">
-                <button id="idbtn1">아이디 찾기</button>
+                <button id="idbtn1" disabled>아이디 찾기</button>
                 <button id="pwdbtn1" onclick="toggleDisplayPWD()">비밀번호 찾기</button>
             </div>
 
@@ -228,7 +228,7 @@
         <div class="wrapper">
             <div id="fine2">
                 <button id="idbtn2" onclick="toggleDisplayID()">아이디 찾기</button>
-                <button id="pwdbtn2">비밀번호 찾기</button> 
+                <button id="pwdbtn2" disabled>비밀번호 찾기</button> 
             </div>
 
             <div class="content">

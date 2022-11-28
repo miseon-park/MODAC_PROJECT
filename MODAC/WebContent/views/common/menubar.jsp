@@ -211,6 +211,13 @@
 			</div>
             <br clear="both">
 			
+            
+            <!-- 좋아요 -->
+            <button class="w3-button w3-black w3-round" id="rec_update">
+                <i class="fa fa-heart" style="font-size:16px;color:red"></i>
+                <span class="rec_count"></span>
+            </button>
+
 		<% } %>
 	
 	
