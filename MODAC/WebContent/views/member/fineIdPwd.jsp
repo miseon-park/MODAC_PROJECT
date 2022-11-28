@@ -185,6 +185,7 @@
     </style>
     <%@ include file="../common/menubar.jsp" %>
 </head>
+
 <body>
     <div id="displayId">
         <div  class="wrapper">

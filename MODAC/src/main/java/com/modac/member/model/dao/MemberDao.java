@@ -97,7 +97,7 @@ public class MemberDao {
 			psmt.setString(5, m.getMemberNic());
 			
 			result = psmt.executeUpdate();
-			System.out.println(result);
+			 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
