@@ -11,7 +11,9 @@ import java.util.Properties;
 
 import static com.modac.common.JDBCTemplate.*;
 
+import com.modac.common.JDBCTemplate;
 import com.modac.common.model.vo.PageInfo;
+import com.modac.common.model.vo.Reply;
 import com.modac.usedProduct.model.vo.Attachment;
 import com.modac.usedProduct.model.vo.Market;
 
@@ -87,7 +89,7 @@ public class MarketDao {
 	}
 	
 	//게시글 목록페이지
-	public ArrayList<Market> marketList(Connection conn, PageInfo pi){
+	public ArrayList<Market> marketList(Connection conn, PageInfo pi, String field, String query){
 		
 		//select문 => ResultSet
 		ArrayList<Market> list = new ArrayList<>();
@@ -97,6 +99,7 @@ public class MarketDao {
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("marketList");
+		sql = sql.replace("$", field);
 		
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -114,8 +117,9 @@ public class MarketDao {
 			int startRow = (pi.getCurrentPage() -1) * pi.getBoardLimit() +1;
 			int endRow = startRow + pi.getBoardLimit() -1;
 			
-			psmt.setInt(1, startRow);
-			psmt.setInt(2, endRow);
+			psmt.setString(1, "%"+query+"%");
+	        psmt.setInt(2, startRow);
+	        psmt.setInt(3, endRow);
 			
 			rset = psmt.executeQuery();
 			
@@ -522,13 +526,14 @@ public class MarketDao {
 	}
 	
 	//판매중만 보기
-	public ArrayList<Market> onlySaleView(Connection conn, PageInfo pi){
+	public ArrayList<Market> onlySaleView(Connection conn, PageInfo pi, String field, String query){
 
 		ArrayList<Market> list = new ArrayList<>();
 		PreparedStatement psmt = null;
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("onlySaleView");
+		sql = sql.replace("$", field);
 		
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -536,8 +541,9 @@ public class MarketDao {
 			int startRow = (pi.getCurrentPage() -1) * pi.getBoardLimit() +1;
 			int endRow = startRow + pi.getBoardLimit() -1;
 			
-			psmt.setInt(1, startRow);
-			psmt.setInt(2, endRow);
+			psmt.setString(1, "%"+query+"%");
+	        psmt.setInt(2, startRow);
+	        psmt.setInt(3, endRow);
 			
 			rset = psmt.executeQuery();
 			
@@ -562,13 +568,14 @@ public class MarketDao {
 	
 	
 	//날짜순 정렬
-	public ArrayList<Market> sortOfDate(Connection conn, PageInfo pi){
+	public ArrayList<Market> sortOfDate(Connection conn, PageInfo pi, String field, String query){
 
 		ArrayList<Market> list = new ArrayList<>();
 		PreparedStatement psmt = null;
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("sortOfDate");
+		sql = sql.replace("$", field);
 		
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -576,8 +583,9 @@ public class MarketDao {
 			int startRow = (pi.getCurrentPage() -1) * pi.getBoardLimit() +1;
 			int endRow = startRow + pi.getBoardLimit() -1;
 			
-			psmt.setInt(1, startRow);
-			psmt.setInt(2, endRow);
+			psmt.setString(1, "%"+query+"%");
+	        psmt.setInt(2, startRow);
+	        psmt.setInt(3, endRow);
 			
 			rset = psmt.executeQuery();
 			
@@ -602,13 +610,14 @@ public class MarketDao {
 	
 	
 	//조회순 정렬
-	public ArrayList<Market> sortOfCount(Connection conn, PageInfo pi){
+	public ArrayList<Market> sortOfCount(Connection conn, PageInfo pi, String field, String query){
 
 		ArrayList<Market> list = new ArrayList<>();
 		PreparedStatement psmt = null;
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("sortOfCount");
+		sql = sql.replace("$", field);
 		
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -616,8 +625,9 @@ public class MarketDao {
 			int startRow = (pi.getCurrentPage() -1) * pi.getBoardLimit() +1;
 			int endRow = startRow + pi.getBoardLimit() -1;
 			
-			psmt.setInt(1, startRow);
-			psmt.setInt(2, endRow);
+			psmt.setString(1, "%"+query+"%");
+	        psmt.setInt(2, startRow);
+	        psmt.setInt(3, endRow);
 			
 			rset = psmt.executeQuery();
 			
@@ -642,13 +652,14 @@ public class MarketDao {
 	
 	
 	//날짜순 정렬-판매중만 보기
-	public ArrayList<Market> sortOfDateOnlySale(Connection conn, PageInfo pi){
+	public ArrayList<Market> sortOfDateOnlySale(Connection conn, PageInfo pi, String field, String query){
 
 		ArrayList<Market> list = new ArrayList<>();
 		PreparedStatement psmt = null;
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("sortOfDateOnlySale");
+		sql = sql.replace("$", field);
 		
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -656,8 +667,9 @@ public class MarketDao {
 			int startRow = (pi.getCurrentPage() -1) * pi.getBoardLimit() +1;
 			int endRow = startRow + pi.getBoardLimit() -1;
 			
-			psmt.setInt(1, startRow);
-			psmt.setInt(2, endRow);
+			psmt.setString(1, "%"+query+"%");
+	        psmt.setInt(2, startRow);
+	        psmt.setInt(3, endRow);
 			
 			rset = psmt.executeQuery();
 			
@@ -682,13 +694,14 @@ public class MarketDao {
 	
 	
 	//조회순 정렬-판매중만 보기
-	public ArrayList<Market> sortOfCountOnlySale(Connection conn, PageInfo pi){
+	public ArrayList<Market> sortOfCountOnlySale(Connection conn, PageInfo pi, String field, String query){
 
 		ArrayList<Market> list = new ArrayList<>();
 		PreparedStatement psmt = null;
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("sortOfCountOnlySale");
+		sql = sql.replace("$", field);
 		
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -696,8 +709,9 @@ public class MarketDao {
 			int startRow = (pi.getCurrentPage() -1) * pi.getBoardLimit() +1;
 			int endRow = startRow + pi.getBoardLimit() -1;
 			
-			psmt.setInt(1, startRow);
-			psmt.setInt(2, endRow);
+			psmt.setString(1, "%"+query+"%");
+	        psmt.setInt(2, startRow);
+	        psmt.setInt(3, endRow);
 			
 			rset = psmt.executeQuery();
 			
@@ -720,7 +734,62 @@ public class MarketDao {
 		return list;
 	}
 	
+	//댓글 조회
+	public ArrayList<Reply> selectReplyList(Connection conn, int postNo ){
+		ArrayList<Reply> list =  new ArrayList<>();
+		
+		PreparedStatement psmt = null;
+		
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectReplyList");
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1,  postNo);
+			rset = psmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Reply(
+						
+						rset.getString(1),
+						rset.getString(2),
+						rset.getString(3),
+						rset.getString(4)
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(psmt);
+		}
+		return list;
+	}
 	
+	//댓글 작성
+	public int insertReply(Connection conn, Reply r) {
+		
+		int result = 0;
+		PreparedStatement psmt = null;
+		
+		String sql = prop.getProperty("insertReply");
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, r.getReplyContent());
+			psmt.setString(2, r.getPostNo());
+			psmt.setString(3, r.getWriter());
+			result = psmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(psmt);
+		}
+		System.out.println("result : "+result);
+		return result;
+	}
 	
 	
 	

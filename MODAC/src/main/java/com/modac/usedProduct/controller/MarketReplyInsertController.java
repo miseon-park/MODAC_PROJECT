@@ -7,20 +7,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.modac.circle.model.service.CircleBoardService;
+import com.modac.common.model.vo.Reply;
+import com.modac.member.model.vo.Member;
 import com.modac.usedProduct.model.service.MarketService;
 
 /**
- * Servlet implementation class MarketChangeSaleController
+ * Servlet implementation class MarketReplyInsertController
  */
-@WebServlet("/changeSale.mk")
-//판매완료 버튼
-public class MarketChangeSaleController extends HttpServlet {
+@WebServlet("/mrinsert.mk")
+public class MarketReplyInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MarketChangeSaleController() {
+    public MarketReplyInsertController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,20 +31,20 @@ public class MarketChangeSaleController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		String replyContent = request.getParameter("replycontent");
+		String postNo = request.getParameter("mno");
+		String memberNic =((Member)request.getSession().getAttribute("loginMember")).getMemberNo();
 		
-		String postNo = request.getParameter("mno"); 
-				
-		int result = new MarketService().changeSale(postNo);
+		Reply r = new Reply();
+		r.setReplyContent(replyContent);
+		r.setPostNo(postNo);
+		r.setWriter(memberNic+"");// 데이터 저장
 		
-		if(result > 0) {
-			request.getSession().setAttribute("alertMsg", "판매완료로 변경했습니다.");
-			response.sendRedirect(request.getContextPath()+"/detailWt.mk?mno="+postNo);
-		}else { //실패 => 에러페이지
-			request.setAttribute("errorMsg", "변경 실패했습니다.");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}
+		int result = new MarketService().insertReply(r);// 넘겨주고
 		
-		
+		response.getWriter().print(result);
+		System.out.println("conreuslt:" +result);
 		
 	}
 

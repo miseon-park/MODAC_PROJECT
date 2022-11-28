@@ -33,6 +33,18 @@ public class MarketListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+        String field_ = request.getParameter("f");
+        String query_ = request.getParameter("q");
+     
+        String field = "POST_TITLE";
+        if(field_ != null)
+           field = field_;
+        
+        String query = "";
+        if(query_!=null)
+           query = query_;
+		
+		
 		//---------------------------------페이징 처리 시작---------------------------------
 			int listCount; //현재 총 게시글 갯수
 			int currentPage; //현재 페이지(즉, 사용자가 요청한 페이지)
@@ -147,15 +159,15 @@ public class MarketListController extends HttpServlet {
 		request.setAttribute("sort", sort);
 		
 		if (sort != null && sort.equals("sortOfDate")) {
-			ArrayList<Market> list2 = new MarketService().sortOfDate(pi);
+			ArrayList<Market> list2 = new MarketService().sortOfDate(pi, field, query);
 			request.setAttribute("list", list2);
 			
 		} else if(sort != null && sort.equals("sortOfCount")){
-			ArrayList<Market> list3 = new MarketService().sortOfCount(pi);
+			ArrayList<Market> list3 = new MarketService().sortOfCount(pi, field, query);
 			request.setAttribute("list", list3);
 			
 		} else {
-			ArrayList<Market> list = new MarketService().marketList(pi);
+			ArrayList<Market> list = new MarketService().marketList(pi, field, query);
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 		}

@@ -17,10 +17,12 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Hahmlet&family=Poor+Story&family=Do+Hyeon&display=swap');
 	h3{
+		font-family: 'Hahmlet', serif;
 		margin: auto;
 		margin-left: 13%; 
-		color: black;
+		color: rgb(74,57,51);
 	}
 	#enroll{
 		/*border: 1.5px solid gainsboro;*/
@@ -60,7 +62,7 @@
 		outline: none;
 	}
 	.imgAtt{
-		border: 1px solid orange;
+		border: 1px solid white;
 		width: 93%;
 		margin: auto;
 		margin-top: 10;
@@ -69,10 +71,12 @@
 		float: left;
 		margin-left: 98px;
 		box-sizing: border-box;
-		background-color: rgb(206, 205, 205);
-		border: rgb(206, 205, 205);
+		background-color: #BDBDBD;
+		border: #BDBDBD;
 		width: 100px;
 		border-radius: 10px 10px 10px 10px / 10px 10px 10px 10px;
+		font-family: 'Do Hyeon', sans-serif;
+		font-size: 18px;
 	}
 	#updateBtn{
 		float: right;
@@ -82,7 +86,10 @@
 		border: orange;
 		box-sizing: border-box;
 		width: 100px;
+		height: 35px;
 		border-radius: 10px 10px 10px 10px / 10px 10px 10px 10px;
+		font-family: 'Do Hyeon', sans-serif;
+		font-size: 18px;
 	}
 	#deleteBtn{
 		float: right;
@@ -92,6 +99,8 @@
 		border: rgb(206, 205, 205);
 		width: 100px;
 		border-radius: 10px 10px 10px 10px / 10px 10px 10px 10px;
+		font-family: 'Do Hyeon', sans-serif;
+		font-size: 18px;
 	}
 	.test{
 		border: 1px solid purple;
@@ -115,17 +124,18 @@
 	<%@ include file="../common/menubar.jsp" %>
 	
 	<div id="enroll">
-		<h3>게시글 수정</h1>
+		<h3><b>게시글 수정</b></h3>
 		<br>
 
 		<form id="enroll-form" action="<%=contextPath%>/update.mk" method="post" enctype="multipart/form-data">
-		
+			<!-- 게시글 번호를 hidden으로 넘겨줌 -->
 			<input type="hidden" name="mno" value="<%=m.getPostNo()%>" >
 	
 			<div id="enroll-area" >
 				<input type="text" class="title" name="title" value="<%=m.getPostTitle()%>" size="95" required>
 				<br>
 				
+				<!-- 사진 미리보기 -->
 				<div class="imgAtt" style="text-align: left;">
 					<% if(!list.isEmpty()){
 					   	  int i = 1; 
@@ -134,26 +144,23 @@
 							 int index = at.getFileLevel();
 							 filePath[index] = contextPath+"/"+at.getPath()+at.getNewName(); %>
 		
-							<!-- 원본파일의 파일번호, 수정명을 hidden으로 넘길것 -->
+							<!-- 원본파일의 파일번호, 수정명을 hidden으로 넘김 -->
 							<input type="hidden" name="originPhotoNo<%=i %>" value="<%=at.getPhotoNo()%>">
 							<input type="hidden" name="newPhotoName<%=i %>" value="<%=at.getNewName() %>">
 						 <% i++; } 
 					   } %>		
 					
 					<table>
-						<% if(!list.isEmpty()) {%>
-                          <% int i = 0;%>
-                  		  <% for(Attachment at : list){ %>
-                          	<% if(!at.getOriginName().equals("logo.png")) {%>
-		                    	<th>
-									<input type="button" class="btn-close" id="deleteBtn<%=i%>" aria-label="Close">
-			                    </th>
-	                   		<% i++; } %>
-	                   		<%} %>
-                    	<%} %>
+						<% for(int i =0 ; i<list.size(); i++) { %>
+	                   	<th>
+	                       	<% if(!list.get(i).getOriginName().equals("logo.png")) {%>
+							<input type="button" class="btn-close" id="deleteBtn<%=i %>" aria-label="Close">
+	                 		<% } %>
+	                    </th>
+						<%} %>
 	                    <tr>
 	                       <td>
-	                      		<img id="titleImg" src="<%=filePath[1] %>" width="180" height="130" value="1">                        
+	                      		<img id="titleImg" src="<%=filePath[1] %>" width="180" height="130" value="1" >                        
 	                       </td>
 	                       <td>
 								<img id="contentImg1" <%if(!filePath[2].equals("")){ %>src="<%=filePath[2] %>" <%} %> width="180" height="130" value="2">
@@ -195,7 +202,7 @@
 				               //삭제성공시
 				               if(result == "NNNNY"){
 				                  alert("삭제에 성공했습니다");
-				                  $("#titleImg").attr("src","resources/modacLogo/logo.png")
+				                  $("#titleImg").attr("src","resources/modacLogo/logo.png");
 				                  //location.reload();
 				               }else{
 				                  alert("삭제에 실패했습니다.");
@@ -203,8 +210,8 @@
 				            }
 				         });
 					})
-					
 				})
+				
 				$(function(){
 					for(let i = 1; i < 4; i++) {
 						$("#deleteBtn"+i).click(function(){
@@ -219,39 +226,35 @@
 					               if(result == "NNNNY"){
 					                  alert("삭제에 성공했습니다");
 					                  //기본로고 재등록
-					                  $("#contentImg"+i).attr("src","resources/modacLogo/logo.png")
+					                  $("#contentImg"+i).attr("src","resources/modacLogo/logo.png");
 					               }else{
 					                  alert("삭제에 실패했습니다.");
 								   }
 					            }
-					         })
-							})	
+					         });
+						})	
 					} 
 				})
 				
-				
-// 				$(function () {
-// 						$("ccccccc").click(function () {
-<%-- 							url : "<%=contextPath%>/delete.at", --%>
-// 							data : {
-// 								for(int i = 0; i<=cccccccc i++){
-// 									String newName = list.get(i).getNewName();
-// 			            			int photoNo = list.get(i).getPhotoNo();
-// 			            			}
-// 								newName : newName,
-// 								photoNo : photoNo
-// 							},
+
+// 				$(function(){
+// 					$("#deleteBtn1").click(function(photoNo){
+// 						$.ajax({
+<%-- 				            url : "<%= request.getContextPath() %>/delete.at", --%>
+<%-- 				            data : {newName : "<%=list.get(1).getNewName()%>", --%>
+<%-- 			            			photoNo : <%=list.get(1).getPhotoNo() %>}, --%>
 // 				            success : function(result){
-// 					               //삭제성공시
-// 					               if(result == "NNNNY"){
-// 					                  alert("삭제에 성공했습니다");
-// 					                  location.reload();
-// 					               }else{
-// 					                  alert("삭제에 실패했습니다.");
-// 					               }
-// 					            }
-					       
-// 						}) 
+// 				               //삭제성공시
+// 				               if(result == "NNNNY"){
+// 				                  alert("삭제에 성공했습니다");
+// 								  $("#contentImg1").attr("src","resources/modacLogo/logo.png")
+// 				                  //location.reload();
+// 				               }else{
+// 				                  alert("삭제에 실패했습니다.");
+// 				               }
+// 				            }
+// 				         })
+// 					})
 // 				})
 				
 // 				$(function(){
@@ -263,8 +266,9 @@
 // 				            success : function(result){
 // 				               //삭제성공시
 // 				               if(result == "NNNNY"){
-// 				                  alert("삭제에 성공했습니다");
-// 				                  location.reload();
+//  				                  alert("삭제에 성공했습니다");
+//  				                  //location.reload();
+// 								  $("#contentImg2").attr("src","resources/modacLogo/logo.png")
 // 				               }else{
 // 				                  alert("삭제에 실패했습니다.");
 // 				               }
@@ -272,17 +276,19 @@
 // 				         })
 // 					})
 // 				})
+				
 // 				$(function(){
 // 					$("#deleteBtn3").click(function(photoNo){
 // 						$.ajax({
 <%-- 				            url : "<%= request.getContextPath() %>/delete.at", --%>
 <%-- 				            data : {newName : "<%=list.get(3).getNewName()%>", --%>
-<%-- 			            		photoNo : <%=list.get(3).getPhotoNo() %>}, --%>
+<%-- 			            			photoNo : <%=list.get(3).getPhotoNo() %>}, --%>
 // 				            success : function(result){
 // 				               //삭제성공시
 // 				               if(result == "NNNNY"){
-// 				                  alert("삭제에 성공했습니다");
-// 				                  location.reload();
+//  				                  alert("삭제에 성공했습니다");
+//  				                  //location.reload();
+// 				                  $("#contentImg3").attr("src","resources/modacLogo/logo.png")
 // 				               }else{
 // 				                  alert("삭제에 실패했습니다.");
 // 				               }
@@ -291,26 +297,34 @@
 // 					})
 // 				})
 				
-	
-				
 			
 				<!-- 이미지 삭제버튼 -->
-// 				function deleteAttachment(photoNo){
-// 			         $.ajax({
-<%-- 			            url : "<%= request.getContextPath() %>/delete.at", --%>
-// 			            data : { photoNo : photoNo},
-// 			            success : function(result){
-// 			               //삭제성공시
-// 			               if(result == 1){
-// 			                  alert("삭제에 성공했습니다");
-// 			                  location.reload();
-// 			               }else{
-// 			                  alert("삭제에 실패했습니다.");
-// 			               }
-// 			            }
-// 			         })
-// 			      }
+			//	$(function () {
+			//	$("ccccccc").click(function () {
+			<%-- 							url : "<%=contextPath%>/delete.at", --%>
+			//		data : {
+			//			for(int i = 0; i<=cccccccc i++){
+			//				String newName = list.get(i).getNewName();
+			// 			int photoNo = list.get(i).getPhotoNo();
+			// 			}
+			//			newName : newName,
+			//			photoNo : photoNo
+			//		},
+			//     success : function(result){
+			//            //삭제성공시
+			//            if(result == "NNNNY"){
+			//               alert("삭제에 성공했습니다");
+			//               location.reload();
+			//            }else{
+			//               alert("삭제에 실패했습니다.");
+			//            }
+			//         }
+			   
+			//	}) 
+			//})
 			</script>
+			
+			
 
 			<script>
 				$(function(){
@@ -382,7 +396,7 @@
 				}
 			</script>
 			
-			<a href="<%=contextPath%>/list.mk" class="btn btn-secondary btn-sm" id="backBtn">목록</a>
+			<input class="btn btn-secondary" id="backBtn" onclick="history.back()" value="이전으로"> 
 			<input type="submit" class="btn btn-secondary" id="updateBtn" value="수정">
 		</form>
 	</div>

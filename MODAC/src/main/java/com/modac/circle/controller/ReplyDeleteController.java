@@ -1,4 +1,4 @@
-package com.modac.usedProduct.controller;
+package com.modac.circle.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,20 +7,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.modac.usedProduct.model.service.MarketService;
+import com.modac.circle.model.service.CircleBoardService;
 
 /**
- * Servlet implementation class MarketChangeSaleController
+ * Servlet implementation class ReplyDeleteController
  */
-@WebServlet("/changeSale.mk")
-//판매완료 버튼
-public class MarketChangeSaleController extends HttpServlet {
+@WebServlet("/replyDel.bo")
+public class ReplyDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MarketChangeSaleController() {
+    public ReplyDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,21 +28,14 @@ public class MarketChangeSaleController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int replyNo = Integer.parseInt(request.getParameter("replyNo")); 
+		int result = new CircleBoardService().replyDel(replyNo);// 넘겨주고
+		 response.getWriter().write(replyNo);
 		
-		String postNo = request.getParameter("mno"); 
-				
-		int result = new MarketService().changeSale(postNo);
+	
+		System.out.println(result);
 		
-		if(result > 0) {
-			request.getSession().setAttribute("alertMsg", "판매완료로 변경했습니다.");
-			response.sendRedirect(request.getContextPath()+"/detailWt.mk?mno="+postNo);
-		}else { //실패 => 에러페이지
-			request.setAttribute("errorMsg", "변경 실패했습니다.");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}
-		
-		
-		
+       
 	}
 
 	/**

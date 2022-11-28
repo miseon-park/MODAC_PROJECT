@@ -16,7 +16,8 @@ import com.modac.usedProduct.model.vo.Market;
 /**
  * Servlet implementation class MarketOnlySaleViewController
  */
-@WebServlet("/saleView.mk") //판매완료 제외 버튼
+@WebServlet("/saleView.mk") 
+//판매완료 제외 버튼
 public class MarketOnlySaleViewController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -32,6 +33,19 @@ public class MarketOnlySaleViewController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String field_ = request.getParameter("f");
+        String query_ = request.getParameter("q");
+     
+        String field = "POST_TITLE";
+        if(field_ != null)
+           field = field_;
+        
+        String query = "";
+        if(query_!=null)
+           query = query_;
+		
+		
 		
 		//---------------------------------페이징 처리 시작---------------------------------
 		int listCount; //현재 총 게시글 갯수
@@ -152,18 +166,19 @@ public class MarketOnlySaleViewController extends HttpServlet {
 	
 	if (sort != null && sort.equals("sortOfDate")) {
 		//판매상태 Y값 제외하고 최신순으로 게시글 조회 리스트
-		ArrayList<Market> list2 = new MarketService().sortOfDateOnlySale(pi);
+		ArrayList<Market> list2 = new MarketService().sortOfDateOnlySale(pi, field, query);
 		request.setAttribute("list", list2);
 		
 	} else if(sort != null && sort.equals("sortOfCount")){
 		//판매상태 Y값 제외하고 조회순으로 게시글 조회 리스트
-		ArrayList<Market> list3 = new MarketService().sortOfCountOnlySale(pi);
+		ArrayList<Market> list3 = new MarketService().sortOfCountOnlySale(pi, field, query);
 		request.setAttribute("list", list3);
 		
 	} else {
 		//판매상태 Y값 제외한 게시글 조회 리스트
-		ArrayList<Market> list = new MarketService().onlySaleView(pi);
+		ArrayList<Market> list = new MarketService().onlySaleView(pi, field, query);
 		request.setAttribute("list", list);
+		request.setAttribute("pi", pi);
 		
 		System.out.println(sort);
 		System.out.println(saleView);

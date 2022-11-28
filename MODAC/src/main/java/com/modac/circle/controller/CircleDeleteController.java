@@ -1,4 +1,4 @@
-package com.modac.usedProduct.controller;
+package com.modac.circle.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,20 +7,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.modac.usedProduct.model.service.MarketService;
+import com.modac.circle.model.service.CircleBoardService;
 
 /**
- * Servlet implementation class MarketChangeSaleController
+ * Servlet implementation class CircleDeleteController
  */
-@WebServlet("/changeSale.mk")
-//판매완료 버튼
-public class MarketChangeSaleController extends HttpServlet {
+@WebServlet("/cdelete.bo")
+public class CircleDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MarketChangeSaleController() {
+    public CircleDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,21 +28,23 @@ public class MarketChangeSaleController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int postNo = Integer.parseInt(request.getParameter("bno"));
 		
-		String postNo = request.getParameter("mno"); 
-				
-		int result = new MarketService().changeSale(postNo);
+		int result = new CircleBoardService().deleteBoard(postNo);
 		
 		if(result > 0) {
-			request.getSession().setAttribute("alertMsg", "판매완료로 변경했습니다.");
-			response.sendRedirect(request.getContextPath()+"/detailWt.mk?mno="+postNo);
-		}else { //실패 => 에러페이지
-			request.setAttribute("errorMsg", "변경 실패했습니다.");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			
+			request.getSession().setAttribute("alertMsg", "성공적으로 게시글을 삭제했습니다.");
+			
+			response.sendRedirect(request.getContextPath()+"/clist.bo");
+			
+			
+			
+		}else {
+			request.setAttribute("errorMsg", "게시글 삭제 실패");
+			request.getRequestDispatcher("view/common/errorPage.jsp").forward(request, response);
+			
 		}
-		
-		
-		
 	}
 
 	/**

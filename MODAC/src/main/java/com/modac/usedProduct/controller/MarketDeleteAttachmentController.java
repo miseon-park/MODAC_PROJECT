@@ -50,13 +50,15 @@ public class MarketDeleteAttachmentController extends HttpServlet {
 		if(file.exists()) {
 			//사진이 존재하면 사진 삭제
 			boolean result = file.delete();
+			
+			//DB에서 미리보기 사진 상태값을 Y로 변경
+			int result1 = new MarketService().deleteAtt(photoNo);
+			
 			//삭제됐다면 결과 반환
 			if(result == true) {
 				response.getWriter().print("NNNNY");
 			}
 		}
-		//DB에서 미리보기 사진 상태값을 Y로 변경
-		int result1 = new MarketService().deleteAtt(photoNo);
 		
 		
 		

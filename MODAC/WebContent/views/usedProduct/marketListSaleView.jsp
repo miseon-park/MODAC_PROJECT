@@ -23,6 +23,7 @@
 <!--부트스트랩 그리드-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Poor+Story&display=swap');
     #content{
         border: 1px solid skyblue;
         box-sizing: border-box;
@@ -34,7 +35,7 @@
         box-sizing: border-box;
     }
     .postSelect{
-        margin-left: 200px;
+        margin-left: 360px;
         border: white;
         width: 100px;
     }
@@ -46,6 +47,26 @@
         text-align: center;
         display: inline-block;
         margin-left: 200px;
+        padding-left : 120px;
+    }
+    #check{
+        width: 550px;
+        border : 1px solid white;
+    }
+    .navbar{
+    	width: 600px;
+    	margin-top : -5px;
+    	margin-right: -25px;
+    }
+    .form-select{
+    	height: 38px;
+    }
+    .sort{
+    	margin-top: 10px;
+        font-size: 13px;
+    }
+    option{
+        font-size: 13px;
     }
     .postList{
         border: 1px solid;
@@ -68,7 +89,7 @@
         /*border: 1px solid skyblue;*/
     }
     span {
-        font-size: 0.6em;
+        font-size: 0.75em;
     }
     #enrollBtn{
         float: right;
@@ -76,9 +97,10 @@
         border-color: orange;
         border-radius: 5%;
         width: 100;
-        margin-top: 2.5%;
+        margin-top: 4%;
         margin-right: 15px;
-        border-radius: 10px 10px 10px 10px / 10px 10px 10px 10px
+        border-radius: 10px 10px 10px 10px / 10px 10px 10px 10px;
+        font-family: 'Do Hyeon', sans-serif;
     }
     #enrollBtn:hover{
     	color: black;
@@ -88,6 +110,7 @@
     .sale{
     	font-size: 13px;
     	color: orange;
+        font-family: 'Poor Story', cursive;
     }
     .right{
         text-align: right;
@@ -104,17 +127,15 @@
         height: 5px;
         font-size: 3px;
     }
-    .title{
+    .contentTitle{
         text-align: center;
         color: #4a3933;
         font-size: 15px;
     }
     .nic{
-        color: brown;
+        color: rgb(128, 59, 30);
         font-size: 14px;
-    }
-    #check{
-        width: 85%;
+        font-weight: bolder;
     }
     div[id=check]{
         float: left;
@@ -131,7 +152,8 @@
     	background-color: rgb(74,57,51);
     	border : none;
     	width: 80px;
-    	border-radius: 10px 10px 10px 10px / 10px 10px 10px 10px
+    	border-radius: 10px 10px 10px 10px / 10px 10px 10px 10px;
+        font-family: 'Do Hyeon', sans-serif;
     }
     .pageBtn{
     	color: black;
@@ -147,6 +169,12 @@
     	color: white;
     	background-color: orange;
     }
+    .title{
+    	text-align:center;
+    	font-family: 'Do Hyeon', sans-serif;
+        color: #4a3933;
+        font-size: 45px;
+    }
 </style>
 </head>
 <body>
@@ -154,34 +182,48 @@
 
     <div id="content">
 
-        <h1 style="text-align:center;">중고장터</h1>
+        <h1 class="title">중고장터</h1>
         <br>
 		
 		
 		<div class="postSelect" > 
-            <input type="checkbox" id="saleView" name="saleView" value="saleView1"  checked><span>판매완료 제외</span>
+            <input type="checkbox" id="saleView" name="saleView" value="saleView1" checked><span>판매완료 제외</span>
         </div>
 		
-        
 
         <div class="search">
             <div class="put" style="text-align:center;">
                 <div class="input-group input-group-sm mb-3" id="check">
-                    <span class="input-group-text" id="inputGroup-sizing-sm">돋보기</span>
-                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                    <nav class="navbar">
+                     <form class="container-fluid">
+                         <div class="input-group">
+                            <select class="form-select" name ="f" aria-label="Default select example" style="width:10%;">
+                             	<option  ${(param.f == "POST_TITLE")? "selected":""} value="POST_TITLE">제목</option>
+                             	<option  ${(param.f == "MEMBER_NIC")? "selected":""} value="POST_CONTENT">내용</option>
+                            </select>
+                         <input type="text" name ="q" class="form-control" placeholder="검색어를 입력하세요" aria-label="Username" aria-describedby="basic-addon1" style="width: 60%;" value="${param.q}">
+                         <input type="submit" class="input-group-text" id="basic-addon1" value="검색">
+                        </div>
+                       </form>
+                     	<br>
+               		</nav>
                 </div>
                
 	               <form action="saleView.mk">
 	               		<select class="sort" name="sort" id="sort" onchange="this.form.submit()">
-		                    <option name="sort" value="sortOfDate" id="sortOfDate">최신순</option>
-		                    <option name="sort" value="sortOfCount" id="sortOfCount">조회순</option>
+		                    <option name="sort" value="sortOfDate" id="sortOfDate" ${(param.sort == "sortOfDate")? "selected":""}>최신순</option>
+		                    <option name="sort" value="sortOfCount" id="sortOfCount" ${(param.sort == "sortOfCount")? "selected":""}>조회순</option>
 		                </select>
 	               </form>
             </div>    
             
             
             <% if(loginMember != null) {%>
-            	<a href="<%=contextPath%>/enroll.mk" class="btn btn-secondary btn-sm" id="enrollBtn">게시글 작성</a>
+            	<a href="<%=contextPath%>/enroll.mk" class="btn btn-secondary btn-sm" id="enrollBtn">게시글 작성
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+						<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+					</svg>
+                </a>
 			<% } %>
             
         </div>
@@ -193,11 +235,7 @@
                         <thead>
                             <tr height="10px">
 		                        <td class="sale">
-		                        	<% if(m.getSale().equals("Y")) { %>
-				            			<b>판매중</b>
-				            		<% } else { %>
-				            			<b>판매완료</b>
-				            		<% } %> 	
+				            			<b>판매중</b>	
 		                        </td>
 		                        <td class="right">조회수&nbsp;&nbsp;<%=m.getReadCount()%></td>
 		                    </tr>
@@ -209,12 +247,15 @@
 		                        </td>
 		                    </tr>
 		                    <tr height="16px">
-		                        <td class="title" colspan="2"><b><%=m.getPostTitle()%></b></td>
+		                        <td class="contentTitle" colspan="2"><b><%=m.getPostTitle()%></b></td>
 		                    </tr> 
                        </tbody>
 		               <tfoot>
                             <tr height="10px">
-                                <td class="nic"><%=m.getMemberNo()%></td>
+                                <td class="nic"><b>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-emoji-sunglasses-fill" viewBox="0 0 16 16">
+                                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM2.31 5.243A1 1 0 0 1 3.28 4H6a1 1 0 0 1 1 1v.116A4.22 4.22 0 0 1 8 5c.35 0 .69.04 1 .116V5a1 1 0 0 1 1-1h2.72a1 1 0 0 1 .97 1.243l-.311 1.242A2 2 0 0 1 11.439 8H11a2 2 0 0 1-1.994-1.839A2.99 2.99 0 0 0 8 6c-.393 0-.74.064-1.006.161A2 2 0 0 1 5 8h-.438a2 2 0 0 1-1.94-1.515L2.31 5.243zM4.969 9.75A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .866-.5z"/>
+                                  </svg>&nbsp;<%=m.getMemberNic()%></b></td>
                                 <td class="day"><%=m.getCreateDate()%></td>
 		                    </tr>
 		                    <tr>
@@ -272,10 +313,10 @@
 //     		});
     		
     		
-     		//셀렉박스 
-     		$(function() {
-		    	$("select[name=sort]").val((("${market.sort}" == '') ? "" : "${market.sort}")).prop("selected", true); 
-		    });
+//      		//셀렉박스 
+//      		$(function() {
+// 		    	$("select[name=sort]").val((("${market.sort}" == '') ? "" : "${market.sort}")).prop("selected", true); 
+// 		    });
 	    </script>	    
 	    <br><br>
 	    
@@ -299,11 +340,11 @@
 		</div>
     
     </div>
-    	<script>
-			function doPageClick(currentPage){
-				location.href ="<%=contextPath%>/saleView.mk?currentPage="+currentPage+"&sort=${sort}";
-			}
-		</script>
+     	<script> -->
+ 			function doPageClick(currentPage){
+ 				location.href ="<%=contextPath%>/saleView.mk?currentPage="+currentPage+"&sort=${sort}"; 
+ 			}
+ 		</script>
     	
     
     

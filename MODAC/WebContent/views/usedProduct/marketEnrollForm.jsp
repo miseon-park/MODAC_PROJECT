@@ -10,10 +10,12 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Hahmlet&family=Poor+Story&family=Do+Hyeon&display=swap');
 	h3{
+		font-family: 'Hahmlet', serif;
 		margin: auto;
 		margin-left: 13%; 
-		color: black;
+		color: rgb(74,57,51);
 	}
 	#enroll{
 		/*border: 1.5px solid gainsboro;*/
@@ -60,12 +62,14 @@
 	}
 	#backBtn{
 		float: left;
-		background-color: rgb(206, 205, 205);
-		border: rgb(206, 205, 205);
+		background-color: #BDBDBD;
+		border: #BDBDBD;
 		box-sizing: border-box;
 		width: 100px;
 		margin-left: 98px;
 		border-radius: 10px 10px 10px 10px / 10px 10px 10px 10px;
+		font-family: 'Do Hyeon', sans-serif;
+		font-size: 18px;
 	}
 	#enrollBtn{
 		float: right;
@@ -75,6 +79,8 @@
 		width: 100px;
 		margin-right: 98px;
 		border-radius: 10px 10px 10px 10px / 10px 10px 10px 10px;
+		font-family: 'Do Hyeon', sans-serif;
+		font-size: 18px;
 	}
 	.test{
 		border: 1px solid purple;
@@ -86,7 +92,7 @@
 	<%@ include file="../common/menubar.jsp" %>
 
 	<div id="enroll">
-		<h3>게시글 작성</h1>
+		<h3><b>게시글 작성</b></h3>
 		<br>
 		
 		<form id="enroll-form" action="<%=contextPath%>/insert.mk" method="post" enctype="multipart/form-data">
@@ -182,8 +188,8 @@
 // 				});
 			</script>
 	
-			<input class="btn btn-secondary" id="backBtn" onclick="history.back()" value="목록"> 
-			<input type="submit" class="btn btn-secondary" id="enrollBtn" value="등록">
+			<input class="btn btn-secondary" id="backBtn" onclick="history.back()" value="이전으로"> 
+			<input type="submit" class="btn btn-secondary" id="enrollBtn" value="등록하기">
 		</form>
 	</div>	
 	<br>

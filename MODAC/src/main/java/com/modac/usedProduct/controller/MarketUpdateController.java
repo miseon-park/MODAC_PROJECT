@@ -103,7 +103,7 @@ public class MarketUpdateController extends HttpServlet {
 			 * case2 : 새로운 첨부파일이 있는 경우(o), 기존 첨부파일이 있는 경우(o) => b, at에 fileNo => Board update, Attachment update
 			 * case3 : 새로운 첨부파일이 있는 경우(o), 기존 첨부파일이 없는 경우(x) => b, at에 refNo => Board update, Attachment Insert 
 			 */
-			if(result >0 ) { //수정성공 => 상세조회페이지
+			if(result > 0 ) { //수정성공 => 상세조회페이지
 				request.getSession().setAttribute("alertMsg", "성공적으로 수정되었습니다.");
 				response.sendRedirect(request.getContextPath()+"/detail.mk?mno="+postNo);
 				

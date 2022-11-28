@@ -5,7 +5,10 @@ import static com.modac.common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.modac.circle.model.dao.CircleBoardDao;
+import com.modac.common.JDBCTemplate;
 import com.modac.common.model.vo.PageInfo;
+import com.modac.common.model.vo.Reply;
 import com.modac.usedProduct.model.dao.MarketDao;
 import com.modac.usedProduct.model.vo.Attachment;
 import com.modac.usedProduct.model.vo.Market;
@@ -41,14 +44,14 @@ public class MarketService {
 	}
 	
 	//게시글 목록페이지
-	public ArrayList<Market> marketList(PageInfo pi){
+	public ArrayList<Market> marketList(PageInfo pi, String field, String query){
 		Connection conn = getConnection();
 		
-		ArrayList<Market> list = new MarketDao().marketList(conn, pi);
+		ArrayList<Market> list = new MarketDao().marketList(conn, pi, field, query);
 		
-		ArrayList<Market> list2 = new MarketDao().sortOfDate(conn, pi);
+		ArrayList<Market> list2 = new MarketDao().sortOfDate(conn, pi, field, query);
 		
-		ArrayList<Market> list3 = new MarketDao().sortOfCount(conn, pi);
+		ArrayList<Market> list3 = new MarketDao().sortOfCount(conn, pi, field, query);
 		
 		close();
 		
@@ -223,12 +226,12 @@ public class MarketService {
 	}
 	
 	//판매중만 보기
-	public ArrayList<Market> onlySaleView(PageInfo pi){
+	public ArrayList<Market> onlySaleView(PageInfo pi, String field, String query){
 		//JDBCTemplate 커넥션 객체 호출, 커넥션 객체 초기화
 		Connection conn = getConnection();
 		
 		//dao에서 db에 접근해 가져온 값을 service에 반환
-		ArrayList<Market> list = new MarketDao().onlySaleView(conn, pi);
+		ArrayList<Market> list = new MarketDao().onlySaleView(conn, pi, field, query);
 		
 		//커넥션 close
 		close();
@@ -238,12 +241,12 @@ public class MarketService {
 	
 
 	//날짜순 정렬
-	public ArrayList<Market> sortOfDate(PageInfo pi){
+	public ArrayList<Market> sortOfDate(PageInfo pi, String field, String query){
 		//JDBCTemplate 커넥션 객체 호출, 커넥션 객체 초기화
 		Connection conn = getConnection();
 		
 		//dao에서 db에 접근해 가져온 값을 service에 반환
-		ArrayList<Market> list = new MarketDao().sortOfDate(conn, pi);
+		ArrayList<Market> list = new MarketDao().sortOfDate(conn, pi, field, query);
 		
 		//커넥션 close
 		close();
@@ -253,12 +256,12 @@ public class MarketService {
 	
 	
 	//조회순 정렬
-	public ArrayList<Market> sortOfCount(PageInfo pi){
+	public ArrayList<Market> sortOfCount(PageInfo pi, String field, String query){
 		//JDBCTemplate 커넥션 객체 호출, 커넥션 객체 초기화
 		Connection conn = getConnection();
 		
 		//dao에서 db에 접근해 가져온 값을 service에 반환
-		ArrayList<Market> list = new MarketDao().sortOfCount(conn, pi);
+		ArrayList<Market> list = new MarketDao().sortOfCount(conn, pi, field, query);
 		
 		//커넥션 close
 		close();
@@ -268,12 +271,12 @@ public class MarketService {
 	
 	
 	//날짜순 정렬-판매중만 보기
-	public ArrayList<Market> sortOfDateOnlySale(PageInfo pi){
+	public ArrayList<Market> sortOfDateOnlySale(PageInfo pi, String field, String query){
 		//JDBCTemplate 커넥션 객체 호출, 커넥션 객체 초기화
 		Connection conn = getConnection();
 		
 		//dao에서 db에 접근해 가져온 값을 service에 반환
-		ArrayList<Market> list = new MarketDao().sortOfDateOnlySale(conn, pi);
+		ArrayList<Market> list = new MarketDao().sortOfDateOnlySale(conn, pi, field, query);
 		
 		//커넥션 close
 		close();
@@ -283,12 +286,12 @@ public class MarketService {
 	
 	
 	//조회순 정렬-판매중만 보기
-	public ArrayList<Market> sortOfCountOnlySale(PageInfo pi){
+	public ArrayList<Market> sortOfCountOnlySale(PageInfo pi, String field, String query){
 		//JDBCTemplate 커넥션 객체 호출, 커넥션 객체 초기화
 		Connection conn = getConnection();
 		
 		//dao에서 db에 접근해 가져온 값을 service에 반환
-		ArrayList<Market> list = new MarketDao().sortOfCountOnlySale(conn, pi);
+		ArrayList<Market> list = new MarketDao().sortOfCountOnlySale(conn, pi, field, query);
 		
 		//커넥션 close
 		close();
@@ -296,8 +299,30 @@ public class MarketService {
 		return list;
 	}
 	
+	//댓글 조회
+	public ArrayList<Reply> selectReplyList(int postNo){
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<Reply> list = new MarketDao().selectReplyList(conn, postNo);
+		
+		JDBCTemplate.close();
+		
+		return list;
+	}
 	
-	
+	//댓글 작성
+	public int insertReply(Reply r) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new MarketDao().insertReply(conn, r);
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+			
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		return result;
+	}
 	
 	
 	
