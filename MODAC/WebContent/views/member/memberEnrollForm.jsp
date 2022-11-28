@@ -16,6 +16,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 	
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=Hahmlet&family=Poor+Story&family=Do+Hyeon&display=swap');
+    	.title {
+		text-align:center;
+        font-family: 'Do Hyeon', sans-serif;
+        color: #F0A500;
+        font-size: 45px;
+    	}
+    	
         #wrapper{
             border: 10px solid #F0A500;
             width: 550px;
@@ -40,11 +48,6 @@
             height: 30px;
         }
         div>#checkId{
-            width: 110px;
-            height: 30px;
-            background-color: #F0A500;
-            color: white;
-            border: none;
             margin-bottom: 5px;
         }
         div>#email, div>#nickname{
@@ -57,7 +60,8 @@
             margin-top: 5px;
             color: gray;
         }
-        div>#password{
+
+        div>#password{ 
             margin-left: 70px;
             height: 30px;
             width: 260px;
@@ -85,9 +89,14 @@
     </style>
 </head>
 <body>
+
+    <!--             width: 110px;
+            height: 40px;
+            background-color: #F0A500;
+            color: white; -->
 <%@ include file="../common/menubar.jsp" %>
     <div id="wrapper">
-        <h1>회원가입</h1>
+        <h1 class="title">회원가입</h1>
         <hr>
 
         <form id="enroll-form"action ="<%=contextPath %>/insert.me"  method="post">
@@ -95,7 +104,7 @@
             <span>아이디</span>
             <input id="id" type="text" placeholder="아이디입력" name="memberId" required >
 			
-			<button type="button" class="btn btn-warning" id="checkId" onclick="return idCheck();">아이디 확인</button>
+			<button type="button" class="btn btn-outline-warning" id="checkId" onclick="return idCheck();">아이디 확인</button>
             <!-- <button type="button" id="checkId" onclick="idCheck();">아이디 확인</button> -->
 			<div id="reCheckId"></div>
             <p>영문자로 시작하는 5~15자 이내의 영문,숫자로 구성 가능</p>
@@ -110,9 +119,10 @@
         <div>
             <span>비밀번호 확인</span>
             <input id="checkpassword" type="password" placeholder="비밀번호 확인" required>
+            <div id="checkPwd"></div>
         </div>
-			<div class="alert alert-success" id="alert-success">비밀번호가 일치합니다.</div>
-			<div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div>
+			<!-- <div class="alert alert-success" id="alert-success">비밀번호가 일치합니다.</div> -->
+			<!-- <div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div> -->
 			
 		
         <div>
@@ -158,7 +168,7 @@
                 }else{
                     if(confirm("사용가능한 아이디 입니다. 사용하시겠습니까?")){
                         /* $("#inserCheck").removeAttr("disabled") */
-                        /* $memberId.attr("readonly",true); */
+                        $memberId.attr("disable",true);
                     } else {
                     	
 
@@ -185,9 +195,10 @@
 	                $("#reCheckPwd").html('사용할 수 있는 비밀번호입니다.').css('color','green');
 	            }
     	})
-	});
+	});    
+    </script>
     
-    $(function(){
+    <script>    <!-- $(function(){
         $("#alert-success").hide();
         $("#alert-danger").hide();
         $("input").keyup(function(){
@@ -206,8 +217,25 @@
                 }    
             }
         });
+    }); --></script>
+    
+    <script>
+    <!-- 비밀번호 같은지 체크 -->
+    $(function () {
+        $("#checkpassword").keyup(function(){
+            let pwd1=$("#password").val();
+            let pwd2=$("#checkpassword").val();	
+                if(pwd1 != "" || pwd2 !=""){
+                    if(pwd1 == pwd2){
+                        $("#checkPwd").html('비밀번호가 일치합니다.').css('color','green')
+                    }else{
+                        $("#checkPwd").html('비밀번호가 일치하지 않습니다.').css('color','red')
+                    }
+                }
+        });
     });
     </script>
+    
     
     <!-- 이메일체크 -->
     <script>
