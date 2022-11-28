@@ -179,7 +179,8 @@
 
     <%@ include file = "../common/menubar.jsp" %>
 
-    
+    <br> <br>
+
     <h2 style="color: rgb(74,57,51);" align="center">캠핑장 검색</h2>
 
 	
