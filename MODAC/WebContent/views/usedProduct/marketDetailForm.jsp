@@ -175,34 +175,41 @@
           width : 100%;
           height : 80px;
           margin : auto;
-       }
-       
-       .replyText{
-          width : 85%;
-          height : 100%;
-          border : 1px solid rgb(240, 165, 0);
-          float : left;
-       }
-       
-       .replyBtn{
-          width : 15%;
-          height : 100%;
-          background-color : rgb(240, 165, 0);
-          float : right;
-       }
-       
-       .inputReply{
+      }
+      
+      .replyText{
+         width : 85%;
+         height : 100%;
+         border : 1px solid rgb(240, 165, 0);
+         float : left;
+      }
+      
+      .replyBtn{
+         width : 15%;
+         height : 100%;
+         background-color : rgb(240, 165, 0);
+         float : right;
+      }
+      
+      .inputReply{
+         width : 100%;
+         height : 100%;
+         resize : none;
+         border: none;
+         outline: none;
+      }
+      
+      .replyList{
+         width : 100%;
+      }
+      #rep{
           width : 100%;
-          height : 100%;
-          resize : none;
-          border: none;
-          outline: none;
        }
-       
-       .replyList{
+      
+      #rep tr{
           width : 100%;
+          border-bottom : 1px solid antiquewhite;
        }
-    
 </style>
 </head>
 <body>
@@ -297,7 +304,7 @@
                      <textarea class="inputReply" id="replyContent"></textarea>               
                   </div>
                   <div class="replyBtn" onclick="insertReply();">
-                     <h5 style="color: white; text-align : center; margin-top : middle; line-height : 80px;">댓글 등록</h5>
+                     <h5 style="color: white; text-align : center; margin-top : middle; line-height : 80px; cursor : pointer;">댓글 등록</h5>
                   </div>
                </div>
             <%} else { %>
@@ -310,14 +317,15 @@
                   </div>
                </div>
             <% } %>
-            
+            <br>
+            <!-- 댓글 조회 -->
             <div class="replyList">
-               <table id="rep" style="width : 100%;">
-
+               <table id="rep">
+					
 
                </table>
             </div>
-			<br>
+
             
             
         </div>
@@ -341,14 +349,13 @@
 				success:(list)=>{
 					let result = "";
 					for(let i of list){
-						result+="<tr style='width : 100%;
-					          border-bottom : 1px solid antiquewhite;'>"
+						result+="<tr>"
 									+"<td>"+i.writer+"</td>"
 									+"<td>"+i.replyContent+"</td>"
 									+"<td style='float: right;'>"+i.createDate+"</td>"
 							  +"</tr>"
 					}
-					$("#rep").html(result); 
+					$(".replyList>table").html(result); 
 				},
 				error:function(){
 					console.log("댓글리스트 조회용 ajax통신 실패")
