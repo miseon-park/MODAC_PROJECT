@@ -180,15 +180,7 @@
 						<%} %>
 					</div>	
             <br>
-             
-           </div>
-           <br>
-            <div align="right">
-				<a href="<%=contextPath %>/clist.bo?currentPage=1" class="btn btn-secondary last1"style="background-color: orange;border: #BDBDBD;">목록으로</a>
-			</div>
-           </div>
-          
-		<hr>
+             <hr>
             <h5>댓글</h5>
             <%if(loginMember!=null){ %>
                <div class="reply-area">
@@ -216,6 +208,14 @@
 
                </table>
             </div>
+           </div>
+           <br>
+            <div align="right">
+				<a href="<%=contextPath %>/clist.bo?currentPage=1" class="btn btn-secondary last1"style="background-color: orange;border: #BDBDBD;">목록으로</a>
+			</div>
+           </div>
+          
+		
 
 			</div>
                 
