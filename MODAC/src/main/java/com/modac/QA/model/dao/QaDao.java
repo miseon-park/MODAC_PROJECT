@@ -502,7 +502,6 @@ public class QaDao {
 						rset.getString(3),
 						rset.getString(4)
 						
-						
 						));
 			}
 		} catch (SQLException e) {
@@ -533,7 +532,6 @@ public class QaDao {
 			result = psmt.executeUpdate();
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			

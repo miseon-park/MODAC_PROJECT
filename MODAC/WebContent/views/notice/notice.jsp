@@ -20,6 +20,9 @@
 <title>모닥불 소식 메인</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <style>
+@import
+	url('https://fonts.googleapis.com/css2?family=Hahmlet&family=Poor+Story&family=Do+Hyeon&display=swap');
+
 	.content>div {
 		height: 1000px;
 		float: left;
@@ -27,7 +30,7 @@
 	
 	.content1 {
 		width: 20%;
-		height: 1000px;
+		height: 100%;
 		padding: 50px 20px 10px;
 		background-color: antiquewhite;
 		float: left;
@@ -88,6 +91,24 @@
     .insertBtn{
     	margin-right : 110px;
     }
+    
+    .list-title{
+    	text-align:center;
+       	font-family: 'Do Hyeon', sans-serif;
+        color: #4a3933;
+        font-size: 45px;
+    }
+    
+    .sidemenu {
+    	font-family: 'Do Hyeon', sans-serif;
+        color: #4a3933;
+        font-size: 30px;
+    }
+    .sidemenu2 {
+        font-family: 'Do Hyeon', sans-serif;
+        color: #4a3933;
+        font-size: 20px;
+    }
 </style>
 
 </head>
@@ -98,15 +119,15 @@
         <div class="content">
             <div class="content1">
                 <nav class="flex-column">
-                    <a class="nav-link active" aria-current="page" href="<%=contextPath %>/noticeList"><h3>공지사항</h3></a> <br><br>
-                    <a class="nav-link" href="<%=contextPath %>/noticeList">모닥불 소식</a> <br>
-                    <a class="nav-link" href="<%=contextPath%>/campTipList">캠핑 팁</a> <br>
-                    <a class="nav-link" href="<%=contextPath %>/qaList">Q&A</a> <br>
-                    <a class="nav-link" href="<%=contextPath %>/faqList">FAQ</a>
+                    <a class="nav-link active sidemenu" aria-current="page" href="<%=contextPath %>/noticeList"><h3>공지사항</h3></a> <br><br>
+                    <a class="nav-link sidemenu2" href="<%=contextPath %>/noticeList">모닥불 소식</a> 
+                    <a class="nav-link sidemenu2" href="<%=contextPath%>/campTipList">캠핑 팁</a>
+                    <a class="nav-link sidemenu2" href="<%=contextPath %>/qaList">Q&A</a> 
+                    <a class="nav-link sidemenu2" href="<%=contextPath %>/faqList">FAQ</a>
                 </nav>
             </div>
             <div class="content2">
-                <h3>모닥불 소식</h3>
+                <h3 class="list-title">모닥불 소식</h3>
                 <br>
                 <div class="searchbar">
                     <nav class="navbar">
@@ -126,7 +147,7 @@
 
                  <% if(loginMember != null && loginMember.getMemberLevel() == 10){ %>
                     <div class="insertBtn">
-                        <a id="writeEdit" class="btn btn-secondary" href="<%=contextPath %>/noticeEnrollForm">글 작성</a>
+                        <a id="writeEdit" class="btn text-white" style="background-color: orange;" href="<%=contextPath %>/noticeEnrollForm">글 작성</a>
                     </div>
                 <% } %> 
 
@@ -217,11 +238,11 @@
 	         <% } %>
          
          	 <% for(int i = startPage; i <= endPage; i++) { %>
-             <%if(i != currentPage) {%>
-               <button  class="pageBtn" onclick="doPageClick(<%=i%>)"><%=i %></button>
-             <%} else {%>
-               <button class="pageBtn" disabled><%= i %></button>
-             <%} %>
+             	<%if(i != currentPage) {%>
+               		<button  class="pageBtn" onclick="doPageClick(<%=i%>)"><%=i %></button>
+             	<%} else {%>
+               		<button class="pageBtn" style="background-color: orange; color: white;" disabled><%= i %></button>
+             	<%} %>
          	 <% } %>
          
 	         <% if(currentPage != maxPage) { %>

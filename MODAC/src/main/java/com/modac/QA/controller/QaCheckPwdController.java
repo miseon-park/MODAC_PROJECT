@@ -33,23 +33,21 @@ public class QaCheckPwdController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			
-		
 		
 		String qaNo = request.getParameter("qno");
 		String postPwd = request.getParameter("postPwd");
-		System.out.println(qaNo);
+		System.out.println("qaNo : " + qaNo);
 		
 		QaService qService = new QaService();
 		Qa qa = new Qa();
 		qa.setQaNo(qaNo);
 		qa.setPostPwd(postPwd);
 		
-		int result2 = new QaService().checkPwd(qa);
-		
+		int result2 = qService.checkPwd(qa);
 		System.out.println("result2 : " + result2);
-		int result1 = new QaService().increaseCount(qaNo);
 		
+		int result1 = new QaService().increaseCount(qaNo);
+		System.out.println("result1 : " + result1);
 		
 		if (result1 > 0 && result2 > 0) { // 성공했을 경우 => 해당 Q&A 상세조회
 			Qa q = qService.selectQa(qaNo);
@@ -58,7 +56,8 @@ public class QaCheckPwdController extends HttpServlet {
 			request.setAttribute("q", q);
 			request.setAttribute("list", list);
 
-			request.getRequestDispatcher("views/QA/qaDetail?qno="+qaNo).forward(request, response);
+			System.out.println("qaNo : " + qaNo);
+			request.getRequestDispatcher("views/QA/qaDetail.jsp").forward(request, response);
 		} else { // 실패시 에러페이지
 			 request.setAttribute("errorMsg", "Q&A 조회 실패");
 			 request.getRequestDispatcher("views/common/errorPage3.jsp").forward(request, response);

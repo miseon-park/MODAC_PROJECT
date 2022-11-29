@@ -7,6 +7,8 @@
 <title>Q&A 소식 글작성</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Hahmlet&family=Poor+Story&family=Do+Hyeon&display=swap');
+
         .content1{
            width: 20%;
 		       height : 1000px;
@@ -52,6 +54,23 @@
  			width: 80%; 
  			margin: auto;
  			}
+ 			
+ 		.list-title{
+			
+      		color: rgb(74,57,51);	
+      		font-size : 35px;
+		}
+		
+		.sidemenu {
+    		font-family: 'Do Hyeon', sans-serif;
+        	color: #4a3933;
+        	font-size: 30px;
+    	}
+    	.sidemenu2 {
+        	font-family: 'Do Hyeon', sans-serif;
+        	color: #4a3933;
+        	font-size: 20px;
+    	}
 </style>
 
 </head>
@@ -61,18 +80,18 @@
     <div class="content">
         <div class="content1">
             <nav class="flex-column">
-                <a class="nav-link active" aria-current="page" href="<%=contextPath %>/noticeList"><h3>공지사항</h3></a><br><br>
-                <a class="nav-link" href="<%=contextPath %>/noticeList">모닥불 소식</a> <br>
-                <a class="nav-link" href="<%=contextPath%>/campTipList">캠핑 팁</a> <br>
-                <a class="nav-link" href="<%=contextPath %>/qaList">Q&A</a> <br>
-                <a class="nav-link" href="<%=contextPath %>/faqList">FAQ</a> <br>
+                <a class="nav-link active sidemenu" aria-current="page" href="<%=contextPath %>/noticeList"><h3>공지사항</h3></a><br><br>
+                <a class="nav-link sidemenu2" href="<%=contextPath %>/noticeList">모닥불 소식</a>
+                <a class="nav-link sidemenu2" href="<%=contextPath%>/campTipList">캠핑 팁</a>
+                <a class="nav-link sidemenu2" href="<%=contextPath %>/qaList">Q&A</a> 
+                <a class="nav-link sidemenu2" href="<%=contextPath %>/faqList">FAQ</a>
               </nav>
         </div>
 
         <div class="content2">
           <br>
-          <h3>Q&A</h3>
           <div class="list-area">
+	          <h3 class="list-title">Q&A</h3>
           <br>
 			
 		  <form id="enroll-form" action="<%=contextPath %>/qaInsert" method="post" enctype="multipart/form-data">
@@ -84,7 +103,8 @@
 	              <input type="file" class="form-control" name="upfile2" value="2">
 	              <input type="file" class="form-control" name="upfile3" value="3">
 	              <input type="file" class="form-control" name="upfile4" value="4">
-	              <textarea class="form-control" style="height:500px;" name="content"></textarea>
+	              
+	              <textarea class="form-control" style="height:500px; resize : none;" name="content"></textarea>
                 <label>
                   <input type='checkbox' value="Y" name="hiddenPost" id='my_checkbox' onclick='toggleTextbox(this)'/> 비밀글
                 </label>
@@ -97,9 +117,9 @@
 		        
 		        <div align="center">
 		                
-		          <button type="button" class="btn btn-secondary" class="last1" onclick="history.back();">이전으로</button>
+		          <button type="button" class="btn text-white" style="background-color: #BDBDBD;" class="last1" onclick="history.back();">이전으로</button>
 		
-		          <button type="submit" class="btn btn-warning" class="last1">글올리기</button>
+		          <button type="submit" class="btn text-white" style="background-color: orange;" class="last1">등록하기</button>
 		        </div>
 		  </form>
 

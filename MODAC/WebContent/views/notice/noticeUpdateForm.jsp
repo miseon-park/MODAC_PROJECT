@@ -14,11 +14,14 @@
 <title>모닥불 소식 글작성</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <style>
+@import
+	url('https://fonts.googleapis.com/css2?family=Hahmlet&family=Poor+Story&family=Do+Hyeon&display=swap');
+
         .content1{
            width: 20%;
-		       height : 1000px;
-		       padding: 50px 20px 10px;
-		       background-color: antiquewhite;
+		   height : 1000px;
+		   padding: 50px 20px 10px;
+		   background-color: antiquewhite;
            float: left; 
         }
 
@@ -58,7 +61,25 @@
 		.list-area { 
  			width: 80%; 
  			margin: auto;
- 			}
+ 		}
+ 		
+ 		.list-title{
+			margin-top: 40px;
+      		color: rgb(74,57,51);
+      		font-family: 'Hahmlet', serif;
+      		font-size: 35px;	
+		}
+		
+	    .sidemenu {
+	    	font-family: 'Do Hyeon', sans-serif;
+    	    color: #4a3933;
+        	font-size: 30px;
+    	}
+    	.sidemenu2 {
+        	font-family: 'Do Hyeon', sans-serif;
+        	color: #4a3933;
+        	font-size: 20px;
+    	}
 </style>
 
 </head>
@@ -68,18 +89,18 @@
     <div class="content">
         <div class="content1">
             <nav class="flex-column">
-                <a class="nav-link active" aria-current="page" href="<%=contextPath %>/noticeList"><h3>공지사항</h3></a><br><br>
-                <a class="nav-link" href="<%=contextPath %>/noticeList">모닥불 소식</a> <br>
-                <a class="nav-link" href="<%=contextPath%>/campTipList">캠핑 팁</a> <br>
-                <a class="nav-link" href="<%=contextPath%>/qaList">Q&A</a> <br>
-                <a class="nav-link" href="<%=contextPath%>/faqList">FAQ</a> <br>
+                <a class="nav-link active sidemenu" aria-current="page" href="<%=contextPath %>/noticeList"><h3>공지사항</h3></a><br><br>
+                <a class="nav-link sidemenu2" href="<%=contextPath %>/noticeList">모닥불 소식</a>
+                <a class="nav-link sidemenu2" href="<%=contextPath%>/campTipList">캠핑 팁</a>
+                <a class="nav-link sidemenu2" href="<%=contextPath%>/qaList">Q&A</a> 
+                <a class="nav-link sidemenu2" href="<%=contextPath%>/faqList">FAQ</a> 
               </nav>
         </div>
 
         <div class="content2">
           <br>
           <div class="list-area">
-          <h3>모닥불 소식</h3>
+          <h3 class="list-title">모닥불 소식</h3>
           <br>
 			
 		  <form id="enroll-form" action="<%=contextPath %>/updateNotice" method="post" enctype="multipart/form-data">
@@ -97,7 +118,7 @@
 	
 	              <input type="text" class="form-control" name = "title" id="title" placeholder="제목을 입력해주세요." aria-label="title" value="<%= n.getNoticeTitle()%>">
 	              
-	              <textarea class="form-control" style="height:500px;" name='content'><%=n.getNoticeContent() %></textarea>
+	              <textarea class="form-control" style="height:500px; resize: none;" name='content'><%=n.getNoticeContent() %></textarea>
 	              
 	              <%if(!list.isEmpty()){ %>
 	              <% int i = 1; 
@@ -127,7 +148,7 @@
 						<% for(Attachment at : list){ %>
 	              		<th>
 							<input type="text" value="<%= at.getOriginName() %>" style="border: none; background: transparent; pointer-events: none;" readonly>
-							<input type="button" class="btn-close" id="deleteBtn<%=i %>" aria-label="Close">
+<%-- 							<input type="button" class="btn-close" id="deleteBtn<%=i %>" aria-label="Close"> --%>
 	              		</th>
 						<%	i++;
 				  			} %>
@@ -135,16 +156,16 @@
 	              	</tr>
 	              	<tr>
 	              		<td>
-							 <img id="titleImg" src="<%=filePath[1] %>" value="1" width="210" height="180" style="border:1px solid white;">	              		
+							 <img id="titleImg" src="<%=filePath[1] %>" value="1" width="215" height="180" style="border:1px solid white;">	              		
 	              		</td>
 	              		<td>
-	              			<img id="contentImg1" <%if(!filePath[2].equals("")){ %>src="<%=filePath[2] %>" <%} %> value="2" width="210" height="180" style="border:1px solid white;">
+	              			<img id="contentImg1" <%if(!filePath[2].equals("")){ %>src="<%=filePath[2] %>" <%} %> value="2" width="215" height="180" style="border:1px solid white;">
 	              		</td>
 	              		<td>
-	              			<img id="contentImg2" <%if(!filePath[3].equals("")){ %>src="<%=filePath[3] %>" <%} %>  value="3" width="210" height="180" style="border:1px solid white;">
+	              			<img id="contentImg2" <%if(!filePath[3].equals("")){ %>src="<%=filePath[3] %>" <%} %>  value="3" width="215" height="180" style="border:1px solid white;">
 	              		</td>
 	              		<td>
-	              			<img id="contentImg3" <%if(!filePath[4].equals("")){ %>src="<%=filePath[4] %>" <%} %>  value="4" width="210" height="180" style="border:1px solid white;"> <br>
+	              			<img id="contentImg3" <%if(!filePath[4].equals("")){ %>src="<%=filePath[4] %>" <%} %>  value="4" width="215" height="180" style="border:1px solid white;"> <br>
 	              		</td>
 	              	</tr>
 	              </table>
@@ -152,7 +173,7 @@
 	      
 	             
 				<div class="file-area">
-					<div class="inputFile" style="width: 550px;">
+					<div class="inputFile" style="width: 100%;">
 		                 <input type="file" class="form-control" name="upfile1" value="1" id="file1" onchange="loadImg(this, 1);">
 		                 <input type="file" class="form-control" name="upfile2" value="2" id="file2" onchange="loadImg(this, 2);">
 		                 <input type="file" class="form-control" name="upfile3" value="3" id="file3" onchange="loadImg(this, 3);">
@@ -166,9 +187,9 @@
 		        
 		        <div align="center">
 		                
-		          <button type="button" class="btn btn-secondary" class="last1" onclick="history.back();">이전으로</button>
+		          <button type="button" class="btn text-white" style="background-color: #BDBDBD;" class="last1" onclick="history.back();">이전으로</button>
 		
-		          <button type="submit" class="btn btn-warning" class="last1">수정하기</button>
+		          <button type="submit" class="btn text-white" style="background-color: orange;" class="last1">수정하기</button>
 		        </div>
 		  </form>
 

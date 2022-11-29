@@ -15,19 +15,23 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
 <style>
+@import
+	url('https://fonts.googleapis.com/css2?family=Hahmlet&family=Poor+Story&family=Do+Hyeon&display=swap');
+
         .content1{
-           width: 20%;
-		       height : 1000px;
-		       padding: 50px 20px 10px;
-		       background-color: antiquewhite;
-           float: left; 
+          width: 20%;
+		  height: 1000px;
+	      padding: 50px 20px 10px;
+	      background-color: antiquewhite;
+	      float: left; 
         }
 
         .content2{
-          width: 80%;
-		      padding: 50px 50px 20px;
-		      float: left;
+            width: 80%;
+		    padding: 10px 50px 20px;
+            float: left; 
         }
+        
         .form-control {
           margin: 5px;
         }
@@ -107,6 +111,29 @@
  			width : 100%;
  			border-bottom : 1px solid antiquewhite;
  		}
+ 		
+ 		.list-title{
+			margin-top: 40px;
+      		color: rgb(74,57,51);	
+      		font-size : 35px;
+		}
+		
+		 #contentBox{
+          resize: none;
+          border: none;
+          text-align:left;
+        }
+        
+        .sidemenu {
+    		font-family: 'Do Hyeon', sans-serif;
+        	color: #4a3933;
+        	font-size: 30px;
+    	}
+    	.sidemenu2 {
+        	font-family: 'Do Hyeon', sans-serif;
+        	color: #4a3933;
+        	font-size: 20px;
+    	}
 </style>
 
 </head>
@@ -118,29 +145,28 @@
 
 		<div class="content1">
 			<nav class="flex-column">
-				<a class="nav-link active" aria-current="page"
-					href="<%=contextPath %>/noticeList"><h3>공지사항</h3></a><br>
-				<br> <a class="nav-link" href="<%=contextPath %>/noticeList">모닥불
-					소식</a> <br> <a class="nav-link" href="<%=contextPath%>/campTipList">캠핑 팁</a> <br> <a
-					class="nav-link" href="<%=contextPath %>/qaList">Q&A</a> <br>
-				<a class="nav-link" href="<%=contextPath %>/faqList">FAQ</a>
+				<a class="nav-link active sidemenu" aria-current="page" href="<%=contextPath %>/noticeList"><h3>공지사항</h3></a><br><br> 
+				<a class="nav-link sidemenu2" href="<%=contextPath %>/noticeList">모닥불 소식</a>
+				<a class="nav-link sidemenu2" href="<%=contextPath%>/campTipList">캠핑 팁</a>
+				<a class="nav-link sidemenu2" href="<%=contextPath %>/qaList">Q&A</a>
+				<a class="nav-link sidemenu2" href="<%=contextPath %>/faqList">FAQ</a>
 			</nav>
 		</div>
 
 
 		<div class="content2">
 			<br>
-			<h3>Q&A</h3>
 			<div class="list-area">
+				<h3 class="list-title">Q&A</h3>
 			<br>
 			<div align="right" class="insert-area">
 
 				
 				<% if(loginMember != null && loginMember.getMemberNic().equals(q.getMemberNic())) {%>
 				<a href="<%=contextPath %>/updateForm.qno?qno=<%=q.getQaNo()%>"
-					class="btn btn-warning last1">수정하기</a> <a
+					class="btn text-white last1" style="background-color: orange;">수정하기</a> <a
 					href="<%=contextPath %>/delete.qno?qno=<%=q.getQaNo()%>"
-					class="btn btn-secondary last1">삭제하기</a>
+					class="btn text-white last1" style="background-color: #BDBDBD;">삭제하기</a>
 				<% } %>
 
 			</div>
@@ -163,9 +189,8 @@
 				
 				<br>
 				<hr>
-				<br>
 					
-				<textarea class="foorm-control" style="height: 500px;" id="contentBox" disabled><%=q.getQaContent()%></textarea>
+				<textarea class="foorm-control" style="height: 500px; resize:none;" id="contentBox" disabled><%=q.getQaContent()%></textarea>
 				<% if(list.isEmpty()) {%>
 					첨부파일 없음
 				<%}else{
@@ -186,7 +211,7 @@
 							<textarea class="inputReply" id="replyContent"></textarea>					
 						</div>
 						<div class="replyBtn" onclick="insertReply();">
-							<h5 style="color: white; text-align : center; margin-top : middle; line-height : 80px;">댓글 등록</h5>
+							<h5 style="color: white; text-align : center; margin-top : middle; line-height : 80px;  cursor : pointer;">댓글 등록</h5>
 						</div>
 					</div>
 				<%} else { %>
@@ -201,7 +226,7 @@
 				<% } %>
 				
 				<div class="replyList">
-					<table sytle="width : 100%;">
+					<table style="width : 100%;">
 
 
 					</table>
@@ -210,7 +235,7 @@
 			</div>
 			<br>
 			<div align="center">
-				<a href="<%=contextPath%>/qaList" class="btn btn-secondary btn-sm">목록으로</a>
+				<a href="<%=contextPath%>/qaList" class="btn text-white" style="background-color: orange;">목록으로</a>
 
 			</div>
 			<br> <br>

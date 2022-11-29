@@ -57,6 +57,13 @@ public class Qa {
 		this.createDate = createDate;
 		this.hiddenPost = hiddenPost;
 	}
+	
+
+	public Qa(String qaNo, String postPwd) {
+		super();
+		this.qaNo = qaNo;
+		this.postPwd = postPwd;
+	}
 
 	public String getBoardNo() {
 		return boardNo;

@@ -6,9 +6,6 @@
     ArrayList<NoticeTip> ntlist = (ArrayList<NoticeTip>) request.getAttribute("ntlist");
     PageInfo pi = (PageInfo) request.getAttribute("pi");
 
-    //Attachment at = (Attachment) request.getAttribute("at");
-    //NoticeTip n = (NoticeTip) request.getAttribute("n");
-
     int currentPage = pi.getCurrentPage();
     int startPage = pi.getStartPage();
     int endPage = pi.getEndPage();
@@ -22,6 +19,9 @@
 <title>모닥불 소식 메인</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <style>
+@import
+	url('https://fonts.googleapis.com/css2?family=Hahmlet&family=Poor+Story&family=Do+Hyeon&display=swap');
+
 	.content>div {
 		height: 1000px;
 		float: left;
@@ -61,7 +61,7 @@
 		text-decoration: none;
 	}
 	
-	   .moveBtn{
+	.moveBtn{
        color: white;
        background-color: rgb(74,57,51);
        border : none;
@@ -90,6 +90,24 @@
     .insertBtn{
     	margin-right : 155px;
     }
+    
+    .list-title{
+    	text-align:center;
+       	font-family: 'Do Hyeon', sans-serif;
+        color: #4a3933;
+        font-size: 45px;
+    }
+    
+    .sidemenu {
+    	font-family: 'Do Hyeon', sans-serif;
+        color: #4a3933;
+        font-size: 30px;
+    }
+    .sidemenu2 {
+        font-family: 'Do Hyeon', sans-serif;
+        color: #4a3933;
+        font-size: 20px;
+    }
 </style>
 
 </head>
@@ -100,15 +118,15 @@
         <div class="content">
             <div class="content1">
                 <nav class="flex-column">
-                    <a class="nav-link active" aria-current="page" href="<%=contextPath %>/noticeList"><h3>공지사항</h3></a> <br><br>
-                    <a class="nav-link" href="<%=contextPath %>/noticeList">모닥불 소식</a> <br>
-                    <a class="nav-link" href="<%=contextPath%>/campTipList">캠핑 팁</a> <br>
-                    <a class="nav-link" href="<%=contextPath %>/qaList">Q&A</a> <br>
-                    <a class="nav-link" href="<%=contextPath %>/faqList">FAQ</a>
+                    <a class="nav-link active sidemenu" aria-current="page" href="<%=contextPath %>/noticeList"><h3>공지사항</h3></a> <br><br>
+                    <a class="nav-link sidemenu2" href="<%=contextPath %>/noticeList">모닥불 소식</a> 
+                    <a class="nav-link sidemenu2" href="<%=contextPath%>/campTipList">캠핑 팁</a> 
+                    <a class="nav-link sidemenu2" href="<%=contextPath %>/qaList">Q&A</a> 
+                    <a class="nav-link sidemenu2" href="<%=contextPath %>/faqList">FAQ</a>
                 </nav>
             </div>
             <div class="content2">
-                <h3>캠핑 팁</h3>
+                <h3 class="list-title">캠핑 팁</h3>
                 <br>
                 <div class="searchbar">
                    <nav class="navbar">
@@ -128,7 +146,7 @@
 
                  <% if(loginMember != null && loginMember.getMemberLevel() == 10){ %>
                     <div class="insertBtn">
-                        <a id="writeEdit" class="btn btn-secondary" href="<%=contextPath %>/noticeTipEnrollForm">글 작성</a>
+                        <a id="writeEdit" class="btn text-white" style="background-color: orange;" href="<%=contextPath %>/noticeTipEnrollForm">글 작성</a>
                     </div>
                 <% } %> 
 
@@ -177,9 +195,9 @@
 					<%
 						if(loginMember != null && loginMember.getMemberLevel() == 10) {
 					%>
-						<a href="<%=contextPath%>/delete.nt?ntNo=<%=nt.getPostNo() %>" class="btn btn-secondary btn-sm last1" style="float:right; margin: 2px;">삭제하기</a>
+						<a href="<%=contextPath%>/delete.nt?ntNo=<%=nt.getPostNo() %>" class="btn text-white btn-sm last1" style="float:right; margin: 2px; background-color: #BDBDBD;">삭제하기</a>
 						<a href="<%=contextPath%>/updateForm.nt?ntNo=<%=nt.getPostNo()%>"
-						class="btn btn-warning btn-sm last1" style="float:right; margin: 2px;">수정하기</a> 
+						class="btn text-white btn-sm last1"  style="float:right; margin: 2px; background-color: orange;">수정하기</a> 
 					<% }%>
 					</div>
 				</div>
@@ -202,7 +220,7 @@
              <%if(i != currentPage) {%>
                <button  class="pageBtn" onclick="doPageClick(<%=i%>)"><%=i %></button>
              <%} else {%>
-               <button class="pageBtn" disabled><%= i %></button>
+               <button class="pageBtn" style="background-color: orange; color: white;" disabled><%= i %></button>
              <%} %>
          	 <% } %>
          

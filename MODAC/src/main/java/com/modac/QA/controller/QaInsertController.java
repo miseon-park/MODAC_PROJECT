@@ -98,7 +98,7 @@ public class QaInsertController extends HttpServlet {
 				response.sendRedirect(request.getContextPath() + "/qaList");
 			} else { // 실패 => 에러페이지
 				request.setAttribute("errorMsg", "Q&A 업로드 실패");
-				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+				request.getRequestDispatcher("views/common/errorPage2.jsp").forward(request, response);
 			}
 			
 			

@@ -50,8 +50,8 @@ public class NoticeDetailController extends HttpServlet {
 			
 			request.getRequestDispatcher("views/notice/noticeDetail.jsp").forward(request, response);
 		}else { // 실패시 에러페이지
-			// request.setAttribute("errorMsg", "공지사항 조회 실패");
-			// request.getRequestDispatcher("views/")
+			 request.setAttribute("errorMsg", "공지사항 조회 실패");
+			 request.getRequestDispatcher("views/common/errorPage2.jsp");
 		}
 	}
 

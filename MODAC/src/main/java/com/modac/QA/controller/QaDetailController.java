@@ -41,7 +41,14 @@ public class QaDetailController extends HttpServlet {
 		
 		int result = new QaService().increaseCount(qno);
 
+		if((request.getSession().getAttribute("loginMember") == null)){
+			request.setAttribute("errorMsg", "로그인이 필요합니다");
+			request.getRequestDispatcher("views/common/errorPage2.jsp").forward(request, response);
+		}
+		
 		if (result > 0) { // 성공했을 경우 => 해당 공지사항 상세조회
+			
+			
 			Qa q = qService.selectQa(qno);
 			ArrayList<Attachment> list = new QaService().selectAttachment(qno);
 
