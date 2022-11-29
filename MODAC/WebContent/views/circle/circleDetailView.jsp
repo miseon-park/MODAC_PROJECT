@@ -80,6 +80,7 @@
           height : 100%;
           background-color : rgb(240, 165, 0);
           float : right;
+          cursor : pointer;
        }
        
        .inputReply{
@@ -114,9 +115,7 @@
 <body>
 <%@ include file="../common/menubar.jsp" %>
      	 
-     		<div class="content1">
-               
-           </div>
+     		
        
                       
            <div class="content2">

@@ -24,13 +24,14 @@ int maxPage = pi.getMaxPage();
 <style>
 	@import url('https://fonts.googleapis.com/css2?family=Hahmlet&family=Poor+Story&family=Do+Hyeon&display=swap');
 	
+	
         
 
-        .content2{
-            width: 95%;
-            padding-left: 30px;
-            
-        }
+        .content2 {
+		width: 100%;
+		padding: 10px 50px 20px;
+		float: left;
+	}
 	
 	.navbar {
 		width: 450px;

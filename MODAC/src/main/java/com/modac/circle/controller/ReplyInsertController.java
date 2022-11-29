@@ -42,7 +42,7 @@ public class ReplyInsertController extends HttpServlet {
 		int result = new CircleBoardService().insertReply(r);// 넘겨주고
 		
 		response.getWriter().print(result);
-		System.out.println("conreuslt:" +result);
+		
 	}
 
 	/**
