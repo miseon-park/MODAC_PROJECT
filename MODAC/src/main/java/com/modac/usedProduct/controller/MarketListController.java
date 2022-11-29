@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.modac.common.model.vo.Attachment;
 import com.modac.common.model.vo.PageInfo;
 import com.modac.usedProduct.model.service.MarketService;
+import com.modac.usedProduct.model.vo.Attachment;
 import com.modac.usedProduct.model.vo.Market;
 
 /**
@@ -156,6 +156,8 @@ public class MarketListController extends HttpServlet {
 			
 		//-----------------------------------페이징 처리 끝----------------------------------------
 		
+		String postNo = request.getParameter("postNo");
+		Attachment at = new Attachment();
 		String sort = request.getParameter("sort");	
 		request.setAttribute("sort", sort);
 		
@@ -169,7 +171,8 @@ public class MarketListController extends HttpServlet {
 			
 		} else {
 			ArrayList<Market> list = new MarketService().marketList(pi, field, query);
-			Attachment result = new MarketService().marketListAtt(postNo, at);
+//			int result = new MarketService().marketListAtt(postNo, at);
+//			request.setAttribute("at", at);
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 		}

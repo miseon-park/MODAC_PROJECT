@@ -143,30 +143,30 @@ public class MarketDao {
 	}
 	
 	//게시글 목록 썸네일
-	public int marketListAtt(Connection conn,String postNo, Attachment at) {
-		int result = 0;
-		
-		PreparedStatement psmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("marketListAtt");
-		
-		try {
-			psmt = conn.prepareStatement(sql);
-			
-			psmt.setString(1, postNo);
-			
-			rset = psmt.executeQuery();
-			
-			at = new Attachment(rset.getString("NEWNAME"));
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(psmt);
-		}
-		return result;
-	}
+//	public int marketListAtt(Connection conn,String postNo, Attachment at) {
+//		int result = 0;
+//		
+//		PreparedStatement psmt = null;
+//		ResultSet rset = null;
+//		
+//		String sql = prop.getProperty("marketListAtt");
+//		
+//		try {
+//			psmt = conn.prepareStatement(sql);
+//			
+//			psmt.setString(1, postNo);
+//			
+//			rset = psmt.executeQuery();
+//			
+//			at = new Attachment(rset.getString("NEW_NAME"));
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}finally {
+//			close(psmt);
+//		}
+//		return result;
+//	}
 	
 	
 //	//마켓 게시글조회 목록버전

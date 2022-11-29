@@ -41,11 +41,11 @@
 	</entry>
 	
 	<!-- 게시글 목록 썸네일 파일 -->
-	<entry key="marketListAtt">
-		SELECT NEWNAME
-		FROM ATTACHMENT
-		WHERE FILE_LEVEL = 1 AND POST_NO = ?
-	</entry>
+<!-- 	<entry key="marketListAtt"> -->
+<!-- 		SELECT NEW_NAME -->
+<!-- 		FROM ATTACHMENT -->
+<!-- 		WHERE FILE_LEVEL = 1 AND POST_NO = ? -->
+<!-- 	</entry> -->
 	
 	
 	<!-- 게시글 상세페이지 -->

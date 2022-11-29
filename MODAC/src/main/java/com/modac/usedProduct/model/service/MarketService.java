@@ -59,16 +59,16 @@ public class MarketService {
 	}
 	
 	//게시글 목록 썸네일
-	public int marketListAtt(String postNo, Attachment at) {
-		Connection conn = getConnection();
-		
-		int result = new MarketDao().marketListAtt(conn, postNo, at);
-		
-		close();
-		
-		return result;
-		
-	}
+//	public int marketListAtt(String postNo, Attachment at) {
+//		Connection conn = getConnection();
+//		
+//		int result = new MarketDao().marketListAtt(conn, postNo, at);
+//		
+//		close();
+//		
+//		return result;
+//		
+//	}
 	
 	
 //	//마켓 게시글조회 목록버전
