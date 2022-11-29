@@ -217,7 +217,10 @@ public Member loginMember(String memberId , String memberPwd) {
 	    JDBCTemplate.close();
 	    return result;
 	}
-	
+	/***
+	 * 
+	 * 자기글 - 동아리 게시판
+	 */
 	public ArrayList<Circle> selectList(PageInfo pi,String memberId) {
 		Connection conn = JDBCTemplate.getConnection();
 
@@ -227,7 +230,10 @@ public Member loginMember(String memberId , String memberPwd) {
 
 		return list;
 	}
-	
+	/***
+	 * 자기글 - 동아리 게시판 - 페이징 처리
+	 * @return
+	 */
 	public int selectListCount() {
 		Connection conn = JDBCTemplate.getConnection();
 		int listCount = new MemberDao().selectListCount(conn);
@@ -236,7 +242,10 @@ public Member loginMember(String memberId , String memberPwd) {
 
 		return listCount;
 	}
-	
+	/***
+	 * 
+	 * 자기글 - 캠프리뷰 게시판
+	 */
 	public ArrayList<CampReview> crselectList(PageInfo pi,String memberId) {
 		Connection conn = JDBCTemplate.getConnection();
 
@@ -246,6 +255,10 @@ public Member loginMember(String memberId , String memberPwd) {
 
 		return list;
 	}
+	/***
+	 * 
+	 * 자기글 - 캠프리뷰 게시판 - 페이징 처리
+	 */
 	
 	public int crselectListCount() {
 		Connection conn = JDBCTemplate.getConnection();
@@ -255,7 +268,10 @@ public Member loginMember(String memberId , String memberPwd) {
 
 		return listCount;
 	}
-	
+	/***
+	 * 
+	 * 자기글 - 중고게시판
+	 */
 	public ArrayList<Market> upselectList(PageInfo pi,String memberId) {
 		Connection conn = JDBCTemplate.getConnection();
 
@@ -265,7 +281,10 @@ public Member loginMember(String memberId , String memberPwd) {
 
 		return list;
 	}
-	
+	/***
+	 * 자기글 - 중고게시판 - 페이징 처리
+	 * 
+	 */
 	public int upselectListCount() {
 		Connection conn = JDBCTemplate.getConnection();
 		int listCount = new MemberDao().upselectListCount(conn);
@@ -274,6 +293,10 @@ public Member loginMember(String memberId , String memberPwd) {
 
 		return listCount;
 	}
+	/***
+	 * 
+	 * 자기글 - 레시피 게시판
+	 */
 	
 	public ArrayList<Recipe> cpselectList(PageInfo pi,String memberId) {
 		Connection conn = JDBCTemplate.getConnection();
@@ -284,7 +307,10 @@ public Member loginMember(String memberId , String memberPwd) {
 
 		return list;
 	}
-	
+	/***
+	 * 
+	 * 자기글 - 레시피 게시판- 페이징 처리
+	 */
 	public int cpselectListCount() {
 		Connection conn = JDBCTemplate.getConnection();
 		int listCount = new MemberDao().cpselectListCount(conn);

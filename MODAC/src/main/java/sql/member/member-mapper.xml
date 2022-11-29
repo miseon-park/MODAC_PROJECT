@@ -34,6 +34,8 @@
 		WHERE MEMBER_ID = ?
 	</entry>
 
+
+<!-- 마이페이지에서 회원정보 수정 -->
 <entry key="updateMember">
 	UPDATE MEMBER
 	SET MEMBER_NAME=?,
@@ -51,6 +53,8 @@
 		AND STATUS = 'N'
 	</entry>
 	
+	
+	<!--  마이페이지에서 비밀번호 변경 -->
 	<entry key = "updatePwdMember">
 		UPDATE MEMBER
 		SET MEMBER_PWD = ?,
@@ -58,6 +62,7 @@
 		WHERE MEMBER_ID = ? AND MEMBER_PWD = ?
 	</entry>
 	
+	<!-- 마이페이지에서 회원탈퇴 -->
 	<entry key = "deleteMember">
 		UPDATE MEMBER
 		SET STATUS = 'N'
@@ -92,6 +97,8 @@
 		)
 	</entry>
 	
+	
+	<!-- 자기글 - 동아리 게시판 -->
 	<entry key = "selectList">
 	SELECT *
 	FROM(
@@ -114,12 +121,15 @@
 		 WHERE RNUM BETWEEN ? AND ?
 </entry>
 
+
+<!-- 자기글 - 동아리 게시판 - 페이징 처리 -->
 <entry key = "selectListCount">
 	SELECT COUNT(*) READ_COUNT
 	FROM CIRCLE
 	WHERE STATUS = 'N'	
 </entry>
 
+<!-- 자기글 - 캠프리뷰 게시판 -->
 <entry key = "crselectList">
 	SELECT *
 	FROM(
@@ -142,12 +152,14 @@
 		 WHERE RNUM BETWEEN ? AND ?
 </entry>
 
+<!-- 자기글 - 캠프리뷰 게시판 - 페이징 처리 -->
 <entry key = "crselectListCount">
 	SELECT COUNT(*) READ_COUNT
 	FROM CAMP_REVIEW
 	WHERE STATUS = 'N'	
 </entry>
 
+<!-- 자기글 - 중고게시판 -->
 <entry key = "upselectList">
 	SELECT *
 	FROM(
@@ -170,11 +182,14 @@
 		 WHERE RNUM BETWEEN ? AND ?
 </entry>
 
+<!-- 자기글 - 중고게시판 - 페이징 처리 -->
 <entry key = "upselectListCount">
 	SELECT COUNT(*) READ_COUNT
 	FROM USED_PRODUCT
 	WHERE STATUS = 'N'	
 </entry>
+
+<!-- 자기글 - 레시피 게시판 -->
 <entry key = "cpselectList">
 	SELECT *
 	FROM(
@@ -197,6 +212,7 @@
 		 WHERE RNUM BETWEEN ? AND ?
 </entry>
 
+<!-- 자기글 - 레시피 게시판- 페이징 처리 -->
 <entry key = "cpselectListCount">
 	SELECT COUNT(*) READ_COUNT
 	FROM RECIPE

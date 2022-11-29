@@ -141,7 +141,10 @@ public class MemberDao {
 	    return count;
 	}
 	
-	
+	/***
+	 * 마이페이지에서 회원정보 수정
+	 * 
+	 */
 	public int updateMember(Member m, Connection conn) {
 		int result = 0;
 		
@@ -180,6 +183,10 @@ public class MemberDao {
 		
 	}
 	
+	/***
+	 * 마이페이지에서 비밀번호 변경
+	 * 
+	 */
 	public int updatePwdMember(String memberId, String memberPwd, String updatePwd, Connection conn) {
 		int result = 0;
 		PreparedStatement psmt = null;
@@ -249,6 +256,11 @@ public Member selectMember(String memberId, Connection conn) {
 		return m;
 		
 	}
+
+
+/***
+ * 마이페이지에서 회원탈퇴
+ */
 public int deleteMember(String memberId, String memberPwd, Connection conn) {
 	int result = 0;
 	
@@ -376,11 +388,11 @@ public int fineUpdatePwd(String memberId, String memberName, String email, Strin
 	}
 	return result;
 }
-/**
- * 맴버커밋
- * @param memberId
- * @param conn
- * @return
+
+
+/***
+ * 
+ * 자기글 - 동아리 게시판
  */
 
 public ArrayList<Circle> selectList(Connection conn, PageInfo pi,String memberId){
@@ -446,6 +458,10 @@ public ArrayList<Circle> selectList(Connection conn, PageInfo pi,String memberId
 	
 }
 
+/***
+ * 자기글 - 동아리 게시판 - 페이징 처리
+ * @return
+ */
 public int selectListCount(Connection conn ) {
 	// select문 -> Result객체
 	int listCount = 0;
@@ -480,6 +496,10 @@ public int selectListCount(Connection conn ) {
 	
 	
 }
+/***
+ * 
+ * 자기글 - 캠프리뷰 게시판
+ */
 public ArrayList<CampReview> crselectList(Connection conn, PageInfo pi,String memberId){
 	
 	//select문 => ResultSet
@@ -542,7 +562,10 @@ public ArrayList<CampReview> crselectList(Connection conn, PageInfo pi,String me
 	return list;
 	
 }
-
+/***
+ * 
+ * 자기글 - 캠프리뷰 게시판 - 페이징 처리
+ */
 public int crselectListCount(Connection conn ) {
 	// select문 -> Result객체
 	int listCount = 0;
@@ -577,6 +600,11 @@ public int crselectListCount(Connection conn ) {
 	
 	
 }
+
+/***
+ * 
+ * 자기글 - 중고게시판
+ */
 
 public ArrayList<Market> upselectList(Connection conn, PageInfo pi,String memberId){
 	
@@ -641,6 +669,11 @@ public ArrayList<Market> upselectList(Connection conn, PageInfo pi,String member
 	
 }
 
+/***
+ * 자기글 - 중고게시판 - 페이징 처리
+ * 
+ */
+
 public int upselectListCount(Connection conn ) {
 	// select문 -> Result객체
 	int listCount = 0;
@@ -675,6 +708,12 @@ public int upselectListCount(Connection conn ) {
 	
 	
 }
+
+
+/***
+ * 
+ * 자기글 - 레시피 게시판
+ */
 public ArrayList<Recipe> cpselectList(Connection conn, PageInfo pi,String memberId){
 	
 	//select문 => ResultSet
@@ -738,6 +777,11 @@ public ArrayList<Recipe> cpselectList(Connection conn, PageInfo pi,String member
 	return list;
 	
 }
+
+/***
+ * 
+ * 자기글 - 레시피 게시판- 페이징 처리
+ */
 
 public int cpselectListCount(Connection conn ) {
 	// select문 -> Result객체
