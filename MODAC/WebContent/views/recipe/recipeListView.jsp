@@ -16,6 +16,8 @@
 <script type="text/javascript" src="/___vscode_livepreview_injected_script"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Hahmlet&family=Poor+Story&family=Do+Hyeon&display=swap');
@@ -184,7 +186,9 @@
 						</div>
 						
 						<div class="card-body">
-							<span><%=r.getMemberNic()%></span> <span class="date"><%=r.getCreateDate()%></span>
+						
+							<span style="font-size: 18px;">&nbsp;<%=r.getMemberNic() %></span>
+							<span class="date" style="font-size: 15px;"><%=r.getCreateDate() %>&nbsp;</span>
 							<br><br>
 							<h5 class="card-title z"><%=r.getPostTitle()%></h5>
 	

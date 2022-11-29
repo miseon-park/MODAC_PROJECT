@@ -154,11 +154,11 @@
 	                <h3>&nbsp;<%=cr.getPostTitle()%></h3>
 	                 
 	                <br> 
-	                <span>&nbsp; 작성자 : <%=cr.getMemberNic()%></span>
 	                
-	                <span class="date">작성일 : <%=cr.getCreateDate() %>&nbsp;</span>
-	                 
-	                <br><br>
+	                <span style="font-size: 20px;"><b>&nbsp;<i class="bi bi-person-circle"></i>&nbsp;<%=cr.getMemberNic() %></b></span>
+
+					<span class="date" style="font-size: 16px;"><%=cr.getCreateDate() %>&nbsp;</span>
+	                <br>
 	                <div class="form-control" style="height:100%;">
 	                	<div style="text-align:center">
 	                     <% if(cr.getTitleImg() != null ) { %>

@@ -68,6 +68,9 @@
 		width: 60%;
 		margin: auto;
 	}
+	div{
+		word-break:break-all;
+	}
 	.foorm-control {
 	    display: block;
 	    width: 100%;
@@ -184,10 +187,10 @@
 			                    &nbsp;
 								<i class="bi bi-chat-dots"></i>  <span><%=cs.getReplyCount()%></span>
 			                  	
-			                  	<br><br>
-								<span><b>&nbsp;<%=cs.getMemberNic() %></b></span>
+			                  	<br><hr>
+								<span style="font-size: 20px;"><b>&nbsp;<i class="bi bi-person-circle"></i>&nbsp;<%=cs.getMemberNic() %></b></span>
 
-								<span class="date"><%=cs.getCreateDate() %>&nbsp;</span>
+								<span class="date" style="font-size: 16px;"><%=cs.getCreateDate() %>&nbsp;</span>
 								<br><br><br>
 								<div style="padding:5px;"> <%=cs.getPostContent() %></div> 						  
 			               		
@@ -197,7 +200,7 @@
 			
 				       
 				        <hr>
-			            <h5>댓글</h5>
+			            <h5>댓글 <i class="bi bi-chat-dots"></i></h5>
 			            <%if(loginMember!=null){ %>
 			               <div class="reply-area">
 			                  <div class="replyText">

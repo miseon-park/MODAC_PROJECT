@@ -186,7 +186,8 @@
 							</div>
 							
 							<div class="card-body">
-								<span><%=cs.getMemberNic()%></span> <span class="date"><%=cs.getCreateDate()%></span>
+								<span style="font-size: 16px;"><b><%=cs.getMemberNic()%></b></span>
+								<span class="date" style="font-size: 14px;"><%=cs.getCreateDate()%></span>
 								<br>
 								<br>
 								<p>

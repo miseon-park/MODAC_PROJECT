@@ -72,7 +72,6 @@ public class camStagramListController extends HttpServlet {
 		
 		ArrayList<CamStagram> list = new CamStagramService().selectCamStagramList(pi, field, query);
 
-		System.out.println("list(con) : "+list);
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi); 
 		request.getRequestDispatcher("views/camStagram/camStagramListView.jsp").forward(request, response);

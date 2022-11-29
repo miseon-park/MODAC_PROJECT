@@ -29,7 +29,7 @@
 			
 		}
 	    .image-box {
-		    width:380px;
+		    width:18%;
 		    height:220px;
 		    overflow:hidden;
 		    margin:0 auto;
@@ -58,6 +58,32 @@
 		    -webkit-line-clamp: 3;
 		    -webkit-box-orient: vertical;	
 		}
+		.date{
+			float : right;
+			font-size: 10px;
+			text-align:center;
+		}
+		.card-b div {
+	  		border : white;
+	  		padding : 2px;
+	  		font-size: 13px;
+	  		
+	  		display: inline-block;
+		    width: 95%;
+		    white-space: nowrap;
+		    overflow: hidden;
+		    text-overflow: ellipsis;
+		
+		    /* 여러 줄 자르기 추가 스타일 */
+		    white-space: normal;
+		    line-height: 1.5;
+		    height: 3em;
+		    text-align: left;
+		    word-wrap: break-word;
+		    display: -webkit-box;
+		    -webkit-line-clamp: 2;
+		    -webkit-box-orient: vertical;
+		}
 
 	   
 </style>
@@ -78,13 +104,16 @@
 						<img src="<%=contextPath%>/<%=cs.getTitleImg()%>"
 						class="image-thumbnail" width="200px" height="150px">
 					</div>
-					<div class="card-bx`ody">
-						<span><%=cs.getMemberNic()%></span> 
+					<div class="card-b">
+						<span style="font-size: 14px;">&nbsp;<b><%=cs.getMemberNic()%></b></span> 
 						<span class="date"><%=cs.getCreateDate()%></span>
-						<br><br>
-						<p>
+						<br>
+						<div>
 							<%=cs.getPostContent()%>
-						</p>
+						</div>
+						&nbsp;
+						<i class="bi bi-suit-heart" style="font-size: 13px;"></i>  <span style="font-size: 13px;"><%=cs.getLikeCount() %></span> &nbsp; 
+	  					<i class="bi bi-chat-dots" style="font-size: 13px;"></i>  <span style="font-size: 13px;"><%=cs.getReplyCount()%></span>
 					</div>
 				</div>	
 		

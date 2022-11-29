@@ -48,7 +48,9 @@ public class bestDao {
         				rset.getString("POST_NO"),
 		                rset.getString("POST_CONTENT"),
 						rset.getString("MEMBER_NIC"),
-						rset.getDate("CREATE_DATE")
+						rset.getDate("CREATE_DATE"),
+						rset.getString("LIKE_COUNT"),
+						rset.getString("REPLY_COUNT")
 						));
 			}
 			
