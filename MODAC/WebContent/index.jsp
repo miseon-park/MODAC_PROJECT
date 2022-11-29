@@ -81,7 +81,7 @@
 </head>
 <body>
 
-	<%@ include file="/views/common/menubar.jsp" %>
+	<%@ include file="/views/common/sample.jsp" %>
 
 	<div id="main-img">
 		<img src="<%= request.getContextPath() %>/resources/메인 홈페이지 배너.png" alt="이미지 로딩 실패" width="1500px">
