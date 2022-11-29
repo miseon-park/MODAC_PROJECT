@@ -235,7 +235,7 @@
     <div id="nav-area" align="center">
         <ul id="mainMenu">
             <li><a href="<%=contextPath %>/list.ca">캠핑장 검색</a></li>
-            <li><a href="">공지사항</a>
+            <li><a href="" id="main1">공지사항</a>
                 <ul id="subMenu1">
                     <li><a href="">모닥불 소식</a></li>
                     <li><a href="">캠핑 팁</a></li>
@@ -243,7 +243,7 @@
                     <li><a href="">FAQ</a></li>
                 </ul>
             </li>
-            <li><a href="">모닥불 이야기</a>
+            <li><a href="" id="main2">모닥불 이야기</a>
                 <ul id="subMenu2">
                     <li><a href="">캠핑장 리뷰</a></li>
                     <li><a href="">레시피 자랑</a></li>
@@ -267,9 +267,20 @@
             $("#icon").on("mouseover", function() {
                 $("#subMenu1").css({"visibility":"visible", "opacity": "1"});
                 $("#subMenu2").css({"visibility":"visible", "opacity": "1"});
-            })
+            });
         });
-        
+
+
+        $(document).ready(function() {
+            $("#icon").on("mouseout", function() {
+                $("#subMenu1").css({"visibility":"hidden", "opacity": "0"});
+                $("#subMenu2").css({"visibility":"hidden", "opacity": "0"});
+            });
+        });
+
+
+
+
     </script>
 
 
