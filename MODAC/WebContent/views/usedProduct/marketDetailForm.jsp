@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" 
-    import="java.util.ArrayList, com.modac.usedProduct.model.vo.*"%>
+    import="java.util.ArrayList, com.modac.usedProduct.model.vo.*
+    , com.modac.report.model.vo.report"%>
 <%
 	Market m = (Market)request.getAttribute("m");
 	ArrayList<Attachment> list = (ArrayList<Attachment>)request.getAttribute("list");
+	/* int count = (int)request.getAttribute("count"); */
 %>
     
 <!DOCTYPE html>
@@ -202,6 +204,96 @@
        .replyList{
           width : 100%;
        }
+       
+    /*-------------신고하기---------------*/
+        /*모달 창 뒤*/
+        #modal.modal-overlay { 
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+
+            display: none;
+
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(1.5px);
+            -webkit-backdrop-filter: blur(1.5px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        /*모달창*/
+        #modal .modal-window {
+            background: rgba( 69, 139, 197, 0.70 );
+            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+            backdrop-filter: blur( 13.5px );
+            -webkit-backdrop-filter: blur( 13.5px );
+            border-radius: 10px;
+            border: 1px solid rgba( 255, 255, 255, 0.18 );
+            width: 400px;
+            height: 500px;
+            position: relative;
+            top: -100px;
+            padding: 10px;
+        }
+        /*모달 제목*/
+        #modal .title {
+            
+            padding-left: 10px;
+            display: inline;
+            text-shadow: 1px 1px 2px gray;
+            color: white;
+            
+        }
+        #container #btn-modal{
+            
+            float: right;
+        }
+
+        /*모달 제목 글씨*/
+        #modal .title h2 {
+            
+            display: inline;
+            float: left;
+            
+
+        }
+
+        
+        
+
+        #reportTitle{
+            display: block;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            width: 330px;
+            margin-left: 20px;
+            
+            
+
+        }
+        #reportContent{
+            display: block;
+            resize: none;
+            margin-left: 20px;
+            margin-top: 20px;
+            padding: 0px 10px;
+            text-shadow: 1px 1px 2px gray;
+            color: white;
+            
+            
+        }
+
+        
+        #allbutton{
+            
+            padding-top: 10%;
+            float: right;
+        }
     
 </style>
 </head>
@@ -225,8 +317,41 @@
             	</div>
 			<% }else{ %>
 			<!-- 일반 이용자일 경우 신고하기 버튼이 보임 -->	
-				<button class="ring" style="float: right;">신고하기</button> 
-            <% } %>
+          <!-- ============================= 신고하기 ============================== -->
+    <div id="container">
+        <button id="btn-modal"  class="btn btn-outline-danger">신고하기</button>
+        <div id="lorem-ipsum"></div>
+    </div>
+
+    <div id="modal" class="modal-overlay">
+        <form action="<%=contextPath %>/report.ri" method="post">
+            <div class="modal-window">
+                <div class="title">
+                    <h2>신고하기</h2>
+                </div>
+                <hr>
+                <div class="content">
+
+                    <input type="hidden" name="postNo" 
+                        value="<%=m.getPostNo()%>">
+                    <input type="hidden" name="count" value="<%-- <%= count%> --%>">
+                    <div style="color: white;">신고 제목</div>
+                    <input type="text" id="reportTitle" name="reportTitle"
+                        placeholder="신고 제목 입력">
+                    <p style="color: white;">신고 내용</p><br>
+                    <textarea id="reportContent" name="reportContent"
+                        rows="5" cols="40"></textarea>
+                </div>
+                <hr>
+                <div id="allbutton">
+                    <input id="cancel" type="button" value="취소"
+                        class="btn btn-secondary">
+                    <button id="report" type="submit" class="btn btn-danger">신고하기</button>
+                </div>
+            </div>
+        </form>
+    </div> 
+    <% } %>
             
             <br>
             <table class="titleInfo">
@@ -326,7 +451,23 @@
             <a href="<%=contextPath%>/list.mk" class="btn btn-secondary btn-sm" id="listBtn">목록으로</a>
         </div>
     </div>
-    
+        <script>
+
+        
+        // 모달창열기
+        const modal = document.getElementById("modal")
+        const btnModal = document.getElementById("btn-modal")
+        btnModal.addEventListener("click", e => {
+            modal.style.display = "flex"
+        })
+        
+        // 취소버튼으로 닫기
+        const closeCancel = modal.querySelector("#cancel")
+        closeCancel.addEventListener("click", e => {
+            modal.style.display = "none"
+        })
+
+    </script>
     <script>
 		
 		 $(function(){
