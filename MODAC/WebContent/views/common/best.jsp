@@ -23,7 +23,7 @@
 		width: 200px; 
 		margin:30px; 
 		display: inline-block !important;
-		border: 3px solid black;
+		
 	}
 		#hi{
 			padding-top: 40px;

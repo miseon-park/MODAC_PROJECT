@@ -109,15 +109,15 @@
 		인기 갤러리
 	</div>
 		
-	<br>
 
 	<div id="gall">
 		
 	</div>
+	<br clear="both">
 
+	<%@ include file="/views/common/footerbar.jsp" %>
 
 </body>
-	<%@ include file="/views/common/footerbar.jsp" %>
 <script>
 	$.ajax({
 		url : "<%=request.getContextPath()%>/best.be",
