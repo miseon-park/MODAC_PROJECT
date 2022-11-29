@@ -18,7 +18,7 @@
 <title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <style>
-		@import url('https://fonts.googleapis.com/css2?family=Hahmlet&family=Poor+Story&family=Do+Hyeon&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hahmlet&family=Poor+Story&family=Do+Hyeon&display=swap');
 		.title {
         	text-align:center;
         	margin-top: 40px;
@@ -138,16 +138,16 @@
 <%@ include file="../common/menubar.jsp" %>
         <div class="content">
             <div class="content1">
-                <nav class="flex-column">
-                    <a class="nav-link active sidemenu" aria-current="page" href="#">모닥불이야기</a><br><br>
-                    <a class="nav-link sidemenu2" href="<%=contextPath%>/list.cr">캠핑장 리뷰</a>
-                    <a class="nav-link sidemenu2" href="<%=contextPath%>/list.r">캠핑 레시피</a>
-                    <a class="nav-link sidemenu2" href="<%=contextPath%>/list.cs">캠핑스타그램</a>
-                  </nav>
+				<nav class="flex-column">
+					<a class="sidemenu" aria-current="page" href="#"><i class="bi bi-fire"></i> &nbsp;모닥불이야기</a><br><br> 
+	                <a class="nav-link sidemenu2" href="<%=contextPath%>/list.cr">캠핑장 리뷰</a>
+	                <a class="nav-link sidemenu2" href="<%=contextPath%>/list.r">캠핑 레시피</a>
+	                <a class="nav-link sidemenu2" href="<%=contextPath%>/list.cs">캠핑스타그램</a>
+				</nav>
             </div>
             <div class="content2">
 				<br>
-                <h3 class="title">캠핑장 레시피</h3>
+                <h3 class="title">캠핑 레시피</h3>
 				<br>
 
 				<nav class="navbar">
@@ -168,7 +168,7 @@
 				<div class="list-area">
 					<% if(loginMember != null) { %>
 						<div align="right">
-			                <a href="<%=contextPath %>/enrollForm.r" class="btn btn-secondary last1">글쓰기</a> 
+			                <a href="<%=contextPath %>/enrollForm.r" class="btn" id="button2">글쓰기</a> 
 		            	</div>
 		            <% } %>
 		            <br>
@@ -226,7 +226,7 @@
 		              <%if(i != currentPage) {%>
 		                 <button  class="pageBtn" onclick="doPageClick(<%=i%>)"><%=i %></button>
 		              <%} else {%>
-		                 <button class="pageBtn" disabled><%= i %></button>
+		                 <button class="pageBtn" style="background-color: orange; color: white;" disabled><%= i %></button>
 		              <%} %>
 		           <% } %>
 		         

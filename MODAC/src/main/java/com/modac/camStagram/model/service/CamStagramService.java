@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.modac.common.model.vo.Attachment;
 import com.modac.common.model.vo.PageInfo;
+import com.modac.common.model.vo.Reply;
 import com.modac.camStagram.model.dao.CamStagramDao;
 import com.modac.camStagram.model.vo.BoardLike;
 import com.modac.camStagram.model.vo.CamStagram;
@@ -206,6 +207,29 @@ public class CamStagramService {
 		close();
 	}
 	
+	public ArrayList<Reply> selectReplyList(int postNo){
+		
+	      Connection conn = getConnection();
+	      ArrayList<Reply> list = new CamStagramDao().selectReplyList(conn, postNo);
+	      
+	      close();
+	      return list;
+	      
+	   }
+	
+	public int insertReply(Reply r) {
+	      
+	      Connection conn = getConnection();
+	      
+	      int result = new CamStagramDao().insertReply(conn, r);
+	      if(result>0) {
+	         commit(conn);
+	         
+	      }else {
+	         rollback(conn);
+	      }
+	      return result;
+	   }
 	
 	
 	

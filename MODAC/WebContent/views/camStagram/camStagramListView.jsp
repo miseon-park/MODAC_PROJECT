@@ -140,16 +140,17 @@
 <%@ include file="../common/menubar.jsp" %>
         <div class="content">
             <div class="content1">
-                <nav class="flex-column">
-                    <a class="nav-link active sidemenu" aria-current="page" href="#">모닥불이야기</a><br><br>
-                    <a class="nav-link sidemenu2" href="<%=contextPath%>/list.cr">캠핑장 리뷰</a>
-                    <a class="nav-link sidemenu2" href="<%=contextPath%>/list.r">캠핑 레시피</a>
-                    <a class="nav-link sidemenu2" href="<%=contextPath%>/list.cs">캠핑스타그램</a>
-                  </nav>
+				<nav class="flex-column">
+					<a class="sidemenu" aria-current="page" href="#"><i class="bi bi-fire"></i> &nbsp;모닥불이야기</a><br><br> 
+	                <a class="nav-link sidemenu2" href="<%=contextPath%>/list.cr">캠핑장 리뷰</a>
+	                <a class="nav-link sidemenu2" href="<%=contextPath%>/list.r">캠핑 레시피</a>
+	                <a class="nav-link sidemenu2" href="<%=contextPath%>/list.cs">캠핑스타그램</a>
+				</nav>
             </div>
             <div class="content2">
 				<br>
                 <h3 class="title">캠핑 스타그램</h3>
+                <br>
                 
                 <nav class="navbar">
 					<form class="container-fluid">
@@ -169,7 +170,7 @@
 				<div class="list-area">
 					<% if(loginMember != null) { %>
 						<div align="right">
-			                <a href="<%=contextPath %>/enrollForm.cs" class="btn btn-secondary last1">글 작성</a> 
+			                <a href="<%=contextPath %>/enrollForm.cs" class="btn" id="button2">글쓰기</a> 
 		            	</div>
 		            <% } %>
 		            <br>
@@ -222,7 +223,7 @@
 		              <%if(i != currentPage) {%>
 		                 <button  class="pageBtn" onclick="doPageClick(<%=i%>)"><%=i %></button>
 		              <%} else {%>
-		                 <button class="pageBtn" disabled><%= i %></button>
+		                 <button class="pageBtn" style="background-color: orange; color: white;" disabled><%= i %></button>
 		              <%} %>
 		           <% } %>
 		         

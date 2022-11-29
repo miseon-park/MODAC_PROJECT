@@ -82,17 +82,57 @@
 	    border-radius: 0.25rem;
 	    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 	}
+	.reply-area{
+          width : 100%;
+          height : 80px;
+          margin : auto;
+       }
+       
+       .replyText{
+          width : 85%;
+          height : 100%;
+          border : 1px solid rgb(240, 165, 0);
+          float : left;
+       }
+       
+       .replyBtn{
+          width : 15%;
+          height : 100%;
+          background-color : rgb(240, 165, 0);
+          float : right;
+       }
+       
+       .inputReply{
+          width : 100%;
+          height : 100%;
+          resize : none;
+          border: none;
+          outline: none;
+       }
+       
+       .replyList{
+          width : 100%;
+       }
+       
+       table{
+          width : 100%;
+       }
+       
+       table tr{
+          width : 100%;
+          border-bottom : 1px solid antiquewhite;
+       }
 </style>
 </head>
 <body>
    <%@ include file="../common/menubar.jsp" %>
            <div class="content1">
-               <nav class="flex-column">
-                   <a class="nav-link active sidemenu" aria-current="page" href="#">모닥불이야기</a><br><br>
-                   <a class="nav-link sidemenu2" href="<%=contextPath%>/list.cr">캠핑장 리뷰</a>
-                   <a class="nav-link sidemenu2" href="<%=contextPath%>/list.r">캠핑 레시피</a>
-                   <a class="nav-link sidemenu2" href="<%=contextPath%>/list.cs">캠핑스타그램</a>
-                 </nav>
+			<nav class="flex-column">
+				<a class="sidemenu" aria-current="page" href="#"><i class="bi bi-fire"></i> &nbsp;모닥불이야기</a><br><br> 
+                <a class="nav-link sidemenu2" href="<%=contextPath%>/list.cr">캠핑장 리뷰</a>
+                <a class="nav-link sidemenu2" href="<%=contextPath%>/list.r">캠핑 레시피</a>
+                <a class="nav-link sidemenu2" href="<%=contextPath%>/list.cs">캠핑스타그램</a>
+			</nav>
            </div>
            
            <div class="content2">
@@ -103,11 +143,11 @@
              <br>
             	<div align="right">
                   <% if(loginMember != null && loginMember.getMemberNic().equals(cr.getMemberNic())) {%>
-                    	<a href="<%=contextPath %>/updateForm.cr?crno=<%=cr.getPostNo()%>" class="btn btn-secondary last1">수정하기</a>
-                    	<a href="<%=contextPath %>/delete.cr?crno=<%=cr.getPostNo()%>" class="btn btn-secondary last1">삭제하기</a>
+                    	<a href="<%=contextPath %>/updateForm.cr?crno=<%=cr.getPostNo()%>" class="btn" id="button2">수정하기</a>
+                    	<a href="<%=contextPath %>/delete.cr?crno=<%=cr.getPostNo()%>" class="btn" id="button1">삭제하기</a>
                   <% } %> 
                 </div>
-			    <br><br>
+			    <br>
 				    
 				<div class="foorm-control">
 	                <br><br>
@@ -160,9 +200,100 @@
 	                  <input type="checkbox" class="btn-check" name="tag" value="6" id="btncheck6" autocomplete="off">
 	                  <label class="btn btn-outline-primary" for="btncheck6">#주변 볼거리가 많아요</label>
 	               </div>
-	            </div>
-	            </div>
-		  	    <script>
+	            
+	            <hr>
+	            <h5>댓글</h5>
+	            <%if(loginMember!=null){ %>
+	               <div class="reply-area">
+	                  <div class="replyText">
+	                     <textarea class="inputReply" id="replyContent"></textarea>               
+	                  </div>
+	                  <div class="replyBtn" onclick="insertReply();">
+	                     <h5 style="color: white; text-align : center; margin-top : middle; line-height : 80px;">댓글 등록</h5>
+	                  </div>
+	               </div>
+	            <%} else { %>
+	               <div class="reply-area">
+	                  <div class="replyText">
+	                     <textarea class="inputReply" id="replyContent" readonly>로그인 후 이용이 가능한 서비스 입니다.</textarea>               
+	                  </div>
+	                  <div class="replyBtn" onclick="insertReply();">
+	                     <h5 style="color: white; text-align : center; margin-top : middle; line-height : 80px;" disabled>댓글 등록</h5>
+	                  </div>
+	               </div>
+	            <% } %>
+	            
+	            <div class="replyList">
+	               <table sytle="width : 100%;">
+	
+	
+	               </table>
+                </div>
+	         </div>  
+	      </div>
+	            
+	            <script>
+			       $(function(){
+			         selectReplyList();
+			         
+			         setInterval(selectReplyList, 10000);// 괄호 붙이면 메소드가 되어서 한번실행되고 안됨
+			      }); 
+			      
+			         
+			         function insertReply(){
+			            $.ajax({
+			               url:"replyinsert.cr",
+			               data : {
+			                  replycontent : $("#replyContent").val(), 
+			                  crno : ${cr.postNo}
+			               },
+			               
+			               type : "post",
+			               success : function(result){
+			                  if(result > 0){// 댓글등록 성공 => 갱신된 댓글리스트 조회
+			                     selectReplyList();
+			                  $("#replyContent").val("");
+			                  
+			                     
+			                  }
+			               },
+			               error : function(){
+			                  console.log("댓글 작성용 ajax 통신실패")
+			               }
+			            })
+			         };
+			         
+			          function selectReplyList(){
+			            $.ajax({
+			               
+			               url:"replylist.cr",
+			               data:{crno : ${cr.postNo}},// 객체
+			               success:(list)=>{
+			                  
+			                  let result = "";
+			                  for(let i of list){
+			                     
+			                     
+			                     result+="<tr>"
+			                              +"<td>"+i.writer+"</td>"
+			                              +"<td>"+i.replyContent+"</td>"
+			                              +"<td>"+i.createDate+"</td>"
+			                              
+			                          +"</tr>"
+			                          
+			                     
+			                  }
+			                  $(".replyList>table").html(result); 
+			                  
+			               },
+			               error:function(){
+			                  console.log("댓글리스트 조회용 ajax통신 실패")
+			               }
+			            })
+			            
+			         }  
+
+
 			    <% if(rt != null) {%>
 		            $(function(){
 		                let tag = "<%= rt.getTagNo()%>"
@@ -180,7 +311,7 @@
 	            <br>
 	            
 	            <div align="center">
-	              <a href="<%=contextPath %>/list.cr" class="btn btn-secondary last1">목록으로</a>
+	              <a href="<%=contextPath %>/list.cr" class="btn" id="button2">목록으로</a>
 	            </div>
 	            <br>
 			    <br>

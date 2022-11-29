@@ -95,20 +95,20 @@
 <%@ include file="../common/menubar.jsp" %>
        <div class="content">
            <div class="content1">
-               <nav class="flex-column">
-                   <a class="nav-link active sidemenu" aria-current="page" href="#">모닥불이야기</a><br><br>
-                   <a class="nav-link sidemenu2" href="<%=contextPath%>/list.cr">캠핑장 리뷰</a>
-                   <a class="nav-link sidemenu2" href="<%=contextPath%>/list.r">캠핑 레시피</a>
-                   <a class="nav-link sidemenu2" href="<%=contextPath%>/list.cs">캠핑스타그램</a>
-                 </nav>
+				<nav class="flex-column">
+					<a class="sidemenu" aria-current="page" href="#"><i class="bi bi-fire"></i> &nbsp;모닥불이야기</a><br><br> 
+	                <a class="nav-link sidemenu2" href="<%=contextPath%>/list.cr">캠핑장 리뷰</a>
+	                <a class="nav-link sidemenu2" href="<%=contextPath%>/list.r">캠핑 레시피</a>
+	                <a class="nav-link sidemenu2" href="<%=contextPath%>/list.cs">캠핑스타그램</a>
+				</nav>
            </div>
            
            <div class="content2">
-			 <br>
-             <h3 class="title">캠핑 레시피</h3>
-             <br>
 
            <form id="enroll-form" class="insert-area" action="<%=contextPath %>/update.cs" method="post" enctype="multipart/form-data">
+			 <br>
+             <h3 class="title">캠핑 스타그램</h3>
+             <br>
               <input type="hidden" name="postNo" value="<%=cs.getPostNo() %>">
               
               <div class="foorm-control">
@@ -137,8 +137,8 @@
               </div>
               <br>
               <div align="center">
-                <button type="button" class="btn btn-secondary" class="last1" onclick="history.back();">이전으로</button>
-                <button type="submit" class="btn btn-secondary" class="last1">수정하기</button>
+                <button type="button" class="btn" id="button1" onclick="history.back();">이전으로</button>
+                <button type="submit" class="btn" id="button2">수정하기</button>
               </div>
            </form>
            <br><br>

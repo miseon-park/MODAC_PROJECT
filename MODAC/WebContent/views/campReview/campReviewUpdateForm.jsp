@@ -96,12 +96,12 @@
 <%@ include file="../common/menubar.jsp" %>
      <div class="content">
          <div class="content1">
-             <nav class="flex-column">
-                 <a class="nav-link active sidemenu" aria-current="page" href="#">모닥불이야기</a><br><br>
-                 <a class="nav-link sidemenu2" href="<%=contextPath%>/list.cr">캠핑장 리뷰</a>
-                 <a class="nav-link sidemenu2" href="<%=contextPath%>/list.r">캠핑 레시피</a>
-                 <a class="nav-link sidemenu2" href="<%=contextPath%>/list.cs">캠핑스타그램</a>
-               </nav>
+			<nav class="flex-column">
+				<a class="sidemenu" aria-current="page" href="#"><i class="bi bi-fire"></i> &nbsp;모닥불이야기</a><br><br> 
+                <a class="nav-link sidemenu2" href="<%=contextPath%>/list.cr">캠핑장 리뷰</a>
+                <a class="nav-link sidemenu2" href="<%=contextPath%>/list.r">캠핑 레시피</a>
+                <a class="nav-link sidemenu2" href="<%=contextPath%>/list.cs">캠핑스타그램</a>
+			</nav>
          </div>
          
          <div class="content2">

@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.modac.common.model.vo.PageInfo;
+import com.modac.common.model.vo.Reply;
 import com.modac.recipe.model.dao.RecipeDao;
+import com.modac.camStagram.model.dao.CamStagramDao;
 import com.modac.campReview.model.dao.CampReviewDao;
 import com.modac.common.model.vo.Attachment;
 import com.modac.recipe.model.vo.Recipe;
@@ -151,6 +153,31 @@ public class RecipeService {
 		}
 		close();
 	}
+	
+
+	public ArrayList<Reply> selectReplyList(int postNo){
+		
+	      Connection conn = getConnection();
+	      ArrayList<Reply> list = new RecipeDao().selectReplyList(conn, postNo);
+	      
+	      close();
+	      return list;
+	      
+	   }
+	
+	public int insertReply(Reply r) {
+	      
+	      Connection conn = getConnection();
+	      
+	      int result = new RecipeDao().insertReply(conn, r);
+	      if(result>0) {
+	         commit(conn);
+	         
+	      }else {
+	         rollback(conn);
+	      }
+	      return result;
+	   }
 	
 	
 	

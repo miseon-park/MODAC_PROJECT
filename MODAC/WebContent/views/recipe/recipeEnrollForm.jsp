@@ -91,22 +91,23 @@
 <%@ include file="../common/menubar.jsp" %>
         <div class="content">
             <div class="content1">
-                <nav class="flex-column">
-                    <a class="nav-link active sidemenu" aria-current="page" href="#">모닥불이야기</a><br><br>
-                    <a class="nav-link sidemenu2" href="<%=contextPath%>/list.cr">캠핑장 리뷰</a>
-                    <a class="nav-link sidemenu2" href="<%=contextPath%>/list.r">캠핑 레시피</a>
-                    <a class="nav-link sidemenu2" href="<%=contextPath%>/list.cs">캠핑스타그램</a>
-                </nav>
+				<nav class="flex-column">
+					<a class="sidemenu" aria-current="page" href="#"><i class="bi bi-fire"></i> &nbsp;모닥불이야기</a><br><br> 
+	                <a class="nav-link sidemenu2" href="<%=contextPath%>/list.cr">캠핑장 리뷰</a>
+	                <a class="nav-link sidemenu2" href="<%=contextPath%>/list.r">캠핑 레시피</a>
+	                <a class="nav-link sidemenu2" href="<%=contextPath%>/list.cs">캠핑스타그램</a>
+				</nav>
             </div>
             <div class="content2">
-			  <br>
-              <h3 class="title">캠핑 레시피</h3>
-              <br>
               
               <form id="enroll-form" class="insert-area" action="<%=contextPath %>/insert.r" method="post" enctype="multipart/form-data">
               	<input type="hidden" name="memberNo" value="<%=loginMember.getMemberNo() %>">
               	
+				<br>
+	            <h3 class="title">캠핑 레시피</h3>
+	            <br>
               	<div class="foorm-control">
+              	
                 	<input type="text" class="form-control" placeholder="제목을 입력해주세요." aria-label="title" name="title">
                   
                     <input type="file" class="form-control" name="upfile" id="upfile" onchange="loadImg(this, 1);">      
@@ -159,8 +160,8 @@
               
                  <br>
 	             <div align="center">       
-	               <button type="button" class="btn btn-secondary" class="last1" onclick="history.back();">목록으로</button>
-	               <button type="submit" class="btn btn-secondary" class="last1">등록하기</button>
+	               <button type="button" class="btn" id="button2" onclick="history.back();">목록으로</button>
+	               <button type="submit" class="btn" id="button1" class="last1">등록하기</button>
 	             </div>
               </form>
               

@@ -3,11 +3,13 @@ package com.modac.campReview.model.service;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.modac.camStagram.model.dao.CamStagramDao;
 import com.modac.campReview.model.dao.CampReviewDao;
 import com.modac.campReview.model.vo.CampReview;
 import com.modac.campReview.model.vo.ReviewTag;
 import com.modac.common.model.vo.Attachment;
 import com.modac.common.model.vo.PageInfo;
+import com.modac.common.model.vo.Reply;
 
 import static com.modac.common.JDBCTemplate.*;
 
@@ -182,6 +184,30 @@ public class CampReviewService {
 		}
 		close();
 	}
+	
+	public ArrayList<Reply> selectReplyList(int postNo){
+		
+	      Connection conn = getConnection();
+	      ArrayList<Reply> list = new CampReviewDao().selectReplyList(conn, postNo);
+	      
+	      close();
+	      return list;
+	      
+	   }
+	
+	public int insertReply(Reply r) {
+	      
+	      Connection conn = getConnection();
+	      
+	      int result = new CampReviewDao().insertReply(conn, r);
+	      if(result>0) {
+	         commit(conn);
+	         
+	      }else {
+	         rollback(conn);
+	      }
+	      return result;
+	   }
 	
 	
 	
