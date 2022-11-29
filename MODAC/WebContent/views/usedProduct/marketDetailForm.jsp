@@ -315,7 +315,9 @@
                 	<button id="endSaleBtn">판매완료</button>
                 <% } %>
             	</div>
-			<% }else{ %>
+			<% }
+        	
+        	if (loginMember != null && !(loginMember.getMemberNo().equals(m.getMemberNo()))){ %>
 			<!-- 일반 이용자일 경우 신고하기 버튼이 보임 -->	
           <!-- ============================= 신고하기 ============================== -->
     <div id="container">
