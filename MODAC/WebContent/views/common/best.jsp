@@ -19,8 +19,8 @@
 		float: left;
 	}
 	.card{
-		width: 200px; 
-		margin:30px; 
+		width: 17%; 
+		margin: 1%; 
 		display: inline-block !important;
 		
 	}
