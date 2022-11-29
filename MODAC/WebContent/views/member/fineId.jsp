@@ -26,7 +26,6 @@
         .clicked{
             background-color: white;
         }
-
         #fineid{
             float: left;
             /* border: 1px solid black; */
@@ -48,7 +47,6 @@
             width: 247px;
             height: 70px;
         }
-
         #divid{
             text-align : center;
             margin-top: 50px;
@@ -58,7 +56,6 @@
             width: 200px;
             height: 30px;
         }
-
         #divname{
             text-align : center;
             margin-top: 50px;
@@ -68,7 +65,6 @@
             width: 200px;
             height: 30px;
         }
-
         #divemail{
             text-align : center;
             margin-top: 40px;
@@ -78,7 +74,6 @@
             width: 200px;
             height: 30px;
         }
-
         #btn{
             text-align : center;
             padding : 20px 0;
@@ -100,7 +95,7 @@
                 <button class="button" onclick="location.href = '<%=contextPath %>/views/member/fineId.jsp'">아이디찾기</button>
             </div>
             <div id="finepwd">
-                <button class="button" onclick="location.href = '<%=contextPath %>/views/member/finePwd.jsp'">비밀번호찾기</button>
+                <button class="button" onclick="location.href = '<%=contextPath%>/views/member/findPwd.jsp'">비밀번호찾기</button>
             </div> 
         </div>
         
@@ -119,23 +114,25 @@
 	
         <script>
             $("#memberName").focusout(function(){
-                if($('#memberName').val() == ""){
-                        $('#check').text('이름을 입력해주세요.');
-                        $('#check').css('color', 'red');
                 
-                }else{
-                    $('#check').hide();
-                }
-            });
+           if($('#memberName').val() == ""){
+                 $('#check').text('이름을 입력해주세요.');
+                   $('#check').css('color', 'red');
+         
+           }else{
+               $('#check').hide();
+           }
+           });
            
             $("#email").focusout(function(){
-                if($('#email').val() == ""){
-                        $('#check').text('이메일을 입력해주세요');
-                        $('#check').css('color', 'red');
-                }else{
-                    $('#check').hide();
-                }
-            });
+           if($('#email').val() == ""){
+                 $('#check').text('이메일을 입력해주세요');
+                   $('#check').css('color', 'red');
+           }else{
+               $('#check').hide();
+           }
+           });
+            
             
     </script>
     </div>    

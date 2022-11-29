@@ -14,13 +14,11 @@ public class Member {
 	private int memberLevel;
 	private String email;
 	
+	
 	public Member() {
 		
 	}
 	
-	public Member(String memberPwd) {
-		this.memberPwd = memberPwd;
-	}
 	
 	public Member(String memberId, String memberPwd, String memberName, String memberNic, String email) {
 		super();
@@ -31,12 +29,24 @@ public class Member {
 		this.email = email;
 	}
 	
+	
+	// 아이디 찾기
 	public Member(String memberName, String email) {
 		super();
 		this.memberName = memberName;
 		this.email = email;
 	}
 
+	
+	
+	
+	// 비밀번호 찾기
+	public Member(String memberPwd) {
+		this.memberPwd = memberPwd;
+	}
+	
+	
+	
 	public String getMemberNo() {
 		return memberNo;
 	}
@@ -120,4 +130,6 @@ public class Member {
 	
 	
 	
+	
 }
+

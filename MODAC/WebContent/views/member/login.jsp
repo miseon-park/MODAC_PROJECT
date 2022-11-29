@@ -1,11 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.modac.member.model.vo.Member"%>
-    <% 
-/*         String contextPath = request.getContextPath();
-	    Member loginMember = (Member) session.getAttribute("loginMember");
-	    String alertMsg = (String) session.getAttribute("alertMsg"); */
-
-    %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +11,6 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-	<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> -->
 <style>
 li{ list-style: none; }
 a{ text-decoration: none; }
@@ -32,7 +25,7 @@ body{
 #login_form{
     width: 400px; height: 600px;
     margin: auto; /* 블록요소를 부모영역에서 가운데 처리 */
-    border: 1px solid red;
+    border: 4px solid #F0A500;
 }
 h2{
     height: 80px;
@@ -48,7 +41,7 @@ h2{
     margin: 30px auto;
     padding: 0 20px;
     box-sizing: border-box;
-    border: none;
+    border: 1px solid black;
    
 }
 .login input[type=checkbox]{
@@ -87,37 +80,28 @@ h2{
 </style>
 </head>
 <body>
-<%@ include file="../common/menubar.jsp" %>
-	<script>
-		let msg = "<%= alertMsg%>"; // let msg = 성공적으로 로그인이 되었습니다.
-		if(msg != "null"){
-			alert(msg);
-			// 알림창을 띄워준후 session에 담긴 해당메세지는 지워줘야함.
-			// 안그러면 menubar.jsp가 로딩될때마다 매번 alert가 계속 뜰것
-			
-			<% session.removeAttribute("alertMsg");%>
-		}
-	</script>
+	<%@ include file = "../common/menubar.jsp" %>
+
+    <script>
+        let msg = "<%= alertMsg%>"; // let msg = 성공적으로 로그인이 되었습니다.
+        if(msg != "null"){
+            alert(msg);
+            // 알림창을 띄워준후 session에 담긴 해당메세지는 지워줘야함.
+            // 안그러면 menubar.jsp가 로딩될때마다 매번 alert가 계속 뜰것
+            <% session.removeAttribute("alertMsg");%>
+        }
+    </script>
+
+
+
 		<div id="back">
-<%-- 		<%if(loginMember == null) {%> --%>
-     		<form action="<%=contextPath %>/login.me" method="post">
+     		<form action="<%=contextPath %>/login.me" method="post" id="loginform">
 				<div class="login" id="login_form">
 				<h2>로그인</h2>
-				     <input id="loginId" type="text" name="memberId" placeholder="아이디">
-				     <input id="loginPwd" type="password" name="memberPwd" placeholder="비밀번호">
-				     <input type="checkbox"><span>로그인유지</span>
-
-<!-- 				<div class="alert alert-warning alert-dismissible fade show"
-					role="alert">
-					<strong>로그인 에러!</strong> 아이디 또는 비밀번호가 일치하지 않습니다.
-					<button type="button" class="close" data-dismiss="alert"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div> -->
-
-
-				<button id="loginbtn" style="background-color: #F0A500; color: white;" >로그인</button>
+				     <input class="inp" id="loginId" type="text" name="memberId" placeholder="아이디">
+				     <input class="inp" id="loginPwd" type="password" name="memberPwd" placeholder="비밀번호">
+				     <input type="checkbox" id="saveId"><span>아이디저장</span>
+					<button id="loginbtn" type="button" class="btn btn-warning" onclick="submitLogin();">로그인</button>
 			      <ul>
 			          <li><a href="<%=contextPath%>/MemberFineIdPwd.me">아이디/비밀번호찾기</a></li>
 			          <li><a href="<%=contextPath %>/enrollFrom.me">회원가입</a></li>
@@ -125,8 +109,54 @@ h2{
   				</div>
  			</form>
 		</div>
-</body>
 
+
+        <script>
+            $(function(){
+                getCookie();
+            });
+
+
+            function submitLogin(){
+            
+                let memberId = $("input[name=memberId]").val();
+                
+                if($("#saveId").is(":checked")){ // true 체크된 상태
+                    document.cookie = "saveId="+memberId+"; path=/; max-age="+60*60*24*7; // 쿠키 최대시간 설정 60ms * 60min * 24hour * 7day
+                    console.log("체크");
+                } else{ // 체크 안된상태
+                    document.cookie = "saveId="+memberId+"; path=/; max-age="+0; // 최대시간을 0으로 설정해서 해당쿠키를 제거.
+                }
+                let form = $("#loginform");
+                form.submit();
+            };
+
+
+            function getCookie(){
+                let value = "";
+                if(document.cookie.length>0){
+                    let index = document.cookie.indexOf("saveId="); // saveId = admin; path=/; max-age=0;
+                    if(index != -1){
+                        index += "saveId=".length;
+                        let end = document.cookie.indexOf(";",index);
+                        console.log(index, end);
+                        if(end == -1){
+                            value = document.cookie.substring(index);
+                        }else{
+                            value = document.cookie.substring(index, end);
+                        }
+                        $("input[name=memberId").val(value);
+                        $("#saveId").attr("ckecked","true");
+                    }
+                }
+            };
+            </script>
+
+
+
+
+
+</body>
 
 
 </html>

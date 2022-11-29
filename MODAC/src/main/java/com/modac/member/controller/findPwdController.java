@@ -44,7 +44,7 @@ public class findPwdController extends HttpServlet {
 		
 		if(findPwd == null) {
 			
-			request.setAttribute("errorMsg", "올바르지 않은 정보입니다.");
+			request.setAttribute("errorMsg", "등록된 정보가 없습니다.");
 			
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 
@@ -56,10 +56,11 @@ public class findPwdController extends HttpServlet {
 			request.setAttribute("memberName", memberName);
 			request.setAttribute("email", email);
 			
-//			request.setAttribute("findPwd", findPwd);
-			
 			rd.forward(request, response);
+			
 		}
+		
+		
 	}
 
 	/**

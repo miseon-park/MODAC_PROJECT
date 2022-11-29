@@ -105,16 +105,17 @@
         font-weight: 600;
         color: rgb(74,57,51);
         text-align: center;
-        text-decoration: none;
+        /* text-decoration: none; */
         letter-spacing: 0.05em;
         display: block;
         padding: 12px 36px;
     }
     #subMenu1, #subMenu2 {
         position: absolute;
-        background-color: rgb(240,165,0);
+        background-color: white;
         opacity: 0;
         visibility: hidden;
+        border: 3px solid rgb(240,165,0);
         
     }
     #subMenu1>li{
@@ -122,19 +123,19 @@
         border-bottom: 1px solid lightgray;
         text-align: center;
     }
+    
     #subMenu2>li{
         padding: 11px 42px;
         border-bottom: 1px solid lightgray;
         text-align: center;
     }
     #subMenu1>li>a, #subMenu2>li>a {
-        color: white;
-        font-weight: 300;
+        color: rgb(74,57,51);
+        font-weight: medium;
         text-decoration: none;
     }
     #mainMenu>li>a:hover {
-        background-color: rgb(240,165,0);
-        color: white;
+        color: rgb(240,165,0);
         
     }
     #mainMenu>li:hover #subMenu1 {
@@ -154,6 +155,14 @@
         visibility: visible;
     }
 
+    #subMenu1>li>a:hover {
+        color: rgb(240,165,0);
+        font-weight: bold;
+    }
+    #subMenu2>li>a:hover {
+        color: rgb(240,165,0);
+        font-weight: bold;
+    }
    
    
 
@@ -183,8 +192,8 @@
 
             <nav id="mini" >
                 <ul id="miniCon">
-                    <li><a href="<%=contextPath%>/MemberloginForm.me">로그인</a></li>
-                    <li><a href="<%=contextPath%>/enrollFrom.me">회원가입</a></li>
+                    <li><a href="<%=contextPath %>/MemberloginForm.me">로그인</a></li>
+                    <li><a href="<%=contextPath %>/enrollFrom.me">회원가입</a></li>
                     <li><a href="<%=contextPath%>/MemberFineIdPwd.me">아이디·비밀번호 찾기</a></li>
                 </ul>
             </nav>
@@ -201,7 +210,8 @@
                 <br clear="both">
 			</div>
             <br clear="both">
-			
+
+
 		<% } %>
 	
 	
@@ -212,7 +222,9 @@
     <br> 
 
     <div id="image">
-        <img src="/resources/최종로고_1.png" width="300px" alt="정상적 출력 실패">
+        <a href="<%=contextPath%>">
+            <img src="<%=contextPath %>/resources/최종로고_1.png" width="300px" alt="정상적 출력 실패" >
+        </a>
     </div>
     
     
@@ -222,7 +234,7 @@
     
     <div id="nav-area" align="center">
         <ul id="mainMenu">
-            <li><a href="">캠핑장 검색</a></li>
+            <li><a href="<%=contextPath %>/list.ca">캠핑장 검색</a></li>
             <li><a href="">공지사항</a>
                 <ul id="subMenu1">
                     <li><a href="">모닥불 소식</a></li>
@@ -233,27 +245,33 @@
             </li>
             <li><a href="">모닥불 이야기</a>
                 <ul id="subMenu2">
-                    <li><a href="">캠핑장 리뷰</a></li>
-                    <li><a href="">레시피 자랑</a></li>
-                    <li><a href="">사진스타그램</a></li>
+                    <li><a href="<%=contextPath%>/list.cr">캠핑장 리뷰</a></li>
+                    <li><a href="<%=contextPath%>/list.r">레시피 자랑</a></li>
+                    <li><a href="<%=contextPath%>/list.cs">사진스타그램</a></li>
                 </ul>
             </li>
             <li><a href="<%=contextPath%>/list.mk?currentPage=1">중고장터</a></li>
-            <li><a href="<%=contextPath%>/clist.bo?currentPage=1">동아리 모집</a></li>
+            <li><a href="">동아리 모집</a></li>
             <li><a id="icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-circle" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
-              </svg></a></li>
+              </svg></a>
+            </li>
               <br clear="both"> 
         </ul>
     </div>
-
-    <br>
-
-    <div>
-
-    </div>
-    <br>
     
+
+    <script>
+
+        $(document).ready(function() {
+            $("#icon").on("mouseover", function() {
+                $("#subMenu1").css({"visibility":"visible", "opacity": "1"});
+                $("#subMenu2").css({"visibility":"visible", "opacity": "1"});
+            })
+        });
+        
+    </script>
+
 
 
 </body>
