@@ -142,37 +142,63 @@ public class MarketDao {
 		return list;
 	}
 	
-	
-	//마켓 게시글조회 목록버전
-	public ArrayList<Market> marketListTwo(Connection conn){
-		ArrayList<Market> list = new ArrayList<>();
+	//게시글 목록 썸네일
+	public int marketListAtt(Connection conn ,String postNo, Attachment at) {
+		int result = 0;
 		
-		PreparedStatement psmt = null;		
-		ResultSet rset = null;
-		String sql = prop.getProperty("marketListTwo");
+		PreparedStatement psmt = null;
+		
+		String sql = prop.getProperty("marketListAtt");
 		
 		try {
 			psmt = conn.prepareStatement(sql);
 			
-			rset = psmt.executeQuery();
+			psmt.setString(1, postNo);
 			
-			while(rset.next()) {
-				list.add(new Market(rset.getString("POST_NO"),
-									rset.getString("POST_TITLE"),
-									rset.getDate("CREATE_DATE"),
-									rset.getInt("READ_COUNT"),
-									rset.getString("MEMBER_NIC")
-						));
-			}
+			at = new Attachment()
+			
+			
+			result = psmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
-			close(rset);
 			close(psmt);
 		}
-		return list;
+		return result;
 	}
+	
+	
+//	//마켓 게시글조회 목록버전
+//	public ArrayList<Market> marketListTwo(Connection conn){
+//		ArrayList<Market> list = new ArrayList<>();
+//		
+//		PreparedStatement psmt = null;		
+//		ResultSet rset = null;
+//		String sql = prop.getProperty("marketListTwo");
+//		
+//		try {
+//			psmt = conn.prepareStatement(sql);
+//			
+//			rset = psmt.executeQuery();
+//			
+//			while(rset.next()) {
+//				list.add(new Market(rset.getString("POST_NO"),
+//									rset.getString("POST_TITLE"),
+//									rset.getDate("CREATE_DATE"),
+//									rset.getInt("READ_COUNT"),
+//									rset.getString("MEMBER_NIC")
+//						));
+//			}
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}finally {
+//			close(rset);
+//			close(psmt);
+//		}
+//		return list;
+//	}
 
 
 	//게시글 상세페이지

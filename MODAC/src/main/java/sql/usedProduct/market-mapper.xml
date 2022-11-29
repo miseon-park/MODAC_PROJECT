@@ -17,6 +17,7 @@
 		AND STATUS = 'N'
 	</entry>
 	
+	<!-- 게시글 목록페이지 -->
 	<entry key="marketList">
 		SELECT * 
 		FROM (
@@ -37,6 +38,13 @@
 				) A	
 			)
 		WHERE RNUM BETWEEN ? AND ? 
+	</entry>
+	
+	<!-- 게시글 목록 썸네일 파일 -->
+	<entry key="marketListAtt">
+		SELECT NEWNAME
+		FROM ATTACHMENT
+		WHERE FILE_LEVEL = 1 AND POST_NO = ?
 	</entry>
 	
 	
@@ -263,6 +271,7 @@
 		JOIN MEMBER ON (WRITER= MEMBER_NO)
 		WHERE R.STATUS = 'N'
 			AND POST_NO = ?
+			AND BOARD_NO = 9
 		ORDER BY CREATE_DATE DESC , REPLY_NO DESC
 	</entry>
 	

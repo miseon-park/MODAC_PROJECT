@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" 
-    import="java.util.ArrayList, com.modac.usedProduct.model.vo.*,"%>
+    import="java.util.ArrayList, com.modac.usedProduct.model.vo.*"%>
 <%
 	Market m = (Market)request.getAttribute("m");
 	ArrayList<Attachment> list = (ArrayList<Attachment>)request.getAttribute("list");
@@ -176,41 +176,41 @@
           width : 100%;
           height : 80px;
           margin : auto;
-      }
-      
-      .replyText{
-         width : 85%;
-         height : 100%;
-         border : 1px solid rgb(240, 165, 0);
-         float : left;
-      }
-      
-      .replyBtn{
-         width : 15%;
-         height : 100%;
-         background-color : rgb(240, 165, 0);
-         float : right;
-      }
-      
-      .inputReply{
+     }
+     
+     .replyText{
+        width : 85%;
+        height : 100%;
+        border : 1px solid rgb(240, 165, 0);
+        float : left;
+     }
+     
+     .replyBtn{
+        width : 15%;
+        height : 100%;
+        background-color : rgb(240, 165, 0);
+        float : right;
+     }
+     
+     .inputReply{
+        width : 100%;
+        height : 100%;
+        resize : none;
+        border: none;
+        outline: none;
+     }
+     
+     .replyList{
+        width : 100%;
+     }
+     #rep{
          width : 100%;
-         height : 100%;
-         resize : none;
-         border: none;
-         outline: none;
       }
-      
-      .replyList{
+     
+     #rep tr{
          width : 100%;
+         border-bottom : 1px solid antiquewhite;
       }
-      #rep{
-          width : 100%;
-       }
-      
-      #rep tr{
-          width : 100%;
-          border-bottom : 1px solid antiquewhite;
-       }
        
        
            /*-------------신고하기---------------*/
@@ -244,9 +244,10 @@
             border: 1px solid rgba( 255, 255, 255, 0.18 );
             width: 400px;
             height: 500px;
-            position: relative;
+/*             position: relative; */
             top: -100px;
             padding: 10px;
+/*             margin-top: 160px;    */
         }
         /*모달 제목*/
         #modal .title {

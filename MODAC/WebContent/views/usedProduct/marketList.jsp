@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" 
     import="java.util.ArrayList, com.modac.usedProduct.model.vo.Market, 
-    com.modac.common.model.vo.PageInfo"  
+    com.modac.common.model.vo.PageInfo, java.io.File, com.modac.usedProduct.model.vo.Attachment"  
 %>
 <% ArrayList<Market> list = (ArrayList<Market>)request.getAttribute("list"); 
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	Attachment at = (Attachment)request.getAttribute("at");
 	
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
@@ -257,6 +258,11 @@
                             <tr>
 		                        <td class="thumbnail" colspan="2">
 			                        <img src="<%=contextPath %>/<%=m.getTitleImg()%>" width="200px" height="200px">
+			                        <!-- 폴더에 titleImg 사진이 없을 경우 로고로 띄우기 -->
+			                        <% File file = new File("/resources/market_upfiles/"+m.getTitleImg()); %>
+			                        <%if(!file.exists()) {%>
+			                        	<img alt="" src="/resources/modacLogo/logo.png">
+			                        <% } %>
 		                        </td>
 		                    </tr>
 		                    <tr height="16px">
