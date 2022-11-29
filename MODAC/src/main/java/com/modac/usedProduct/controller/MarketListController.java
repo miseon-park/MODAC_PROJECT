@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.modac.common.model.vo.Attachment;
 import com.modac.common.model.vo.PageInfo;
 import com.modac.usedProduct.model.service.MarketService;
 import com.modac.usedProduct.model.vo.Market;
@@ -168,6 +169,7 @@ public class MarketListController extends HttpServlet {
 			
 		} else {
 			ArrayList<Market> list = new MarketService().marketList(pi, field, query);
+			Attachment result = new MarketService().marketListAtt(postNo, at);
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 		}

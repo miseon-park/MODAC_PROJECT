@@ -31,6 +31,13 @@ public class Attachment {
 		this.boardNo = boardNo;
 	}
 
+	
+	
+	public Attachment(String newName) {
+		super();
+		this.newName = newName;
+	}
+
 	public String getPhotoNo() {
 		return photoNo;
 	}

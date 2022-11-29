@@ -143,10 +143,11 @@ public class MarketDao {
 	}
 	
 	//게시글 목록 썸네일
-	public int marketListAtt(Connection conn ,String postNo, Attachment at) {
+	public int marketListAtt(Connection conn,String postNo, Attachment at) {
 		int result = 0;
 		
 		PreparedStatement psmt = null;
+		ResultSet rset = null;
 		
 		String sql = prop.getProperty("marketListAtt");
 		
@@ -155,10 +156,9 @@ public class MarketDao {
 			
 			psmt.setString(1, postNo);
 			
-			at = new Attachment()
+			rset = psmt.executeQuery();
 			
-			
-			result = psmt.executeUpdate();
+			at = new Attachment(rset.getString("NEWNAME"));
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

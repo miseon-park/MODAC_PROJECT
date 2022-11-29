@@ -58,20 +58,32 @@ public class MarketService {
 		return list;
 	}
 	
-	
-	//마켓 게시글조회 목록버전
-	public ArrayList<Market> selectMarketListTwo(){
-		//JDBCTemplate 커넥션 객체 호출, 커넥션 객체 초기화
+	//게시글 목록 썸네일
+	public int marketListAtt(String postNo, Attachment at) {
 		Connection conn = getConnection();
 		
-		//dao에서 db에 접근해 가져온 값을 service에 반환
-		ArrayList<Market> list = new MarketDao().marketListTwo(conn);
+		int result = new MarketDao().marketListAtt(conn, postNo, at);
 		
-		//커넥션 close
 		close();
 		
-		return list;
+		return result;
+		
 	}
+	
+	
+//	//마켓 게시글조회 목록버전
+//	public ArrayList<Market> selectMarketListTwo(){
+//		//JDBCTemplate 커넥션 객체 호출, 커넥션 객체 초기화
+//		Connection conn = getConnection();
+//		
+//		//dao에서 db에 접근해 가져온 값을 service에 반환
+//		ArrayList<Market> list = new MarketDao().marketListTwo(conn);
+//		
+//		//커넥션 close
+//		close();
+//		
+//		return list;
+//	}
 	
 	
 	//게시글 상세페이지
