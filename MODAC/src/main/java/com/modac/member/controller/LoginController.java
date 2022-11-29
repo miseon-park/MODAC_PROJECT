@@ -38,7 +38,7 @@ public class LoginController extends HttpServlet {
 		String memberPwd = request.getParameter("memberPwd");
 		
 		Member loginMember = ms.loginMember(memberId, memberPwd);
-		System.out.println(loginMember);
+		System.out.println("dd" + loginMember);
 		
 		if(loginMember == null) {
 //			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
