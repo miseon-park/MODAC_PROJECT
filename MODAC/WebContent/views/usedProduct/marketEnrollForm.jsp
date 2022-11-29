@@ -90,7 +90,7 @@
 <body>
 
 	<%@ include file="../common/menubar.jsp" %>
-
+	<br>
 	<div id="enroll">
 		<h3><b>게시글 작성</b></h3>
 		<br>

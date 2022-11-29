@@ -298,7 +298,7 @@
 </head>
 <body>
 	<%@ include file="../common/menubar.jsp" %>
-
+	<br>
     <div id="content">
         <h1 class="title"><b>중고장터</b></h1>
         
@@ -485,7 +485,7 @@
 					let result = "";
 					for(let i of list){
 						result+="<tr>"
-									+"<td>"+i.writer+"</td>"
+									+"<td style='width: 15%'>"+i.writer+"</td>"
 									+"<td>"+i.replyContent+"</td>"
 									+"<td style='float: right;'>"+i.createDate+"</td>"
 							  +"</tr>"
